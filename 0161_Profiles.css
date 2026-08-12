@@ -23,7 +23,6 @@ body{
 
 header{    
      margin: 0px;
-     margin-top: px;
      text-align: center;
   }
 
@@ -42,7 +41,6 @@ nav div{
 
 main{
      background-color: var(--grey);
-    
 }
 
 /* WHITE LINE BETWEEN PHOTO GALLERY ROWS */
@@ -83,19 +81,18 @@ nav div h3{
 }
 
 table {
-    
     border-collapse: collapse;
-    width: 65%;
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
-    border-bottom: 10rem;
+    margin-top: 0px;
 }
 
 td, th {
     border: 1px solid var(--white);
     text-align: left;
     padding: 5px;
+    margin-top: 0px;
 }
 
 tr:nth-child(even) {
@@ -112,18 +109,20 @@ tr:nth-child(odd) {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 0px;
+    height: 20px;
 }
 
 table tr table td {
     border: 0px solid var(--white);
     text-align: left;
-    padding: 15px;
+    padding: 0px;
 }
 
 table tr table th {
     border: 0px solid var(--white);
     text-align: left;
-    padding: 15px;
+    padding: 0px;
 }
 
 
