@@ -5,13 +5,16 @@
     <meta name="Sports Page" content="Community Sports Database of Manchester UK Region">
     <title>0161_Active</title>
     <link rel="stylesheet" href="css/0161_Page.css">
+    <link rel="stylesheet" href="css/home-gallery.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxNxJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="css/club-map.css">
     <link rel="icon" href="img/0161 Active_Logo.png">
 
 </head>
 
 <!-- DO NOT CHANGE INDEX.HTML!!!!!! -->
 
-<body onload="randomize()">
+<body>
    <header class="hidden">
         <h3>Heading</h3>
     </header>
@@ -51,8 +54,9 @@
             </a>
         </section>
 
+        <!-- Club registration entry point: opens the form that creates a downloadable club profile. -->
         <section>
-            <a class="navlink" href="index.html">
+            <a class="navlink" href="html/register.html">
                 <h3 class="hover-underline">REGISTER YOUR CLUB</h3>
             </a>
         </section> 
@@ -73,88 +77,8 @@
         <!-- <section> <p> We Are [0161_Active] </p> </section> -->
 
 
-        <div class="grid-container">
-            <section id="RunClub1">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/NotARunningClub.jpeg" alt="group of people smiling" class="gallery-image" id="galleryNARC">
-                    <!-- <div class="middle">
-                            <div class="text">Not A Running Club</div>
-                    </div> -->
-                </a>
-             </section>
-
-             <section id="RunClub2">
-                <a href="html/TinyMoves.html">
-                    <img src="img/TinyMoves.jpeg" alt="people running" class="gallery-image" id="galleryTM">
-                    <!-- <div class="middle">
-                            <div class="text">Tiny Moves RC</div>
-                    </div> -->
-                </a>
-             </section>
-
-             <section id="RunClub3">
-                <a href="html/SnappyRunners.html">
-                    <img src="img/SnappyRunner.png" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>
-
-             <section id="RunClub4">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/JustARunClub.webp" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>
-
-             <section id="RunClub5">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/RedactedRunClub.jpeg" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>
-             
-             <section id="RunClub6">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/ManchesterFrontrunners.jpg" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>    
-
-             <section id="RunClub7">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/MileShyClub.webp" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>   
-
-             <section id="RunClub8">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/DidsburyRunners.jpg" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>   
-
-              <section id="RunClub9">
-                <a href="html/NotARunningClub.html">
-                    <img src="img/AncoatRunClub.avif" alt="running group" class="gallery-image" id="gallerySR">
-                    <!-- <div class="middle">
-                        <div class="text">Alien 3</div>
-                    </div> -->
-                </a>
-             </section>   
-        </div>
+        <!-- Homepage club gallery: JavaScript shuffles clubs and fills exactly two rows of three cards. -->
+        <div class="grid-container" id="club-gallery" aria-label="Featured local sports clubs"></div>
     </main>
 
 
@@ -167,7 +91,8 @@
 
         <div style="text-align: center">
 
-        <iframe class="my-map" src="https://www.google.com/maps/d/u/2/embed?mid=1FeNQhT1KAmFxo8GsYPDxRdN1q-_h84o&ehbc=2E312F" width="100%" height="600"></iframe>
+        <div id="club-map" class="club-map" role="region" aria-label="Map of registered local sports clubs"></div>
+        <p id="map-empty" class="map-empty">No club locations have been added in this browser yet. Register a club to add a pin.</p>
 
         </div>
     </aside>
@@ -175,6 +100,9 @@
     <footer>
         <p>Contact Info: <a class="navlink" href="mailto:cian.c.hutton@gmail.com">cian.c.hutton@gmail.com</a></p>
     </footer>
-    <!-- <script src="js/random.js"> </script> -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/club-map-config.js"></script>
+    <script src="js/club-map.js"></script>
+    <script src="js/home-gallery.js"></script>
 </body>
 </html>

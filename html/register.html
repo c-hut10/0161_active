@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Register your local sports club with 0161 Active.">
+  <title>Register your club | 0161 Active</title>
+  <link rel="stylesheet" href="../css/0161_Page.css">
+  <link rel="stylesheet" href="../css/register.css">
+  <link rel="icon" href="../img/0161 Active_Logo.png">
+</head>
+<body>
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="nav-flex-container">
+      <section><a href="../index.html" aria-label="0161 Active home"><img src="../img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a></section>
+      <section><a class="navlink" href="../index.html"><h3 class="hover-underline">SPORTS</h3></a></section>
+      <section><a class="navlink" href="about.html"><h3 class="hover-underline">ABOUT</h3></a></section>
+      <section><a class="navlink" href="calendar.html"><h3 class="hover-underline">CALENDAR</h3></a></section>
+      <section><a class="navlink" href="contact.html"><h3 class="hover-underline">CONTACT</h3></a></section>
+      <section><a class="navlink" href="register.html" aria-current="page"><h3 class="hover-underline">REGISTER YOUR CLUB</h3></a></section>
+    </div>
+  </nav>
+
+  <main class="register-page">
+    <section class="intro">
+      <p class="eyebrow">0161 ACTIVE · MANCHESTER</p>
+      <h1>Bring your club to the community.</h1>
+      <p>Tell us a little about your club. We’ll review your details and create a club profile for the community.</p>
+      <div class="steps" aria-label="Registration steps"><span class="step-current">01 <b>Your club</b></span><span>02 <b>Submit</b></span><span>03 <b>We review</b></span></div>
+    </section>
+
+    <div class="register-layout">
+      <form id="club-form" class="club-form" name="club-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="club-registration">
+        <p hidden><label>Leave this field empty: <input name="bot-field"></label></p>
+        <section class="form-section">
+          <p class="section-number">01 / THE BASICS</p>
+          <h2>What should people know?</h2>
+          <div class="field-grid">
+            <label class="field field-wide">Club name <span class="required">*</span><input name="name" required maxlength="70" placeholder="e.g. Northern Striders" autocomplete="organization"></label>
+            <label class="field">Sport or activity <span class="required">*</span><input name="sport" required maxlength="50" placeholder="e.g. Running"></label>
+            <label class="field">Neighbourhood <span class="required">*</span><input name="area" required maxlength="60" placeholder="e.g. Ancoats"></label>
+            <label class="field field-wide">About the club <span class="required">*</span><textarea name="description" required maxlength="600" rows="4" placeholder="What do you do, and what makes your club special?"></textarea><small>Up to 600 characters.</small></label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <p class="section-number">02 / FIND YOUR PEOPLE</p>
+          <h2>Who can join in?</h2>
+          <div class="field-grid">
+            <label class="field">Who is it for?<input name="audience" maxlength="100" placeholder="e.g. Beginners, all ages"></label>
+            <label class="field">When do you meet?<input name="schedule" maxlength="100" placeholder="e.g. Tuesdays at 6:30pm"></label>
+            <label class="field field-wide">Where do you meet? <span class="required">*</span><input name="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"><small>Enter a public meeting point or venue so we can place your club on the map. Don’t use a private home address.</small></label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <p class="section-number">03 / SAY HELLO</p>
+          <h2>How can people reach you?</h2>
+          <div class="field-grid">
+            <label class="field">Contact email <span class="required">*</span><input name="email" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email"></label>
+            <label class="field">Website or social link<input name="link" type="url" maxlength="200" placeholder="https://"></label>
+          </div>
+        </section>
+
+        <p class="privacy-note">Your application will be sent to the 0161 Active team for review. If approved, your club details and public meeting point will be added to the website. The contact email may be shown on your club page so people can reach you.</p>
+        <button class="generate-button" type="submit">Send club application <span aria-hidden="true">↗</span></button>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+      </form>
+
+      <aside class="preview-panel" aria-label="Club page preview">
+        <div class="preview-top"><span>YOUR PAGE PREVIEW</span><span class="live-dot">● LIVE</span></div>
+        <article class="preview-card">
+          <div class="preview-art"><span id="preview-sport-mark">✳</span><span id="preview-area-mark">MANCHESTER · YOUR AREA</span></div>
+          <div class="preview-copy">
+            <p class="preview-kicker" id="preview-sport">YOUR SPORT</p>
+            <h2 id="preview-name">Your club name</h2>
+            <p id="preview-description" class="preview-description">A few words about your club will appear here. Tell people what makes it a great place to play, move and meet.</p>
+            <dl class="preview-details"><div><dt>WHEN</dt><dd id="preview-schedule">Add your meeting times</dd></div><div><dt>WHERE</dt><dd id="preview-meeting">Add your meeting place</dd></div><div><dt>JOIN</dt><dd id="preview-audience">Everyone welcome</dd></div></dl>
+            <span class="preview-contact">GET IN TOUCH <span aria-hidden="true">↗</span></span>
+          </div>
+        </article>
+        <p class="preview-footnote">This preview updates as you fill in the form.</p>
+        <section id="success-panel" class="success-panel" hidden aria-live="polite">
+          <p class="section-number">APPLICATION RECEIVED</p>
+          <h2>Thanks. Your club application has been received.</h2>
+          <p>We’ll review the details and contact you if we need anything else. If approved, we’ll create your club page and add its public meeting point to the map.</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <footer class="register-footer"><p>Made for the people who make Manchester move. <a href="../index.html">0161 Active</a></p></footer>
+  <script src="../js/register.js"></script>
+</body>
+</html>

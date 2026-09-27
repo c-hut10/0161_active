@@ -1,0 +1,85 @@
+/* Homepage gallery frame: two clipped rows show three moving club panels at a time. */
+.grid-container#club-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  border: 0;
+  background: rgba(223, 252, 58, .62);
+}
+
+/* Each row rolls continuously; pausing on hover or keyboard focus makes cards usable. */
+#club-gallery .gallery-row {
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+}
+#club-gallery .gallery-track {
+  display: flex;
+  width: max-content;
+  border: 0;
+  animation: club-panel-roll var(--roll-duration, 36s) linear infinite;
+  will-change: transform;
+}
+#club-gallery .gallery-row:nth-child(2) .gallery-track { animation-direction: reverse; }
+#club-gallery .gallery-row:hover .gallery-track,
+#club-gallery .gallery-row:focus-within .gallery-track { animation-play-state: paused; }
+@keyframes club-panel-roll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Club tiles keep the familiar monochrome-to-hazy-green hover treatment. */
+#club-gallery .gallery-card {
+  position: relative;
+  flex: 0 0 calc(100vw / 3);
+  width: calc(100vw / 3);
+  overflow: hidden;
+  border: 0;
+  background: rgba(223, 252, 58, .62);
+}
+
+#club-gallery .gallery-card a { display: block; position: relative; height: 100%; color: white; }
+#club-gallery .gallery-card img {
+  display: block;
+  float: none;
+  position: static;
+  width: 100%;
+  height: clamp(150px, 25vw, 330px);
+  object-fit: cover;
+  filter: grayscale(1);
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+#club-gallery .gallery-card a:hover img,
+#club-gallery .gallery-card a:focus-visible img { opacity: .5; }
+#club-gallery .gallery-card h2 {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font: 700 clamp(14px, 1.8vw, 21px)/1.2 Arial, Helvetica, sans-serif;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, .85);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .35s ease, transform .4s cubic-bezier(.22, 1, .36, 1);
+  pointer-events: none;
+}
+#club-gallery .gallery-card a:hover h2,
+#club-gallery .gallery-card a:focus-visible h2 { opacity: 1; transform: translateY(0); }
+
+/* Respect reduced-motion preferences by stopping automatic movement. */
+@media (prefers-reduced-motion: reduce) {
+  #club-gallery .gallery-track { animation: none; }
+  #club-gallery .gallery-card img,
+  #club-gallery .gallery-card h2 { transition: none; }
+  #club-gallery .gallery-card a:hover h2,
+  #club-gallery .gallery-card a:focus-visible h2 { transform: none; }
+}
+
+@media (max-width: 600px) {
+  #club-gallery .gallery-card img { height: clamp(125px, 36vw, 210px); }
+  #club-gallery .gallery-card h2 { left: 10px; bottom: 10px; font-size: 13px; }
+}

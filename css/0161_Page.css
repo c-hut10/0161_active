@@ -258,14 +258,6 @@ position: absolute;       /* takes it out of normal flow, lets it float */
 
 /*  MAP DARK MODE */
 
-.my-map {
-  filter:
-    grayscale(1);
-  /* border: none; */
-  border: 2px outset black;
-  height: 80vh;
-  width: 88%;  
-}
 
 
 
