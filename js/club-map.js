@@ -1,8 +1,14 @@
+import { nature } from './clubdata.js';
+
 /* Map storage key: shared with the registration form for browser-local club entries. */
 const CLUB_MAP_STORAGE_KEY = '0161-active-registered-clubs-v1';
 
+/* Map target: support the current homepage #map element and the earlier #club-map id. */
+const mapContainer = document.querySelector('#map, #club-map');
+if (!mapContainer) throw new Error('Map container not found. Add an element with id="map" or id="club-map".');
+
 /* Map setup: show Manchester, OpenStreetMap tiles, and visible map/data attribution. */
-const clubMap = L.map('club-map', { scrollWheelZoom: false }).setView([53.4808, -2.2426], 12);
+const clubMap = L.map(mapContainer, { scrollWheelZoom: false }).setView([53.4808, -2.2426], 12);
 L.tileLayer(window.CLUB_MAP_CONFIG.tileUrl, {
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -10,6 +16,20 @@ L.tileLayer(window.CLUB_MAP_CONFIG.tileUrl, {
 
 const clubMarkers = L.layerGroup().addTo(clubMap);
 const mapEmptyMessage = document.querySelector('#map-empty');
+
+/* Map sizing: refresh Leaflet's viewport after layout changes so it requests the full tile grid. */
+let mapResizeFrame = 0;
+function refreshClubMapSize() {
+  cancelAnimationFrame(mapResizeFrame);
+  mapResizeFrame = requestAnimationFrame(() => clubMap.invalidateSize({ pan: false }));
+}
+
+if ('ResizeObserver' in window) {
+  new ResizeObserver(refreshClubMapSize).observe(mapContainer);
+} else {
+  window.addEventListener('resize', refreshClubMapSize);
+}
+window.addEventListener('load', refreshClubMapSize, { once: true });
 
 /* Storage reader: ignore malformed or incomplete entries instead of breaking the map. */
 function getRegisteredClubs() {
@@ -36,12 +56,18 @@ function makeClubPopup(club) {
   content.append(name);
 
   const sport = document.createElement('p');
-  sport.textContent = club.sport || 'Local sports club';
+  sport.textContent = club.sport || club.tags?.[0] || 'Local sports club';
   content.append(sport);
 
   const location = document.createElement('p');
-  location.textContent = [club.meeting, club.area].filter(Boolean).join(', ');
+  location.textContent = [club.meeting || club.location, club.area].filter(Boolean).join(', ');
   content.append(location);
+
+  if (club.description || club.title) {
+    const description = document.createElement('p');
+    description.textContent = club.description || club.title;
+    content.append(description);
+  }
 
   if (club.email) {
     const contact = document.createElement('a');
@@ -54,9 +80,9 @@ function makeClubPopup(club) {
 
 /* Marker rendering: refreshes all pins and frames the map around saved clubs. */
 function renderRegisteredClubs() {
-  const clubs = getRegisteredClubs();
+  const clubs = [...nature, ...getRegisteredClubs()];
   clubMarkers.clearLayers();
-  mapEmptyMessage.hidden = clubs.length > 0;
+  if (mapEmptyMessage) mapEmptyMessage.hidden = clubs.length > 0;
 
   const bounds = [];
   clubs.forEach(club => {

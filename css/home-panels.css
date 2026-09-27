@@ -1,0 +1,120 @@
+/* Mission section frame: the title and controls bookend the three full-height slides. */
+.mission-panels {
+  --panel-ink: #171817;
+  --panel-paper: var(--green);
+  color: var(--panel-paper);
+  background: var(--panel-ink);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: clamp(42px, 7vw, 100px) 0 32px;
+}
+
+.mission-panels__heading {
+  padding: 0 clamp(22px, 6vw, 92px) 28px;
+  --panel-paper: var(--white)
+}
+
+.mission-panels__eyebrow,
+.mission-panel__kicker,
+.mission-panel__number {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+.mission-panels__eyebrow { color: #dfff3a; }
+
+.mission-panels__heading h2 {
+  max-width: 850px;
+  margin: 12px 0 0;
+  color: var(--white);
+  font-size: clamp(38px, 7vw, 92px);
+  line-height: .92;
+  letter-spacing: -.065em;
+  text-transform: uppercase;
+}
+
+/* Vertical story stack: normal page scrolling reveals each full-height panel in order. */
+.mission-panels__stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Each slide uses a full-viewport photo with its own editorial text box. */
+.mission-panel {
+  position: relative;
+  flex: 0 0 100vh;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #30342a;
+}
+
+/* Prefer the small viewport unit where supported, with the standard viewport as fallback. */
+@supports (height: 100svh) {
+  .mission-panel {
+    flex-basis: 100svh;
+    height: 100svh;
+    min-height: 100svh;
+  }
+}
+
+.mission-panel::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, rgba(9, 12, 8, .08) 25%, rgba(9, 12, 8, .52) 100%);
+}
+
+.mission-panel > img {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(1);
+}
+
+.mission-panel__copy {
+  position: absolute;
+  right: clamp(22px, 8vw, 120px);
+  bottom: clamp(26px, 8vh, 90px);
+  width: min(560px, 48vw);
+  box-sizing: border-box;
+  padding: clamp(25px, 4vw, 56px);
+  color: var(--panel-ink);
+  background: var(--panel-paper);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+}
+
+.mission-panel__number { color: #687220; }
+.mission-panel__kicker { margin-top: 34px; color: #687220; }
+
+.mission-panel__copy h3 {
+  margin: 12px 0 0;
+  font-size: clamp(30px, 4.6vw, 66px);
+  line-height: .98;
+  letter-spacing: -.06em;
+  text-transform: uppercase;
+}
+
+
+@media (max-width: 640px) {
+  .mission-panel__copy {
+    right: 18px;
+    bottom: 24px;
+    left: 18px;
+    width: auto;
+    padding: 24px;
+  }
+  .mission-panel__kicker { margin-top: 22px; }
+  .mission-panel__copy h3 { font-size: clamp(30px, 10vw, 46px); }
+}

@@ -1,29 +1,18 @@
-/* Map frame: gives Leaflet a responsive drawing area and matches the site's dark palette. */
-.club-map {
+/* Map frame: Leaflet needs an explicit height to paint its tile layers. */
+#map {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  overflow: hidden;
   width: 100%;
-  height: min(68vh, 620px);
-  min-height: 390px;
+  height: 75vh;
   border: 1px solid rgba(17, 18, 17, .3);
   background: #e5e8df;
-  z-index: 0;
+  box-sizing: border-box;
 }
-
-/* Map note: tells visitors when this browser has no submitted locations saved yet. */
-.map-empty {
-  margin: 12px auto 18px;
-  max-width: 780px;
-  color: #262820;
-  font: 13px/1.5 Arial, Helvetica, sans-serif;
-  text-align: center;
-}
-.map-empty[hidden] { display: none; }
 
 /* Popup content: keeps club details readable against the Leaflet map tiles. */
 .club-map-popup { min-width: 170px; color: #171817; font: 13px/1.45 Arial, Helvetica, sans-serif; }
 .club-map-popup strong { display: block; margin-bottom: 4px; font-size: 15px; }
 .club-map-popup p { margin: 3px 0; }
 .club-map-popup a { color: #3d5100; font-weight: 700; }
-
-@media (max-width: 600px) {
-  .club-map { height: 62vh; min-height: 330px; }
-}

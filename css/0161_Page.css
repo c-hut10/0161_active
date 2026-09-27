@@ -147,11 +147,11 @@ nav div h3{
 }
 
 .navbar {
- overflow: hidden; 
+ overflow: visible;
  position: fixed;
  top: 0;
  width: 100%;
- z-index: 1;
+ z-index: 1000;
 
 }
 
@@ -185,31 +185,90 @@ nav div h3{
   transform-origin: bottom left;
 }
 
-.dropdown {
-display: none;
-position: absolute;       /* takes it out of normal flow, lets it float */
-  top: 100%;                /* places it directly below the nav item */
-  left: 0;
-  background-color: #ffffff;
-  border: 1px solid #a2a9b1;
-  min-width: 160px;
-  list-style: none;
-  z-index: 10;     
+/* Sports dropdown: first level lists sports; the Running flyout lists its club pages. */
+.sports-nav-item { position: relative; }
+
+.sports-nav-trigger,
+.sports-menu__trigger {
+  border: 0;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.dropdown li a {
+.sports-nav-trigger {
+  padding: 0;
+  background: transparent;
+  font: inherit;
+}
+
+.sports-nav-item > .sports-menu,
+.sports-menu__sport > .sports-menu--nested {
+  display: none;
+}
+
+.sports-nav-item:hover > .sports-menu,
+.sports-nav-item:focus-within > .sports-menu,
+.sports-menu__sport:hover > .sports-menu--nested,
+.sports-menu__sport:focus-within > .sports-menu--nested {
   display: block;
-  padding: 10px 16px;
-  color: #202122;
+}
+
+.sports-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1001;
+  width: max-content;
+  min-width: 220px;
+  max-width: min(300px, 82vw);
+  margin: 0;
+  padding: 7px;
+  list-style: none;
+  background: var(--black);
+  border: 1px solid var(--green);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
+}
+
+.sports-menu li { position: relative; padding: 0; }
+
+.sports-menu a,
+.sports-menu__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 13px;
+  color: var(--white);
+  background: transparent;
+  font-size: 14px;
+  line-height: 1.3;
   text-decoration: none;
 }
 
-.dropdown li a:hover {
-  background-color: #eaf3ff;
+.sports-menu a:hover,
+.sports-menu a:focus-visible,
+.sports-menu__trigger:hover,
+.sports-menu__trigger:focus-visible {
+  color: var(--black);
+  background: var(--green);
+  outline: none;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
+.sports-menu--nested {
+  top: -8px;
+  left: 100%;
+  margin-left: -1px;
+}
+
+@media (max-width: 700px) {
+  .sports-menu--nested {
+    top: 100%;
+    left: 0;
+    margin: 0;
+  }
 }
 /*  
 ----- NAVBAR END -----
@@ -243,7 +302,6 @@ position: absolute;       /* takes it out of normal flow, lets it float */
   flex-basis: 100%;
   height: 0px;
 }
-
 
 
 

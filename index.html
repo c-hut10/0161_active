@@ -6,9 +6,15 @@
     <title>0161_Active</title>
     <link rel="stylesheet" href="css/0161_Page.css">
     <link rel="stylesheet" href="css/home-gallery.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxNxJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-    <link rel="stylesheet" href="css/club-map.css">
+    <link rel="stylesheet" href="css/home-panels.css">
     <link rel="icon" href="img/0161 Active_Logo.png">
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <link rel="stylesheet" href="css/club-map.css">
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 
 </head>
 
@@ -26,33 +32,46 @@
             <img src="img/0161 Active_Logo_Transparent.png" alt="Company Logo">
             </a>
         </section> 
-        <section>
-            <a class="navlink" class="dropdown" href="index.html">
-                <h3 class="hover-underline" >SPORTS</h3>
-            </a>
-            <ul class="dropdown">
-                     <li><a href="index.html">Athletics</a></li>
-                     <li><a href="index.html">Archery</a></li>
-                     <li><a href="index.html">Football</a></li>
-                     <li><a href="index.html">Rugby</a></li>
+        <!-- Two-tier sports navigation: choosing Running reveals links to its club profiles. -->
+        <section class="sports-nav-item">
+            <button class="sports-nav-trigger navlink" type="button" aria-controls="sports-menu">
+                <h3 class="hover-underline">SPORTS</h3>
+            </button>
+            <ul class="sports-menu" id="sports-menu">
+                <li class="sports-menu__sport">
+                    <button class="sports-menu__trigger" type="button" aria-controls="running-clubs-menu">
+                        Running <span aria-hidden="true">›</span>
+                    </button>
+                    <ul class="sports-menu sports-menu--nested" id="running-clubs-menu">
+                        <li><a href="html/running/AncoatRunClub.html">Ancoats Run Club</a></li>
+                        <li><a href="html/running/DidsburyRunners.html">Didsbury Runners</a></li>
+                        <li><a href="html/running/JustARunClub.html">Just A Run Club</a></li>
+                        <li><a href="html/running/ManchesterFrontrunners.html">Manchester Frontrunners</a></li>
+                        <li><a href="html/running/MileShyClub.html">Mile Shy Club</a></li>
+                        <li><a href="html/running/NotARunningClub.html">Not A Running Club</a></li>
+                        <li><a href="html/running/RedactedRunClub.html">Redacted Run Club</a></li>
+                        <li><a href="html/running/SnappyRunners.html">Snappy Runners</a></li>
+                        <li><a href="html/running/TinyMoves.html">Tiny Moves</a></li>
+                    </ul>
+                </li>
             </ul>
         </section> 
-        <section>
+        <!-- <section>
             <a class="navlink" href="index.html">
                 <h3 class="hover-underline">ABOUT</h3>
             </a>
-        </section>
+        </section> -->
 
         <section>
             <a class="navlink" href="index.html">
                 <h3 class="hover-underline">CALENDAR</h3>
             </a>
         </section>
-        <section>
+        <!-- <section>
             <a class="navlink" href="index.html">
                 <h3 class="hover-underline">CONTACT</h3>
             </a>
-        </section>
+        </section> -->
 
         <!-- Club registration entry point: opens the form that creates a downloadable club profile. -->
         <section>
@@ -82,27 +101,47 @@
     </main>
 
 
-    <aside> 
-         <div style="text-align: center" class="flex-container">
-                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolorem laborum repellat repellendus dolorum natus harum recusandae fuga, iste soluta provident esse maxime. Voluptas veniam in commodi tempore, animi possimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolorem laborum repellat repellendus dolorum natus harum recusandae fuga, iste soluta provident esse maxime. Voluptas veniam in commodi tempore, animi possimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo dolorem laborum repellat repellendus dolorum natus harum recusandae fuga, iste soluta provident esse maxime. Voluptas veniam in commodi tempore, animi possimus. </p>
+    <!-- Full-screen mission panels pair each message with a local running-club photo. -->
+    <section class="mission-panels" id="mission-panels" aria-label="Our mission">
+        <div class="mission-panels__heading">
+            <p class="mission-panels__eyebrow">0161 ACTIVE · MANCHESTER</p>
+            <h2>Movement for everyone.</h2>
         </div>
 
-<div classs="break"> </div>
-
-        <div style="text-align: center">
-
-        <div id="club-map" class="club-map" role="region" aria-label="Map of registered local sports clubs"></div>
-        <p id="map-empty" class="map-empty">No club locations have been added in this browser yet. Register a club to add a pin.</p>
-
+        <div class="mission-panels__stack" aria-label="Scroll through our mission">
+            <article class="mission-panel" aria-label="A community-driven sports organisation">
+                <img src="img/hockey/atul-pandey-TFQxG7quwto-unsplash.jpg" alt="Members of the Tiny Moves running club" >
+                <div class="mission-panel__copy">
+                    <p class="mission-panel__number">01 / 03</p>
+                    <p class="mission-panel__kicker">COMMUNITY FIRST</p>
+                    <h3>A community-driven sports organisation with one goal in mind...</h3>
+                </div>
+            </article>
+            <article class="mission-panel" aria-label="Getting Manchester moving">
+                <img src="img/basketball/james-lee-JB41zA4movk-unsplash.jpg" alt="Members of Snappy Runners out together">
+                <div class="mission-panel__copy">
+                    <p class="mission-panel__number">02 / 03</p>
+                    <p class="mission-panel__kicker">MADE FOR MANCHESTER</p>
+                    <h3>To keep Manchester moving...</h3>
+                </div>
+            </article>
+            <article class="mission-panel" aria-label="Making it happen">
+                <img src="img/football/jannes-glas-cuhQcfp3By4-unsplash.jpg" alt="Members of Didsbury Runners">
+                <div class="mission-panel__copy">
+                    <p class="mission-panel__number">03 / 03</p>
+                    <p class="mission-panel__kicker">OUT THERE, TOGETHER</p>
+                    <h3>And trust us. We are trying...</h3>
+                </div>
+            </article>
         </div>
-    </aside>
+
+    </section>
 
     <footer>
-        <p>Contact Info: <a class="navlink" href="mailto:cian.c.hutton@gmail.com">cian.c.hutton@gmail.com</a></p>
+        <p>Contact Info: <a class="navlink" href="mailto:contact.0161active@gmail.com">contact.0161active@gmail.com</a></p>
     </footer>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="js/club-map-config.js"></script>
-    <script src="js/club-map.js"></script>
+    <script type="module" src="js/club-map.js"></script>
     <script src="js/home-gallery.js"></script>
 </body>
 </html>

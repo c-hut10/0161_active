@@ -8,7 +8,7 @@
   background: rgba(223, 252, 58, .62);
 }
 
-/* Each row rolls continuously; pausing on hover or keyboard focus makes cards usable. */
+/* Both rows share one roll direction and duration; row two starts half a card later. */
 #club-gallery .gallery-row {
   width: 100%;
   overflow: hidden;
@@ -21,9 +21,9 @@
   animation: club-panel-roll var(--roll-duration, 36s) linear infinite;
   will-change: transform;
 }
-#club-gallery .gallery-row:nth-child(2) .gallery-track { animation-direction: reverse; }
-#club-gallery .gallery-row:hover .gallery-track,
-#club-gallery .gallery-row:focus-within .gallery-track { animation-play-state: paused; }
+#club-gallery .gallery-row:nth-child(2) .gallery-track {
+  animation-delay: var(--roll-phase-offset, -6.67s);
+}
 @keyframes club-panel-roll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

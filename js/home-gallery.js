@@ -18,8 +18,12 @@ function makeRollingRow(clubList, rowNumber) {
   row.setAttribute('aria-label', `Featured clubs row ${rowNumber}`);
   const track = document.createElement('div');
   track.className = 'gallery-track';
-  // A longer loop duration slows the panel to roughly 60% of its previous speed.
-  track.style.setProperty('--roll-duration', `${Math.max(50, clubList.length * 8 / 0.6)}s`);
+  // Shared timing keeps both rows at the same speed and offsets row two by half a card.
+  const durationSeconds = Math.max(50, clubList.length * 8 / 0.6);
+  track.style.setProperty('--roll-duration', `${durationSeconds}s`);
+  if (rowNumber === 2) {
+    track.style.setProperty('--roll-phase-offset', `${-(durationSeconds / (clubList.length * 2))}s`);
+  }
 
   const addClub = (club, isDuplicate = false) => {
     const card = document.createElement('section');
