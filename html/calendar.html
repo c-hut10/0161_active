@@ -1,51 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="Sports Page" content="Community Sports Database of Manchester UK Region">
-    <title>Image 2 Page</title>
-    <link rel="stylesheet" href="0161_Page.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse weekly sports club sessions around Manchester.">
+  <title>Club calendar | 0161 Active</title>
+  <link rel="stylesheet" href="../css/0161_Page.css">
+  <link rel="stylesheet" href="../css/calendar.css">
+  <link rel="icon" href="../img/0161 Active_Logo.png">
 </head>
+<body class="calendar-body">
+  <!-- Calendar navigation: keep the route back to the directory and registration visible. -->
+  <nav class="navbar calendar-navbar" aria-label="Main navigation">
+    <div class="nav-flex-container">
+      <section><a href="../index.html" aria-label="0161 Active home"><img src="../img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a></section>
+      <section><a class="navlink" href="../index.html"><h3 class="hover-underline">SPORTS</h3></a></section>
+      <section><a class="navlink" href="calendar.html" aria-current="page"><h3 class="hover-underline">CALENDAR</h3></a></section>
+      <section><a class="navlink" href="register.html"><h3 class="hover-underline">REGISTER YOUR CLUB</h3></a></section>
+    </div>
+  </nav>
 
-<body> 
-
-      <nav class="navbar"> 
-        <div class="nav-flex-container">
-         <section>
-            <a href="0161_Page.html" >
-            <img src="0161 Active_Logo_Transparent.png" alt="Company Logo">
-            </a>
-        </section> 
-        <section>
-            <a class="navlink" href="calendar.html">
-                <h3 class="hover-underline">CALENDAR</h3>
-            </a>
-        </section> 
-        <section>
-            <a class="navlink" href="about.html">
-                <h3 class="hover-underline">ABOUT</h3>
-            </a>
-        </section>
-        <section>
-            <a class="navlink" href="resources.html">
-                <h3 class="hover-underline">RESOURCES</h3>
-            </a>
-        </section>
-        <section>
-            <a class="navlink" href="contact.html">
-                <h3 class="hover-underline">CONTACT</h3>
-            </a>
-        </section>
+  <main class="calendar-page">
+    <header class="calendar-intro">
+      <p class="calendar-eyebrow">0161 ACTIVE · MANCHESTER</p>
+      <div class="calendar-intro__row">
+        <div>
+          <h1>The week, made active.</h1>
+          <p class="calendar-lede">Find a session that fits your week.</p>
         </div>
-    </nav>
-
-    <header> 
-        <h3>Calendar</h3>
-       
+        <p class="calendar-sample-note" id="sample-note" hidden></p>
+      </div>
     </header>
 
-    <main> 
-        <iframe width="600" height="400"></iframe>
-    </main>
+    <!-- Filters apply to both views and remain selected while switching between week and day. -->
+    <section class="calendar-filters" aria-label="Filter club sessions">
+      <label>SPORT
+        <select id="filter-sport" name="sport"><option value="all">All sports</option></select>
+      </label>
+      <label>PRICE
+        <select id="filter-price" name="price"><option value="all">Any price</option></select>
+      </label>
+      <label>AREA
+        <select id="filter-area" name="area"><option value="all">All Manchester</option></select>
+      </label>
+      <p class="calendar-result-count" id="result-count" aria-live="polite">Loading sessions…</p>
+    </section>
 
+    <!-- Day navigation: Full week is the default; a weekday opens its chronological agenda. -->
+    <nav class="calendar-day-nav" id="calendar-day-nav" aria-label="Choose calendar view">
+      <span class="calendar-nav-frame" aria-hidden="true"></span>
+      <button type="button" class="day-nav-button day-nav-button--week" data-view="week" aria-pressed="true">FULL WEEK</button>
+      <div class="calendar-day-nav__days">
+        <button type="button" class="day-nav-button" data-day="1" aria-pressed="false">MON</button>
+        <button type="button" class="day-nav-button" data-day="2" aria-pressed="false">TUE</button>
+        <button type="button" class="day-nav-button" data-day="3" aria-pressed="false">WED</button>
+        <button type="button" class="day-nav-button" data-day="4" aria-pressed="false">THU</button>
+        <button type="button" class="day-nav-button" data-day="5" aria-pressed="false">FRI</button>
+        <button type="button" class="day-nav-button" data-day="6" aria-pressed="false">SAT</button>
+        <button type="button" class="day-nav-button" data-day="7" aria-pressed="false">SUN</button>
+      </div>
+    </nav>
+
+    <p class="calendar-message" id="calendar-message" role="status" hidden></p>
+
+    <!-- Weekly club rows make it easy to compare every club across the full week. -->
+    <section class="calendar-view calendar-view--week" id="week-view" aria-labelledby="week-heading">
+      <div class="calendar-view-heading">
+        <div><p class="calendar-eyebrow">EVERY CLUB · EVERY DAY</p><h2 id="week-heading">Weekly club schedule</h2></div>
+        <p>Please get in touch if you spot incorrect information!</p>
+      </div>
+      <div class="week-grid" id="week-grid" role="table" aria-label="Club sessions across the week"></div>
+    </section>
+
+    <!-- The focused day view lists matching sessions by time and gives each club a clear route. -->
+    <section class="calendar-view calendar-view--day" id="day-view" aria-labelledby="day-heading" hidden>
+      <div class="calendar-view-heading calendar-view-heading--day">
+        <div><p class="calendar-eyebrow" id="day-overline">WEEKLY SESSIONS</p><h2 id="day-heading">Monday</h2></div>
+        <button type="button" class="back-to-week" id="back-to-week">← Full week</button>
+      </div>
+      <div class="day-agenda" id="day-agenda" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="calendar-footer"><p>Made for the people who make Manchester move. <a href="../index.html">0161 Active</a></p></footer>
+  <script type="module" src="../js/calendar.js"></script>
 </body>
+</html>
