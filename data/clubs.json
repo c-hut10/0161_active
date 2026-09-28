@@ -14,6 +14,7 @@
       "id": "snappy-runners",
       "name": "Snappy Runners",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": "Saturday Morning Social Club with coffee afterwards",
       "description": "A social club for young adults who like to run.",
       "tags": ["running", "coffee", "social", "friendly"],
@@ -22,8 +23,9 @@
       "area": "Ancoats",
       "location": "Ancoats, Manchester",
       "coordinates": { "lat": 53.483959, "lon": -2.244644 },
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Ancoats Marina, Ancoats", "area": "Ancoats", "dataStatus": "placeholder" },
         { "dayOfWeek": 6, "day": "Saturday", "startTime": "09:00", "endTime": "10:00", "meetingPoint": "Cutting Room Square, Ancoats", "area": "Ancoats", "dataStatus": "placeholder" }
@@ -33,6 +35,7 @@
       "id": "not-a-running-club",
       "name": "Not A Running Club",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -41,8 +44,9 @@
       "area": "West Didsbury",
       "location": "Co-op Food, Burton Road, West Didsbury",
       "coordinates": null,
-      "price": { "type": "free", "amount": 0, "currency": "GBP", "verified": false, "source": "Existing profile page; confirm before launch." },
-      "contact": { "type": "instagram", "url": "https://www.instagram.com/notarunningclub/?hl=en" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
+      "contact": null,
+      "onlineProfile": { "platform": "instagram", "url": "https://www.instagram.com/notarunningclub/?hl=en" },
       "sessions": [
         { "dayOfWeek": 3, "day": "Wednesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Co-op Food, Burton Road, West Didsbury", "area": "West Didsbury", "dataStatus": "existing-profile-unverified" },
         { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Co-op Food, Burton Road, West Didsbury", "area": "West Didsbury", "dataStatus": "existing-profile-unverified" }
@@ -52,6 +56,7 @@
       "id": "tiny-moves",
       "name": "Tiny Moves",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -60,8 +65,9 @@
       "area": "City Centre",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 1, "day": "Monday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Whitworth Park, Manchester", "area": "City Centre", "dataStatus": "placeholder" },
         { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Mayfield Park, Manchester", "area": "City Centre", "dataStatus": "placeholder" }
@@ -71,6 +77,7 @@
       "id": "just-a-run-club",
       "name": "Just A Run Club",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -79,8 +86,9 @@
       "area": "Castlefield",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 3, "day": "Wednesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Castlefield Basin, Manchester", "area": "Castlefield", "dataStatus": "placeholder" },
         { "dayOfWeek": 6, "day": "Saturday", "startTime": "10:00", "endTime": "11:00", "meetingPoint": "Salford Quays, Salford", "area": "Salford Quays", "dataStatus": "placeholder" }
@@ -90,6 +98,7 @@
       "id": "redacted-run-club",
       "name": "Redacted Run Club",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -98,8 +107,9 @@
       "area": "Heaton Park",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Piccadilly Gardens, Manchester", "area": "City Centre", "dataStatus": "placeholder" },
         { "dayOfWeek": 6, "day": "Saturday", "startTime": "09:30", "endTime": "10:30", "meetingPoint": "Heaton Park, Manchester", "area": "Heaton Park", "dataStatus": "placeholder" }
@@ -109,6 +119,7 @@
       "id": "manchester-frontrunners",
       "name": "Manchester Frontrunners",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -117,8 +128,9 @@
       "area": "City Centre",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 2, "day": "Tuesday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Sackville Gardens, Manchester", "area": "City Centre", "dataStatus": "placeholder" },
         { "dayOfWeek": 6, "day": "Saturday", "startTime": "10:00", "endTime": "11:30", "meetingPoint": "Sackville Gardens, Manchester", "area": "City Centre", "dataStatus": "placeholder" }
@@ -128,6 +140,7 @@
       "id": "mile-shy-club",
       "name": "Mile Shy Club",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -136,8 +149,9 @@
       "area": "Moss Side",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 1, "day": "Monday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Alexandra Park, Manchester", "area": "Moss Side", "dataStatus": "placeholder" },
         { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Manchester Aquatics Centre, Manchester", "area": "Moss Side", "dataStatus": "placeholder" }
@@ -147,6 +161,7 @@
       "id": "didsbury-runners",
       "name": "Didsbury Runners",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -155,8 +170,9 @@
       "area": "Didsbury",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Didsbury Park, Didsbury", "area": "Didsbury", "dataStatus": "placeholder" },
         { "dayOfWeek": 7, "day": "Sunday", "startTime": "09:00", "endTime": "10:00", "meetingPoint": "Fletcher Moss Park, Didsbury", "area": "Didsbury", "dataStatus": "placeholder" }
@@ -166,6 +182,7 @@
       "id": "ancoats-run-club",
       "name": "Ancoats Run Club",
       "sport": "running",
+      "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
@@ -174,8 +191,9 @@
       "area": "Ancoats",
       "location": "Manchester",
       "coordinates": null,
-      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
+      "onlineProfile": null,
       "sessions": [
         { "dayOfWeek": 1, "day": "Monday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Ancoats Marina, Ancoats", "area": "Ancoats", "dataStatus": "placeholder" },
         { "dayOfWeek": 6, "day": "Saturday", "startTime": "09:00", "endTime": "10:00", "meetingPoint": "Cutting Room Square, Ancoats", "area": "Ancoats", "dataStatus": "placeholder" }

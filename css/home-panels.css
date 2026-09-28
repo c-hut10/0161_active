@@ -34,6 +34,7 @@
   letter-spacing: -.065em;
   text-transform: uppercase;
 }
+.mission-panels__period { color: #ff3030; }
 
 /* Vertical story stack: normal page scrolling reveals each full-height panel in order. */
 .mission-panels__stack {
@@ -106,6 +107,22 @@
   text-transform: uppercase;
 }
 
+/* Third-panel headline: hold each phrase on its own line while the center word flips. */
+.mission-panel__stacked-heading > span { display:block; }
+.mission-panel__word-window {
+  width:8ch;
+  height:.98em;
+  overflow:hidden;
+  line-height:.98;
+}
+.mission-panel__word { display:inline-block; color:var(--panel-ink); }
+.mission-panel__word.is-final { color:#fff; }
+.mission-panel__word.is-flicking { animation: mission-word-flick .48s cubic-bezier(.22, 1, .36, 1); }
+@keyframes mission-word-flick {
+  from { opacity:0; transform:translateY(105%); }
+  to { opacity:1; transform:translateY(0); }
+}
+
 
 @media (max-width: 640px) {
   .mission-panel__copy {
@@ -117,4 +134,8 @@
   }
   .mission-panel__kicker { margin-top: 22px; }
   .mission-panel__copy h3 { font-size: clamp(30px, 10vw, 46px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mission-panel__word.is-flicking { animation:none; }
 }

@@ -42,9 +42,9 @@ main{
 }
 
 /* WHITE LINE BETWEEN PHOTO GALLERY ROWS */
-main div {
-   border-bottom: 0.15rem outset rgb(221, 255, 53);   
-}
+/* main div {
+   border-bottom: 0.15rem outset rgb(221, 255, 53);  }  */
+
 
 main img{
     filter: grayscale(1);

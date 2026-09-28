@@ -1,137 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="Sports Page" content="Community Sports Database of Manchester UK Region">
-    <title>Manchester Frontrunners</title>
-    <link rel="stylesheet" href="../../css/0161_Profiles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Club information and weekly sessions around Manchester.">
+  <title>Club profile | 0161 Active</title>
+  <link rel="stylesheet" href="../../css/0161_Page.css">
+  <link rel="stylesheet" href="../../css/club-profile.css">
 </head>
+<body class="profile-body">
+  <!-- Site navigation: keep the sport menu and key routes consistent across club pages. -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="nav-flex-container">
+      <section><a href="../../index.html" aria-label="0161 Active home"><img src="../../img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a></section>
+      <section class="sports-nav-item">
+        <button class="sports-nav-trigger navlink" type="button" aria-controls="sports-menu"><h3 class="hover-underline">SPORTS</h3></button>
+        <ul class="sports-menu" id="sports-menu">
+          <li class="sports-menu__sport">
+            <button class="sports-menu__trigger" type="button" aria-controls="running-clubs-menu">Running <span aria-hidden="true">›</span></button>
+            <ul class="sports-menu sports-menu--nested" id="running-clubs-menu">
+            <li><a href="../../html/running/AncoatRunClub.html">Ancoats Run Club</a></li>
+            <li><a href="../../html/running/DidsburyRunners.html">Didsbury Runners</a></li>
+            <li><a href="../../html/running/JustARunClub.html">Just A Run Club</a></li>
+            <li><a href="../../html/running/ManchesterFrontrunners.html">Manchester Frontrunners</a></li>
+            <li><a href="../../html/running/MileShyClub.html">Mile Shy Club</a></li>
+            <li><a href="../../html/running/NotARunningClub.html">Not A Running Club</a></li>
+            <li><a href="../../html/running/RedactedRunClub.html">Redacted Run Club</a></li>
+            <li><a href="../../html/running/SnappyRunners.html">Snappy Runners</a></li>
+            <li><a href="../../html/running/TinyMoves.html">Tiny Moves</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section><a class="navlink" href="../../html/calendar.html"><h3 class="hover-underline">CALENDAR</h3></a></section>
+      <section><a class="navlink" href="../../html/register.html"><h3 class="hover-underline">REGISTER YOUR CLUB</h3></a></section>
+    </div>
+  </nav>
 
-<body> 
+  <!-- Profile content: shared script fills this shell from the matching clubs.json record. -->
+  <main class="profile-main" id="club-profile-root" data-club-id="manchester-frontrunners">
+    <p class="profile-status" role="status">Loading club profile…</p>
+  </main>
 
-      <nav class="navbar"> 
-        <div class="nav-flex-container">
-         <section>
-            <a href="../../index.html" >
-            <img src="../../img/0161 Active_Logo_Transparent.png" alt="Company Logo">
-            </a>
-        </section> 
-        <section>
-            <a class="navlink" href="../calendar.html">
-                <h3 class="hover-underline">CALENDAR</h3>
-            </a>
-        </section> 
-        <section>
-            <a class="navlink" href="../about.html">
-                <h3 class="hover-underline">ABOUT</h3>
-            </a>
-        </section>
-        <section>
-            <a class="navlink" href="../resources.html">
-                <h3 class="hover-underline">RESOURCES</h3>
-            </a>
-        </section>
-        <section>
-            <a class="navlink" href="../contact.html">
-                <h3 class="hover-underline">CONTACT</h3>
-            </a>
-        </section>
-        </div>
-    </nav>
-
-    
-<aside> 
-        <img class="profile-image" src="../../img/running/ManchesterFrontrunners.jpg" alt="group of smiling people"> </img>
-</aside>
-
-
-<header class="text"> 
-        <h1>NOT A RUNNING CLUB</h1>
-</header>
-    
-<main> 
-
-<div class="break"> </div>
-
-<table> 
-    <tr> 
-            <th>Location</th>
-            <td>xxxx</td>
-    </tr>
-
-    <tr> 
-            <th>Postcode</th>
-            <td>xxxx</td>
-    </tr>
-
-    <tr> 
-        <th>Training Sessions</th>
-        <td> 
-            <table class="nested-table">
-                <tr> 
-                    <th> Monday</th>
-                    <td> 18:30</td>
-                </tr>
-
-                <tr> 
-                    <th> Wednesday</th>
-                    <td> 18:30</td>
-                </tr>
-
-                <tr> 
-                    <th> Friday</th>
-                    <td> 18:30</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-
-    <tr> 
-            <th>Group Size</th>
-            <td> 15</td>
-    </tr>
-    
-    <tr> 
-            <th> Target Audience</th>
-            <td>All Abilities</td>
-    </tr>
-
-    <tr> 
-            <th> Taster Sessions</th>
-            <td>x4</td>
-    </tr>
-
-    <tr> 
-            <th>Contact Info</th>
-            <td>EMAIL</td>
-    </tr>
-
-</table>
-<!--   <h3> Location </h3>
-        <p> Co-op Local, Burton Road, West Didsbury</p>
-
-         <h3> Location </h3>
-        <p> Co-op Local, Burton Road, West Didsbury</p>
-
-         <h3> Location </h3>
-        <p> Co-op Local, Burton Road, West Didsbury</p>
-
-         <h3> Location </h3>
-        <p> Co-op Local, Burton Road, West Didsbury</p>
-
-     -->
-</main>
-
-<footer>
-       <a href="https://www.instagram.com/notarunningclub/" target="_blank">    
-        <img class="footerimage" src="../../img/Instagram_Glyph_Black.png" alt="Instagram Logo">
-        </a>
-
-        <a href="https://notarunning.club/pages/about" target="_blank">    
-        <img class="footerimage" src="../../img/internet.png" alt="WWW.">
-        </a>
-</footer>
-
-
-
+  <!-- Footer: return visitors to the local sports directory. -->
+  <footer class="profile-footer"><a href="../../index.html">0161 Active · Manchester</a></footer>
+  <script type="module" src="../../js/club-profile.js"></script>
 </body>
+</html>
