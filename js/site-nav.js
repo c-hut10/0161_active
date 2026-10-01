@@ -64,16 +64,12 @@ function buildSiteNav(sports, accessibleSports = []) {
     <button class="site-navbar__overlay" type="button" aria-label="Close menu" hidden></button>
     <nav class="site-navbar__drawer" id="site-mobile-drawer" aria-label="Mobile navigation" aria-hidden="true" inert>
       <div class="site-navbar__drawer-header">
-        <p class="site-navbar__drawer-title">0161 ACTIVE · MENU</p>
+        <p class="site-navbar__drawer-title">MENU</p>
         <button class="site-navbar__close" type="button">CLOSE ×</button>
       </div>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/calendar.html')}"${active === 'calendar' ? ' aria-current="page"' : ''}>CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/register.html')}"${active === 'register' ? ' aria-current="page"' : ''}>REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
-      <p class="site-navbar__browse">ACCESSIBLE SPORTS</p>
-      <div class="site-navbar__drawer-sports">${accessibleSportItems}</div>
-      <p class="site-navbar__browse">OTHER SPORTS</p>
-      <div class="site-navbar__drawer-sports">${sportItems}</div>
     </nav>
   </header>`;
 

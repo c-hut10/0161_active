@@ -109,8 +109,12 @@
 body.site-nav-open { overflow: hidden; }
 
 @media (max-width: 760px) {
+  :root { --site-nav-height: 80px; }
   .site-navbar { height: var(--site-nav-height); }
-  .site-navbar__bar { height: var(--site-nav-height); min-height: var(--site-nav-height); }
+  .site-navbar__bar { position: relative; height: var(--site-nav-height); min-height: var(--site-nav-height); justify-content: flex-end; }
+  /* Crop the transparent canvas and keep the resized logo mark 32.5px from the left edge. */
+  .site-navbar__brand { position: absolute; top: 0; left: 32.5px; height: var(--site-nav-height); }
+  .site-navbar__brand img { width: 89px; height: 52px; max-height: none; margin-left: -11px; object-fit: cover; }
   .site-navbar__desktop { display: none; }
   .site-navbar__menu-button { display: inline-flex; min-height: 42px; padding: 0 4px; color: #faecd2; font-size: 13px; letter-spacing: .12em; }
   .site-navbar__overlay {

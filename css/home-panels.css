@@ -43,6 +43,15 @@
   width: 100%;
 }
 
+/* Homepage contact link: keep the email white in its default and interactive states. */
+.home-footer a,
+.home-footer a:visited,
+.home-footer a:hover,
+.home-footer a:focus-visible {
+  color: #fff;
+  text-decoration: none;
+}
+
 /* Each slide uses a full-viewport photo with its own editorial text box. */
 .mission-panel {
   position: relative;
@@ -127,7 +136,8 @@
 @media (max-width: 640px) {
   .mission-panel__copy {
     right: 18px;
-    bottom: 24px;
+    top: 25vh;
+    bottom: auto;
     left: 18px;
     width: auto;
     padding: 24px;

@@ -22,8 +22,8 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 1500px;
-  min-height: calc(100vh - var(--site-nav-height, 100px));
-  margin: var(--site-nav-height, 100px) auto 0;
+  min-height: calc(100vh - 58px);
+  margin: 58px auto 0;
   padding: clamp(28px, 5vw, 72px) clamp(18px, 5vw, 72px) 76px;
   color: var(--cal-paper);
   background: var(--cal-black);
@@ -181,7 +181,7 @@
 }
 
 @media (max-width: 620px) {
-  .calendar-page { margin-top: var(--site-nav-height, 100px); padding-top: 28px; }
+  .calendar-page { margin-top: 58px; padding-top: 28px; }
   .calendar-navbar .nav-flex-container { justify-content: space-around; }
   .calendar-navbar .nav-flex-container section:first-child { display: none; }
   .calendar-navbar .nav-flex-container section { padding: 0 5px; }

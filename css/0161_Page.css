@@ -35,10 +35,16 @@ main{
      background-color: var(--green);
      border: 2rem;
      margin: 0px;
+     /* Keep homepage content aligned exactly beneath the shared responsive navbar. */
      margin-top: var(--site-nav-height, 100px);
      margin-left: auto;
      margin-right: auto;
      width: 100%;
+}
+
+/* On mobile, start page content directly beneath the shorter shared navbar. */
+@media (max-width: 760px) {
+  main { margin-top: 80px; }
 }
 
 /* WHITE LINE BETWEEN PHOTO GALLERY ROWS */
@@ -109,7 +115,7 @@ nav {
 }
 
 nav div{
-    background-color: var(--black);
+    /* background-color: var(--black); */
     /* height: 2rem; */
     /* border-bottom: 0.1rem outset rgba(223, 252, 58, 0.619); */
     font-weight: 100;
