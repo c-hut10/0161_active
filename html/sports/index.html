@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse the sports covered by 0161 Active and find local Manchester clubs.">
+  <title>Sports directory | 0161 Active</title>
+  <link rel="stylesheet" href="../../css/0161_Page.css">
+  <link rel="stylesheet" href="../../css/site-nav.css">
+  <link rel="stylesheet" href="../../css/sport-glossary.css">
+  <link rel="stylesheet" href="../../css/sports-directory.css">
+  <link rel="icon" href="../../img/0161 Active_Logo.png">
+  <script defer src="../../js/site-nav.js"></script>
+  <script defer src="../../js/sports-directory.js"></script>
+</head>
+<body class="sport-glossary-body">
+  <div data-site-nav></div>
+
+  <!-- Sports directory: browse every sport and open its glossary page. -->
+  <main class="sport-glossary-page sports-directory-page">
+    <header class="sport-glossary-intro">
+      <p class="sport-glossary-eyebrow">0161 ACTIVE · MANCHESTER</p>
+      <div class="sport-glossary-intro__row">
+        <div><h1>Sports directory</h1></div>
+        <p class="sport-glossary-note">Explore every sport in the directory and find clubs near you.</p>
+      </div>
+    </header>
+
+    <section class="sports-directory-controls" aria-label="Search the sports directory">
+      <label for="sports-search">FIND A SPORT</label>
+      <input id="sports-search" type="search" placeholder="Search sports" autocomplete="off">
+      <p class="sports-directory-count" id="sports-count" aria-live="polite">Loading sports…</p>
+    </section>
+
+    <div class="sports-directory-message" id="sports-message" role="status" hidden></div>
+    <div class="sports-directory-groups" id="sports-groups"></div>
+  </main>
+
+  <footer class="sport-glossary-footer"><p>Made for the people who make Manchester move. <a href="../../index.html">0161 Active</a></p></footer>
+</body>
+</html>

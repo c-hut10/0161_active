@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Sports Page" content="Community Sports Database of Manchester UK Region">
     <title>0161_Active</title>
     <link rel="stylesheet" href="css/0161_Page.css">
@@ -16,6 +17,8 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
 
+  <link rel="stylesheet" href="css/site-nav.css">
+  <script defer src="js/site-nav.js"></script>
 </head>
 
 <!-- DO NOT CHANGE INDEX.HTML!!!!!! -->
@@ -25,64 +28,7 @@
         <h3>Heading</h3>
     </header>
 
-<nav class="navbar"> 
-    <div class="nav-flex-container">
-         <section>
-            <a href="index.html" >
-            <img src="img/0161 Active_Logo_Transparent.png" alt="Company Logo">
-            </a>
-        </section> 
-        <!-- Two-tier sports navigation: choosing Running reveals links to its club profiles. -->
-        <section class="sports-nav-item">
-            <button class="sports-nav-trigger navlink" type="button" aria-controls="sports-menu">
-                <h3 class="hover-underline">SPORTS</h3>
-            </button>
-            <ul class="sports-menu" id="sports-menu">
-                <li class="sports-menu__sport">
-                    <button class="sports-menu__trigger" type="button" aria-controls="running-clubs-menu">
-                        Running <span aria-hidden="true">›</span>
-                    </button>
-                    <ul class="sports-menu sports-menu--nested" id="running-clubs-menu">
-                        <li><a href="html/running/AncoatRunClub.html">Ancoats Run Club</a></li>
-                        <li><a href="html/running/DidsburyRunners.html">Didsbury Runners</a></li>
-                        <li><a href="html/running/JustARunClub.html">Just A Run Club</a></li>
-                        <li><a href="html/running/ManchesterFrontrunners.html">Manchester Frontrunners</a></li>
-                        <li><a href="html/running/MileShyClub.html">Mile Shy Club</a></li>
-                        <li><a href="html/running/NotARunningClub.html">Not A Running Club</a></li>
-                        <li><a href="html/running/RedactedRunClub.html">Redacted Run Club</a></li>
-                        <li><a href="html/running/SnappyRunners.html">Snappy Runners</a></li>
-                        <li><a href="html/running/TinyMoves.html">Tiny Moves</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </section> 
-        <!-- <section>
-            <a class="navlink" href="index.html">
-                <h3 class="hover-underline">ABOUT</h3>
-            </a>
-        </section> -->
-
-        <section>
-            <a class="navlink" href="html/calendar.html">
-                <h3 class="hover-underline">CALENDAR</h3>
-            </a>
-        </section>
-        <!-- <section>
-            <a class="navlink" href="index.html">
-                <h3 class="hover-underline">CONTACT</h3>
-            </a>
-        </section> -->
-
-        <!-- Club registration entry point: opens the form that creates a downloadable club profile. -->
-        <section>
-            <a class="navlink" href="html/register.html">
-                <h3 class="hover-underline">REGISTER YOUR CLUB</h3>
-            </a>
-        </section> 
-
-    </div>
-
-</nav>
+<div data-site-nav></div>
 
 <!-- <div class="container">
   <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%">

@@ -104,28 +104,28 @@ footer{
 
 nav {
 
-  background-color: var(--green);
+  /* background-color: var(--green); */
 
 }
 
 nav div{
     background-color: var(--black);
-    height: 2rem;
+    /* height: 2rem; */
     border-bottom: 0.1rem outset rgba(223, 252, 58, 0.619);
     font-weight: 100;
     font-style: normal;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-nav a {
+/* nav a {
   padding-right: 0px;
 }
 
 nav section {
   padding-right: 25px;
-}
+} */
 
-nav div img{
+/* nav div img{
   width: 95px;
   object-fit: cover;
   object-position: center;
@@ -134,7 +134,7 @@ nav div img{
 nav div h3{
  line-height: 3.5rem;
  padding-right: 5px;
-}
+} */
 
 .navlink {
   text-decoration: none;
@@ -146,14 +146,14 @@ nav div h3{
   color: rgba(239, 242, 54, 0.797);
 }
 
-.navbar {
+/* .navbar {
  overflow: visible;
  position: fixed;
  top: 0;
  width: 100%;
  z-index: 1000;
 
-}
+} */
 
 .nav-flex-container{
     display: flex;

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse local sports clubs in Manchester and filter by area and training day.">
+  <title>Sport clubs | 0161 Active</title>
+  <link rel="stylesheet" href="../../css/0161_Page.css">
+  <link rel="stylesheet" href="../../css/site-nav.css">
+  <link rel="stylesheet" href="../../css/sport-glossary.css">
+  <link rel="icon" href="../../img/0161 Active_Logo.png">
+  <script defer src="../../js/site-nav.js"></script>
+  <script defer src="../../js/sport-glossary.js"></script>
+</head>
+<body class="sport-glossary-body">
+  <div data-site-nav></div>
+
+  <!-- Sport glossary: provide one reusable, filtered club directory for every sport category. -->
+  <main class="sport-glossary-page">
+    <header class="sport-glossary-intro">
+      <p class="sport-glossary-eyebrow">0161 ACTIVE · SPORT DIRECTORY</p>
+      <div class="sport-glossary-intro__row">
+        <div><h1 id="sport-title">Sport clubs</h1></div>
+        <p class="sport-glossary-note" id="sport-description">Browse clubs on record across Manchester.</p>
+      </div>
+    </header>
+
+    <section class="sport-glossary-filters" aria-label="Filter clubs">
+      <label>SEARCH CLUBS
+        <input id="club-search" type="search" placeholder="Club name" autocomplete="off">
+      </label>
+      <label>AREA
+        <select id="area-filter"><option value="all">All areas</option></select>
+      </label>
+      <label>DAY
+        <select id="day-filter">
+          <option value="all">Any day</option>
+          <option value="1">Monday</option>
+          <option value="2">Tuesday</option>
+          <option value="3">Wednesday</option>
+          <option value="4">Thursday</option>
+          <option value="5">Friday</option>
+          <option value="6">Saturday</option>
+          <option value="7">Sunday</option>
+        </select>
+      </label>
+    </section>
+
+    <!-- Live club count and numbered rows are generated from the shared club data. -->
+    <section class="sport-club-directory" aria-label="Club results">
+      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">LOADING CLUBS</p></div>
+      <p class="sport-glossary-message" id="directory-message" role="status" hidden></p>
+      <ol class="sport-club-list" id="club-list" aria-label="Clubs in this sport"></ol>
+    </section>
+  </main>
+
+  <footer class="sport-glossary-footer"><p>Made for the people who make Manchester move. <a href="../../index.html">0161 Active</a></p></footer>
+</body>
+</html>

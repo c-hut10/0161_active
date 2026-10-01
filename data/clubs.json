@@ -41,15 +41,15 @@
       "tags": [],
       "imagePath": "img/running/NotARunningClub.jpeg",
       "profilePath": "html/running/NotARunningClub.html",
-      "area": "West Didsbury",
+      "area": "Didsbury",
       "location": "Co-op Food, Burton Road, West Didsbury",
       "coordinates": null,
       "price": { "type": "free", "amount": 0, "currency": "GBP" },
       "contact": null,
       "onlineProfile": { "platform": "instagram", "url": "https://www.instagram.com/notarunningclub/?hl=en" },
       "sessions": [
-        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Co-op Food, Burton Road, West Didsbury", "area": "West Didsbury", "dataStatus": "existing-profile-unverified" },
-        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Co-op Food, Burton Road, West Didsbury", "area": "West Didsbury", "dataStatus": "existing-profile-unverified" }
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Co-op Food, Burton Road, West Didsbury", "area": "Didsbury", "dataStatus": "existing-profile-unverified" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Co-op Food, Burton Road, West Didsbury", "area": "Didsbury", "dataStatus": "existing-profile-unverified" }
       ]
     },
     {
