@@ -1,13 +1,16 @@
 /* Global navigation: one shared desktop bar and mobile drawer for every site page. */
+:root { --site-nav-height: 100px; }
 .site-navbar,
 .site-navbar * { box-sizing: border-box; }
 .site-navbar {
-  position: fixed;
+  /* Pin the shared header to the viewport edge; explicit geometry avoids legacy mobile offsets. */
+  position: fixed !important;
   z-index: 1100;
-  top: 0;
-  right: 0;
-  left: 0;
-  min-height: 100px;
+  inset: 0 0 auto !important;
+  display: block;
+  width: 100%;
+  height: var(--site-nav-height);
+  min-height: var(--site-nav-height);
   color: #faecd2;
   background: #111211;
   border-bottom: 1px solid rgba(223, 252, 58, .62);
@@ -16,7 +19,8 @@
 .site-navbar__bar {
   display: flex;
   width: 100%;
-  min-height: 100px;
+  height: var(--site-nav-height);
+  min-height: var(--site-nav-height);
   align-items: center;
   justify-content: space-between;
   gap: 20px;
@@ -105,7 +109,8 @@
 body.site-nav-open { overflow: hidden; }
 
 @media (max-width: 760px) {
-  .site-navbar__bar { min-height: 100px; }
+  .site-navbar { height: var(--site-nav-height); }
+  .site-navbar__bar { height: var(--site-nav-height); min-height: var(--site-nav-height); }
   .site-navbar__desktop { display: none; }
   .site-navbar__menu-button { display: inline-flex; min-height: 42px; padding: 0 4px; color: #faecd2; font-size: 13px; letter-spacing: .12em; }
   .site-navbar__overlay {

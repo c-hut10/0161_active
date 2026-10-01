@@ -138,7 +138,7 @@
 }
 
 @media (max-width: 560px) {
-  .profile-main { width: 100%; padding: 84px 18px 40px; }
+  .profile-main { width: 100%; padding: calc(var(--site-nav-height, 100px) + 28px) 18px 40px; }
   .profile-heading { align-items: flex-start; flex-direction: column; gap: 16px; }
   .profile-actions { width: 100%; }
   .profile-action { flex: 1; }

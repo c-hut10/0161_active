@@ -9,6 +9,7 @@ const directoryMessage = document.querySelector('#directory-message');
 const dayNames = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 let sportClubs = [];
 let sportName = 'Run Club';
+let sportIsVisible = true;
 
 /* Escaping: render shared club data as text so submitted names cannot become markup. */
 function escapeHtml(value = '') {
@@ -102,9 +103,11 @@ function renderDirectory() {
   if (!filteredClubs.length) {
     clubList.innerHTML = '';
     directoryMessage.hidden = false;
-      directoryMessage.textContent = sportClubs.length
-      ? `No ${sportCollectionLabel(sportName)} match these filters.`
-      : `No ${sportCollectionLabel(sportName)} are listed yet. Check back soon or register your club.`;
+    directoryMessage.textContent = !sportIsVisible
+      ? 'This sport is not currently listed.'
+      : sportClubs.length
+        ? `No ${sportCollectionLabel(sportName)} match these filters.`
+        : `No ${sportCollectionLabel(sportName)} are listed yet. Check back soon or register your club.`;
     return;
   }
 
@@ -157,9 +160,14 @@ async function loadGlossary() {
     document.querySelector('.sport-club-directory').setAttribute('aria-label', `${sportName} listings`);
     document.querySelector('.sport-glossary-filters').setAttribute('aria-label', `Filter ${sportName} listings`);
     document.title = `${sportName} | 0161 Active`;
-    sportClubs = Array.isArray(clubsData.clubs)
-      ? clubsData.clubs.filter(club => sportSlug(club.sport || '') === requestedSlug)
-      : [];
+    const clubs = Array.isArray(clubsData.clubs) ? clubsData.clubs : [];
+    const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug);
+    const visibleWhenEmpty = new Set((Array.isArray(sportsData.visibleWhenEmpty) ? sportsData.visibleWhenEmpty : []).map(sportSlug));
+    const hiddenSports = new Set((Array.isArray(sportsData.hiddenSports) ? sportsData.hiddenSports : []).map(sportSlug));
+    /* Direct glossary URLs follow the same availability rules as the menus and directory. */
+    sportIsVisible = !hiddenSports.has(requestedSlug)
+      && (matchingClubs.length > 0 || visibleWhenEmpty.has(requestedSlug));
+    sportClubs = sportIsVisible ? matchingClubs : [];
     populateAreas();
     const requestedArea = canonicalArea(new URLSearchParams(window.location.search).get('area') || '');
     const matchingArea = [...areaFilter.options].find(option => option.value.toLocaleLowerCase() === requestedArea.toLocaleLowerCase());

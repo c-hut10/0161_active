@@ -125,5 +125,26 @@
     "Walking Netball",
     "Walking Rugby",
     "Wheelchair Basketball"
+  ],
+  "visibleWhenEmpty": [
+    "Rugby Union",
+    "American Football",
+    "Cycling",
+    "Football",
+    "Karate",
+    "Hockey",
+    "Swimming",
+    "Tennis",
+    "Ultimate Frisbee",
+    "Squash",
+    "Table Tennis",
+    "Touch Rugby",
+    "Wheelchair Basketball"
+  ],
+  "hiddenSports": [
+    "Swimming",
+    "Tennis",
+    "Karate",
+    "Rugby Union"
   ]
 }

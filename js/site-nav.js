@@ -142,11 +142,24 @@ async function loadSportsForNavigation() {
   let sports = ['Running'];
   let accessibleSports = [];
   try {
-    const response = await fetch(siteUrl('data/sports.json'));
-    if (!response.ok) throw new Error('Sport directory unavailable');
-    const data = await response.json();
+    const [sportsResponse, clubsResponse] = await Promise.all([
+      fetch(siteUrl('data/sports.json')),
+      fetch(siteUrl('data/clubs.json'))
+    ]);
+    if (!sportsResponse.ok || !clubsResponse.ok) throw new Error('Sport directory unavailable');
+    const [data, clubsData] = await Promise.all([sportsResponse.json(), clubsResponse.json()]);
     if (Array.isArray(data.sports) && data.sports.length) sports = data.sports;
-    if (Array.isArray(data.accessibleSports)) accessibleSports = data.accessibleSports;
+    const visibleWhenEmpty = new Set((data.visibleWhenEmpty || []).map(sportSlug));
+    const hiddenSports = new Set((data.hiddenSports || []).map(sportSlug));
+    const clubCounts = new Map();
+    (clubsData.clubs || []).forEach(club => {
+      const slug = sportSlug(club.sport || '');
+      if (slug) clubCounts.set(slug, (clubCounts.get(slug) || 0) + 1);
+    });
+    const isVisible = sport => !hiddenSports.has(sportSlug(sport))
+      && ((clubCounts.get(sportSlug(sport)) || 0) > 0 || visibleWhenEmpty.has(sportSlug(sport)));
+    sports = sports.filter(isVisible);
+    if (Array.isArray(data.accessibleSports)) accessibleSports = data.accessibleSports.filter(isVisible);
   } catch (error) {
     // Keep the navigation usable if the optional full sport list cannot be loaded.
   }

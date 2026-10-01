@@ -35,7 +35,7 @@ main{
      background-color: var(--green);
      border: 2rem;
      margin: 0px;
-     margin-top: 100px;
+     margin-top: var(--site-nav-height, 100px);
      margin-left: auto;
      margin-right: auto;
      width: 100%;

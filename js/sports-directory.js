@@ -5,6 +5,8 @@ const sportsGroups = document.querySelector('#sports-groups');
 const sportsMessage = document.querySelector('#sports-message');
 let sportRecords = [];
 let accessibleSportSlugs = new Set();
+let visibleWhenEmptySlugs = new Set();
+let hiddenSportSlugs = new Set();
 
 function escapeDirectoryText(value = '') {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -82,12 +84,17 @@ async function loadSportsDirectory() {
     const [sportsData, clubsData] = await Promise.all([sportsResponse.json(), clubsResponse.json()]);
     const names = new Map((Array.isArray(sportsData.sports) ? sportsData.sports : []).map(name => [directorySlug(name), name]));
     accessibleSportSlugs = new Set((Array.isArray(sportsData.accessibleSports) ? sportsData.accessibleSports : []).map(directorySlug));
+    /* Visibility controls: keep catalog entries with clubs plus approved empty-sport placeholders. */
+    visibleWhenEmptySlugs = new Set((Array.isArray(sportsData.visibleWhenEmpty) ? sportsData.visibleWhenEmpty : []).map(directorySlug));
+    hiddenSportSlugs = new Set((Array.isArray(sportsData.hiddenSports) ? sportsData.hiddenSports : []).map(directorySlug));
     const clubsBySport = new Map();
     (Array.isArray(clubsData.clubs) ? clubsData.clubs : []).forEach(club => {
       const slug = directorySlug(club.sport || '');
       if (slug) clubsBySport.set(slug, (clubsBySport.get(slug) || 0) + 1);
     });
     sportRecords = [...names.entries()].map(([slug, name]) => ({ name, slug, clubCount: clubsBySport.get(slug) || 0 }))
+      .filter(sport => !hiddenSportSlugs.has(sport.slug)
+        && (sport.clubCount > 0 || visibleWhenEmptySlugs.has(sport.slug)))
       .sort((a, b) => a.name.localeCompare(b.name));
     renderSports();
   } catch (error) {
