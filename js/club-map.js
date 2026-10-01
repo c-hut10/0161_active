@@ -56,7 +56,8 @@ function makeClubPopup(club) {
   content.append(name);
 
   const sport = document.createElement('p');
-  sport.textContent = club.sport || club.tags?.[0] || 'Local sports club';
+  const sportName = club.sport || club.tags?.[0] || 'Local sports club';
+  sport.textContent = String(sportName).toLocaleLowerCase() === 'running' ? 'Run Club' : sportName;
   content.append(sport);
 
   const location = document.createElement('p');

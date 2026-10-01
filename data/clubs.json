@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "metadata": {
     "description": "Shared club directory for the weekly schedule and calendar.",
+    "pricingTypeGuide": "Use price.type values free, monthly_fee, annual_fee, or per_session. Use unknown until the pricing type is confirmed; retain amount and currency when available.",
     "sampleDataNotice": "Session times and meeting points are provisional examples or existing details awaiting confirmation. Confirm them with each club before public launch.",
     "referenceLocations": [
       { "name": "Manchester", "lat": 53.483959, "lon": -2.244644 },
@@ -15,7 +16,7 @@
       "name": "Snappy Runners",
       "sport": "running",
       "regularSessionAttendance": null,
-      "title": "Saturday Morning Social Club with coffee afterwards",
+      "title": null,
       "description": "A social club for young adults who like to run.",
       "tags": ["running", "coffee", "social", "friendly"],
       "imagePath": "img/running/SnappyRunner.png",
@@ -197,6 +198,636 @@
       "sessions": [
         { "dayOfWeek": 1, "day": "Monday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Ancoats Marina, Ancoats", "area": "Ancoats", "dataStatus": "placeholder" },
         { "dayOfWeek": 6, "day": "Saturday", "startTime": "09:00", "endTime": "10:00", "meetingPoint": "Cutting Room Square, Ancoats", "area": "Ancoats", "dataStatus": "placeholder" }
+      ]
+    },
+    {
+      "id": "mcr-harriers",
+      "name": "MCR Harriers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/mcr-harriers.html",
+      "area": "Wythenshawe",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://manchesterharriers.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Wythenshawe Park Athletics Track, Wythenshawe Road, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Wythenshawe Park Athletics Track, Wythenshawe Road, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "sale-harriers",
+      "name": "Sale Harriers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/sale-harriers.html",
+      "area": "Sale",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "per_session", "amount": 2, "currency": "GBP" },
+      "tasterSessionCount": 3,
+      "bookingRequired": false,
+      "contact": { "email": "saleharriersprimarysection@gmail.com" },
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.saleharriersmanchester.com/get-involved/" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG", "area": "Sale", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG", "area": "Sale", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG", "area": "Sale", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 7, "day": "Sunday", "startTime": "9:30", "endTime": "11:30", "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "trafford-ac",
+      "name": "Trafford AC",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/trafford-ac.html",
+      "area": "Stretford",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.traffordac.co.uk/php/index.php?script=openingTimes&menu_id=13" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "21:00", "meetingPoint": "Longford Park Stadium, M21 9TA", "area": "Stretford", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "21:00", "meetingPoint": "Longford Park Stadium, M21 9TA", "area": "Stretford", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "mcr-ymca-harriers",
+      "name": "MCR YMCA Harriers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/mcr-ymca-harriers.html",
+      "area": "Deansgate",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.manyharrier.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "The Y Club, Liverpool Road, M3 4JR", "area": "Deansgate", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "Manchester Regional Arena, M11 3FF", "area": "Ancoats", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "blackley-north-mcr-ac",
+      "name": "Blackley + North MCR AC",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/blackley-north-mcr-ac.html",
+      "area": "Charlestown",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://blackleyathletics.club/index.html" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "20:45", "meetingPoint": "Boggart Hole Clough Running Track, M9 7DH", "area": "Charlestown", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:45", "meetingPoint": "Boggart Hole Clough Running Track, M9 7DH", "area": "Charlestown", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "salford-met-ac",
+      "name": "Salford Met AC",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/salford-met-ac.html",
+      "area": "Eccles",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://salfordmetac.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:30", "endTime": "20:30", "meetingPoint": "Cleavley Athletics Track, M30 8HY", "area": "Eccles", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "19:30", "endTime": "20:30", "meetingPoint": "Cleavley Athletics Track, M30 8HY", "area": "Eccles", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:30", "endTime": "20:30", "meetingPoint": "Cleavley Athletics Track, M30 8HY", "area": "Eccles", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "belle-vue-racers",
+      "name": "Belle Vue Racers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/belle-vue-racers.html",
+      "area": "Ancoats",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.bellevueracers.com/about" },
+      "sessions": [
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Manchester Regional Arena, M11 3FF", "area": "Ancoats", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "salford-harriers",
+      "name": "Salford Harriers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/salford-harriers.html",
+      "area": "Ancoats",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.salfordharriers.co.uk/training" },
+      "sessions": [
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "Manchester Regional Arena, M11 3FF", "area": "Ancoats", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "The Bluebell Can, M40 9PY", "area": "Charlestown", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 6, "day": "Saturday", "startTime": "9:30", "endTime": "11:00", "meetingPoint": "Heaton Park Golf Course Carpark, M25 2SW", "area": "Higher Blackley", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "chorlton-runners",
+      "name": "Chorlton Runners",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/chorlton-runners.html",
+      "area": "Chorlton",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.chorltonrunners.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "19:00", "endTime": "21:00", "meetingPoint": "Bowling Green Pub, M21 9ES", "area": "Chorlton", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 5, "day": "Friday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "Longford Park Stadium, M21 9TA", "area": "Stretford", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 7, "day": "Sunday", "startTime": "9:00", "endTime": "11:00", "meetingPoint": "Bowling Green Pub, M21 9ES", "area": "Chorlton", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "winston-runners",
+      "name": "Winston Runners",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/winston-runners.html",
+      "area": "Wythenshawe",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.winstonrunners.com/training.php" },
+      "sessions": [
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Wythenshawe Park Athletics Track, M23 0AB", "area": "Wythenshawe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "The Winston Club, Hall Lane, M23 1AQ", "area": "Wythenshawe", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "sale-dragons",
+      "name": "Sale Dragons",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/sale-dragons.html",
+      "area": "Altrincham",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://saledragons.org.uk/regular-runs-2/dragons-track-session/" },
+      "sessions": [
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "18:15", "endTime": "19:00", "meetingPoint": "227-229 Grove Ln, Timperley, Altrincham, WA15 7UF", "area": "Altrincham", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "Trafford MV RFCC, M33 6LR", "area": "Sale", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:30", "endTime": "20:00", "meetingPoint": "Trafford MV RFCC, M33 6LR", "area": "Sale", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "swinton-running-club",
+      "name": "Swinton Running Club",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/swinton-running-club.html",
+      "area": "Eccles",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://swintonrc.weebly.com/our-training-sessions.html" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:30", "endTime": "20:30", "meetingPoint": "Cleavley Athletic Track, Blantyre Street, Winton, Eccles, Manchester, M30 8HY", "area": "Eccles", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:30", "endTime": "20:30", "meetingPoint": "Swinton Football Club, Barton Road, Swinton, Manchester, M27 5LJ", "area": "Swinton", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "19:30", "endTime": "20:30", "meetingPoint": "Swinton Football Club, Barton Road, Swinton, Manchester, M27 5LJ", "area": "Swinton", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "prestwich-ac",
+      "name": "Prestwich AC",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/prestwich-ac.html",
+      "area": "Prestwich",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.prestwichac.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Prestwich Tram Stop Bridge, Manchester, M25 1JY", "area": "Prestwich", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:30", "endTime": "19:30", "meetingPoint": "Prestwich Tram Stop Bridge, Manchester, M25 1JY", "area": "Prestwich", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Bury AC Track, BL9 9FX", "area": "Bury", "dataStatus": "user-submitted", "everyOtherWeek": true }
+      ]
+    },
+    {
+      "id": "stockport-harriers",
+      "name": "Stockport Harriers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/stockport-harriers.html",
+      "area": "Stockport",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "http://stockportharriers.co.uk/about-us" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "18:50", "endTime": "20:00", "meetingPoint": "Woodbank Stadium, SK1 4JR", "area": "Stockport", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Woodbank Stadium, SK1 4JR", "area": "Stockport", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "18:00", "endTime": "19:00", "meetingPoint": "Woodbank Stadium, SK1 4JR", "area": "Stockport", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Woodbank Community Centre, SK1 4BN", "area": "Stockport", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "altrincham-ac",
+      "name": "Altrincham AC",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/altrincham-ac.html",
+      "area": "Altrincham",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://altrincham-athletics.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 2, "day": "Tuesday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Timperley Track, 227-229 Grove Ln, Timperley, Altrincham, WA15 7UF", "area": "Altrincham", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Timperley Track, 227-229 Grove Ln, Timperley, Altrincham, WA15 7UF", "area": "Altrincham", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "oldham-and-royton-harriers",
+      "name": "Oldham & Royton Harriers",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/oldham-and-royton-harriers.html",
+      "area": "Oldham",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": { "email": "oarhac@gmail.com" },
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.oldhamroytonharriers.co.uk/" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "18:45", "endTime": "20:30", "meetingPoint": "Radclyffe Sports Centre, OL9 0LS", "area": "Oldham", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 4, "day": "Thursday", "startTime": "18:45", "endTime": "20:30", "meetingPoint": "Radclyffe Sports Centre, OL9 0LS", "area": "Oldham", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "radcliffe-ac",
+      "name": "Radcliffe AC",
+      "sport": "athletics",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/athletics/radcliffe-ac.html",
+      "area": "Radcliffe",
+      "location": null,
+      "coordinates": null,
+      "price": { "type": "unknown", "amount": null, "currency": "GBP" },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "phone": null,
+      "onlineProfile": { "platform": "website", "url": "https://www.radcliffeac.org.uk" },
+      "sessions": [
+        { "dayOfWeek": 1, "day": "Monday", "startTime": "19:00", "endTime": "20:30", "meetingPoint": "Bury Livingwaters Church, M26 2GB", "area": "Radcliffe", "dataStatus": "user-submitted" },
+        { "dayOfWeek": 3, "day": "Wednesday", "startTime": "19:00", "endTime": "20:00", "meetingPoint": "Bury AC Track, BL9 9FX", "area": "Bury", "dataStatus": "user-submitted" }
+      ]
+    },
+    {
+      "id": "assheton-bowmen",
+      "name": "Assheton Bowmen",
+      "sport": "archery",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/archery/assheton-bowmen.html",
+      "area": "Charlestown",
+      "location": null,
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": {
+        "email": "beginners@asshetonbowmen.com"
+      },
+      "phone": null,
+      "onlineProfile": {
+        "platform": "website",
+        "url": "http://www.asshetonbowmen.com/"
+      },
+      "sessions": [
+        {
+          "dayOfWeek": 2,
+          "day": "Tuesday",
+          "startTime": "18:00",
+          "endTime": "21:00",
+          "meetingPoint": "Tudor Lodge, Victoria Ave E, M40 5SH",
+          "area": "Charlestown",
+          "dataStatus": "user-submitted"
+        },
+        {
+          "dayOfWeek": 6,
+          "day": "Saturday",
+          "startTime": "08:30",
+          "endTime": "12:30",
+          "meetingPoint": "Tudor Lodge, Victoria Ave E, M40 5SH",
+          "area": "Charlestown",
+          "dataStatus": "user-submitted"
+        }
+      ]
+    },
+    {
+      "id": "moorside-archery-club",
+      "name": "Moorside Archery Club",
+      "sport": "archery",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/archery/moorside-archery-club.html",
+      "area": "Swinton",
+      "location": "Holyrood Memorial Hall, Moorside Road, M27 0HJ",
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": {
+        "email": "moorsidearcheryclub@outlook.com"
+      },
+      "phone": null,
+      "onlineProfile": {
+        "platform": "website",
+        "url": "https://moorsidearcheryclub.co.uk/"
+      },
+      "sessions": []
+    },
+    {
+      "id": "eccles-archery-club",
+      "name": "Eccles Archery Club",
+      "sport": "archery",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/archery/eccles-archery-club.html",
+      "area": "Eccles",
+      "location": "216 Peel Green Road, M30 7DR",
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": {
+        "email": "beginners@ecclesarcheryclub.uk"
+      },
+      "phone": null,
+      "onlineProfile": {
+        "platform": "website",
+        "url": "https://www.ecclesarcheryclub.uk/"
+      },
+      "sessions": []
+    },
+    {
+      "id": "mcr-titans-mens",
+      "name": "MCR Titans (mens)",
+      "sport": "american football",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/american-football/mcr-titans-mens.html",
+      "area": "Longsight",
+      "location": null,
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "pricingNotes": "Need pricing details",
+      "tasterSessionCount": 3,
+      "bookingRequired": false,
+      "contact": {
+        "email": "info@manchestertitans.co.uk"
+      },
+      "phone": null,
+      "onlineProfile": {
+        "platform": "website",
+        "url": "https://www.manchestertitans.co.uk/our-teams/adult-contact/"
+      },
+      "sessions": [
+        {
+          "dayOfWeek": 3,
+          "day": "Wednesday",
+          "startTime": "20:00",
+          "endTime": "22:00",
+          "meetingPoint": "Belle Vue Speedway Stadium, Kirkmanshulme Lane, M12 4WB",
+          "area": "Longsight",
+          "dataStatus": "user-submitted"
+        },
+        {
+          "dayOfWeek": 7,
+          "day": "Sunday",
+          "startTime": "10:00",
+          "endTime": "12:00",
+          "meetingPoint": "Belle Vue Speedway Stadium, Kirkmanshulme Lane, M12 4WB",
+          "area": "Longsight",
+          "dataStatus": "user-submitted"
+        }
+      ]
+    },
+    {
+      "id": "mcr-titans-womens",
+      "name": "MCR Titans (womens)",
+      "sport": "american football",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": null,
+      "tags": [],
+      "imagePath": null,
+      "profilePath": "html/american-football/mcr-titans-womens.html",
+      "area": "Droylsden",
+      "location": null,
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "pricingNotes": "Need pricing details",
+      "tasterSessionCount": 3,
+      "bookingRequired": false,
+      "contact": {
+        "email": "info@manchestertitans.co.uk"
+      },
+      "phone": null,
+      "onlineProfile": {
+        "platform": "website",
+        "url": "https://www.manchestertitans.co.uk/our-teams/womens-contact/"
+      },
+      "sessions": [
+        {
+          "dayOfWeek": 6,
+          "day": "Saturday",
+          "startTime": "14:00",
+          "endTime": "16:00",
+          "meetingPoint": "Aldwinians RUFC, Droylsden Road, M34 5SN",
+          "area": "Droylsden",
+          "dataStatus": "user-submitted"
+        },
+        {
+          "dayOfWeek": 2,
+          "day": "Tuesday",
+          "startTime": "20:00",
+          "endTime": "22:00",
+          "meetingPoint": "Belle Vue Speedway Stadium, Kirkmanshulme Lane, M12 4WB",
+          "area": "Longsight",
+          "dataStatus": "user-submitted"
+        }
       ]
     }
   ]

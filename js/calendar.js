@@ -12,6 +12,16 @@ const DAYS = [
 const sportFilter = document.querySelector('#filter-sport');
 const priceFilter = document.querySelector('#filter-price');
 const areaFilter = document.querySelector('#filter-area');
+/* Price types: keep filter labels and cost displays aligned with club JSON values. */
+const PRICE_TYPE_LABELS = {
+  free: 'Free',
+  monthly_fee: 'Monthly fee',
+  annual_fee: 'Annual fee',
+  per_session: 'Per-session fee',
+  paid: 'Paid',
+  unknown: 'Price not confirmed'
+};
+const PRICE_TYPE_ORDER = ['free', 'monthly_fee', 'annual_fee', 'per_session', 'paid', 'unknown'];
 const resultCount = document.querySelector('#result-count');
 const calendarMessage = document.querySelector('#calendar-message');
 const sampleNote = document.querySelector('#sample-note');
@@ -57,6 +67,19 @@ function formatTime(session) {
   return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
 }
 
+/* Sport labels: use the preferred public label without changing JSON filter values. */
+function displaySportName(name) {
+  const title = String(name || 'Sport').replace(/\b\w/g, letter => letter.toUpperCase());
+  return title.toLocaleLowerCase() === 'running' ? 'Run Club' : title;
+}
+
+/* Frequency note: show a compact, keyboard-toggleable note for alternating-week sessions. */
+function frequencyToggle(session) {
+  return session.everyOtherWeek
+    ? '<details class="session-frequency"><summary aria-label="Show session frequency">i</summary><span>Every other week</span></details>'
+    : '';
+}
+
 function priceType(club) {
   return club.price?.type || 'unknown';
 }
@@ -65,11 +88,18 @@ function priceLabel(club) {
   const price = club.price;
   if (!price || price.type === 'unknown') return 'Price not confirmed';
   if (price.type === 'free') return 'Free';
+  const feePeriods = {
+    monthly_fee: 'per month',
+    annual_fee: 'per year',
+    per_session: 'per session'
+  };
   if (Number.isFinite(price.amount)) {
     const amount = new Intl.NumberFormat('en-GB', { style: 'currency', currency: price.currency || 'GBP' }).format(price.amount);
-    return price.period ? `${amount} ${price.period}` : amount;
+    const period = feePeriods[price.type] || price.period;
+    return period ? `${amount} ${period}` : amount;
   }
-  return 'Paid · amount not listed';
+  const feeLabels = { monthly_fee: 'Monthly fee', annual_fee: 'Annual fee', per_session: 'Per-session fee' };
+  return feeLabels[price.type] ? `${feeLabels[price.type]} · amount not listed` : 'Paid · amount not listed';
 }
 
 function sitePath(path) {
@@ -79,12 +109,17 @@ function sitePath(path) {
 /* Filter controls are populated from the dataset so future sports and areas need no UI rewrite. */
 function populateFilters() {
   const sports = [...new Set(clubs.map(club => club.sport).filter(Boolean))].sort();
-  const priceTypes = [...new Set(clubs.map(priceType))].sort((a, b) => a === 'unknown' ? 1 : b === 'unknown' ? -1 : a.localeCompare(b));
+  const priceTypes = [...new Set(clubs.map(priceType))].sort((a, b) => {
+    const indexA = PRICE_TYPE_ORDER.indexOf(a);
+    const indexB = PRICE_TYPE_ORDER.indexOf(b);
+    return (indexA < 0 ? PRICE_TYPE_ORDER.length : indexA) - (indexB < 0 ? PRICE_TYPE_ORDER.length : indexB)
+      || a.localeCompare(b);
+  });
   const areas = [...new Set(clubs.flatMap(club => [club.area, ...(club.sessions || []).map(session => session.area)]).filter(Boolean))].sort();
 
-  sports.forEach(sport => sportFilter.add(new Option(sport.replace(/\b\w/g, letter => letter.toUpperCase()), sport)));
+  sports.forEach(sport => sportFilter.add(new Option(displaySportName(sport), sport)));
   priceTypes.forEach(type => {
-    const label = type === 'unknown' ? 'Price not confirmed' : type === 'free' ? 'Free' : 'Paid';
+    const label = PRICE_TYPE_LABELS[type] || 'Other price';
     priceFilter.add(new Option(label, type));
   });
   areas.forEach(area => areaFilter.add(new Option(area, area)));
@@ -146,12 +181,14 @@ function renderWeekView(visibleClubs) {
   </div>`;
 
   const rows = visibleClubs.map(club => {
+    /* Full-week sublabel: display the stored sport key in title case. */
+    const sportLabel = displaySportName(club.sport);
     const cells = DAYS.map(day => {
       const sessions = visibleSessions(club, day.number);
       const content = sessions.length
-        ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(session.meetingPoint || session.area || 'Manchester')}">
-            <time>${escapeHtml(formatTime(session))}</time>
-            <span>${escapeHtml(session.area || club.area || 'Manchester')}</span>
+        ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(session.meetingPoint || session.area || 'Manchester')}${session.everyOtherWeek ? ', every other week' : ''}">
+            <div class="week-session__top"><time>${escapeHtml(formatTime(session))}</time>${frequencyToggle(session)}</div>
+            <span class="week-session__area">${escapeHtml(session.area || club.area || 'Manchester')}</span>
           </div>`).join('')
         : '<span class="week-empty" aria-hidden="true">—</span>';
       return `<div class="week-cell" role="cell"><span class="week-day-label">${day.short}</span>${content}</div>`;
@@ -160,7 +197,7 @@ function renderWeekView(visibleClubs) {
     return `<div class="week-row" role="row">
       <div class="week-club" role="rowheader">
         <a href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}</a>
-        <span>${escapeHtml(`${club.sport || 'Sport'} · ${club.area || 'Manchester'}`)}</span>
+        <span>${escapeHtml(`${sportLabel} · ${club.area || 'Manchester'}`)}</span>
       </div>${cells}
     </div>`;
   }).join('');
@@ -179,11 +216,12 @@ function renderDayView(visibleClubs) {
   }
 
   dayAgenda.innerHTML = events.map(({ club, session }) => {
-    const status = session.dataStatus === 'verified' ? '' : '<span class="agenda-placeholder">Example details · please confirm</span>';
+    /* Day-card eyebrow: identify the sport instead of showing provisional-data status. */
+    const sportLabel = displaySportName(club.sport);
     return `<article class="agenda-event">
-      <time class="agenda-time">${escapeHtml(formatTime(session))}${status}</time>
+      <time class="agenda-time">${escapeHtml(formatTime(session))}<span class="agenda-sport">${escapeHtml(sportLabel)}</span></time>
       <a class="agenda-club" href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}</a>
-      <div class="agenda-details"><span>${escapeHtml(session.meetingPoint || session.area || 'Manchester area')}</span><span>${escapeHtml(session.area || club.area || 'Manchester')}</span></div>
+      <div class="agenda-details"><span>${escapeHtml(session.meetingPoint || session.area || 'Manchester area')}</span>${frequencyToggle(session)}</div>
       <span class="agenda-price">${escapeHtml(priceLabel(club))}</span>
     </article>`;
   }).join('');
@@ -193,7 +231,7 @@ function renderDayView(visibleClubs) {
 function renderCalendar() {
   const visibleClubs = getVisibleClubs();
   const sessionCount = visibleClubs.reduce((total, club) => total + visibleSessions(club).length, 0);
-  resultCount.textContent = `${visibleClubs.length} ${visibleClubs.length === 1 ? 'club' : 'clubs'} · ${sessionCount} weekly ${sessionCount === 1 ? 'session' : 'sessions'}`;
+  resultCount.textContent = `${visibleClubs.length} ${visibleClubs.length === 1 ? 'club' : 'clubs'} · ${sessionCount} ${sessionCount === 1 ? 'session' : 'sessions'}`;
   renderWeekView(visibleClubs);
   if (activeView === 'day') renderDayView(visibleClubs);
 }

@@ -1,9 +1,10 @@
-/* Sports directory: combine the planned catalog with sport types already present in club data. */
+/* Sports directory: render the official sport catalog, an accessible-sports group, and club counts. */
 const sportsSearch = document.querySelector('#sports-search');
 const sportsCount = document.querySelector('#sports-count');
 const sportsGroups = document.querySelector('#sports-groups');
 const sportsMessage = document.querySelector('#sports-message');
 let sportRecords = [];
+let accessibleSportSlugs = new Set();
 
 function escapeDirectoryText(value = '') {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -20,9 +21,17 @@ function directorySlug(value) {
     .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
+/* Display names: relabel running as Run Club without changing its directory slug. */
+function displaySportName(name) {
+  return directorySlug(name) === 'running' ? 'Run Club' : name;
+}
+
 function renderSports() {
   const query = sportsSearch.value.trim().toLocaleLowerCase();
-  const filtered = sportRecords.filter(sport => sport.name.toLocaleLowerCase().includes(query));
+  const filtered = sportRecords.filter(sport =>
+    displaySportName(sport.name).toLocaleLowerCase().includes(query)
+      || sport.name.toLocaleLowerCase().includes(query)
+  );
   const clubTotal = filtered.reduce((sum, sport) => sum + sport.clubCount, 0);
   sportsCount.textContent = `${filtered.length} SPORTS · ${clubTotal} CLUBS ON RECORD`;
 
@@ -34,23 +43,35 @@ function renderSports() {
   }
 
   sportsMessage.hidden = true;
+  const accessibleEntries = filtered.filter(sport => accessibleSportSlugs.has(sport.slug));
+  const otherEntries = filtered.filter(sport => !accessibleSportSlugs.has(sport.slug));
   const groups = new Map();
-  filtered.forEach(sport => {
-    const letter = sport.name.charAt(0).toLocaleUpperCase();
+  otherEntries.forEach(sport => {
+    const letter = displaySportName(sport.name).charAt(0).toLocaleUpperCase();
     if (!groups.has(letter)) groups.set(letter, []);
     groups.get(letter).push(sport);
   });
 
-  sportsGroups.innerHTML = [...groups.entries()].map(([letter, entries]) => `<section class="sports-letter-group" aria-labelledby="sports-letter-${letter}">
-    <h2 id="sports-letter-${letter}" class="sports-letter-group__letter">${escapeDirectoryText(letter)}</h2>
-    <div class="sports-directory-grid">${entries.map(sport => `<a class="sports-directory-card" href="glossary.html?sport=${encodeURIComponent(sport.slug)}">
-      <span class="sports-directory-card__name">${escapeDirectoryText(sport.name)}</span>
+  const renderCards = entries => `<div class="sports-directory-grid">${entries.map(sport => `<a class="sports-directory-card" href="glossary.html?sport=${encodeURIComponent(sport.slug)}">
+      <span class="sports-directory-card__name">${escapeDirectoryText(displaySportName(sport.name))}</span>
       <span class="sports-directory-card__meta">${sport.clubCount ? `${sport.clubCount} ${sport.clubCount === 1 ? 'CLUB' : 'CLUBS'}` : 'GLOSSARY'} <span aria-hidden="true">↗</span></span>
-    </a>`).join('')}</div>
-  </section>`).join('');
+    </a>`).join('')}</div>`;
+  const accessibleSection = accessibleEntries.length ? `<section class="sports-accessible-group" aria-labelledby="sports-accessible-title">
+    <h2 id="sports-accessible-title" class="sports-accessible-group__title">ACCESSIBLE SPORTS</h2>
+    ${renderCards(accessibleEntries)}
+  </section>` : '';
+  const otherSection = otherEntries.length ? `<section class="sports-other-group" aria-labelledby="sports-other-title">
+    <h2 id="sports-other-title" class="sports-accessible-group__title">OTHER SPORTS</h2>
+    ${[...groups.entries()].map(([letter, entries]) => `<section class="sports-letter-group" aria-labelledby="sports-letter-${letter}">
+      <h3 id="sports-letter-${letter}" class="sports-letter-group__letter">${escapeDirectoryText(letter)}</h3>
+      ${renderCards(entries)}
+    </section>`).join('')}
+  </section>` : '';
+
+  sportsGroups.innerHTML = accessibleSection + otherSection;
 }
 
-/* Load catalog and current records; clubs stay linked even before their sport is catalogued. */
+/* Load the official catalog and count current club records that match its sport names. */
 async function loadSportsDirectory() {
   try {
     const [sportsResponse, clubsResponse] = await Promise.all([
@@ -60,9 +81,7 @@ async function loadSportsDirectory() {
     if (!sportsResponse.ok || !clubsResponse.ok) throw new Error('The sports directory could not be loaded. Please try again later.');
     const [sportsData, clubsData] = await Promise.all([sportsResponse.json(), clubsResponse.json()]);
     const names = new Map((Array.isArray(sportsData.sports) ? sportsData.sports : []).map(name => [directorySlug(name), name]));
-    (Array.isArray(clubsData.clubs) ? clubsData.clubs : []).forEach(club => {
-      if (club.sport) names.set(directorySlug(club.sport), club.sport);
-    });
+    accessibleSportSlugs = new Set((Array.isArray(sportsData.accessibleSports) ? sportsData.accessibleSports : []).map(directorySlug));
     const clubsBySport = new Map();
     (Array.isArray(clubsData.clubs) ? clubsData.clubs : []).forEach(club => {
       const slug = directorySlug(club.sport || '');

@@ -21,10 +21,10 @@ body{
 
 header{
     background-color: var(--black);
-    height: 2rem;
+    /* height: 2rem; */
     border: 2rem;
      margin: 0px;
-     margin-top: 101px
+     /* margin-top: 101px */
   }
 
 
@@ -111,7 +111,7 @@ nav {
 nav div{
     background-color: var(--black);
     /* height: 2rem; */
-    border-bottom: 0.1rem outset rgba(223, 252, 58, 0.619);
+    /* border-bottom: 0.1rem outset rgba(223, 252, 58, 0.619); */
     font-weight: 100;
     font-style: normal;
     font-family: Arial, Helvetica, sans-serif;
@@ -185,7 +185,7 @@ nav div h3{
   transform-origin: bottom left;
 }
 
-/* Sports dropdown: first level lists sports; the Running flyout lists its club pages. */
+/* Sports dropdown: first level lists sports; the Run Club flyout lists its club pages. */
 .sports-nav-item { position: relative; }
 
 .sports-nav-trigger,

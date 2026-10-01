@@ -1,15 +1,10 @@
-/* Club gallery entries pair a local photo with its club record in the shared directory. */
-const clubs = [
-  { id: 'not-a-running-club', name: 'Not A Running Club', image: 'NotARunningClub.jpeg', alt: 'Members of Not A Running Club smiling together', page: 'NotARunningClub.html' },
-  { id: 'tiny-moves', name: 'Tiny Moves', image: 'TinyMoves.jpeg', alt: 'Runners from the Tiny Moves club', page: 'TinyMoves.html' },
-  { id: 'snappy-runners', name: 'Snappy Runners', image: 'SnappyRunner.png', alt: 'A group of Snappy Runners out together', page: 'SnappyRunners.html' },
-  { id: 'just-a-run-club', name: 'Just A Run Club', image: 'JustARunClub.webp', alt: 'Members of Just A Run Club running together', page: 'JustARunClub.html' },
-  { id: 'redacted-run-club', name: 'Redacted Run Club', image: 'RedactedRunClub.jpeg', alt: 'Members of Redacted Run Club', page: 'RedactedRunClub.html' },
-  { id: 'manchester-frontrunners', name: 'Manchester Frontrunners', image: 'ManchesterFrontrunners.jpg', alt: 'Manchester Frontrunners club members', page: 'ManchesterFrontrunners.html' },
-  { id: 'mile-shy-club', name: 'Mile Shy Club', image: 'MileShyClub.webp', alt: 'Mile Shy Club runners', page: 'MileShyClub.html' },
-  { id: 'didsbury-runners', name: 'Didsbury Runners', image: 'DidsburyRunners.jpg', alt: 'Didsbury Runners club members', page: 'DidsburyRunners.html' },
-  { id: 'ancoats-run-club', name: 'Ancoats Run Club', image: 'AncoatRunClub.avif', alt: 'Ancoats Run Club runners', page: 'AncoatRunClub.html' }
-];
+/* Gallery cap: draw at most twenty image-backed clubs from the shared directory. */
+const GALLERY_IMAGE_LIMIT = 20;
+
+/* Gallery labels: use Run Club for display without renaming stored sport values. */
+function displaySportName(name) {
+  return String(name || '').toLocaleLowerCase() === 'running' ? 'Run Club' : name;
+}
 
 /* Build one rolling row; the second copy makes the movement loop without an empty gap. */
 function makeRollingRow(clubList, rowNumber) {
@@ -29,18 +24,19 @@ function makeRollingRow(clubList, rowNumber) {
     const card = document.createElement('section');
     card.className = 'gallery-card';
     const link = document.createElement('a');
-  link.href = `html/running/${club.page}`;
+    link.href = club.profilePath;
     const image = document.createElement('img');
-    image.src = `img/running/${club.image}`;
-    image.alt = isDuplicate ? '' : club.alt;
+    image.src = club.imagePath;
+    image.alt = isDuplicate ? '' : `${club.name} club photo`;
     image.loading = 'lazy';
+    image.decoding = 'async';
     const caption = document.createElement('div');
     caption.className = 'gallery-caption';
     const heading = document.createElement('h2');
     heading.textContent = club.name;
     const subtitle = document.createElement('p');
     subtitle.className = 'gallery-caption__details';
-    subtitle.textContent = [club.sport, club.area].filter(Boolean).join(' · ');
+    subtitle.textContent = [displaySportName(club.sport), club.area].filter(Boolean).join(' · ');
     caption.append(heading, subtitle);
     link.append(image, caption);
     card.append(link);
@@ -58,39 +54,41 @@ function makeRollingRow(clubList, rowNumber) {
   return row;
 }
 
-/* Gallery setup: shuffle all clubs on each page load, then roll them through two rows. */
+/* Gallery setup: randomly sample clubs with photos, then roll the sample through two rows. */
 async function renderRandomClubs() {
   const gallery = document.querySelector('#club-gallery');
   if (!gallery) return;
 
-  // Sport and area come from the shared directory, avoiding duplicate club details here.
   try {
     const response = await fetch('data/clubs.json');
-    if (response.ok) {
-      const directory = await response.json();
-      const recordsById = new Map(directory.clubs.map(record => [record.id, record]));
-      clubs.forEach(club => {
-        const record = recordsById.get(club.id);
-        if (record) {
-          club.sport = record.sport;
-          club.area = record.area;
-        }
-      });
+    if (!response.ok) throw new Error('Club gallery data could not be loaded.');
+    const directory = await response.json();
+    const clubsWithPhotos = Array.isArray(directory.clubs)
+      ? directory.clubs.filter(club => typeof club.imagePath === 'string'
+        && club.imagePath.startsWith('img/')
+        && typeof club.profilePath === 'string'
+        && club.profilePath.startsWith('html/'))
+      : [];
+
+    const shuffled = [...clubsWithPhotos];
+    for (let index = shuffled.length - 1; index > 0; index--) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
     }
-  } catch (error) {
-    // The gallery still works if club metadata cannot be loaded.
-  }
 
-  const shuffled = [...clubs];
-  for (let index = shuffled.length - 1; index > 0; index--) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+    const selectedClubs = shuffled.slice(0, GALLERY_IMAGE_LIMIT);
+    if (!selectedClubs.length) {
+      gallery.replaceChildren();
+      return;
+    }
+    const splitPoint = Math.ceil(selectedClubs.length / 2);
+    const firstRow = selectedClubs.slice(0, splitPoint);
+    const secondRow = selectedClubs.slice(splitPoint);
+    if (!secondRow.length) secondRow.push(...firstRow);
+    gallery.replaceChildren(makeRollingRow(firstRow, 1), makeRollingRow(secondRow, 2));
+  } catch {
+    gallery.replaceChildren();
   }
-
-  const splitPoint = Math.ceil(shuffled.length / 2);
-  const firstRow = shuffled.slice(0, splitPoint);
-  const secondRow = shuffled.slice(splitPoint);
-  gallery.replaceChildren(makeRollingRow(firstRow, 1), makeRollingRow(secondRow, 2));
 }
 
 renderRandomClubs();

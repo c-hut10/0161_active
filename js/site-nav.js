@@ -17,6 +17,11 @@ function sportSlug(name) {
     .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
+/* Sport labels: show the preferred public name while keeping canonical slugs unchanged. */
+function displaySportName(name) {
+  return sportSlug(name) === 'running' ? 'Run Club' : name;
+}
+
 function sportGlossaryUrl(sport) {
   return `${siteUrl('html/sports/glossary.html')}?sport=${encodeURIComponent(sportSlug(sport))}`;
 }
@@ -25,22 +30,29 @@ function currentPage() {
   const pathname = decodeURI(window.location.pathname).toLowerCase();
   if (pathname.endsWith('/calendar.html')) return 'calendar';
   if (pathname.endsWith('/register.html')) return 'register';
-  if (pathname.endsWith('/sports/index.html') || pathname.endsWith('/sports/glossary.html') || pathname.endsWith('/sports/running.html')) return 'sports';
+  if (pathname.endsWith('/sports/directory.html') || pathname.endsWith('/sports/glossary.html') || pathname.endsWith('/sports/running.html')) return 'sports';
   return '';
 }
 
-function buildSiteNav(sports) {
+function buildSiteNav(sports, accessibleSports = []) {
   if (!siteNavMount) return;
   const active = currentPage();
-  const sportItems = sports.map(sport => `<a href="${escapeNavText(sportGlossaryUrl(sport))}">${escapeNavText(sport)}</a>`).join('');
+  const makeSportItems = list => list.map(sport => `<a href="${escapeNavText(sportGlossaryUrl(sport))}">${escapeNavText(displaySportName(sport))}</a>`).join('');
+  const accessibleSportSlugs = new Set(accessibleSports.map(sportSlug));
+  const otherSports = sports.filter(sport => !accessibleSportSlugs.has(sportSlug(sport)));
+  const sportItems = makeSportItems(otherSports);
+  const accessibleSportItems = makeSportItems(accessibleSports);
   siteNavMount.innerHTML = `<header class="site-navbar">
     <div class="site-navbar__bar">
       <a class="site-navbar__brand" href="${siteUrl('index.html')}" aria-label="0161 Active home"><img src="${siteUrl('img/0161 Active_Logo_Transparent.png')}" alt="0161 Active"></a>
       <nav class="site-navbar__desktop" aria-label="Main navigation">
         <div class="site-navbar__sports">
-          <a class="site-navbar__link" href="${siteUrl('html/sports/index.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS</a>
+          <a class="site-navbar__link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
-            <a class="site-navbar__sports-all" href="${siteUrl('html/sports/index.html')}">BROWSE ALL SPORTS →</a>
+            <a class="site-navbar__sports-all" href="${siteUrl('html/sports/directory.html')}">BROWSE ALL SPORTS →</a>
+            <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
+            <div class="site-navbar__sports-grid">${accessibleSportItems}</div>
+            <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
             <div class="site-navbar__sports-grid">${sportItems}</div>
           </div>
         </div>
@@ -55,10 +67,12 @@ function buildSiteNav(sports) {
         <p class="site-navbar__drawer-title">0161 ACTIVE · MENU</p>
         <button class="site-navbar__close" type="button">CLOSE ×</button>
       </div>
-      <a class="site-navbar__drawer-link" href="${siteUrl('html/sports/index.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/calendar.html')}"${active === 'calendar' ? ' aria-current="page"' : ''}>CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/register.html')}"${active === 'register' ? ' aria-current="page"' : ''}>REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
-      <p class="site-navbar__browse">BROWSE A SPORT</p>
+      <p class="site-navbar__browse">ACCESSIBLE SPORTS</p>
+      <div class="site-navbar__drawer-sports">${accessibleSportItems}</div>
+      <p class="site-navbar__browse">OTHER SPORTS</p>
       <div class="site-navbar__drawer-sports">${sportItems}</div>
     </nav>
   </header>`;
@@ -126,16 +140,19 @@ function buildSiteNav(sports) {
 /* Catalog loading: the desktop flyout and mobile drawer share the complete sport list. */
 async function loadSportsForNavigation() {
   let sports = ['Running'];
+  let accessibleSports = [];
   try {
     const response = await fetch(siteUrl('data/sports.json'));
     if (!response.ok) throw new Error('Sport directory unavailable');
     const data = await response.json();
     if (Array.isArray(data.sports) && data.sports.length) sports = data.sports;
+    if (Array.isArray(data.accessibleSports)) accessibleSports = data.accessibleSports;
   } catch (error) {
     // Keep the navigation usable if the optional full sport list cannot be loaded.
   }
   sports.sort((a, b) => a.localeCompare(b));
-  buildSiteNav(sports);
+  accessibleSports.sort((a, b) => a.localeCompare(b));
+  buildSiteNav(sports, accessibleSports);
 }
 
 loadSportsForNavigation();

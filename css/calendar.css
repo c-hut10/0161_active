@@ -136,8 +136,14 @@
 .week-cell { display: flex; flex-direction: column; justify-content: center; gap: 5px; min-width: 0; padding: 8px 6px; border-left: 1px solid var(--cal-line); }
 .week-day-label { display: none; }
 .week-session { display: block; min-width: 0; padding: 7px 6px; border-left: 2px solid var(--cal-lime); background: var(--cal-panel); }
+.week-session__top { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
 .week-session time { display: block; color: var(--cal-lime); font-size: 10px; font-weight: 700; white-space: nowrap; }
-.week-session span { display: block; overflow: hidden; margin-top: 4px; color: var(--cal-grey); font-size: 9px; text-overflow: ellipsis; }
+.week-session__area { display: block; overflow: hidden; margin-top: 4px; color: var(--cal-grey); font-size: 9px; text-overflow: ellipsis; }
+.session-frequency { position: relative; display: inline-flex; flex: 0 0 auto; margin: 0; }
+.session-frequency summary { display: grid; width: 15px; height: 15px; place-items: center; border: 1px solid var(--cal-grey); border-radius: 50%; color: var(--cal-paper); cursor: pointer; font-size: 9px; font-weight: 700; line-height: 1; list-style: none; }
+.session-frequency summary::-webkit-details-marker { display: none; }
+.session-frequency > span { position: absolute; z-index: 5; top: calc(100% + 6px); right: 0; width: max-content; max-width: 160px; padding: 8px 10px; border: 1px solid var(--cal-line); background: var(--cal-black); color: var(--cal-paper); font-size: 10px; line-height: 1.4; }
+.week-session .session-frequency > span { display: block; overflow: visible; margin: 0; color: var(--cal-paper); text-overflow: clip; }
 .week-empty { color: #6d726b; font-size: 10px; }
 
 /* Day agenda: list sessions chronologically and expose club, price and meeting point together. */
@@ -151,8 +157,9 @@
 .agenda-club:hover { color: var(--cal-lime); }
 .agenda-details { color: var(--cal-grey); font-size: 12px; line-height: 1.55; }
 .agenda-details span { display: block; }
+.agenda-details .session-frequency { margin-top: 6px; }
 .agenda-price { justify-self: end; color: var(--cal-paper); font-size: 11px; text-align: right; }
-.agenda-placeholder { display: block; margin-top: 4px; color: var(--cal-grey); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
+.agenda-sport { display: block; margin-top: 4px; color: var(--cal-grey); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
 .agenda-empty { padding: 30px 0; color: var(--cal-grey); font-size: 14px; }
 .calendar-footer { padding: 22px; color: var(--cal-grey); background: var(--cal-black); text-align: center; font-size: 12px; }
 .calendar-footer a { color: var(--cal-lime); }
