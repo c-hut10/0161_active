@@ -118,6 +118,7 @@ function renderWeek(club, notice) {
       ? daySessions.map(session => `<article class="profile-session">
           <time>${escapeHtml(sessionTime(session))}</time>
           <span>${escapeHtml(session.meetingPoint || session.area || club.area || 'Location to confirm')}</span>
+          ${session.group ? `<span>${escapeHtml(session.group)}</span>` : ''}
         </article>`).join('')
       : '<span class="profile-empty">—</span>';
     return `<div class="profile-day">
@@ -160,6 +161,9 @@ function renderProfile(club, notice) {
       : '',
     detailRow('SPORT', club.sport ? displaySportName(club.sport) : 'To confirm'),
     detailRow('COST', priceText(club)),
+    club.pricingNotes ? detailRow('PRICING DETAILS', club.pricingNotes) : '',
+    club.tasterNotes ? detailRow('TASTER DETAILS', club.tasterNotes) : '',
+    club.bookingNotes ? detailRow('BOOKING DETAILS', club.bookingNotes) : '',
     isPaidClub && Number.isInteger(club.tasterSessionCount) && club.tasterSessionCount > 0
       ? detailRow('TASTER SESSION(S)', String(club.tasterSessionCount))
       : '',
@@ -191,7 +195,7 @@ function renderProfile(club, notice) {
       <h2 id="profile-about-title">About the club</h2>
       <p>${escapeHtml(club.description || 'Club description to be added.')}</p>
     </section>
-    ${renderWeek(club, notice)}`;
+    ${renderWeek(club, [club.trainingNotes, club.research?.fields?.['Issues / confirmation needed'], notice].filter(Boolean).join(' '))}`;
   document.title = `${club.name} | 0161 Active`;
 }
 

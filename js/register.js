@@ -3,9 +3,8 @@
   const error = document.querySelector('#form-error');
   const successScreen = document.querySelector('#application-success');
   const submitButton = form.querySelector('[type="submit"]');
-  // TEMPORARY ANIMATION REVIEW MODE: set false to restore real form submission.
-  const disableSubmissionForAnimationReview = true;
-  if (disableSubmissionForAnimationReview) form.noValidate = true;
+  /* Submission state: prevent duplicate requests while Netlify processes the application. */
+  let submitting = false;
   const sessionList = document.querySelector('#training-sessions');
   const addSessionButton = document.querySelector('#add-session');
   const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
@@ -124,13 +123,19 @@
   /* Submission: send all named form fields to Netlify and confirm only on success. */
   async function submitApplication(event) {
     event.preventDefault();
+    if (submitting) return;
     syncSessions();
     error.hidden = true;
-    if (disableSubmissionForAnimationReview) {
-      showSuccessScreen();
+    if (!form.reportValidity()) return;
+
+    /* Local previews cannot receive Netlify Forms submissions. Keep the answers available. */
+    if (window.location.protocol === 'file:' || ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)) {
+      error.textContent = 'Please submit this application from our live website. Local previews cannot send applications.';
+      error.hidden = false;
       return;
     }
-    if (!form.reportValidity()) return;
+
+    submitting = true;
 
     submitButton.disabled = true;
     submitButton.textContent = 'Sending your application…';
@@ -149,6 +154,8 @@
       error.hidden = false;
       submitButton.disabled = false;
       submitButton.innerHTML = 'Send club application <span aria-hidden="true">↗</span>';
+    } finally {
+      submitting = false;
     }
   }
 
@@ -173,4 +180,6 @@
   form.addEventListener('submit', submitApplication);
   numberSessions();
   updatePreview();
+  // Enable submission once the repeatable session fields can be collected correctly.
+  submitButton.disabled = false;
 })();

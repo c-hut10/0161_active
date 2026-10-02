@@ -73,10 +73,11 @@ function displaySportName(name) {
   return title.toLocaleLowerCase() === 'running' ? 'Run Club' : title;
 }
 
-/* Frequency note: show a compact, keyboard-toggleable note for alternating-week sessions. */
+/* Session notes: explain group restrictions and special schedules without guessing times. */
 function frequencyToggle(session) {
-  return session.everyOtherWeek
-    ? '<details class="session-frequency"><summary aria-label="Show session frequency">i</summary><span>Every other week</span></details>'
+  const note = [session.everyOtherWeek ? 'Every other week' : '', session.specialConsiderations].filter(Boolean).join(' · ');
+  return note
+    ? `<details class="session-frequency"><summary aria-label="Show session details">i</summary><span>${escapeHtml(note)}</span></details>`
     : '';
 }
 

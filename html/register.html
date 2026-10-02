@@ -85,7 +85,9 @@
         </section>
 
         <p class="privacy-note">Your club application will be reviewed by our team. If approved, your club details and public meeting point will be added to the website, along with your contact email (unless otherwise specified). A member of our team will be in touch if we have any additional questions.</p>
-        <button class="generate-button" type="submit">Send club application <span aria-hidden="true">↗</span></button>
+        <!-- JavaScript collects every session before sending the application to Netlify. -->
+        <noscript><p class="form-error">Please enable JavaScript to submit all of your training sessions, or contact contact.0161active@gmail.com for help.</p></noscript>
+        <button class="generate-button" type="submit" disabled>Send club application <span aria-hidden="true">↗</span></button>
         <p id="form-error" class="form-error" role="alert" hidden></p>
       </form>
 
