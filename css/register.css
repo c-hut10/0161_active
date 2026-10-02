@@ -20,12 +20,28 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 .field input,.field textarea { width:100%; border:1px solid #484b44; border-radius:2px; padding:14px 13px; outline:none; background:#20221f; color:white; font:400 14px Arial,sans-serif; transition:border-color .15s,background .15s; }.field textarea { resize:vertical; min-height:108px; line-height:1.5; }.field input:focus,.field textarea:focus { border-color:var(--reg-lime); background:#252722; }.field input::placeholder,.field textarea::placeholder { color:#777a71; }.field small { color:#92958a; font-size:11px; font-weight:400; }
 .privacy-note { max-width:500px; color:#a4a79c; font-size:12px; line-height:1.55; }.generate-button,.download-button { display:flex; width:100%; min-height:54px; justify-content:space-between; align-items:center; padding:0 18px; border:0; background:var(--reg-lime); color:#161714; text-decoration:none; font-weight:800; font-size:14px; cursor:pointer; }.generate-button:hover,.download-button:hover { background:#edff9d; }.form-error { margin-top:12px; color:#ff9c87; font-size:13px; }
 .privacy-note a { color:var(--reg-lime); }
+/* The submission notice follows the button width and wraps within narrow screens. */
+.club-form > .privacy-note { width:100%; max-width:none; overflow-wrap:anywhere; }
 .generate-button:disabled { opacity:.65; cursor:wait; }
 .view-map-link { display:inline-block; margin:8px 0 14px; color:var(--reg-lime); font-size:13px; font-weight:700; }
 .preview-column { position:sticky; top:92px; min-width:0; border-bottom:0; }
 .preview-panel { padding:16px; border:1px solid #42453e; background:#1d1f1c; }.preview-top { display:flex; justify-content:space-between; margin:0 0 14px; color:#aeb0a6; font-size:9px; font-weight:800; letter-spacing:.15em; }.live-dot { color:var(--reg-lime); }.preview-card { background:var(--reg-paper); color:var(--reg-ink); }.preview-art { min-height:150px; padding:20px; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(145deg,#dfff3a,#bad63b 55%,#d5dfb0); color:#20221c; }.preview-art span:first-child { font-size:38px; }.preview-art span:last-child { font-size:9px; font-weight:800; letter-spacing:.12em; }.preview-copy { padding:23px 21px 24px; }.preview-kicker { margin-bottom:9px; color:#6f762e; font-size:9px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }.preview-copy h2 { margin-bottom:10px; font-size:28px; line-height:1.05; letter-spacing:-.05em; overflow-wrap:anywhere; }.preview-description { min-height:58px; margin-bottom:20px; color:#55584f; font-size:12px; line-height:1.55; }.preview-details { margin:0 0 22px; border-top:1px solid #d9dbd1; }.preview-details div { display:grid; grid-template-columns:64px 1fr; gap:8px; padding:10px 0; border-bottom:1px solid #d9dbd1; }.preview-details dt { color:#77796f; font-size:9px; font-weight:800; letter-spacing:.1em; }.preview-details dd { margin:0; font-size:11px; }.preview-contact { display:flex; justify-content:space-between; padding-top:14px; border-top:1px solid #222; font-size:10px; font-weight:800; letter-spacing:.1em; }.preview-footnote { margin:12px 0 0; color:#a4a79c; font-size:11px; }.success-panel { margin-top:23px; padding:22px; border:1px solid #646c3a; background:#252820; }.success-panel h2 { margin-bottom:12px; font-size:22px; }.success-panel p:not(.section-number) { color:#b8bbb0; font-size:13px; line-height:1.55; }.success-panel code { color:var(--reg-lime); }.download-button { margin:18px 0 12px; }.edit-button { padding:8px 0; border:0; background:transparent; color:#d0d2ca; text-decoration:underline; cursor:pointer; }.register-footer { padding:22px 6vw; border-top:1px solid #3b3e38; color:#a4a79c; font-size:12px; text-align:center; }.register-footer a { color:var(--reg-lime); }
 @media(max-width:850px) { .register-layout { grid-template-columns:1fr; }.preview-column { position:static; max-width:600px; width:100%; margin:0 auto; }.preview-panel { width:100%; }.intro { margin-bottom:35px; } }
 @media(max-width:560px) { .register-page { margin-top:58px; padding:28px 20px 48px; }.register-page + .register-footer { padding:20px; }.steps { gap:8px; font-size:9px; }.steps span { gap:9px; }.steps span:nth-child(2) { margin-left:28px; }.steps span:nth-child(3) { margin-left:56px; }.field-grid { grid-template-columns:1fr; }.field-wide { grid-column:auto; }.form-section { padding:25px 0; } }
+
+/* Session editor: keep repeated training details grouped and usable on narrow screens. */
+.training-session { min-width:0; margin:20px 0; padding:20px; border:1px solid #484b44; background:#20221f; }
+.training-session legend { padding:0 8px; color:var(--reg-lime); font-size:13px; font-weight:700; }
+.session-help { margin:20px 0 0; color:#a4a79c; font-size:13px; line-height:1.55; }
+.training-session select { width:100%; min-height:46px; box-sizing:border-box; padding:12px; border:1px solid #484b44; border-radius:2px; background:#171817; color:#fff; font:inherit; }
+.session-considerations { margin-top:18px; }
+.session-add,.session-remove { min-height:44px; padding:10px 14px; border:1px solid #646c3a; background:transparent; color:var(--reg-lime); font:700 12px Arial,sans-serif; cursor:pointer; }
+.session-remove { margin-top:14px; color:var(--reg-paper); border-color:#484b44; }
+.session-remove[hidden] { display:none; }
+.session-add:hover,.session-remove:hover { background:#30342a; }
+.session-add:focus-visible,.session-remove:focus-visible,.training-session select:focus-visible { outline:2px solid var(--reg-lime); outline-offset:3px; }
+.session-status { margin:10px 0 0; color:#a4a79c; font-size:12px; }
+.preview-week__session span { white-space:pre-line; }
 
 /* Profile preview: mirror the club page header, photo/details split, and week grid. */
 .preview-club-card { color:var(--reg-paper); background:#111211; }
@@ -120,3 +136,17 @@ body.application-success-open { overflow:hidden; }
   .application-success__content,
   .application-success__home { transition:none; }
 }
+
+/* Pricing controls match the form fields; optional rows stay hidden until needed. */
+.field select { width:100%; min-height:46px; box-sizing:border-box; padding:12px 13px; border:1px solid #484b44; border-radius:2px; background:#20221f; color:white; font:400 14px Arial,sans-serif; }
+.field[hidden],.preview-details > div[hidden] { display:none; }
+.pricing-booking input { width:20px; height:20px; margin:12px 0; accent-color:var(--reg-lime); }
+.field select:focus-visible { outline:2px solid var(--reg-lime); outline-offset:3px; }
+/* Use light native number arrows against the taster field's dark background. */
+.field input[name="taster-sessions"] { color-scheme:dark; }
+/* A shared height prevents native dropdown and number controls from sizing differently. */
+.field select[name="pricing-type"],
+.field input[name="pricing-amount"],
+.field input[name="taster-sessions"] { height:48px; min-height:48px; box-sizing:border-box; padding:14px 13px; line-height:normal; }
+/* Match every repeated session's Day dropdown to the pricing control height. */
+.training-session select[data-session-field="dayOfWeek"] { height:48px; min-height:48px; box-sizing:border-box; padding:14px 13px; line-height:normal; }

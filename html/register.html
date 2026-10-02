@@ -30,11 +30,17 @@
         <section class="form-section">
           <p class="section-number">01 / THE BASICS</p>
           <h2>What should people know?</h2>
+          <!-- Keep required asterisks inline with their field titles. -->
           <div class="field-grid">
-            <label class="field field-wide">Club name <span class="required">*</span><input name="name" required maxlength="70" placeholder="e.g. Northern Striders" autocomplete="organization"></label>
-            <label class="field">Sport or activity <span class="required">*</span><input name="sport" required maxlength="50" placeholder="e.g. Run Club"></label>
-            <label class="field">Area <span class="required">*</span><input name="area" required maxlength="60" placeholder="e.g. Ancoats, Northern Quarter"></label>
-            <label class="field field-wide">About the club <span class="required">*</span><textarea name="description" required maxlength="600" rows="4" placeholder="What do you do, and what makes your club special?"></textarea><small>Up to 600 characters.</small></label>
+            <label class="field field-wide"><span class="field-title">Club name <span class="required">*</span></span><input name="name" required maxlength="70" placeholder="e.g. Northern Striders" autocomplete="organization"></label>
+            <label class="field"><span class="field-title">Sport or activity <span class="required">*</span></span><input name="sport" required maxlength="50" placeholder="e.g. Rugby Union"></label>
+            <label class="field"><span class="field-title">Area <span class="required">*</span></span><input name="area" required maxlength="60" placeholder="e.g. Ancoats, Hulme"></label>
+            <!-- Pricing: paid options reveal their amount, tasters and booking details. -->
+            <label class="field"><span class="field-title">Pricing type</span><select name="pricing-type"><option value="unknown">Unknown</option><option value="free">Free</option><option value="monthly">Monthly fee</option><option value="annual">Annual fee</option><option value="per-session">Per session</option></select></label>
+            <label class="field" data-paid-pricing hidden><span class="field-title">Amount (£) <span class="required">*</span></span><input name="pricing-amount" type="number" min="0.01" step="0.01" placeholder="e.g. 10" disabled></label>
+            <label class="field" data-paid-pricing hidden><span class="field-title">Taster sessions</span><input name="taster-sessions" type="number" min="0" step="1" placeholder="e.g. 3" disabled></label>
+            <label class="field pricing-booking" data-paid-pricing hidden><span class="field-title">Booking required</span><input name="booking-required" type="checkbox" value="yes" disabled></label>
+            <label class="field field-wide"><span class="field-title">About the club <span class="required">*</span></span><textarea name="description" required maxlength="600" rows="4" placeholder="Tell us some more about your club!"></textarea><small>Up to 600 characters.</small></label>
           </div>
         </section>
 
@@ -43,17 +49,38 @@
           <h2>Who can join in?</h2>
           <div class="field-grid">
             <label class="field">Who is it for?<input name="audience" maxlength="100" placeholder="e.g. Beginners, all ages"></label>
-            <label class="field">When do you meet?<input name="schedule" maxlength="100" placeholder="e.g. Tuesdays at 6:30pm"></label>
-            <label class="field field-wide">Where do you meet? <span class="required">*</span><input name="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"><small>Enter a public meeting point or venue so we can place your club on the map. Don’t use a private home address.</small></label>
           </div>
+          <!-- Repeatable sessions: collect each day's own time and public meeting point. -->
+          <p class="session-help">Add each training session separately, including sessions that meet in different places.</p>
+          <div id="training-sessions">
+            <fieldset class="training-session">
+              <legend>Training session <span data-session-number>1</span></legend>
+              <div class="field-grid">
+                <label class="field field-wide"><span class="field-title">Day <span class="required">*</span></span><select data-session-field="dayOfWeek" required><option value="">Choose a day</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="7">Sunday</option></select></label>
+                <label class="field"><span class="field-title">Start time <span class="required">*</span></span><input data-session-field="startTime" type="time" required></label>
+                <label class="field">End time<input data-session-field="endTime" type="time"></label>
+                <label class="field field-wide"><span class="field-title">Meeting address <span class="required">*</span></span><input data-session-field="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"><small>Use a public meeting point or venue, rather than a private home address.</small></label>
+              </div>
+              <label class="field session-considerations">Special considerations<textarea data-session-field="specialConsiderations" maxlength="300" rows="2" placeholder="e.g. Every other week? First Thursday of every month?"></textarea></label>
+              <button class="session-remove" type="button" data-remove-session hidden>Remove session</button>
+            </fieldset>
+          </div>
+          <button class="session-add" id="add-session" type="button">Add another session <span aria-hidden="true">＋</span></button>
+          <p class="session-status" id="session-status" aria-live="polite"></p>
+          <!-- Static named fields let Netlify capture all repeatable sessions in one application. -->
+          <input type="hidden" name="schedule">
+          <input type="hidden" name="meeting">
+          <input type="hidden" name="training-sessions">
         </section>
 
         <section class="form-section">
           <p class="section-number">03 / SAY HELLO</p>
           <h2>How can people reach you?</h2>
           <div class="field-grid">
-            <label class="field">Contact email <span class="required">*</span><input name="email" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email"></label>
+            <label class="field"><span class="field-title">Contact email <span class="required">*</span></span><input name="email" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email" aria-describedby="contact-email-note"><small id="contact-email-note">Our team will get in touch via this email if we have any more questions.</small></label>
             <label class="field">Website or social link<input name="link" type="url" maxlength="200" placeholder="https://"></label>
+            <!-- Optional notes are included with the application for the review team. -->
+            <label class="field field-wide"><span class="field-title">Additional information</span><textarea name="additional-information" maxlength="2000" rows="4" placeholder="Anything else you would like us to know?"></textarea></label>
           </div>
         </section>
 
@@ -72,7 +99,7 @@
               <h2 id="preview-name">Your club name</h2>
               <div class="preview-profile-actions" aria-label="Club actions preview">
                 <span class="preview-action preview-action--secondary" id="preview-contact-action" aria-disabled="true">CONTACT</span>
-                <span class="preview-action" id="preview-apply-action" aria-disabled="true">APPLY</span>
+                <span class="preview-action" id="preview-apply-action" aria-disabled="true">WEBSITE</span>
               </div>
             </div>
           </header>
@@ -86,7 +113,9 @@
                 <div><dt>AREA</dt><dd id="preview-area">Your area</dd></div>
                 <div><dt>LOCATION</dt><dd id="preview-meeting">Your public meeting place</dd></div>
                 <div><dt>SPORT</dt><dd id="preview-sport">Your sport</dd></div>
-                <div><dt>COST</dt><dd>Confirmed during review</dd></div>
+                <div><dt>COST</dt><dd id="preview-cost">Unknown</dd></div>
+                <div id="preview-tasters-row" hidden><dt>TASTER SESSION(S)</dt><dd id="preview-tasters"></dd></div>
+                <div id="preview-booking-row" hidden><dt>BOOKING</dt><dd>Required</dd></div>
                 <div><dt>REGULAR SESSION ATTENDANCE</dt><dd>To be confirmed</dd></div>
               </dl>
             </div>

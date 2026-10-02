@@ -6,15 +6,48 @@
   // TEMPORARY ANIMATION REVIEW MODE: set false to restore real form submission.
   const disableSubmissionForAnimationReview = true;
   if (disableSubmissionForAnimationReview) form.noValidate = true;
-  const scheduleDayPatterns = {
-    mon: /\b(?:mon|monday|mondays)\b/i,
-    tue: /\b(?:tue|tues|tuesday|tuesdays)\b/i,
-    wed: /\b(?:wed|weds|wednesday|wednesdays)\b/i,
-    thu: /\b(?:thu|thur|thurs|thursday|thursdays)\b/i,
-    fri: /\b(?:fri|friday|fridays)\b/i,
-    sat: /\b(?:sat|saturday|saturdays)\b/i,
-    sun: /\b(?:sun|sunday|sundays)\b/i
-  };
+  const sessionList = document.querySelector('#training-sessions');
+  const addSessionButton = document.querySelector('#add-session');
+  const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
+  const dayNames = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const dayNumbers = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 7 };
+
+  /* Session data: preserve each training entry separately, including any special considerations. */
+  function readSessions() {
+    return [...sessionList.querySelectorAll('.training-session')].map(block => {
+      const fields = Object.fromEntries([...block.querySelectorAll('[data-session-field]')].map(field => [
+        field.dataset.sessionField, field.value.trim()
+      ]));
+      return { ...fields, dayOfWeek: Number(fields.dayOfWeek) || null };
+    });
+  }
+
+  function sessionSummary(session) {
+    const time = [session.startTime, session.endTime].filter(Boolean).join('–');
+    return [dayNames[session.dayOfWeek], time, session.specialConsiderations].filter(Boolean).join(' · ');
+  }
+
+  /* Submission summaries: static Netlify fields hold readable details and structured session JSON. */
+  function syncSessions() {
+    const sessions = readSessions();
+    form.elements.namedItem('schedule').value = sessions.map(sessionSummary).filter(Boolean).join('\n');
+    form.elements.namedItem('meeting').value = sessions.map((session, index) =>
+      session.meeting ? `Session ${index + 1}: ${session.meeting}` : ''
+    ).filter(Boolean).join('\n');
+    form.elements.namedItem('training-sessions').value = JSON.stringify(sessions);
+    return sessions;
+  }
+
+  function numberSessions() {
+    const blocks = [...sessionList.querySelectorAll('.training-session')];
+    blocks.forEach((block, index) => {
+      block.querySelector('[data-session-number]').textContent = index + 1;
+      const removeButton = block.querySelector('[data-remove-session]');
+      removeButton.hidden = blocks.length === 1;
+      removeButton.setAttribute('aria-label', `Remove training session ${index + 1}`);
+    });
+    document.querySelector('#session-status').textContent = `${blocks.length} training ${blocks.length === 1 ? 'session' : 'sessions'} added.`;
+  }
 
   /* Form state: read answers once so the preview and submission use the same values. */
   const values = () => Object.fromEntries(new FormData(form).entries());
@@ -23,7 +56,23 @@
   };
 
   function updatePreview() {
+    const sessions = syncSessions();
+    // Keep paid fields out of submissions when Free or Unknown is selected.
+    const pricingType = form.elements.namedItem('pricing-type').value;
+    const paid = ['monthly', 'annual', 'per-session'].includes(pricingType);
+    form.querySelectorAll('[data-paid-pricing]').forEach(row => {
+      row.hidden = !paid;
+      row.querySelector('input').disabled = !paid;
+    });
+    form.elements.namedItem('pricing-amount').required = paid;
     const data = values();
+    const suffix = { monthly: 'month', annual: 'year', 'per-session': 'session' };
+    const amount = data['pricing-amount'];
+    put('#preview-cost', pricingType === 'free' ? 'Free' : paid && amount
+      ? `£${Number(amount).toLocaleString('en-GB', { maximumFractionDigits: 2 })}/${suffix[pricingType]}` : 'Unknown', 'Unknown');
+    document.querySelector('#preview-tasters-row').hidden = !(paid && Number(data['taster-sessions']) > 0);
+    put('#preview-tasters', data['taster-sessions'] || '', '');
+    document.querySelector('#preview-booking-row').hidden = !(paid && data['booking-required'] === 'yes');
     put('#preview-name', data.name, 'Your club name');
     put('#preview-eyebrow', [data.sport, data.area].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
     put('#preview-area', data.area, 'Your area');
@@ -48,10 +97,10 @@
     applyAction.setAttribute('aria-disabled', String(!hasApplyLink));
 
     document.querySelectorAll('[data-preview-day]').forEach(day => {
-      const pattern = scheduleDayPatterns[day.dataset.previewDay];
-      const hasSession = Boolean(data.schedule.trim() && pattern?.test(data.schedule));
+      const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
+      const hasSession = count > 0;
       day.classList.toggle('has-session', hasSession);
-      day.querySelector('b').textContent = hasSession ? 'SESSION' : '—';
+      day.querySelector('b').textContent = hasSession ? `${count} ${count === 1 ? 'SESSION' : 'SESSIONS'}` : '—';
     });
   }
 
@@ -63,7 +112,7 @@
     successScreen.hidden = false;
     form.hidden = true;
     document.body.classList.add('application-success-open');
-    document.querySelector('.navbar').inert = true;
+    document.querySelector('[data-site-nav]').inert = true;
     document.querySelector('.register-page').inert = true;
     document.querySelector('.register-footer').inert = true;
 
@@ -75,6 +124,7 @@
   /* Submission: send all named form fields to Netlify and confirm only on success. */
   async function submitApplication(event) {
     event.preventDefault();
+    syncSessions();
     error.hidden = true;
     if (disableSubmissionForAnimationReview) {
       showSuccessScreen();
@@ -103,7 +153,24 @@
   }
 
   /* Interactions: keep the preview live and submit applications through the configured form host. */
+  addSessionButton.addEventListener('click', () => {
+    const block = sessionTemplate.cloneNode(true);
+    sessionList.append(block);
+    numberSessions();
+    updatePreview();
+    block.querySelector('select').focus();
+  });
+  sessionList.addEventListener('click', event => {
+    const removeButton = event.target.closest('[data-remove-session]');
+    if (!removeButton || sessionList.children.length <= 1) return;
+    removeButton.closest('.training-session').remove();
+    numberSessions();
+    updatePreview();
+    addSessionButton.focus();
+  });
   form.addEventListener('input', updatePreview);
+  form.addEventListener('change', updatePreview);
   form.addEventListener('submit', submitApplication);
+  numberSessions();
   updatePreview();
 })();
