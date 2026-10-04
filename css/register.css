@@ -140,7 +140,12 @@ body.application-success-open { overflow:hidden; }
 /* Pricing controls match the form fields; optional rows stay hidden until needed. */
 .field select { width:100%; min-height:46px; box-sizing:border-box; padding:12px 13px; border:1px solid #484b44; border-radius:2px; background:#20221f; color:white; font:400 14px Arial,sans-serif; }
 .field[hidden],.preview-details > div[hidden] { display:none; }
-.pricing-booking input { width:20px; height:20px; margin:12px 0; accent-color:var(--reg-lime); }
+.pricing-booking select { height:48px; min-height:48px; }
+/* Shared meeting points: keep the checkbox compact and the inherited address readable. */
+.session-same-location { display:flex; align-items:center; gap:10px; color:#fff; font-size:14px; }
+.session-same-location[hidden] { display:none; }
+.session-same-location input { width:20px; height:20px; margin:0; accent-color:var(--reg-lime); flex-shrink:0; }
+.training-session input[readonly] { color:#b9bdb4; }
 .field select:focus-visible { outline:2px solid var(--reg-lime); outline-offset:3px; }
 /* Use light native number arrows against the taster field's dark background. */
 .field input[name="taster-sessions"] { color-scheme:dark; }
@@ -150,3 +155,8 @@ body.application-success-open { overflow:hidden; }
 .field input[name="taster-sessions"] { height:48px; min-height:48px; box-sizing:border-box; padding:14px 13px; line-height:normal; }
 /* Match every repeated session's Day dropdown to the pricing control height. */
 .training-session select[data-session-field="dayOfWeek"] { height:48px; min-height:48px; box-sizing:border-box; padding:14px 13px; line-height:normal; }
+.registration-captcha { margin: 20px 0; }
+.registration-captcha p { color: #b9bdb4; font: 13px/1.6 Arial, sans-serif; }
+.registration-captcha a { color: #faecd2; text-underline-offset: 3px; }
+.registration-captcha .captcha-privacy { font-size: 11px; }
+.registration-captcha > div { max-width: 100%; overflow-x: auto; }

@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
 /* Homepage gallery frame: two clipped rows show three moving club panels at a time. */
+.gallery-main { background: #171817; }
+.gallery-main .gallery-pause { background: transparent; }
 .grid-container#club-gallery {
+  --gallery-card-width: calc(100vw / 3);
+  --gallery-image-height: clamp(150px, 25vw, 330px);
   display: flex;
   flex-direction: column;
   gap: 0;
   overflow: hidden;
   border: 0;
-  background: rgba(223, 252, 58, .62);
+  min-height: calc(var(--gallery-image-height) * 2);
+  background: #111211;
 }
 
 /* Both rows share one roll direction and duration; row two starts half a card later. */
@@ -18,13 +23,18 @@
 }
 #club-gallery .gallery-track {
   display: flex;
-  width: max-content;
+  width: calc(var(--gallery-card-width) * var(--gallery-card-count));
   border: 0;
   animation: club-panel-roll var(--roll-duration, 36s) linear infinite;
   will-change: transform;
 }
 #club-gallery .gallery-row:nth-child(2) .gallery-track {
   animation-delay: var(--roll-phase-offset, -6.67s);
+}
+/* Container units resize the entire loop in the same layout pass, without observer lag. */
+@supports (width: 1cqw) {
+  #club-gallery .gallery-row { container-type: inline-size; }
+  #club-gallery .gallery-track { --gallery-card-width: calc(100cqw / 3); }
 }
 @keyframes club-panel-roll {
   from { transform: translateX(0); }
@@ -34,8 +44,9 @@
 /* Club tiles keep the familiar monochrome-to-hazy-green hover treatment. */
 #club-gallery .gallery-card {
   position: relative;
-  flex: 0 0 calc(100vw / 3);
-  width: calc(100vw / 3);
+  flex: 0 0 var(--gallery-card-width);
+  width: var(--gallery-card-width);
+  height: var(--gallery-image-height);
   overflow: hidden;
   border: 0;
   background: rgba(223, 252, 58, .62);
@@ -47,7 +58,7 @@
   float: none;
   position: static;
   width: 100%;
-  height: clamp(150px, 25vw, 330px);
+  height: 100%;
   object-fit: cover;
   filter: grayscale(1);
   opacity: 1;
@@ -111,6 +122,10 @@
 #club-gallery .gallery-card a:hover .gallery-caption h2::after,
 #club-gallery .gallery-card a:focus-visible .gallery-caption h2::before,
 #club-gallery .gallery-card a:focus-visible .gallery-caption h2::after { transform: scaleX(1); }
+#club-gallery .gallery-card--unavailable { background: #30342a; }
+#club-gallery .gallery-card--unavailable img { visibility: hidden; }
+#club-gallery .gallery-card--unavailable .gallery-caption,
+#club-gallery .gallery-card--unavailable .gallery-caption__details { color: #faecd2; opacity: 1; }
 
 /* Respect reduced-motion preferences by stopping automatic movement. */
 @media (prefers-reduced-motion: reduce) {
@@ -123,7 +138,7 @@
 }
 
 @media (max-width: 600px) {
-  #club-gallery .gallery-card img { height: clamp(125px, 36vw, 210px); }
+  .grid-container#club-gallery { --gallery-image-height: clamp(125px, 36vw, 210px); }
   #club-gallery .gallery-caption { left: 10px; bottom: 10px; max-width: calc(100% - 20px); }
   #club-gallery .gallery-caption h2 { font-size: 13px; }
 }

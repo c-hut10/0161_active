@@ -1,3 +1,6 @@
+import { trainingTimesBadge } from './club-verification.mjs';
+import { PRICE_TYPE_LABELS, PRICE_TYPE_ORDER, priceType, priceLabel, sportName as displaySportName, matchesClubFilters } from './club-directory-filters.js';
+
 /* Calendar data: read the shared JSON directory used to build both weekly and daily views. */
 const DAYS = [
   { number: 1, name: 'Monday', short: 'MON' },
@@ -12,16 +15,6 @@ const DAYS = [
 const sportFilter = document.querySelector('#filter-sport');
 const priceFilter = document.querySelector('#filter-price');
 const areaFilter = document.querySelector('#filter-area');
-/* Price types: keep filter labels and cost displays aligned with club JSON values. */
-const PRICE_TYPE_LABELS = {
-  free: 'Free',
-  monthly_fee: 'Monthly fee',
-  annual_fee: 'Annual fee',
-  per_session: 'Per-session fee',
-  paid: 'Paid',
-  unknown: 'Price not confirmed'
-};
-const PRICE_TYPE_ORDER = ['free', 'monthly_fee', 'annual_fee', 'per_session', 'paid', 'unknown'];
 const resultCount = document.querySelector('#result-count');
 const calendarMessage = document.querySelector('#calendar-message');
 const sampleNote = document.querySelector('#sample-note');
@@ -67,40 +60,12 @@ function formatTime(session) {
   return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
 }
 
-/* Sport labels: use the preferred public label without changing JSON filter values. */
-function displaySportName(name) {
-  const title = String(name || 'Sport').replace(/\b\w/g, letter => letter.toUpperCase());
-  return title.toLocaleLowerCase() === 'running' ? 'Run Club' : title;
-}
-
 /* Session notes: explain group restrictions and special schedules without guessing times. */
 function frequencyToggle(session) {
   const note = [session.everyOtherWeek ? 'Every other week' : '', session.specialConsiderations].filter(Boolean).join(' · ');
   return note
     ? `<details class="session-frequency"><summary aria-label="Show session details">i</summary><span>${escapeHtml(note)}</span></details>`
     : '';
-}
-
-function priceType(club) {
-  return club.price?.type || 'unknown';
-}
-
-function priceLabel(club) {
-  const price = club.price;
-  if (!price || price.type === 'unknown') return 'Price not confirmed';
-  if (price.type === 'free') return 'Free';
-  const feePeriods = {
-    monthly_fee: 'per month',
-    annual_fee: 'per year',
-    per_session: 'per session'
-  };
-  if (Number.isFinite(price.amount)) {
-    const amount = new Intl.NumberFormat('en-GB', { style: 'currency', currency: price.currency || 'GBP' }).format(price.amount);
-    const period = feePeriods[price.type] || price.period;
-    return period ? `${amount} ${period}` : amount;
-  }
-  const feeLabels = { monthly_fee: 'Monthly fee', annual_fee: 'Annual fee', per_session: 'Per-session fee' };
-  return feeLabels[price.type] ? `${feeLabels[price.type]} · amount not listed` : 'Paid · amount not listed';
 }
 
 function sitePath(path) {
@@ -133,10 +98,7 @@ function areaMatches(club, session) {
 }
 
 function matchesFilters(club) {
-  if (sportFilter.value !== 'all' && club.sport !== sportFilter.value) return false;
-  if (priceFilter.value !== 'all' && priceType(club) !== priceFilter.value) return false;
-  if (areaFilter.value === 'all') return true;
-  return club.area === areaFilter.value || (club.sessions || []).some(session => areaMatches(club, session));
+  return matchesClubFilters(club, { sport: sportFilter.value, price: priceFilter.value, area: areaFilter.value });
 }
 
 function visibleSessions(club, dayNumber = null) {
@@ -197,7 +159,7 @@ function renderWeekView(visibleClubs) {
 
     return `<div class="week-row" role="row">
       <div class="week-club" role="rowheader">
-        <a href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}</a>
+        <a href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${trainingTimesBadge(club)}</a>
         <span>${escapeHtml(`${sportLabel} · ${club.area || 'Manchester'}`)}</span>
       </div>${cells}
     </div>`;
@@ -221,7 +183,7 @@ function renderDayView(visibleClubs) {
     const sportLabel = displaySportName(club.sport);
     return `<article class="agenda-event">
       <time class="agenda-time">${escapeHtml(formatTime(session))}<span class="agenda-sport">${escapeHtml(sportLabel)}</span></time>
-      <a class="agenda-club" href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}</a>
+      <a class="agenda-club" href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${trainingTimesBadge(club)}</a>
       <div class="agenda-details"><span>${escapeHtml(session.meetingPoint || session.area || 'Manchester area')}</span>${frequencyToggle(session)}</div>
       <span class="agenda-price">${escapeHtml(priceLabel(club))}</span>
     </article>`;

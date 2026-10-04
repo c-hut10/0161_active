@@ -40,6 +40,7 @@
 .profile-eyebrow a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 .profile-heading h1 { margin: 0; color: var(--profile-paper); font-size: clamp(32px, 5vw, 58px); line-height: .98; letter-spacing: -.055em; text-shadow: 0 0 2px rgba(250, 236, 210, .9), 0 0 6px rgba(250, 236, 210, .32), 0 0 12px rgba(250, 236, 210, .14); }
 .profile-tagline { margin: 9px 0 0; color: var(--profile-grey); font-size: 14px; line-height: 1.5; }
+.profile-information-date { margin: 10px 0 0; color: var(--profile-grey); font-size: 11px; line-height: 1.5; }
 .profile-actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; gap: 9px; }
 .profile-action {
   display: inline-flex;
@@ -110,7 +111,7 @@
 /* Club introduction: span the full profile width between the overview and weekly calendar. */
 .profile-about { width: 100%; padding: 26px 0 30px; border-bottom: 1px solid var(--profile-line); }
 .profile-about h2 { margin: 0 0 12px; color: var(--profile-lime); font-size: 25px; letter-spacing: -.04em; text-transform: uppercase; }
-.profile-about p { width: 100%; margin: 0; color: var(--profile-grey); font-size: 14px; line-height: 1.7; }
+.profile-about p { width: 100%; margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.7; }
 
 /* Weekly calendar: show all seven days with session times and meeting points. */
 .profile-week { padding-top: 27px; }

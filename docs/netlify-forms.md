@@ -21,3 +21,16 @@ The form includes club name, sport, area, description, audience, pricing type, p
 Required fields are validated before sending. While sending, the button is disabled. A failed request displays an error and keeps all answers for retry. Local previews do not send submissions or show success. The hidden `bot-field` is Netlify's honeypot; suspected spam may be filtered even when the request returns successfully, so inspect the Forms spam area if an application is missing.
 
 Sources: https://docs.netlify.com/manage/forms/setup/ and https://docs.netlify.com/manage/forms/submissions/ and https://docs.netlify.com/manage/forms/spam-filters/
+
+## reCAPTCHA preparation and live checks
+
+The form and empty widget mount use `data-netlify-recaptcha="true"` for Netlify-provided reCAPTCHA 2. No owner-supplied Google keys are required for this integration. Netlify injects the widget during deployment and validates submitted tokens server-side. The existing FormData encoding includes `g-recaptcha-response`. The browser blocks missing tokens and resets the challenge after a failed request. Redirected responses are treated as failures so a CAPTCHA rejection does not show a success screen.
+
+1. Enable form detection before deploying the updated HTML.
+2. Deploy and open `/html/register.html` on the live domain.
+3. Confirm the widget appears and Forms → club-registration reports CAPTCHA protection.
+4. With a valid test application, attempt submission without completing the check: it must show an error and keep the answers.
+5. Complete the check yourself and submit one labelled test application. Confirm it appears in Verified submissions with the training sessions intact.
+6. Check mobile layout and the retry behaviour after an expired check.
+
+The CAPTCHA cannot be rendered or verified by the plain local preview. These live checks remain outstanding. Current credit-based Netlify plans include free unlimited Forms; legacy plans have separate submission allowances. Check your account's plan and Forms usage rather than enabling paid upgrades.

@@ -30,6 +30,7 @@ function currentPage() {
   const pathname = decodeURI(window.location.pathname).toLowerCase();
   if (pathname.endsWith('/calendar.html')) return 'calendar';
   if (pathname.endsWith('/register.html')) return 'register';
+  if (pathname.endsWith('/contact.html')) return 'contact';
   if (pathname.endsWith('/sports/directory.html') || pathname.endsWith('/sports/glossary.html') || pathname.endsWith('/sports/running.html')) return 'sports';
   return '';
 }
@@ -44,7 +45,7 @@ function buildSiteNav(sports, accessibleSports = []) {
   const accessibleSportItems = makeSportItems(accessibleSports);
   siteNavMount.innerHTML = `<header class="site-navbar">
     <div class="site-navbar__bar">
-      <a class="site-navbar__brand" href="${siteUrl('index.html')}" aria-label="0161 Active home"><img src="${siteUrl('img/0161 Active_Logo_Transparent.png')}" alt="0161 Active"></a>
+      <a class="site-navbar__brand" href="${siteUrl('')}" aria-label="0161 Active home"><img src="${siteUrl('img/0161 Active_Logo_Transparent.png')}" alt="0161 Active"></a>
       <nav class="site-navbar__desktop" aria-label="Main navigation">
         <div class="site-navbar__sports">
           <a class="site-navbar__link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS</a>
@@ -58,6 +59,7 @@ function buildSiteNav(sports, accessibleSports = []) {
         </div>
         <a class="site-navbar__link" href="${siteUrl('html/calendar.html')}"${active === 'calendar' ? ' aria-current="page"' : ''}>CALENDAR</a>
         <a class="site-navbar__link" href="${siteUrl('html/register.html')}"${active === 'register' ? ' aria-current="page"' : ''}>REGISTER YOUR CLUB</a>
+        <a class="site-navbar__link" href="${siteUrl('html/contact.html')}"${active === 'contact' ? ' aria-current="page"' : ''}>CONTACT US</a>
       </nav>
       <button class="site-navbar__menu-button" type="button" aria-controls="site-mobile-drawer" aria-expanded="false">MENU</button>
     </div>
@@ -70,6 +72,7 @@ function buildSiteNav(sports, accessibleSports = []) {
       <a class="site-navbar__drawer-link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/calendar.html')}"${active === 'calendar' ? ' aria-current="page"' : ''}>CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/register.html')}"${active === 'register' ? ' aria-current="page"' : ''}>REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="${siteUrl('html/contact.html')}"${active === 'contact' ? ' aria-current="page"' : ''}>CONTACT US <span aria-hidden="true">↗</span></a>
     </nav>
   </header>`;
 
@@ -129,7 +132,7 @@ function buildSiteNav(sports, accessibleSports = []) {
     }
   });
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 760 && menuButton.getAttribute('aria-expanded') === 'true') closeMenu();
+    if (window.innerWidth > 1040 && menuButton.getAttribute('aria-expanded') === 'true') closeMenu();
   });
 }
 

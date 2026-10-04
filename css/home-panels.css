@@ -5,7 +5,7 @@
   color: var(--panel-paper);
   background: var(--panel-ink);
   font-family: Arial, Helvetica, sans-serif;
-  padding: clamp(42px, 7vw, 100px) 0 32px;
+  padding: 24px 0 32px;
 }
 
 .mission-panels__heading {

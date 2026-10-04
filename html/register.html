@@ -3,18 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Register your local sports club with 0161 Active.">
+  <meta name="description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <title>Register your club | 0161 Active</title>
   <link rel="stylesheet" href="../css/0161_Page.css">
   <link rel="stylesheet" href="../css/register.css">
   <link rel="icon" href="../img/0161 Active_Logo.png">
-  <link rel="stylesheet" href="../css/site-nav.css">
-  <script defer src="../js/site-nav.js"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261004-contact">
+  <script defer src="/js/site-nav.js?v=20261004-contact"></script>
+  <link rel="canonical" href="https://0161active.co.uk/html/register.html">
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="0161 Active">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="Register your club | 0161 Active">
+  <meta property="og:description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
+  <meta property="og:url" content="https://0161active.co.uk/html/register.html">
+  <meta property="og:image" content="https://0161active.co.uk/img/social/html-register.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Register your club — Greater Manchester. 0161 Active.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Register your club | 0161 Active">
+  <meta name="twitter:description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
+  <meta name="twitter:image" content="https://0161active.co.uk/img/social/html-register.jpg">
+  <meta name="twitter:image:alt" content="Register your club — Greater Manchester. 0161 Active.">
+  <!-- /Social preview -->
+  <link rel="stylesheet" href="/css/site-footer.css">
+  <link rel="stylesheet" href="/css/cookie-settings.css">
+  <script defer src="/js/cookie-settings.js"></script>
+  <link rel="stylesheet" href="/css/accessibility.css">
+  <script defer src="/js/accessibility.js"></script>
+  <link rel="stylesheet" href="/css/club-verification.css">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
   <div data-site-nav></div>
 
-  <main class="register-page">
+  <main class="register-page" id="main-content" tabindex="-1">
     <section class="intro">
       <p class="eyebrow">REGISTER</p>
       <h1>Add your club.</h1>
@@ -24,7 +51,7 @@
     </section>
 
     <div class="register-layout">
-      <form id="club-form" class="club-form" name="club-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <form id="club-form" class="club-form" name="club-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true">
         <input type="hidden" name="form-name" value="club-registration">
         <p hidden><label>Leave this field empty: <input name="bot-field"></label></p>
         <section class="form-section">
@@ -39,7 +66,7 @@
             <label class="field"><span class="field-title">Pricing type</span><select name="pricing-type"><option value="unknown">Unknown</option><option value="free">Free</option><option value="monthly">Monthly fee</option><option value="annual">Annual fee</option><option value="per-session">Per session</option></select></label>
             <label class="field" data-paid-pricing hidden><span class="field-title">Amount (£) <span class="required">*</span></span><input name="pricing-amount" type="number" min="0.01" step="0.01" placeholder="e.g. 10" disabled></label>
             <label class="field" data-paid-pricing hidden><span class="field-title">Taster sessions</span><input name="taster-sessions" type="number" min="0" step="1" placeholder="e.g. 3" disabled></label>
-            <label class="field pricing-booking" data-paid-pricing hidden><span class="field-title">Booking required</span><input name="booking-required" type="checkbox" value="yes" disabled></label>
+            <label class="field pricing-booking" data-paid-pricing hidden><span class="field-title">Booking required <span class="required">*</span></span><select name="booking-required" required disabled><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide"><span class="field-title">About the club <span class="required">*</span></span><textarea name="description" required maxlength="600" rows="4" placeholder="Tell us some more about your club!"></textarea><small>Up to 600 characters.</small></label>
           </div>
         </section>
@@ -59,6 +86,8 @@
                 <label class="field field-wide"><span class="field-title">Day <span class="required">*</span></span><select data-session-field="dayOfWeek" required><option value="">Choose a day</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="7">Sunday</option></select></label>
                 <label class="field"><span class="field-title">Start time <span class="required">*</span></span><input data-session-field="startTime" type="time" required></label>
                 <label class="field">End time<input data-session-field="endTime" type="time"></label>
+                <!-- Additional sessions can reuse the previous session's current address. -->
+                <label class="session-same-location field-wide" data-same-location-option hidden><input type="checkbox" data-same-location> Same location as previous session</label>
                 <label class="field field-wide"><span class="field-title">Meeting address <span class="required">*</span></span><input data-session-field="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"><small>Use a public meeting point or venue, rather than a private home address.</small></label>
               </div>
               <label class="field session-considerations">Special considerations<textarea data-session-field="specialConsiderations" maxlength="300" rows="2" placeholder="e.g. Every other week? First Thursday of every month?"></textarea></label>
@@ -84,7 +113,12 @@
           </div>
         </section>
 
-        <p class="privacy-note">Your club application will be reviewed by our team. If approved, your club details and public meeting point will be added to the website, along with your contact email (unless otherwise specified). A member of our team will be in touch if we have any additional questions.</p>
+        <p class="privacy-note">Your club application will be reviewed by our team. If approved, your club details and public meeting point will be added to the website, along with your contact email (unless otherwise specified). A member of our team will be in touch if we have any additional questions. <a href="/html/privacy.html">Read our privacy policy.</a></p>
+        <div class="registration-captcha">
+          <p>Complete the security check before sending your application.</p>
+          <div data-netlify-recaptcha="true"></div>
+          <p class="captcha-privacy">This form is protected by Google reCAPTCHA. <a href="/html/privacy.html#cookies">How this security check uses information</a>. If it doesn’t load, email <a href="mailto:contact.0161active@gmail.com">contact.0161active@gmail.com</a>.</p>
+        </div>
         <!-- JavaScript collects every session before sending the application to Netlify. -->
         <noscript><p class="form-error">Please enable JavaScript to submit all of your training sessions, or contact contact.0161active@gmail.com for help.</p></noscript>
         <button class="generate-button" type="submit" disabled>Send club application <span aria-hidden="true">↗</span></button>
@@ -148,7 +182,22 @@
       </div>
     </div>
   </main>
-  <footer class="register-footer"><p>Made for the people who make Manchester move. <a href="../index.html">0161 Active</a></p></footer>
+  <footer class="site-footer" data-site-footer>
+  <div class="site-footer__inner">
+    <div class="site-footer__contact">
+      <p class="site-footer__label">CONTACT INFO</p>
+      <a class="site-footer__email" href="mailto:contact.0161active@gmail.com">contact.0161active@gmail.com</a>
+    </div>
+    <nav class="site-footer__links" aria-label="Footer navigation">
+      <a href="/html/contact.html">Contact us</a>
+      <a href="/html/register.html">Register your club</a>
+      <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/privacy.html">Privacy policy</a>
+      <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
+      <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>
+    </nav>
+  </div>
+</footer>
   <section class="application-success" id="application-success" role="dialog" aria-modal="true" aria-labelledby="application-success-title" aria-describedby="application-success-message" hidden>
     <div class="application-success__content">
       <p class="section-number">SUCCESS</p>
@@ -159,7 +208,7 @@
         <h3>(P.S) Say Cheese!</h3>
         <p>Don’t forget to send a photo of the club that you would like to be on your profile to <a href="mailto:contact.0161active@gmail.com">contact.0161active@gmail.com</a>.</p>
       </div>
-      <a href="../index.html" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
+      <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
   <script src="../js/register.js"></script>

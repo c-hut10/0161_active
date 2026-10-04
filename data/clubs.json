@@ -74,7 +74,14 @@
           "area": "Ancoats",
           "dataStatus": "placeholder"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "not-a-running-club",
@@ -118,7 +125,14 @@
           "area": "Didsbury",
           "dataStatus": "existing-profile-unverified"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "tiny-moves",
@@ -183,7 +197,14 @@
       "bookingNotes": null,
       "tasterNotes": null,
       "trainingNotes": "Mon 18:15",
-      "bookingRequired": null
+      "bookingRequired": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "just-a-run-club",
@@ -224,7 +245,14 @@
           "area": "Salford Quays",
           "dataStatus": "placeholder"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "redacted-run-club",
@@ -265,7 +293,14 @@
           "area": "Heaton Park",
           "dataStatus": "placeholder"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-frontrunners",
@@ -355,7 +390,14 @@
       "bookingNotes": null,
       "tasterNotes": "Thu rsday/Sat urday tasters offered; count unspecified",
       "trainingNotes": "Tue 18:45 track Manchester Regional Arena; Thu 19:00 Aquatics Centre(arrive 18:50); Sat 10:00 Longford Park(arrive 09:50)",
-      "bookingRequired": null
+      "bookingRequired": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "mile-shy-club",
@@ -396,7 +438,14 @@
           "area": "Moss Side",
           "dataStatus": "placeholder"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "didsbury-runners",
@@ -464,7 +513,14 @@
       "tasterNotes": "One free Mon day trial within a month of registering",
       "trainingNotes": "Mon day 18:45 (arrive 18:30). Wed nesday track: time unconfirmed. First Wed nesday each month: hill reps, time unconfirmed.",
       "tasterSessionCount": 1,
-      "bookingRequired": null
+      "bookingRequired": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "ancoats-run-club",
@@ -505,7 +561,14 @@
           "area": "Ancoats",
           "dataStatus": "placeholder"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "mcr-harriers",
@@ -552,7 +615,14 @@
           "area": "Wythenshawe",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "sale-harriers",
@@ -655,7 +725,14 @@
           "area": "Wythenshawe",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "trafford-ac",
@@ -728,7 +805,14 @@
       "pricingNotes": "2026 membership: U 12 £20; U 18 £47; adult £67; student £52; second claim £36. Track/session charges may be additional. Training member£3/nonmember£4 per session.",
       "bookingNotes": null,
       "tasterNotes": "First session free",
-      "trainingNotes": "Mon/Thu age 9–10 17:30–18:30; age 11–12 18:00–19:00; age 13+18:30–20:30"
+      "trainingNotes": "Mon/Thu age 9–10 17:30–18:30; age 11–12 18:00–19:00; age 13+18:30–20:30",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "mcr-ymca-harriers",
@@ -775,7 +859,14 @@
           "area": "Ancoats",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "blackley-north-mcr-ac",
@@ -850,7 +941,14 @@
       "pricingNotes": "Membership free; £3/week training. First session free.",
       "bookingNotes": "Waiting list for new members",
       "tasterNotes": null,
-      "trainingNotes": "Mon/Thu 19:00–20:45"
+      "trainingNotes": "Mon/Thu 19:00–20:45",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "salford-met-ac",
@@ -906,7 +1004,14 @@
           "area": "Eccles",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "belle-vue-racers",
@@ -944,7 +1049,14 @@
           "area": "Ancoats",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "salford-harriers",
@@ -1028,7 +1140,14 @@
       "pricingNotes": "Junior Tue sday track £3 member / £4 nonmember; annual membership amount not captured.",
       "bookingNotes": null,
       "tasterNotes": "Try training for a few weeks before joining",
-      "trainingNotes": "Juniors: Tue 18:00–19:00 track; Wed 18:00–19:00 and 19:00–20:00 circuits; Thu 18:00–20:00 winter hills; Sat variable"
+      "trainingNotes": "Juniors: Tue 18:00–19:00 track; Wed 18:00–19:00 and 19:00–20:00 circuits; Thu 18:00–20:00 winter hills; Sat variable",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "chorlton-runners",
@@ -1084,7 +1203,14 @@
           "area": "Chorlton",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "winston-runners",
@@ -1131,7 +1257,14 @@
           "area": "Wythenshawe",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "sale-dragons",
@@ -1187,7 +1320,14 @@
           "area": "Sale",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "swinton-running-club",
@@ -1243,7 +1383,14 @@
           "area": "Swinton",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "prestwich-ac",
@@ -1300,7 +1447,14 @@
           "dataStatus": "user-submitted",
           "everyOtherWeek": true
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "stockport-harriers",
@@ -1394,7 +1548,14 @@
       "pricingNotes": "2026/27 senior £48 renewal / £36 new; junior £30 renewal / £22.50 new. Training senior member £3.50/session, nonmember £5; junior member £1.80, nonmember £3.20. Member annual training pass senior £250 / junior £144. EA affiliation separate.",
       "bookingNotes": "Age 7–10 waiting list; other groups contact coach",
       "tasterNotes": null,
-      "trainingNotes": "Multiple groups: Mon senior endurance 19:00–20:00; Tue/Thu introductory juniors 19:00–20:00 and senior endurance 19:00–20:00; Wed inclusive age 7–11 18:30–19:30 and age 12–16 19:30–20:30; Fri disability group 18:00–19:00 during term. Additional group schedules on source page."
+      "trainingNotes": "Multiple groups: Mon senior endurance 19:00–20:00; Tue/Thu introductory juniors 19:00–20:00 and senior endurance 19:00–20:00; Wed inclusive age 7–11 18:30–19:30 and age 12–16 19:30–20:30; Fri disability group 18:00–19:00 during term. Additional group schedules on source page.",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "altrincham-ac",
@@ -1441,7 +1602,14 @@
           "area": "Altrincham",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "oldham-and-royton-harriers",
@@ -1490,7 +1658,14 @@
           "area": "Oldham",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "radcliffe-ac",
@@ -1537,7 +1712,14 @@
           "area": "Bury",
           "dataStatus": "user-submitted"
         }
-      ]
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "assheton-bowmen",
@@ -1610,7 +1792,14 @@
       "pricingNotes": "Annual fees vary by joining month; numeric rates not extracted.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed/Fri 10:00–21:00; Sun from 09:00; keyholders flexible access"
+      "trainingNotes": "Wed/Fri 10:00–21:00; Sun from 09:00; keyholders flexible access",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "moorside-archery-club",
@@ -1663,7 +1852,14 @@
       "pricingNotes": "£5 per week when shooting. 2024/25 annual affiliation £66 adult 21+, £22 under 21, £24 disabled. Beginners course £65 adult / £40 under 18.",
       "bookingNotes": "Required for beginners course",
       "tasterNotes": null,
-      "trainingNotes": "Beginners Tue sday evenings; exact time not published"
+      "trainingNotes": "Beginners Tue sday evenings; exact time not published",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "eccles-archery-club",
@@ -1718,7 +1914,14 @@
       "pricingNotes": "Membership amount on request. Beginners course £100 adult / £70 junior, 12 hours.",
       "bookingNotes": "Required for beginners course",
       "tasterNotes": null,
-      "trainingNotes": "24/7 member access, no fixed shooting times"
+      "trainingNotes": "24/7 member access, no fixed shooting times",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "mcr-titans-mens",
@@ -1747,7 +1950,7 @@
       "phone": null,
       "onlineProfile": {
         "platform": "website",
-        "url": "https://www.manchestertitans.co.uk/our-teams/adult-contact/"
+        "url": "https://www.manchestertitans.co.uk"
       },
       "sessions": [
         {
@@ -1789,7 +1992,14 @@
       },
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "mcr-titans-womens",
@@ -1860,7 +2070,14 @@
       },
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "rochdale-company-of-archers",
@@ -1916,7 +2133,14 @@
       "pricingNotes": "2026/27 rates shown as image, amounts not extracted. AGB fees paid separately; joining month affects price. Beginners 12-hour course£70.",
       "bookingNotes": "Book taster/beginners course",
       "tasterNotes": "2-hourtaster£10/person; age 8+",
-      "trainingNotes": "Fri dayjuniorsmeet 18:30 before coaching; actual coaching start not published"
+      "trainingNotes": "Fri dayjuniorsmeet 18:30 before coaching; actual coaching start not published",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "spinners-mill-archers",
@@ -1969,7 +2193,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Tue/Wed/Thu/Sat/Sun access from 10:00 (2025 council report)"
+      "trainingNotes": "Tue/Wed/Thu/Sat/Sun access from 10:00 (2025 council report)",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "stalybridge-archery-club",
@@ -2024,7 +2255,14 @@
       "pricingNotes": "2024/25 senior 21+£161, disabled£119.20,18–21 £121,junior£77.70. Samepage FAQ£160/year. Beginners 4×2 h£70; adult 2-hour taster£25.",
       "bookingNotes": "Book taster or beginners course",
       "tasterNotes": "Adult 2-hour taster£25; age discounts",
-      "trainingNotes": "Tue/Thu 18:30–21:00 senior coaching; Sat 14:00–17:00 senior,09:30–14:00 juniors; beginner course usually Mon 19:00–21:00"
+      "trainingNotes": "Tue/Thu 18:30–21:00 senior coaching; Sat 14:00–17:00 senior,09:30–14:00 juniors; beginner course usually Mon 19:00–21:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "wigan-orrell-archers",
@@ -2075,7 +2313,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Summer outdoor / winter indoor venues; times not captured"
+      "trainingNotes": "Summer outdoor / winter indoor venues; times not captured",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bolton-united-harriers-athletics-club",
@@ -2131,7 +2376,14 @@
       "pricingNotes": "2026/27 senior £85, junior/student £75, Y 3–4 £40, family £175. Additional annual track pass adult £62.30 / junior £41. Visiting athlete session £5.",
       "bookingNotes": null,
       "tasterNotes": "First couple of sessions free; ask front desk",
-      "trainingNotes": "Tue/Thu 18:00–21:00 training window; group start/finish varies; extra weekend sessions"
+      "trainingNotes": "Tue/Thu 18:00–21:00 training window; group start/finish varies; extra weekend sessions",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bury-athletic-club",
@@ -2261,7 +2513,14 @@
       "pricingNotes": "2026/27 senior competitive £60/year, senior noncompetitive £40/year, junior/student £45/year, U 10 £25/year. Training £4/session or £20/month; family discounts.",
       "bookingNotes": "Enquiry form required for tasters",
       "tasterNotes": "Four tasters cost £4 each; not free",
-      "trainingNotes": "Tue/Thu: U 12 and junior sprinters 18:00–19:00; U 10 18:30–19:30; other groups 19:00–20:00"
+      "trainingNotes": "Tue/Thu: U 12 and junior sprinters 18:00–19:00; U 10 18:30–19:30; other groups 19:00–20:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "rochdale-harriers-ac",
@@ -2314,7 +2573,14 @@
       "pricingNotes": "2026/27 senior £38.50 including EA or £15.50 excluding EA; age 11–17/student £23.50; age 6–10 £10.50. Additional £2/session. Social membership is not eligible for training.",
       "bookingNotes": "Contact before taster; older juniors attend Tue sdays by prior arrangement",
       "tasterNotes": "Three free tasters",
-      "trainingNotes": "Tue seniors 19:00(arrive 18:45); Thu juniors 19:00; senior Thu rsdays ad hoc, not weekly"
+      "trainingNotes": "Tue seniors 19:00(arrive 18:45); Thu juniors 19:00; senior Thu rsdays ad hoc, not weekly",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "wigan-harriers",
@@ -2367,7 +2633,14 @@
       "pricingNotes": "2024 endurance membership £45 / student or state pensioner £31; no extra endurance training fee. Track fees may be additional.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Endurance Tue sday and Thu rsday evenings; times not captured"
+      "trainingNotes": "Endurance Tue sday and Thu rsday evenings; times not captured",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bolton-clarion-cycling-club",
@@ -2417,7 +2690,14 @@
       "pricingNotes": "£20/year membership",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bury-clarion-cycling-club",
@@ -2468,7 +2748,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed 18:00; Sun 09:00 (governing-body listing)"
+      "trainingNotes": "Wed 18:00; Sun 09:00 (governing-body listing)",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "chorlton-velo",
@@ -2557,7 +2844,14 @@
       "pricingNotes": "£15 membership plus £1 application fee",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed 18:30; Sat 09:00; Sun 08:15"
+      "trainingNotes": "Wed 18:30; Sat 09:00; Sun 08:15",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-wheelers",
@@ -2624,7 +2918,14 @@
       "pricingNotes": "Adult £30/year; junior £10/year; family £40/year. Juniors need separate Cycling UK or BC Silver/Gold insurance.",
       "bookingNotes": "Contact club before first ride",
       "tasterNotes": "Up to 3 nonmember rides",
-      "trainingNotes": "Wed 18:30, approximately 2 hours; weekends variable"
+      "trainingNotes": "Wed 18:30, approximately 2 hours; weekends variable",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "rochdale-cycling-club",
@@ -2672,7 +2973,14 @@
       "pricingNotes": "Directory reports free membership and rides; café expenses separate.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Sat urday arrive 08:30 / depart 09:00 (directory)"
+      "trainingNotes": "Sat urday arrive 08:30 / depart 09:00 (directory)",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "stockport-clarion-cycling-club",
@@ -2726,7 +3034,14 @@
       "pricingNotes": "Senior £20; U 18 free; family £40; social £12. Membermojo expiry currently 31 Dec 2027.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed MTB 18:30 summer /19:00 winter; first Wed monthly gravel ride instead. Sun day road rides mornings, time unspecified."
+      "trainingNotes": "Wed MTB 18:30 summer /19:00 winter; first Wed monthly gravel ride instead. Sun day road rides mornings, time unspecified.",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "stockport-community-cycling-club",
@@ -2778,7 +3093,14 @@
       "pricingNotes": "£2/ride or £30/year; first ride free",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Rides vary; check ride calendar"
+      "trainingNotes": "Rides vary; check ride calendar",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "wigan-wheelers-and-triathlon-club",
@@ -2867,7 +3189,14 @@
       "pricingNotes": "Adult £30; junior 13–17 £10; over 60 £10; family/couple £50; second claim £20. Add £1 application fee. Renewal period not explicit on retrieved listing.",
       "bookingNotes": "Under 18 contact club before joining",
       "tasterNotes": null,
-      "trainingNotes": "Wed 18:00; Sat 09:00; Sun 08:00"
+      "trainingNotes": "Wed 18:00; Sat 09:00; Sun 08:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "wythenshawe-wheelers-cycling-club",
@@ -2958,7 +3287,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Tue/Wed 09:30–12:00; Sat 13:00–15:00"
+      "trainingNotes": "Tue/Wed 09:30–12:00; Sat 13:00–15:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "beswick-community-football-club-pd-coaching",
@@ -3012,7 +3348,14 @@
       "pricingNotes": "October 2026 development block £28.50; EGS Mon day£20.50, Fri day£15.50; girls single session£7.50; monthly adult kickabout£7. Beswick team subscriptions not established.",
       "bookingNotes": "Required through online session booking",
       "tasterNotes": null,
-      "trainingNotes": "EGS Mon day 1.5 h; Fri day younger/older 1 h; dates released through booking system"
+      "trainingNotes": "EGS Mon day 1.5 h; Fri day younger/older 1 h; dates released through booking system",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bury-amateurs-afc",
@@ -3059,7 +3402,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bury-football-club",
@@ -3109,7 +3459,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-football-dreams",
@@ -3158,7 +3515,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "radcliffe-borough-juniors",
@@ -3214,7 +3578,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "radcliffe-juniors-fc",
@@ -3265,7 +3636,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "ramsbottom-united-jfc",
@@ -3311,7 +3689,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "seedfield-fc",
@@ -3358,7 +3743,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "warth-fold-and-redvales-community-sports-club",
@@ -3405,7 +3797,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "westbury-sports-club",
@@ -3474,7 +3873,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Ladies open age 16+: Thu 20:00–21:00"
+      "trainingNotes": "Ladies open age 16+: Thu 20:00–21:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "wythenshawe-football-club",
@@ -3530,7 +3936,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "didsbury-northern-hockey-club",
@@ -3581,7 +3994,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "oldham-hockey-club",
@@ -3635,7 +4055,14 @@
       "pricingNotes": "2026/27 senior£324/year or£27/month; student£198/£16.50; first junior£138/£11.50; sibling£69/£5.75. Includes match fees. Summer 2026 £4/session, siblings£2.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu Sep–Mar juniors 18:30–19:30; seniors 19:00–20:30"
+      "trainingNotes": "Thu Sep–Mar juniors 18:30–19:30; seniors 19:00–20:30",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "south-manchester-hockey-club",
@@ -3700,7 +4127,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu rsday 19:00–21:00"
+      "trainingNotes": "Thu rsday 19:00–21:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "stockport-bramhall-hockey-club",
@@ -3854,7 +4288,14 @@
       "pricingNotes": "2026/27 heading: Year 12+ £190/year; Year 11 and below £155/year. Match £8; second match £5; friendly £5. Three instalments offered.",
       "bookingNotes": null,
       "tasterNotes": "Three free tasters",
-      "trainingNotes": "Mon mixed 19:30–21:00; Tue juniors 18:00–19:00/Y 7+18:00–19:30; Tue men 19:30–21:15; Wed women 19:30–21:15; Sun juniors 10:00–11:00/Y 7+10:30–12:00"
+      "trainingNotes": "Mon mixed 19:30–21:00; Tue juniors 18:00–19:00/Y 7+18:00–19:30; Tue men 19:30–21:15; Wed women 19:30–21:15; Sun juniors 10:00–11:00/Y 7+10:30–12:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "wigan-hockey-club",
@@ -3907,7 +4348,14 @@
       "pricingNotes": "Senior£120/year paid£10/month; over 60/student£60 paid£5/month; juniors£10/year. Matches senior£6/student£5/U 18 £4 include weekly training; training-only£1/session. Junior£1/week.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Men 1 Mon 19:30–21:00; Wed men 1/2 19:30–21:00; Wed women 1/2 19:00–20:30; Wed juniors 18:00–19:00"
+      "trainingNotes": "Men 1 Mon 19:30–21:00; Wed men 1/2 19:30–21:00; Wed women 1/2 19:00–20:30; Wed juniors 18:00–19:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bowdon-club",
@@ -3964,7 +4412,14 @@
       "pricingNotes": "2025/26 full playing 30+£282/year or 6×£50; age 21–29 £175/year or 6×£32; students/18–20 £97; juniors 11–17 £62; U 11 £52. Match/training/court fees additional.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bowdon-club-squash",
@@ -4021,7 +4476,14 @@
       "pricingNotes": "2025/26 full playing 30+£282/year or 6×£50; age 21–29 £175/year or 6×£32; students/18–20 £97; juniors 11–17 £62; U 11 £52. Match/training/court fees additional.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "belle-vue-racers-running",
@@ -4074,7 +4536,14 @@
       "pricingNotes": "2026/27 adult£40/year; student/unemployed£25; second claim£20. Track£3.50/session.",
       "bookingNotes": "Contact club before taster",
       "tasterNotes": null,
-      "trainingNotes": "Thu 19:00–20:00(arrive 18:45)"
+      "trainingNotes": "Thu 19:00–20:00(arrive 18:45)",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "chorlton-runners-running",
@@ -4130,7 +4599,14 @@
       "pricingNotes": "Social/second claim£16/year (£7 concession); firstclaim£41 (£32 concession). Track£4/session. Joining Oct–Dec club portion 50%discount.",
       "bookingNotes": "Not required for social runs; other trials arrange with secretary",
       "tasterNotes": "Three tryouts for most sessions; Sun day runs open to nonmembers",
-      "trainingNotes": "Tue 18:45 and 19:00–20:15; Fri track 18:30 Longford Park; Sun 09:00 social; Tue hill/fell usually 18:30 variable outside Manchester"
+      "trainingNotes": "Tue 18:45 and 19:00–20:15; Fri track 18:30 Longford Park; Sun 09:00 social; Tue hill/fell usually 18:30 variable outside Manchester",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "royton-road-runners",
@@ -4185,7 +4661,14 @@
       "pricingNotes": "Annual membership includes England Athletics and Royton Cricket Club; amount not captured.",
       "bookingNotes": null,
       "tasterNotes": "Try training for a few weeks before joining",
-      "trainingNotes": "Mon day/Thu rsday evenings; exact times not captured"
+      "trainingNotes": "Mon day/Thu rsday evenings; exact times not captured",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "cheetham-hill-squash",
@@ -4240,7 +4723,14 @@
       "pricingNotes": "2023/24 page advertises from £5/month; category prices not established.",
       "bookingNotes": "Court booking through membership system",
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-tennis-racquet-club",
@@ -4297,7 +4787,14 @@
       "pricingNotes": null,
       "bookingNotes": "Contact club to book court or lesson",
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "south-manchester-squash-racketball-club",
@@ -4379,7 +4876,14 @@
       "pricingNotes": "Squash £16/month; racketball £16/month; combined £24/month. Pay-per-play £7 per 90-minute session.",
       "bookingNotes": "Register interest for nonmember group coaching",
       "tasterNotes": null,
-      "trainingNotes": "Tue squash 19:15–20:45; Thu racketball 20:00–21:30"
+      "trainingNotes": "Tue squash 19:15–20:45; Thu racketball 20:00–21:30",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "the-northern",
@@ -4450,7 +4954,14 @@
       "pricingNotes": "Adult full £77/month or £847/year plus £200 joining. Under 30 £60/month, under 25 £40/month. Xpress 6-week block£60; improvers£7.50 member/£10 nonmember. Junior trial£10.",
       "bookingNotes": "Required via app/site or reception for courts and coaching",
       "tasterNotes": "Junior squash trial £10, credited if joining squad within a week",
-      "trainingNotes": "Tue social 18:00–21:00; Wed Xpress 18:20–19:20; Wed improvers 19:30–20:30 (April 2026 policy)"
+      "trainingNotes": "Tue social 18:00–21:00; Wed Xpress 18:20–19:20; Wed improvers 19:30–20:30 (April 2026 policy)",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "markland-hill-racquets-club",
@@ -4507,7 +5018,14 @@
       "pricingNotes": "2026/27 full adult 24+£510/year or 10×£53.50; age 18–23 £260 or 10×£28.50; junior 12–17 £135; junior 4–11 £65. Table tennis social access£60/year or 10×£8.50. Three-month adult trial£110.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "markland-hill-racquets-club-table-tennis",
@@ -4564,7 +5082,14 @@
       "pricingNotes": "2026/27 full adult 24+£510/year or 10×£53.50; age 18–23 £260 or 10×£28.50; junior 12–17 £135; junior 4–11 £65. Table tennis social access£60/year or 10×£8.50. Three-month adult trial£110.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "affinity-table-tennis-club",
@@ -4617,7 +5142,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu rsday evenings and Sun day afternoons; precise times not captured"
+      "trainingNotes": "Thu rsday evenings and Sun day afternoons; precise times not captured",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "flixton-table-tennis-flixton-cricket-and-sports-club",
@@ -4675,7 +5207,14 @@
       "pricingNotes": "Table tennis£63/year; over 60 £51; U 18 £20. Membership expires 31 Mar 2027.",
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": null
+      "trainingNotes": null,
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "marple-sports-club-table-tennis",
@@ -4744,7 +5283,14 @@
       "pricingNotes": "Visitor£3/session; members free until further notice. Sports membership fee additional, amount not yet captured.",
       "bookingNotes": "Not required: come along",
       "tasterNotes": null,
-      "trainingNotes": "Wed 20:15"
+      "trainingNotes": "Wed 20:15",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-foxes",
@@ -4811,7 +5357,14 @@
       "pricingNotes": "First session free. Subsequent pay-as-you-play or membership price on request.",
       "bookingNotes": "Not required; message first recommended",
       "tasterNotes": null,
-      "trainingNotes": "Mon 18:00–20:00"
+      "trainingNotes": "Mon 18:00–20:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-social-touch-rugby",
@@ -4865,7 +5418,14 @@
       "pricingNotes": "Free informal weekly play",
       "bookingNotes": "Not required; first-timers may email beforehand",
       "tasterNotes": null,
-      "trainingNotes": "May–Aug Thu 19:00–20:30; Sep–Apr Sat 10:30–12:00"
+      "trainingNotes": "May–Aug Thu 19:00–20:30; Sep–Apr Sat 10:30–12:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-village-spartans-touch",
@@ -4922,7 +5482,14 @@
       "pricingNotes": "Touch page£5.50–£15/month depending employment/income. Other club-info page quotes£7.50–£19.95/month; confirm Touch rate. Competition costs extra.",
       "bookingNotes": "Register and contact volunteers before first training",
       "tasterNotes": "Up to 8 sessions in first 4 weeks, adult 18+, subject to availability",
-      "trainingNotes": "Mon day approximately 19:00 spring/summer; Touch season mid Jan–mid Oct"
+      "trainingNotes": "Mon day approximately 19:00 spring/summer; Touch season mid Jan–mid Oct",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "duffa",
@@ -4977,7 +5544,14 @@
       "pricingNotes": "Membership and outdoor sessions free; indoor session charge not established.",
       "bookingNotes": "Not required for outdoor sessions; beginners welcome",
       "tasterNotes": null,
-      "trainingNotes": "Sun day sessions; beginners first Sun day of month. Exact monthly times on Instagram."
+      "trainingNotes": "Sun day sessions; beginners first Sun day of month. Exact monthly times on Instagram.",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "bolton-bulls",
@@ -5027,7 +5601,14 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu 20:30–22:30 (older fundraiser/directory)"
+      "trainingNotes": "Thu 20:30–22:30 (older fundraiser/directory)",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     },
     {
       "id": "manchester-revolution",
@@ -5129,7 +5710,14 @@
       "pricingNotes": null,
       "bookingNotes": "Contact manager before attending",
       "tasterNotes": null,
-      "trainingNotes": "Mon/Thu first team 20:00–22:00; Mon second team 18:00–20:00; Thu development 18:00–20:00"
+      "trainingNotes": "Mon/Thu first team 20:00–22:00; Mon second team 18:00–20:00; Thu development 18:00–20:00",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-02",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
     }
   ]
 }

@@ -11,6 +11,28 @@
   const dayNames = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const dayNumbers = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 7 };
 
+  /* Shared locations: follow the preceding session and restore independent addresses when unchecked. */
+  function syncSessionLocations() {
+    const blocks = [...sessionList.querySelectorAll('.training-session')];
+    blocks.forEach((block, index) => {
+      const checkbox = block.querySelector('[data-same-location]');
+      const address = block.querySelector('[data-session-field="meeting"]');
+      block.querySelector('[data-same-location-option]').hidden = index === 0;
+      if (index === 0) checkbox.checked = false;
+      // Hide manual entry and validate only independent addresses; keep the resolved value for submission.
+      address.closest('.field').hidden = checkbox.checked;
+      address.required = !checkbox.checked;
+      if (checkbox.checked) {
+        if (!address.readOnly) address.dataset.independentAddress = address.value;
+        address.value = blocks[index - 1].querySelector('[data-session-field="meeting"]').value;
+        address.readOnly = true;
+      } else {
+        if (address.readOnly) address.value = address.dataset.independentAddress || '';
+        address.readOnly = false;
+      }
+    });
+  }
+
   /* Session data: preserve each training entry separately, including any special considerations. */
   function readSessions() {
     return [...sessionList.querySelectorAll('.training-session')].map(block => {
@@ -28,6 +50,7 @@
 
   /* Submission summaries: static Netlify fields hold readable details and structured session JSON. */
   function syncSessions() {
+    syncSessionLocations();
     const sessions = readSessions();
     form.elements.namedItem('schedule').value = sessions.map(sessionSummary).filter(Boolean).join('\n');
     form.elements.namedItem('meeting').value = sessions.map((session, index) =>
@@ -61,9 +84,11 @@
     const paid = ['monthly', 'annual', 'per-session'].includes(pricingType);
     form.querySelectorAll('[data-paid-pricing]').forEach(row => {
       row.hidden = !paid;
-      row.querySelector('input').disabled = !paid;
+      row.querySelector('input, select').disabled = !paid;
     });
     form.elements.namedItem('pricing-amount').required = paid;
+    // Paid clubs must explicitly confirm whether booking is required.
+    form.elements.namedItem('booking-required').required = paid;
     const data = values();
     const suffix = { monthly: 'month', annual: 'year', 'per-session': 'session' };
     const amount = data['pricing-amount'];
@@ -135,21 +160,28 @@
       return;
     }
 
+    const formData = new FormData(form);
+    if (!String(formData.get('g-recaptcha-response') || '').trim()) {
+      error.textContent = 'Please complete the reCAPTCHA security check. If it has expired, complete it again before sending.';
+      error.hidden = false;
+      return;
+    }
     submitting = true;
 
     submitButton.disabled = true;
     submitButton.textContent = 'Sending your application…';
     try {
-      const body = new URLSearchParams(new FormData(form)).toString();
+      const body = new URLSearchParams(formData).toString();
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body
       });
-      if (!response.ok) throw new Error('The application could not be sent. Please try again shortly.');
+      if (!response.ok || response.redirected) throw new Error('The application could not be sent. Please complete the security check again and retry.');
 
       showSuccessScreen();
     } catch (problem) {
+      if (typeof window.grecaptcha?.reset === 'function') window.grecaptcha.reset();
       error.textContent = problem.message || 'We could not send your application. Please check your connection and try again.';
       error.hidden = false;
       submitButton.disabled = false;

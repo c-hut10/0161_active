@@ -3,19 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Browse weekly sports club sessions around Manchester.">
+  <meta name="description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
   <title>Club calendar | 0161 Active</title>
   <link rel="stylesheet" href="../css/0161_Page.css">
   <link rel="stylesheet" href="../css/calendar.css">
   <link rel="icon" href="../img/0161 Active_Logo.png">
-  <link rel="stylesheet" href="../css/site-nav.css">
-  <script defer src="../js/site-nav.js"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261004-contact">
+  <script defer src="/js/site-nav.js?v=20261004-contact"></script>
+  <link rel="canonical" href="https://0161active.co.uk/html/calendar.html">
+
+  <!-- Social preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="0161 Active">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="Club calendar | 0161 Active">
+  <meta property="og:description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
+  <meta property="og:url" content="https://0161active.co.uk/html/calendar.html">
+  <meta property="og:image" content="https://0161active.co.uk/img/social/html-calendar.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Club calendar — Greater Manchester. 0161 Active.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Club calendar | 0161 Active">
+  <meta name="twitter:description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
+  <meta name="twitter:image" content="https://0161active.co.uk/img/social/html-calendar.jpg">
+  <meta name="twitter:image:alt" content="Club calendar — Greater Manchester. 0161 Active.">
+  <!-- /Social preview -->
+  <link rel="stylesheet" href="/css/site-footer.css">
+  <link rel="stylesheet" href="/css/cookie-settings.css">
+  <script defer src="/js/cookie-settings.js"></script>
+  <link rel="stylesheet" href="/css/accessibility.css">
+  <script defer src="/js/accessibility.js"></script>
+  <link rel="stylesheet" href="/css/club-verification.css">
 </head>
 <body class="calendar-body">
+<a class="skip-link" href="#main-content">Skip to main content</a>
   <!-- Calendar navigation: keep the route back to the directory and registration visible. -->
   <div data-site-nav></div>
 
-  <main class="calendar-page">
+  <main class="calendar-page" id="main-content" tabindex="-1">
     <header class="calendar-intro">
       <p class="calendar-eyebrow">0161 ACTIVE · MANCHESTER</p>
       <div class="calendar-intro__row">
@@ -78,7 +105,22 @@
     </section>
   </main>
 
-  <footer class="calendar-footer"><p>Made for the people who make Manchester move. <a href="../index.html">0161 Active</a></p></footer>
+  <footer class="site-footer" data-site-footer>
+  <div class="site-footer__inner">
+    <div class="site-footer__contact">
+      <p class="site-footer__label">CONTACT INFO</p>
+      <a class="site-footer__email" href="mailto:contact.0161active@gmail.com">contact.0161active@gmail.com</a>
+    </div>
+    <nav class="site-footer__links" aria-label="Footer navigation">
+      <a href="/html/contact.html">Contact us</a>
+      <a href="/html/register.html">Register your club</a>
+      <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/privacy.html">Privacy policy</a>
+      <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
+      <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>
+    </nav>
+  </div>
+</footer>
   <script type="module" src="../js/calendar.js"></script>
 </body>
 </html>

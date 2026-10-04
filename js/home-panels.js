@@ -1,53 +1,22 @@
-/* Mission heading counter: quickly count the database figure up once it enters view. */
-(() => {
-  const counter = document.querySelector('[data-count-up]');
-  if (!counter) return;
-
-  const target = Number(counter.dataset.countUp);
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reducedMotion || !Number.isFinite(target)) return;
-
-  const countUp = () => {
-    const duration = 1400;
-    const startedAt = performance.now();
-
-    const update = (now) => {
-      const progress = Math.min((now - startedAt) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(target * easedProgress);
-      counter.textContent = `${current}+`;
-
-      if (progress < 1) requestAnimationFrame(update);
-    };
-
-    counter.textContent = '0+';
-    requestAnimationFrame(update);
-  };
-
-  // Start the count only when the mission heading is near the viewport.
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries.some(entry => entry.isIntersecting)) {
-        observer.disconnect();
-        countUp();
-      }
-    }, { threshold: 0.5 });
-    observer.observe(counter);
-  } else {
-    countUp();
-  }
-})();
+function missionReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('a11y-reduce-motion');
+}
 
 /* Third-panel headline: flick through the requested sports words, then settle on club. */
 (() => {
   const word = document.querySelector('.mission-panel__word[data-words]');
   const panel = word?.closest('.mission-panel');
-  if (!word || !panel || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!word || !panel || missionReducedMotion()) return;
 
   const words = word.dataset.words.split('|').filter(Boolean);
   let wordIndex = 0;
 
   const flickNextWord = () => {
+    if (missionReducedMotion()) {
+      word.textContent = words[words.length - 1];
+      word.classList.remove('is-flicking');
+      return;
+    }
     if (wordIndex >= words.length) return;
 
     word.classList.remove('is-flicking');

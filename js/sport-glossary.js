@@ -1,3 +1,4 @@
+import { trainingTimesBadge } from './club-verification.mjs';
 /* Sport glossary: filter clubs from the same JSON records used by profiles and calendar. */
 const clubList = document.querySelector('#club-list');
 const clubCount = document.querySelector('#club-count');
@@ -130,7 +131,7 @@ function renderDirectory() {
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3>${escapeHtml(club.name)}</h3>
+          <h3>${escapeHtml(club.name)}${trainingTimesBadge(club)}</h3>
         </div>
         <p class="sport-club-row__sessions">${schedule}</p>
         <p class="sport-club-row__area">${escapeHtml(area)}</p>
@@ -160,6 +161,7 @@ async function loadGlossary() {
     document.querySelector('.sport-club-directory').setAttribute('aria-label', `${sportName} listings`);
     document.querySelector('.sport-glossary-filters').setAttribute('aria-label', `Filter ${sportName} listings`);
     document.title = `${sportName} | 0161 Active`;
+    document.querySelector('meta[name="description"]').content = `Explore ${sportName.toLowerCase()} clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.`;
     const clubs = Array.isArray(clubsData.clubs) ? clubsData.clubs : [];
     const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug);
     const visibleWhenEmpty = new Set((Array.isArray(sportsData.visibleWhenEmpty) ? sportsData.visibleWhenEmpty : []).map(sportSlug));
