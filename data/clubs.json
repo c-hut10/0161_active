@@ -28,20 +28,133 @@
   },
   "clubs": [
     {
+      "id": "rehab-fitness",
+      "name": "Rehab Fitness",
+      "sport": "health & wellbeing",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": "Rehab Fitness CIC supports addiction recovery through community, movement and fitness. It offers free fitness and wellbeing sessions across Manchester and Stockport, welcoming people of all fitness levels and stages of recovery.",
+      "tags": [
+        "community",
+        "recovery",
+        "fitness",
+        "wellbeing"
+      ],
+      "imagePath": "img/health-and-wellbeing/health and wellbeing-Rehab Fitness.avif",
+      "profilePath": "html/health-and-wellbeing/rehab-fitness.html",
+      "area": "Ancoats",
+      "location": "Phoenix Mill, 20 Piercy Street, Ancoats, Manchester M4 7HY",
+      "coordinates": null,
+      "price": {
+        "type": "free",
+        "amount": 0,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": "info@rehabfitness.org.uk",
+      "onlineProfile": {
+        "platform": "website",
+        "url": "https://rehab-fitness.com/"
+      },
+      "sessions": [
+        {
+          "dayOfWeek": 1,
+          "day": "Monday",
+          "startTime": "16:00",
+          "endTime": null,
+          "group": "Gym session",
+          "meetingPoint": "Proper Gym",
+          "area": "Ancoats",
+          "dataStatus": "user-provided"
+        },
+        {
+          "dayOfWeek": 3,
+          "day": "Wednesday",
+          "startTime": "11:30",
+          "endTime": null,
+          "group": "Walking group",
+          "meetingPoint": "Lancashire Hill Community Centre",
+          "area": "Stockport",
+          "dataStatus": "user-provided"
+        },
+        {
+          "dayOfWeek": 3,
+          "day": "Wednesday",
+          "startTime": "16:00",
+          "endTime": null,
+          "group": "Gym session",
+          "meetingPoint": "Proper Gym",
+          "area": "Ancoats",
+          "dataStatus": "user-provided"
+        },
+        {
+          "dayOfWeek": 4,
+          "day": "Thursday",
+          "startTime": "12:00",
+          "endTime": null,
+          "group": "Run club",
+          "meetingPoint": "Phoenix Mill, 20 Piercy Street, Ancoats, Manchester M4 7HY",
+          "area": "Ancoats",
+          "dataStatus": "user-provided"
+        },
+        {
+          "dayOfWeek": 5,
+          "day": "Friday",
+          "startTime": "15:00",
+          "endTime": null,
+          "group": "Yoga",
+          "meetingPoint": "Phoenix Mill, upstairs room, Ancoats",
+          "area": "Ancoats",
+          "dataStatus": "user-provided"
+        },
+        {
+          "dayOfWeek": 7,
+          "day": "Sunday",
+          "startTime": "12:00",
+          "endTime": null,
+          "group": "Run club",
+          "meetingPoint": "Phoenix Mill, 20 Piercy Street, Ancoats, Manchester M4 7HY",
+          "area": "Ancoats",
+          "dataStatus": "user-provided"
+        }
+      ],
+      "research": {
+        "checkedAt": "2026-10-06",
+        "fields": {
+          "Website": "https://rehab-fitness.com/",
+          "Contact source": "https://rehab-fitness.com/",
+          "Training source": "https://rehab-fitness.com/",
+          "Issues / confirmation needed": "Confirm current session times and venues with the club before attending."
+        }
+      },
+      "pricingNotes": "All sessions are free.",
+      "bookingNotes": "The website says to just turn up. Contact the club for current session details.",
+      "tasterNotes": null,
+      "trainingNotes": "Schedule supplied on 6 October 2026: Monday gym 16:00; Wednesday walking group 11:30 and gym 16:00; Thursday run club 12:00; Friday yoga 15:00; Sunday run club 12:00. End times have not been supplied. Thursday's start time updates the previously published website timetable.",
+      "verification": {
+        "status": "public-sources-reviewed",
+        "lastSourceCheck": "2026-10-06",
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      },
+      "confirmed": false
+    },
+    {
       "id": "snappy-runners",
       "name": "Snappy Runners",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": "A social club for young adults who like to run.",
       "tags": [
-        "running",
+        "run-club",
         "coffee",
         "social",
         "friendly"
       ],
-      "imagePath": "img/running/SnappyRunner.png",
-      "profilePath": "html/running/SnappyRunners.html",
+      "imagePath": "img/run-club/SnappyRunner.png",
+      "profilePath": "html/run-club/SnappyRunners.html",
       "area": "Ancoats",
       "location": "Ancoats, Manchester",
       "coordinates": {
@@ -86,13 +199,13 @@
     {
       "id": "not-a-running-club",
       "name": "Not A Running Club",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": "img/running/NotARunningClub.jpeg",
-      "profilePath": "html/running/NotARunningClub.html",
+      "imagePath": "img/run-club/NotARunningClub.jpeg",
+      "profilePath": "html/run-club/NotARunningClub.html",
       "area": "Didsbury",
       "location": "Co-op Food, Burton Road, West Didsbury",
       "coordinates": null,
@@ -137,13 +250,13 @@
     {
       "id": "tiny-moves",
       "name": "Tiny Moves",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": "Beginner-friendly, slow-paced social run",
       "tags": [],
-      "imagePath": "img/running/TinyMoves.jpeg",
-      "profilePath": "html/running/TinyMoves.html",
+      "imagePath": "img/run-club/TinyMoves.jpeg",
+      "profilePath": "html/run-club/TinyMoves.html",
       "area": "City Centre",
       "location": "Manchester",
       "coordinates": null,
@@ -209,13 +322,13 @@
     {
       "id": "just-a-run-club",
       "name": "Just A Run Club",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": "img/running/JustARunClub.webp",
-      "profilePath": "html/running/JustARunClub.html",
+      "imagePath": "img/run-club/JustARunClub.webp",
+      "profilePath": "html/run-club/JustARunClub.html",
       "area": "Castlefield",
       "location": "Manchester",
       "coordinates": null,
@@ -257,13 +370,13 @@
     {
       "id": "redacted-run-club",
       "name": "Redacted Run Club",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": "img/running/RedactedRunClub.jpeg",
-      "profilePath": "html/running/RedactedRunClub.html",
+      "imagePath": "img/run-club/RedactedRunClub.jpeg",
+      "profilePath": "html/run-club/RedactedRunClub.html",
       "area": "Heaton Park",
       "location": "Manchester",
       "coordinates": null,
@@ -305,13 +418,13 @@
     {
       "id": "manchester-frontrunners",
       "name": "Manchester Frontrunners",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": "LGBTQ+ running club open to members and allies",
       "tags": [],
-      "imagePath": "img/running/ManchesterFrontrunners.jpg",
-      "profilePath": "html/running/ManchesterFrontrunners.html",
+      "imagePath": "img/run-club/ManchesterFrontrunners.jpg",
+      "profilePath": "html/run-club/ManchesterFrontrunners.html",
       "area": "City Centre",
       "location": "Manchester",
       "coordinates": null,
@@ -402,13 +515,13 @@
     {
       "id": "mile-shy-club",
       "name": "Mile Shy Club",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": "img/running/MileShyClub.webp",
-      "profilePath": "html/running/MileShyClub.html",
+      "imagePath": "img/run-club/MileShyClub.webp",
+      "profilePath": "html/run-club/MileShyClub.html",
       "area": "Moss Side",
       "location": "Manchester",
       "coordinates": null,
@@ -450,13 +563,13 @@
     {
       "id": "didsbury-runners",
       "name": "Didsbury Runners",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": "Volunteer-run club with 5 km/10 km Mon day groups 8–12 min/mile",
       "tags": [],
-      "imagePath": "img/running/DidsburyRunners.jpg",
-      "profilePath": "html/running/DidsburyRunners.html",
+      "imagePath": "img/run-club/DidsburyRunners.jpg",
+      "profilePath": "html/run-club/DidsburyRunners.html",
       "area": "Didsbury",
       "location": "Manchester",
       "coordinates": null,
@@ -525,13 +638,13 @@
     {
       "id": "ancoats-run-club",
       "name": "Ancoats Run Club",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": "img/running/AncoatRunClub.avif",
-      "profilePath": "html/running/AncoatRunClub.html",
+      "imagePath": "img/run-club/AncoatRunClub.avif",
+      "profilePath": "html/run-club/AncoatRunClub.html",
       "area": "Ancoats",
       "location": "Manchester",
       "coordinates": null,
@@ -632,7 +745,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/athletics/athletics-Sale Harriers.avif",
       "profilePath": "html/athletics/sale-harriers.html",
       "area": "Sale",
       "location": null,
@@ -660,7 +773,8 @@
           "endTime": "20:00",
           "meetingPoint": "The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG",
           "area": "Sale",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Endurance"
         },
         {
           "dayOfWeek": 3,
@@ -669,7 +783,8 @@
           "endTime": "20:00",
           "meetingPoint": "The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG",
           "area": "Sale",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Endurance"
         },
         {
           "dayOfWeek": 4,
@@ -678,7 +793,8 @@
           "endTime": "20:00",
           "meetingPoint": "The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG",
           "area": "Sale",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Endurance - Beginner/Improver"
         },
         {
           "dayOfWeek": 1,
@@ -687,7 +803,8 @@
           "endTime": "20:30",
           "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB",
           "area": "Wythenshawe",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Advanced Endurance"
         },
         {
           "dayOfWeek": 2,
@@ -696,7 +813,8 @@
           "endTime": "20:30",
           "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB",
           "area": "Wythenshawe",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Advanced Endurance- Road/Grass/Trail"
         },
         {
           "dayOfWeek": 3,
@@ -705,7 +823,8 @@
           "endTime": "20:30",
           "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB",
           "area": "Wythenshawe",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Advanced Endurance"
         },
         {
           "dayOfWeek": 4,
@@ -714,7 +833,8 @@
           "endTime": "20:30",
           "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB",
           "area": "Wythenshawe",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Advanced Endurance - Intervals"
         },
         {
           "dayOfWeek": 7,
@@ -723,7 +843,8 @@
           "endTime": "11:30",
           "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB",
           "area": "Wythenshawe",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Adult Advanced Endurance"
         }
       ],
       "verification": {
@@ -1019,9 +1140,9 @@
       "sport": "athletics",
       "regularSessionAttendance": null,
       "title": null,
-      "description": null,
+      "description": "",
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/athletics/athletics-Belle Vue Racers.avif",
       "profilePath": "html/athletics/belle-vue-racers.html",
       "area": "Ancoats",
       "location": null,
@@ -1047,7 +1168,8 @@
           "endTime": "20:00",
           "meetingPoint": "Manchester Regional Arena, M11 3FF",
           "area": "Ancoats",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Track Session"
         }
       ],
       "verification": {
@@ -1066,7 +1188,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/athletics/athletics-Salford Harriers.avif",
       "profilePath": "html/athletics/salford-harriers.html",
       "area": "Ancoats",
       "location": null,
@@ -1094,16 +1216,19 @@
           "endTime": "20:00",
           "meetingPoint": "Manchester Regional Arena, M11 3FF",
           "area": "Ancoats",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Endurance - Track Session"
         },
         {
           "dayOfWeek": 4,
           "day": "Thursday",
           "startTime": "18:30",
           "endTime": "20:00",
-          "meetingPoint": "The Bluebell Can, M40 9PY",
+          "meetingPoint": "The Bluebell Pub, M40 9PY",
           "area": "Charlestown",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "All-Abilities Endurance - Long Run",
+          "subtitle": "7–9 miles"
         },
         {
           "dayOfWeek": 6,
@@ -1112,7 +1237,8 @@
           "endTime": "11:00",
           "meetingPoint": "Heaton Park Golf Course Carpark, M25 2SW",
           "area": "Higher Blackley",
-          "dataStatus": "user-submitted"
+          "dataStatus": "user-submitted",
+          "title": "Endurance - Grass/Park Paths"
         }
       ],
       "research": {
@@ -1729,7 +1855,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/archery/archery-Assheton Bowmen.avif",
       "profilePath": "html/archery/assheton-bowmen.html",
       "area": "Charlestown",
       "location": null,
@@ -1809,7 +1935,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/archery/archery-Moorside Archery Club.avif",
       "profilePath": "html/archery/moorside-archery-club.html",
       "area": "Swinton",
       "location": "Holyrood Memorial Hall, Moorside Road, M27 0HJ",
@@ -1869,7 +1995,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/archery/archery-Eccles Archery.avif",
       "profilePath": "html/archery/eccles-archery-club.html",
       "area": "Eccles",
       "location": "216 Peel Green Road, M30 7DR",
@@ -1931,7 +2057,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/american-football/american football-Manchester TItans (M).avif",
       "profilePath": "html/american-football/mcr-titans-mens.html",
       "area": "Longsight",
       "location": null,
@@ -2009,7 +2135,7 @@
       "title": null,
       "description": null,
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/american-football/american football-Manchester TItans (W).avif",
       "profilePath": "html/american-football/mcr-titans-womens.html",
       "area": "Droylsden",
       "location": null,
@@ -2081,6 +2207,7 @@
     },
     {
       "id": "rochdale-company-of-archers",
+      "hiddenFromSportList": true,
       "name": "Rochdale Company of Archers",
       "sport": "archery",
       "regularSessionAttendance": null,
@@ -2144,6 +2271,7 @@
     },
     {
       "id": "spinners-mill-archers",
+      "hiddenFromSportList": true,
       "name": "Spinners Mill Archers",
       "sport": "archery",
       "regularSessionAttendance": null,
@@ -2204,6 +2332,7 @@
     },
     {
       "id": "stalybridge-archery-club",
+      "hiddenFromSportList": true,
       "name": "Stalybridge Archery Club",
       "sport": "archery",
       "regularSessionAttendance": null,
@@ -2266,6 +2395,7 @@
     },
     {
       "id": "wigan-orrell-archers",
+      "hiddenFromSportList": true,
       "name": "Wigan & Orrell Archers",
       "sport": "archery",
       "regularSessionAttendance": null,
@@ -4488,13 +4618,13 @@
     {
       "id": "belle-vue-racers-running",
       "name": "Belle Vue Racers",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
-      "description": "Adult 18+ running club",
+      "description": "",
       "tags": [],
-      "imagePath": null,
-      "profilePath": "html/running/belle-vue-racers-running.html",
+      "imagePath": "img/athletics/athletics-Belle Vue Racers.avif",
+      "profilePath": "html/run-club/belle-vue-racers-running.html",
       "area": "Sportcity",
       "location": "Manchester Regional Arena, Sportcity",
       "coordinates": null,
@@ -4548,13 +4678,13 @@
     {
       "id": "chorlton-runners-running",
       "name": "Chorlton Runners",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": "Adult 18+ club with social, road, track, trail and fell running",
       "tags": [],
       "imagePath": null,
-      "profilePath": "html/running/chorlton-runners-running.html",
+      "profilePath": "html/run-club/chorlton-runners-running.html",
       "area": "Chorlton",
       "location": "Bowling Green pub, Chorlton (social runs)",
       "coordinates": null,
@@ -4611,13 +4741,13 @@
     {
       "id": "royton-road-runners",
       "name": "Royton Road Runners",
-      "sport": "running",
+      "sport": "run-club",
       "regularSessionAttendance": null,
       "title": null,
       "description": "Adult 18+ club for new and experienced runners",
       "tags": [],
       "imagePath": null,
-      "profilePath": "html/running/royton-road-runners.html",
+      "profilePath": "html/run-club/royton-road-runners.html",
       "area": "Royton",
       "location": "Royton Cricket Club",
       "coordinates": null,
@@ -5618,7 +5748,7 @@
       "title": null,
       "description": "Wheelchair basketball ages 5+; chairs provided for new development players",
       "tags": [],
-      "imagePath": null,
+      "imagePath": "img/wheelchair basketball/wheelchair basketball-Manchester Revolution.avif",
       "profilePath": "html/wheelchair-basketball/manchester-revolution.html",
       "area": "Gorton",
       "location": "National Basketball Performance Centre, Kirkmanshulme Lane, Manchester, M 12 4 TF",
@@ -5718,6 +5848,122 @@
         "trainingTimesConfirmedAt": null
       },
       "confirmed": false
+    },
+    {
+      "id": "ghap-badminton",
+      "name": "GHAP Badminton",
+      "sport": "badminton",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": "",
+      "tags": [],
+      "imagePath": "img/badminton/badminton-GHAP Badminton.avif",
+      "profilePath": "html/badminton/ghap-badminton.html",
+      "area": null,
+      "location": null,
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": null,
+      "onlineProfile": null,
+      "sessions": [],
+      "confirmed": false,
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      }
+    },
+    {
+      "id": "manchester-lynx",
+      "name": "Manchester Lynx",
+      "sport": "basketball",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": "",
+      "tags": [],
+      "imagePath": "img/basketball/basketball-Manchester Lynx.avif",
+      "profilePath": "html/basketball/manchester-lynx.html",
+      "area": null,
+      "location": "CHS South, 451 Mauldeth Road, M21 7SX",
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": null,
+      "onlineProfile": null,
+      "sessions": [
+        {
+          "dayOfWeek": 3,
+          "day": "Wednesday",
+          "startTime": "19:00",
+          "endTime": "20:00",
+          "meetingPoint": "CHS South, 451 Mauldeth Road, M21 7SX",
+          "area": null,
+          "dataStatus": "user-submitted",
+          "title": "Training - Beginner",
+          "eligibility": "Beginners"
+        },
+        {
+          "dayOfWeek": 5,
+          "day": "Friday",
+          "startTime": "19:00",
+          "endTime": "20:00",
+          "meetingPoint": "CHS South, 451 Mauldeth Road, M21 7SX",
+          "area": null,
+          "dataStatus": "user-submitted",
+          "title": "Training - Advanced",
+          "eligibility": "Advanced levels"
+        }
+      ],
+      "confirmed": false,
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      }
+    },
+    {
+      "id": "salford-basketball-club",
+      "name": "Salford Basketball Club",
+      "sport": "basketball",
+      "regularSessionAttendance": null,
+      "title": null,
+      "description": "",
+      "tags": [],
+      "imagePath": "img/basketball/basketball-Salford Basketball Club.avif",
+      "profilePath": "html/basketball/salford-basketball-club.html",
+      "area": null,
+      "location": null,
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": null,
+      "onlineProfile": null,
+      "sessions": [],
+      "confirmed": false,
+      "verification": {
+        "status": "unverified",
+        "lastSourceCheck": null,
+        "lastConfirmedByClub": null,
+        "trainingTimesConfirmedAt": null
+      }
     }
   ]
 }

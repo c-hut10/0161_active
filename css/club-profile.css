@@ -43,15 +43,18 @@
 .profile-information-date { margin: 10px 0 0; color: var(--profile-grey); font-size: 11px; line-height: 1.5; }
 .profile-actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; gap: 9px; }
 .profile-action {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
   display: inline-flex;
-  min-height: 42px;
+  min-height: 44px;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
   padding: 0 15px;
   color: var(--profile-black);
   background: var(--profile-lime);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: .08em;
   text-decoration: none;
@@ -60,8 +63,33 @@
 .profile-action:hover { color: var(--profile-black); background: var(--profile-paper); }
 .profile-action--secondary { color: var(--profile-paper); background: transparent; box-shadow: inset 0 0 0 1px var(--profile-line); }
 .profile-action--secondary:hover { color: var(--profile-lime); background: var(--profile-panel); }
-.profile-action--disabled,
-.profile-action--disabled:hover { color: #858a82; background: var(--profile-panel); box-shadow: inset 0 0 0 1px var(--profile-line); cursor: not-allowed; }
+.profile-calendar-download { flex-direction: column; gap: 4px; padding-top: 9px; padding-bottom: 9px; }
+.profile-calendar-download small { color: inherit; font-size: 12px; font-weight: 400; letter-spacing: 0; line-height: 1.4; }
+.profile-calendar-download,
+.profile-calendar-download:hover,
+.profile-calendar-download:focus-visible {
+  color: var(--profile-black);
+  background: var(--profile-lime);
+}
+
+/* Training summary: put days, times and booking requirements ahead of the photo and introduction. */
+.profile-training-summary { padding: 18px 0 22px; border-bottom: 1px solid var(--profile-line); }
+.profile-training-summary__heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; margin-bottom: 12px; }
+.profile-training-summary h2 { margin: 0; color: var(--profile-paper); font-size: 21px; letter-spacing: -.035em; }
+.profile-training-summary__heading a { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; color: var(--profile-lime); font-size: 14px; text-decoration: none; }
+.profile-training-summary__heading a:hover,
+.profile-training-summary__heading a:focus-visible { color: var(--profile-paper); text-decoration: underline; text-underline-offset: 4px; }
+.profile-training-summary__body--booking { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .4fr); align-items: start; gap: 20px; }
+.profile-training-summary__sessions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.profile-training-summary__session { min-width: 0; padding: 10px 12px; border-left: 2px solid var(--profile-lime); background: var(--profile-panel); }
+.profile-training-summary__session strong { display: block; margin-bottom: 4px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.profile-training-summary__session time { color: var(--profile-paper); font-size: 14px; font-weight: 700; }
+.profile-training-summary__session span { display: block; margin-top: 5px; color: var(--profile-grey); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.profile-training-summary__booking { padding-left: 16px; border-left: 1px solid var(--profile-line); }
+.profile-training-summary__booking h3 { margin: 0 0 6px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.profile-training-summary__booking p,
+.profile-training-summary__empty { margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.profile-training-summary__booking p + p { margin-top: 6px; color: var(--profile-grey); }
 
 /* Overview: pair a compact club photo with the editable facts and introduction. */
 .profile-overview {
@@ -94,7 +122,7 @@
   border: 1px solid var(--profile-line);
   background: var(--profile-panel);
 }
-.profile-week h2 { margin: 0 0 12px; color: var(--profile-paper); font-size: 25px; letter-spacing: -.04em; }
+.profile-week h2 { margin: 0 0 12px; color: var(--profile-paper); font-size: 25px; letter-spacing: -.04em; scroll-margin-top: calc(var(--site-nav-height, 100px) + 20px); }
 .profile-details-list { margin: 0; border-top: 1px solid var(--profile-line); }
 .profile-detail-row {
   display: grid;
@@ -105,37 +133,46 @@
   border-bottom: 1px solid var(--profile-line);
 }
 .profile-main .profile-detail-row { border-bottom: 1px solid var(--profile-line); }
-.profile-detail-row dt { color: var(--profile-lime); font-size: 9px; font-weight: 700; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
-.profile-detail-row dd { margin: 0; color: var(--profile-paper); font-size: 12px; line-height: 1.5; }
+.profile-detail-row dt { color: var(--profile-lime); font-size: 11px; font-weight: 700; letter-spacing: .12em; line-height: 1.5; text-transform: uppercase; }
+.profile-detail-row dd { margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 
 /* Club introduction: span the full profile width between the overview and weekly calendar. */
 .profile-about { width: 100%; padding: 26px 0 30px; border-bottom: 1px solid var(--profile-line); }
 .profile-about h2 { margin: 0 0 12px; color: var(--profile-lime); font-size: 25px; letter-spacing: -.04em; text-transform: uppercase; }
 .profile-about p { width: 100%; margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.7; }
+/* Separate About paragraphs so the club prompts are easy to read. */
+.profile-about p + p { margin-top: 14px; }
 
 /* Weekly calendar: show all seven days with session times and meeting points. */
 .profile-week { padding-top: 27px; }
 .profile-week__heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
 .profile-week__heading h2 { margin-bottom: 0; }
-.profile-week__heading p { margin: 0; color: var(--profile-grey); font-size: 11px; }
+.profile-week__heading p { margin: 0; color: var(--profile-grey); font-size: 13px; }
 .profile-week__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--profile-line); border-left: 1px solid var(--profile-line); }
 .profile-day { min-width: 0; min-height: 102px; padding: 10px 8px; border-right: 1px solid var(--profile-line); border-bottom: 1px solid var(--profile-line); }
 .profile-main .profile-day { border-bottom: 1px solid var(--profile-line); }
-.profile-day__name { margin: 0 0 10px; color: var(--profile-grey); font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+.profile-day__name { margin: 0 0 10px; color: var(--profile-grey); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
 .profile-session { margin: 0 0 8px; padding: 7px 6px; border-left: 2px solid var(--profile-lime); background: var(--profile-panel); }
-.profile-session time { display: block; color: var(--profile-lime); font-size: 10px; font-weight: 700; }
-.profile-session span { display: block; margin-top: 4px; color: var(--profile-grey); font-size: 9px; line-height: 1.35; overflow-wrap: anywhere; }
+.profile-session .session-title { display: block; margin-bottom: 5px; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.profile-session time { display: block; color: var(--profile-lime); font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
+.profile-session span { display: block; margin-top: 4px; color: var(--profile-grey); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+/* Keep the venue charge inline and highlight only the amount. */
+.profile-session .session-fee { color: var(--profile-lime); font-weight: inherit; }
 .profile-empty { color: #747971; font-size: 10px; }
-.profile-week__notice { margin: 13px 0 0; color: var(--profile-grey); font-size: 10px; line-height: 1.5; }
-.profile-footer { padding: 20px; color: var(--profile-grey); text-align: center; font-size: 11px; }
-.profile-footer a { color: var(--profile-lime); }
+.profile-week__notice { margin: 13px 0 0; color: var(--profile-grey); font-size: 13px; line-height: 1.5; }
+
+/* Let larger timetable text reflow into fewer columns on tablets and phones. */
+@media (max-width: 1040px) {
+  .profile-week__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 
 @media (max-width: 760px) {
   .profile-main { width: 92vw; }
   .profile-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .profile-photo { min-height: 360px; }
   .profile-detail-row { grid-template-columns: minmax(82px, .4fr) minmax(0, 1fr); gap: 10px; }
-  .profile-week__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .profile-training-summary__body--booking { grid-template-columns: 1fr; }
+  .profile-training-summary__booking { padding-left: 0; border-left: 0; }
 }
 
 @media (max-width: 560px) {

@@ -1,4 +1,5 @@
 import { PRICE_TYPE_LABELS, PRICE_TYPE_ORDER, priceType, priceLabel, sportName, matchesClubFilters, validCoordinates } from './club-directory-filters.js';
+import { loadClubDirectory } from './site-data.mjs';
 
 const mapElement = document.querySelector('#map');
 const sportFilter = document.querySelector('#map-filter-sport');
@@ -112,11 +113,8 @@ function initialiseMap() {
 }
 async function loadDirectory() {
   try {
-    const [clubResponse,locationResponse]=await Promise.all([fetch('/data/clubs.json',{cache:'no-cache'}),fetch('/data/club-map-locations.json',{cache:'no-cache'}).catch(()=>null)]);
-    if(!clubResponse.ok)throw new Error('The club directory could not load. Please try again later.');
-    const data=await clubResponse.json();
-    if(!Array.isArray(data.clubs))throw new Error('The club directory is unavailable.');
-    clubs=data.clubs.filter(club=>club && typeof club.id==='string' && typeof club.name==='string');
+    const [data,locationResponse]=await Promise.all([loadClubDirectory(),fetch('/data/club-map-locations.json',{cache:'no-cache'}).catch(()=>null)]);
+    clubs=data.clubs;
     if(locationResponse?.ok) {try {locations=(await locationResponse.json()).locations || {};}catch {locations={};}}
     populateFilters(); initialiseMap(); render();
   } catch(error) {count.textContent='Clubs unavailable';showStatus(error.message);const link=document.createElement('a');link.href='/html/sports/directory.html';link.textContent='Browse the sports directory';list.append(link);}

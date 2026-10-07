@@ -1,5 +1,4 @@
-/* Map providers: keep service URLs in one place so providers can be swapped without changing map logic. */
+/* Map tiles: retain the provider URL for when the map is restored. */
 window.CLUB_MAP_CONFIG = Object.freeze({
-  tileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  geocoderUrl: 'https://nominatim.openstreetmap.org/search'
+  tileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 });

@@ -101,8 +101,7 @@
 }
 .site-navbar__sports:hover .site-navbar__sports-panel,
 .site-navbar__sports:focus-within .site-navbar__sports-panel { display: block; }
-.site-navbar__sports-panel a,
-.site-navbar__drawer-sports a {
+.site-navbar__sports-panel a {
   display: flex;
   min-height: 38px;
   align-items: center;
@@ -112,14 +111,11 @@
   text-decoration: none;
 }
 .site-navbar__sports-panel a:hover,
-.site-navbar__sports-panel a:focus-visible,
-.site-navbar__drawer-sports a:hover,
-.site-navbar__drawer-sports a:focus-visible { color: #111211; background: #dffc3a; outline: none; }
+.site-navbar__sports-panel a:focus-visible { color: #111211; background: #dffc3a; outline: none; }
 .site-navbar__sports-all { margin-bottom: 10px; border-bottom: 1px solid #454945; color: #dffc3a !important; font-weight: 700; letter-spacing: .1em; }
 .site-navbar__sports-panel .site-navbar__sports-all:hover { color: #dffc3a !important; background: transparent; }
 .site-navbar__sports-section-title { margin: 18px 0 7px; padding-top: 13px; border-top: 1px solid #454945; color: #dffc3a; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
-.site-navbar__sports-grid,
-.site-navbar__drawer-sports { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; border-bottom: 0; }
+.site-navbar__sports-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; border-bottom: 0; }
 .site-navbar__menu-button,
 .site-navbar__overlay,
 .site-navbar__drawer { display: none; }
@@ -182,9 +178,6 @@ body.site-nav-open { overflow: hidden; }
   .site-navbar__drawer-link { display: flex; min-height: 58px; align-items: center; justify-content: space-between; border-bottom: 1px solid #454945; color: #faecd2; font-size: clamp(18px, 5vw, 24px); font-weight: 700; letter-spacing: -.03em; text-decoration: none; }
   .site-navbar__drawer-link[aria-current="page"] { color: #dffc3a; }
   .site-navbar__drawer-link:hover { color: #dffc3a; }
-  .site-navbar__browse { margin: 14px 0 5px; color: #a5aaa2; font-size: 9px; font-weight: 700; letter-spacing: .16em; }
-  .site-navbar__drawer-sports { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 20px; }
-  .site-navbar__drawer-sports a { min-height: 36px; padding: 7px 5px; border-bottom: 1px solid #292c29; font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

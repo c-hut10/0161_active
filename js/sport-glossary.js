@@ -1,4 +1,7 @@
+import { sportSlug, displaySportName, canonicalArea, DAY_NAMES as dayNames, sessionTime, escapeHtml } from './club-formatting.mjs';
+import { visibleSportRecords } from './sport-catalog.mjs';
 import { trainingTimesBadge } from './club-verification.mjs';
+import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
 /* Sport glossary: filter clubs from the same JSON records used by profiles and calendar. */
 const clubList = document.querySelector('#club-list');
 const clubCount = document.querySelector('#club-count');
@@ -7,51 +10,18 @@ const dayFilter = document.querySelector('#day-filter');
 const clubSearch = document.querySelector('#club-search');
 const directoryMessage = document.querySelector('#directory-message');
 
-const dayNames = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 let sportClubs = [];
 let sportName = 'Run Club';
 let sportIsVisible = true;
 
-/* Escaping: render shared club data as text so submitted names cannot become markup. */
-function escapeHtml(value = '') {
-  return String(value).replace(/[&<>"']/g, character => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  })[character]);
-}
-
-function sportSlug(value) {
-  return String(value).normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-/* Display names: keep the running route while showing the site's Run Club label. */
-function displaySportName(name) {
-  return sportSlug(name) === 'running' ? 'Run Club' : name;
-}
-
 function sportCollectionLabel(name) {
   return name === 'Run Club' ? 'run clubs' : `${name.toLocaleLowerCase()} clubs`;
-}
-
-/* Area labels: fold directional Didsbury variants into one stable filter and display label. */
-function canonicalArea(area) {
-  const value = String(area || '').trim();
-  return /didsbury/i.test(value) ? 'Didsbury' : value;
 }
 
 function clubAreas(club) {
   return [...new Set([club.area, ...(club.sessions || []).map(session => session.area)]
     .map(canonicalArea)
     .filter(Boolean))];
-}
-
-function sessionTime(session) {
-  if (!session.startTime) return 'Time TBC';
-  return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
 }
 
 function populateAreas() {
@@ -131,7 +101,7 @@ function renderDirectory() {
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3>${escapeHtml(club.name)}${trainingTimesBadge(club)}</h3>
+          <h3><a class="sport-club-name" href="${escapeHtml(profileHref(club))}">${escapeHtml(club.name)}${trainingTimesBadge(club)}</a></h3>
         </div>
         <p class="sport-club-row__sessions">${schedule}</p>
         <p class="sport-club-row__area">${escapeHtml(area)}</p>
@@ -144,13 +114,8 @@ function renderDirectory() {
 /* Data startup: choose a sport by URL and build its area/day filtered numbered club list. */
 async function loadGlossary() {
   try {
-    const requestedSlug = new URLSearchParams(window.location.search).get('sport') || 'running';
-    const [sportsResponse, clubsResponse] = await Promise.all([
-      fetch('../../data/sports.json'),
-      fetch('../../data/clubs.json')
-    ]);
-    if (!sportsResponse.ok || !clubsResponse.ok) throw new Error('The club directory could not be loaded. Please try again later.');
-    const [sportsData, clubsData] = await Promise.all([sportsResponse.json(), clubsResponse.json()]);
+    const requestedSlug = sportSlug(new URLSearchParams(window.location.search).get('sport') || 'run-club');
+    const [sportsData, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
     const sports = Array.isArray(sportsData.sports) ? sportsData.sports : [];
     const canonicalSportName = sports.find(name => sportSlug(name) === requestedSlug)
       || requestedSlug.split('-').filter(Boolean).map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
@@ -162,13 +127,11 @@ async function loadGlossary() {
     document.querySelector('.sport-glossary-filters').setAttribute('aria-label', `Filter ${sportName} listings`);
     document.title = `${sportName} | 0161 Active`;
     document.querySelector('meta[name="description"]').content = `Explore ${sportName.toLowerCase()} clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.`;
-    const clubs = Array.isArray(clubsData.clubs) ? clubsData.clubs : [];
-    const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug);
-    const visibleWhenEmpty = new Set((Array.isArray(sportsData.visibleWhenEmpty) ? sportsData.visibleWhenEmpty : []).map(sportSlug));
-    const hiddenSports = new Set((Array.isArray(sportsData.hiddenSports) ? sportsData.hiddenSports : []).map(sportSlug));
+    const clubs = clubsData.clubs;
+    const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug
+      && club.hiddenFromSportList !== true);
     /* Direct glossary URLs follow the same availability rules as the menus and directory. */
-    sportIsVisible = !hiddenSports.has(requestedSlug)
-      && (matchingClubs.length > 0 || visibleWhenEmpty.has(requestedSlug));
+    sportIsVisible = visibleSportRecords(sportsData, clubs).some(sport => sport.slug === requestedSlug);
     sportClubs = sportIsVisible ? matchingClubs : [];
     populateAreas();
     const requestedArea = canonicalArea(new URLSearchParams(window.location.search).get('area') || '');

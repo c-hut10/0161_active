@@ -5,13 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <title>Register your club | 0161 Active</title>
-  <link rel="stylesheet" href="../css/0161_Page.css">
-  <link rel="stylesheet" href="../css/register.css">
+  <link rel="stylesheet" href="../css/site-base.css">
+  <link rel="stylesheet" href="../css/register.css?v=20261007-standalone">
   <link rel="icon" href="../img/0161 Active_Logo.png">
-  <link rel="stylesheet" href="/css/site-nav.css?v=20261004-contact">
-  <script defer src="/js/site-nav.js?v=20261004-contact"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
+  <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
+  <link rel="stylesheet" href="/css/site-footer.css">
+  <link rel="stylesheet" href="/css/cookie-settings.css">
+  <script defer src="/js/cookie-settings.js"></script>
+  <link rel="stylesheet" href="/css/accessibility.css">
+  <script defer src="/js/accessibility.js"></script>
+  <link rel="stylesheet" href="/css/club-verification.css">
   <link rel="canonical" href="https://0161active.co.uk/html/register.html">
-
   <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="0161 Active">
@@ -19,23 +24,17 @@
   <meta property="og:title" content="Register your club | 0161 Active">
   <meta property="og:description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <meta property="og:url" content="https://0161active.co.uk/html/register.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Register your club | 0161 Active">
+  <meta name="twitter:description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <meta property="og:image" content="https://0161active.co.uk/img/social/html-register.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Register your club — Greater Manchester. 0161 Active.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Register your club | 0161 Active">
-  <meta name="twitter:description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
+  <meta property="og:image:alt" content="Register your club | 0161 Active — Greater Manchester. 0161 Active.">
   <meta name="twitter:image" content="https://0161active.co.uk/img/social/html-register.jpg">
-  <meta name="twitter:image:alt" content="Register your club — Greater Manchester. 0161 Active.">
+  <meta name="twitter:image:alt" content="Register your club | 0161 Active — Greater Manchester. 0161 Active.">
   <!-- /Social preview -->
-  <link rel="stylesheet" href="/css/site-footer.css">
-  <link rel="stylesheet" href="/css/cookie-settings.css">
-  <script defer src="/js/cookie-settings.js"></script>
-  <link rel="stylesheet" href="/css/accessibility.css">
-  <script defer src="/js/accessibility.js"></script>
-  <link rel="stylesheet" href="/css/club-verification.css">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -74,21 +73,24 @@
         <section class="form-section">
           <p class="section-number">02 / FIND YOUR PEOPLE</p>
           <h2>Who can join in?</h2>
-          <div class="field-grid">
-            <label class="field">Who is it for?<input name="audience" maxlength="100" placeholder="e.g. Beginners, all ages"></label>
-          </div>
           <!-- Repeatable sessions: collect each day's own time and public meeting point. -->
           <p class="session-help">Add each training session separately, including sessions that meet in different places.</p>
           <div id="training-sessions">
             <fieldset class="training-session">
-              <legend>Training session <span data-session-number>1</span></legend>
+              <legend data-session-heading>1. Training session</legend>
               <div class="field-grid">
+                <!-- Session name: label each entry and include its title in the application. -->
+                <label class="field field-wide"><span class="field-title">What would you like this session to be called?</span><input data-session-field="title" maxlength="100" placeholder="e.g. Intense Circuit Training, Casual Kickabout etc."></label>
                 <label class="field field-wide"><span class="field-title">Day <span class="required">*</span></span><select data-session-field="dayOfWeek" required><option value="">Choose a day</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="7">Sunday</option></select></label>
                 <label class="field"><span class="field-title">Start time <span class="required">*</span></span><input data-session-field="startTime" type="time" required></label>
                 <label class="field">End time<input data-session-field="endTime" type="time"></label>
+                <!-- Experience level: collect who each individual training session is suited to. -->
+                <label class="field field-wide"><span class="field-title">Experience level</span><select data-session-field="eligibility"><option value="">Choose an experience level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option><option value="All Abilities">All Abilities</option></select></label>
                 <!-- Additional sessions can reuse the previous session's current address. -->
                 <label class="session-same-location field-wide" data-same-location-option hidden><input type="checkbox" data-same-location> Same location as previous session</label>
-                <label class="field field-wide"><span class="field-title">Meeting address <span class="required">*</span></span><input data-session-field="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"><small>Use a public meeting point or venue, rather than a private home address.</small></label>
+                <label class="field field-wide"><span class="field-title">Training address <span class="required">*</span></span><input data-session-field="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"></label>
+                <!-- Session postcode: categorise each training venue using the shared area rulebook. -->
+                <label class="field field-wide"><span class="field-title">Postcode <span class="required">*</span></span><input data-session-field="postcode" required maxlength="12" placeholder="e.g. M21 7SX" autocomplete="postal-code"></label>
               </div>
               <label class="field session-considerations">Special considerations<textarea data-session-field="specialConsiderations" maxlength="300" rows="2" placeholder="e.g. Every other week? First Thursday of every month?"></textarea></label>
               <button class="session-remove" type="button" data-remove-session hidden>Remove session</button>
@@ -135,7 +137,7 @@
               <h2 id="preview-name">Your club name</h2>
               <div class="preview-profile-actions" aria-label="Club actions preview">
                 <span class="preview-action preview-action--secondary" id="preview-contact-action" aria-disabled="true">CONTACT</span>
-                <span class="preview-action" id="preview-apply-action" aria-disabled="true">WEBSITE</span>
+                <span class="preview-action" id="preview-online-action" aria-disabled="true">WEBSITE</span>
               </div>
             </div>
           </header>
@@ -211,6 +213,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script src="../js/register.js"></script>
+  <script type="module" src="../js/register.js?v=20261007-cleanup"></script>
 </body>
 </html>

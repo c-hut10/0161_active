@@ -1,10 +1,8 @@
+import { displaySportName, canonicalArea } from './club-formatting.mjs';
+import { loadClubDirectory } from './site-data.mjs';
+
 /* Show five photo tiles in each row, repeating available clubs if needed. */
 const GALLERY_IMAGE_LIMIT = 10;
-
-/* Gallery labels: use Run Club for display without renaming stored sport values. */
-function displaySportName(name) {
-  return String(name || '').toLocaleLowerCase() === 'running' ? 'Run Club' : name;
-}
 
 /* Build one rolling row; the second copy makes the movement loop without an empty gap. */
 function makeRollingRow(clubList, rowNumber) {
@@ -38,7 +36,7 @@ function makeRollingRow(clubList, rowNumber) {
     heading.textContent = club.name;
     const subtitle = document.createElement('p');
     subtitle.className = 'gallery-caption__details';
-    subtitle.textContent = [displaySportName(club.sport), club.area].filter(Boolean).join(' · ');
+    subtitle.textContent = [displaySportName(club.sport), canonicalArea(club.area)].filter(Boolean).join(' · ');
     caption.append(heading, subtitle);
     link.append(image, caption);
     card.append(link);
@@ -61,15 +59,24 @@ async function renderRandomClubs() {
   const gallery = document.querySelector('#club-gallery');
   if (!gallery) return;
   const pause = document.querySelector('[data-gallery-pause]');
+  /* Pause/resume: translate the visible card position into a loop phase, including manual scrolling. */
   pause?.addEventListener('click', () => {
     const paused = !gallery.classList.contains('is-paused');
+    const scrollPosition = gallery.scrollLeft;
     gallery.querySelectorAll('.gallery-track').forEach(track => {
+      const cardWidth = track.querySelector('.gallery-card').getBoundingClientRect().width;
       if (paused) {
         const transform = getComputedStyle(track).transform;
         const offset = transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m41;
-        const cardWidth = track.querySelector('.gallery-card').getBoundingClientRect().width;
         track.style.setProperty('--paused-offset', String(offset / cardWidth));
       } else {
+        const offset = Number(track.style.getPropertyValue('--paused-offset'));
+        const loopCards = Number(track.style.getPropertyValue('--gallery-card-count')) / 2;
+        const duration = parseFloat(track.style.getPropertyValue('--roll-duration'));
+        // Whole-loop offsets are visually equivalent because the club sequence is repeated.
+        const position = -offset + scrollPosition / cardWidth;
+        const phase = ((position % loopCards) + loopCards) % loopCards;
+        track.style.setProperty('--roll-phase-offset', `${-duration * phase / loopCards}s`);
         track.style.removeProperty('--paused-offset');
       }
     });
@@ -88,15 +95,11 @@ async function renderRandomClubs() {
   }
 
   try {
-    const response = await fetch('data/clubs.json');
-    if (!response.ok) throw new Error('Club gallery data could not be loaded.');
-    const directory = await response.json();
-    const clubsWithPhotos = Array.isArray(directory.clubs)
-      ? directory.clubs.filter(club => typeof club.imagePath === 'string'
+    const directory = await loadClubDirectory();
+    const clubsWithPhotos = directory.clubs.filter(club => typeof club.imagePath === 'string'
         && club.imagePath.startsWith('img/')
         && typeof club.profilePath === 'string'
-        && club.profilePath.startsWith('html/'))
-      : [];
+        && club.profilePath.startsWith('html/'));
 
     const shuffled = [...clubsWithPhotos];
     for (let index = shuffled.length - 1; index > 0; index--) {

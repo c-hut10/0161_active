@@ -6,12 +6,17 @@
   <meta name="description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
   <title>Club calendar | 0161 Active</title>
   <link rel="stylesheet" href="../css/0161_Page.css">
-  <link rel="stylesheet" href="../css/calendar.css">
+  <link rel="stylesheet" href="../css/calendar.css?v=20261007-calendar-combined-days">
   <link rel="icon" href="../img/0161 Active_Logo.png">
-  <link rel="stylesheet" href="/css/site-nav.css?v=20261004-contact">
-  <script defer src="/js/site-nav.js?v=20261004-contact"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
+  <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
+  <link rel="stylesheet" href="/css/site-footer.css">
+  <link rel="stylesheet" href="/css/cookie-settings.css">
+  <script defer src="/js/cookie-settings.js"></script>
+  <link rel="stylesheet" href="/css/accessibility.css">
+  <script defer src="/js/accessibility.js"></script>
+  <link rel="stylesheet" href="/css/club-verification.css">
   <link rel="canonical" href="https://0161active.co.uk/html/calendar.html">
-
   <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="0161 Active">
@@ -19,23 +24,17 @@
   <meta property="og:title" content="Club calendar | 0161 Active">
   <meta property="og:description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
   <meta property="og:url" content="https://0161active.co.uk/html/calendar.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Club calendar | 0161 Active">
+  <meta name="twitter:description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
   <meta property="og:image" content="https://0161active.co.uk/img/social/html-calendar.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Club calendar — Greater Manchester. 0161 Active.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Club calendar | 0161 Active">
-  <meta name="twitter:description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
+  <meta property="og:image:alt" content="Club calendar | 0161 Active — Greater Manchester. 0161 Active.">
   <meta name="twitter:image" content="https://0161active.co.uk/img/social/html-calendar.jpg">
-  <meta name="twitter:image:alt" content="Club calendar — Greater Manchester. 0161 Active.">
+  <meta name="twitter:image:alt" content="Club calendar | 0161 Active — Greater Manchester. 0161 Active.">
   <!-- /Social preview -->
-  <link rel="stylesheet" href="/css/site-footer.css">
-  <link rel="stylesheet" href="/css/cookie-settings.css">
-  <script defer src="/js/cookie-settings.js"></script>
-  <link rel="stylesheet" href="/css/accessibility.css">
-  <script defer src="/js/accessibility.js"></script>
-  <link rel="stylesheet" href="/css/club-verification.css">
 </head>
 <body class="calendar-body">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -51,7 +50,6 @@
            <h1>Made active.</h1>
           <p class="calendar-lede">Find a session that fits your week.</p>
         </div>
-        <p class="calendar-sample-note" id="sample-note" hidden></p>
       </div>
     </header>
 
@@ -69,9 +67,8 @@
       <p class="calendar-result-count" id="result-count" aria-live="polite">Loading sessions…</p>
     </section>
 
-    <!-- Day navigation: Full week is the default; a weekday opens its chronological agenda. -->
-    <nav class="calendar-day-nav" id="calendar-day-nav" aria-label="Choose calendar view">
-      <span class="calendar-nav-frame" aria-hidden="true"></span>
+    <!-- Day navigation: toggle one or more weekdays; clearing them restores the full week. -->
+    <nav class="calendar-day-nav" id="calendar-day-nav" aria-label="Choose calendar view" aria-describedby="calendar-selection-help">
       <button type="button" class="day-nav-button day-nav-button--week" data-view="week" aria-pressed="true">FULL WEEK</button>
       <div class="calendar-day-nav__days">
         <button type="button" class="day-nav-button" data-day="1" aria-pressed="false">MON</button>
@@ -84,24 +81,28 @@
       </div>
     </nav>
 
+    <!-- Selection help and reset: explain the combined day filter directly below its controls. -->
+    <div class="calendar-selection-tools">
+      <p class="calendar-selection-help" id="calendar-selection-help">Select one or more days. Clubs must have a session on every day you select.</p>
+      <button type="button" class="calendar-clear-filters" id="calendar-clear-filters" disabled>Clear filters</button>
+    </div>
+
     <p class="calendar-message" id="calendar-message" role="status" hidden></p>
 
     <!-- Weekly club rows make it easy to compare every club across the full week. -->
     <section class="calendar-view calendar-view--week" id="week-view" aria-labelledby="week-heading">
       <div class="calendar-view-heading">
-        <div><p class="calendar-eyebrow">EVERY CLUB · EVERY DAY</p><h2 id="week-heading">Weekly club schedule</h2></div>
+        <div><p class="calendar-eyebrow" id="week-overline">ALL SPORTS · LOADING CLUBS…</p><h2 id="week-heading">Weekly club schedule</h2></div>
         <p>Please get in touch if you spot incorrect information!</p>
       </div>
+      <div id="week-heading-position" aria-hidden="true"></div>
       <div class="week-grid" id="week-grid" role="table" aria-label="Club sessions across the week"></div>
     </section>
 
-    <!-- The focused day view lists matching sessions by time and gives each club a clear route. -->
-    <section class="calendar-view calendar-view--day" id="day-view" aria-labelledby="day-heading" hidden>
-      <div class="calendar-view-heading calendar-view-heading--day">
-        <div><p class="calendar-eyebrow" id="day-overline">WEEKLY SESSIONS</p><h2 id="day-heading">Monday</h2></div>
-        <button type="button" class="back-to-week" id="back-to-week">← Full week</button>
-      </div>
-      <div class="day-agenda" id="day-agenda" aria-live="polite"></div>
+    <!-- Selected days: one combined agenda includes only clubs training on every chosen weekday. -->
+    <section class="calendar-view calendar-view--day" id="day-view" aria-label="Selected days' sessions" hidden>
+      <div id="day-heading-position" aria-hidden="true"></div>
+      <div id="day-agenda" aria-live="polite"></div>
     </section>
   </main>
 
@@ -121,6 +122,7 @@
     </nav>
   </div>
 </footer>
-  <script type="module" src="../js/calendar.js"></script>
+  <button type="button" class="calendar-back-to-top" id="calendar-back-to-top" hidden>↑ Back to top</button>
+  <script type="module" src="../js/calendar.js?v=20261007-calendar-combined-days"></script>
 </body>
 </html>

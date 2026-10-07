@@ -26,10 +26,8 @@
   width: calc(var(--gallery-card-width) * var(--gallery-card-count));
   border: 0;
   animation: club-panel-roll var(--roll-duration, 36s) linear infinite;
+  animation-delay: var(--roll-phase-offset, 0s);
   will-change: transform;
-}
-#club-gallery .gallery-row:nth-child(2) .gallery-track {
-  animation-delay: var(--roll-phase-offset, -6.67s);
 }
 /* Container units resize the entire loop in the same layout pass, without observer lag. */
 @supports (width: 1cqw) {
@@ -41,7 +39,7 @@
   to { transform: translateX(-50%); }
 }
 
-/* Club tiles keep the familiar monochrome-to-hazy-green hover treatment. */
+/* Desktop tiles retain the grayscale-to-hazy-green hover and keyboard-focus treatment. */
 #club-gallery .gallery-card {
   position: relative;
   flex: 0 0 var(--gallery-card-width);
@@ -66,6 +64,7 @@
 }
 #club-gallery .gallery-card a:hover img,
 #club-gallery .gallery-card a:focus-visible img { opacity: .5; }
+/* Desktop captions keep their original black text and animated reveal. */
 #club-gallery .gallery-caption {
   position: absolute;
   left: 18px;
@@ -73,7 +72,7 @@
   width: fit-content;
   max-width: calc(100% - 36px);
   color: var(--black);
-  /* The legacy main div rule adds a lime border beneath every div. */
+  /* Keep the sport and area free of an extra border beneath the caption. */
   border-bottom: 0;
   opacity: 0;
   transition: opacity .85s ease;
@@ -138,6 +137,25 @@
 }
 
 @media (max-width: 600px) {
+  /* Mobile only: keep photos grayscale and captions visible before a profile is opened. */
+  #club-gallery .gallery-card,
+  #club-gallery .gallery-card--unavailable { background: #202220; }
+  #club-gallery .gallery-card a { color: #dffc3a; }
+  #club-gallery .gallery-card img,
+  #club-gallery .gallery-card a:hover img,
+  #club-gallery .gallery-card a:focus-visible img { opacity: 1; transition: none; }
+  #club-gallery .gallery-caption,
+  #club-gallery .gallery-caption__details,
+  #club-gallery .gallery-card--unavailable .gallery-caption,
+  #club-gallery .gallery-card--unavailable .gallery-caption__details {
+    color: #dffc3a;
+    opacity: 1;
+    transform: none;
+    transition: none;
+    text-shadow: 0 1px 2px #111211, 0 0 6px rgba(17, 18, 17, .9);
+  }
+  #club-gallery .gallery-caption h2::before,
+  #club-gallery .gallery-caption h2::after { transform: scaleX(1); transition: none; }
   .grid-container#club-gallery { --gallery-image-height: clamp(125px, 36vw, 210px); }
   #club-gallery .gallery-caption { left: 10px; bottom: 10px; max-width: calc(100% - 20px); }
   #club-gallery .gallery-caption h2 { font-size: 13px; }

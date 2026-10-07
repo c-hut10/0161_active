@@ -1,29 +1,15 @@
-(() => {
+(async () => {
 /* Shared navigation: render the same sport directory, destinations and mobile drawer site-wide. */
 const siteNavMount = document.querySelector('[data-site-nav]');
 const siteNavScript = document.currentScript;
 const siteRoot = new URL('../', siteNavScript.src);
+const { displaySportName, sportGlossaryUrl: glossaryUrl, escapeHtml: escapeNavText } = await import('./club-formatting.mjs');
+const { visibleSportRecords } = await import('./sport-catalog.mjs');
+const { loadClubDirectory, loadSportCatalog } = await import('./site-data.mjs');
 const siteUrl = path => new URL(path, siteRoot).href;
-const escapeNavText = value => String(value).replace(/[&<>"']/g, character => ({
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;'
-})[character]);
-
-function sportSlug(name) {
-  return String(name).normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-/* Sport labels: show the preferred public name while keeping canonical slugs unchanged. */
-function displaySportName(name) {
-  return sportSlug(name) === 'running' ? 'Run Club' : name;
-}
 
 function sportGlossaryUrl(sport) {
-  return `${siteUrl('html/sports/glossary.html')}?sport=${encodeURIComponent(sportSlug(sport))}`;
+  return glossaryUrl(sport, null, siteUrl('html/sports/glossary.html'));
 }
 
 function currentPage() {
@@ -31,18 +17,16 @@ function currentPage() {
   if (pathname.endsWith('/calendar.html')) return 'calendar';
   if (pathname.endsWith('/register.html')) return 'register';
   if (pathname.endsWith('/contact.html')) return 'contact';
-  if (pathname.endsWith('/sports/directory.html') || pathname.endsWith('/sports/glossary.html') || pathname.endsWith('/sports/running.html')) return 'sports';
+  if (pathname.endsWith('/sports/directory.html') || pathname.endsWith('/sports/glossary.html') || pathname.endsWith('/sports/run-club.html')) return 'sports';
   return '';
 }
 
-function buildSiteNav(sports, accessibleSports = []) {
+function buildSiteNav(sports) {
   if (!siteNavMount) return;
   const active = currentPage();
-  const makeSportItems = list => list.map(sport => `<a href="${escapeNavText(sportGlossaryUrl(sport))}">${escapeNavText(displaySportName(sport))}</a>`).join('');
-  const accessibleSportSlugs = new Set(accessibleSports.map(sportSlug));
-  const otherSports = sports.filter(sport => !accessibleSportSlugs.has(sportSlug(sport)));
-  const sportItems = makeSportItems(otherSports);
-  const accessibleSportItems = makeSportItems(accessibleSports);
+  const makeSportItems = list => list.map(sport => `<a href="${escapeNavText(sportGlossaryUrl(sport.slug))}">${escapeNavText(displaySportName(sport.name))}</a>`).join('');
+  const sportItems = makeSportItems(sports.filter(sport => !sport.accessible));
+  const accessibleSportItems = makeSportItems(sports.filter(sport => sport.accessible));
   siteNavMount.innerHTML = `<header class="site-navbar">
     <div class="site-navbar__bar">
       <a class="site-navbar__brand" href="${siteUrl('')}" aria-label="0161 Active home"><img src="${siteUrl('img/0161 Active_Logo_Transparent.png')}" alt="0161 Active"></a>
@@ -138,33 +122,14 @@ function buildSiteNav(sports, accessibleSports = []) {
 
 /* Catalog loading: the desktop flyout and mobile drawer share the complete sport list. */
 async function loadSportsForNavigation() {
-  let sports = ['Running'];
-  let accessibleSports = [];
+  let sports = [{ name: 'Run Club', slug: 'run-club', accessible: false }];
   try {
-    const [sportsResponse, clubsResponse] = await Promise.all([
-      fetch(siteUrl('data/sports.json')),
-      fetch(siteUrl('data/clubs.json'))
-    ]);
-    if (!sportsResponse.ok || !clubsResponse.ok) throw new Error('Sport directory unavailable');
-    const [data, clubsData] = await Promise.all([sportsResponse.json(), clubsResponse.json()]);
-    if (Array.isArray(data.sports) && data.sports.length) sports = data.sports;
-    const visibleWhenEmpty = new Set((data.visibleWhenEmpty || []).map(sportSlug));
-    const hiddenSports = new Set((data.hiddenSports || []).map(sportSlug));
-    const clubCounts = new Map();
-    (clubsData.clubs || []).forEach(club => {
-      const slug = sportSlug(club.sport || '');
-      if (slug) clubCounts.set(slug, (clubCounts.get(slug) || 0) + 1);
-    });
-    const isVisible = sport => !hiddenSports.has(sportSlug(sport))
-      && ((clubCounts.get(sportSlug(sport)) || 0) > 0 || visibleWhenEmpty.has(sportSlug(sport)));
-    sports = sports.filter(isVisible);
-    if (Array.isArray(data.accessibleSports)) accessibleSports = data.accessibleSports.filter(isVisible);
+    const [data, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
+    sports = visibleSportRecords(data, clubsData.clubs);
   } catch (error) {
     // Keep the navigation usable if the optional full sport list cannot be loaded.
   }
-  sports.sort((a, b) => a.localeCompare(b));
-  accessibleSports.sort((a, b) => a.localeCompare(b));
-  buildSiteNav(sports, accessibleSports);
+  buildSiteNav(sports);
 }
 
 loadSportsForNavigation();

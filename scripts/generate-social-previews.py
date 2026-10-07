@@ -1,22 +1,27 @@
-"""Generate static share metadata and branded cards. Pass the public site URL."""
-import argparse
-import html
+"""Generate branded share images from club data and the generated profile pages."""
 import json
-import re
+import subprocess
+import tempfile
 from pathlib import Path
-from urllib.parse import quote, urlsplit
 from html.parser import HTMLParser
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
-class Metadata(HTMLParser):
+class ProfileEyebrow(HTMLParser):
+    """Read the profile's resolved sport/area label instead of duplicating postcode rules."""
     def __init__(self):
         super().__init__()
-        self.description = ''
+        self.in_eyebrow = False
+        self.parts = []
     def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if tag == 'meta' and attrs.get('name') == 'description':
-            self.description = attrs.get('content', '')
+        if tag == 'p' and 'profile-eyebrow' in dict(attrs).get('class', '').split():
+            self.in_eyebrow = True
+    def handle_endtag(self, tag):
+        if tag == 'p':
+            self.in_eyebrow = False
+    def handle_data(self, text):
+        if self.in_eyebrow:
+            self.parts.append(text)
 
 TITLES = {
     'index.html': 'Movement for everyone',
@@ -25,25 +30,37 @@ TITLES = {
     'html/contact.html': 'Contact 0161 Active',
     'html/privacy.html': 'Privacy policy',
     'html/resources.html': 'Resources',
-    'html/random.html': 'Not A Running Club image page',
-    'html/Test.html': 'Neon cursor demonstration',
     'html/calendar.html': 'Club calendar',
     'html/register.html': 'Register your club',
     'html/sports/directory.html': 'Sports directory',
     'html/sports/glossary.html': 'Find your sport',
-    'html/sports/running.html': 'Run Club directory',
+    'html/sports/run-club.html': 'Run Club directory',
 }
 
 def font(size):
     return ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf', size)
+
+def photo_tile(photo):
+    """Use the native decoder for AVIF grids unsupported by the bundled Pillow codec."""
+    try:
+        with Image.open(ROOT / photo) as source:
+            return ImageOps.fit(source.convert('RGB'), (400, 470))
+    except (OSError, RuntimeError):
+        if not photo.lower().endswith('.avif'):
+            raise
+        with tempfile.TemporaryDirectory(prefix='0161active-share-') as folder:
+            decoded = Path(folder) / 'photo.png'
+            subprocess.run(['/usr/bin/sips', '-s', 'format', 'png', str(ROOT / photo),
+                            '--out', str(decoded)], check=True, capture_output=True)
+            with Image.open(decoded) as source:
+                return ImageOps.fit(source.convert('RGB'), (400, 470))
 
 def card(path, title, eyebrow, photo):
     image = Image.new('RGB', (1200, 630), '#111211')
     draw = ImageDraw.Draw(image)
     text_width = 680 if photo else 1080
     if photo:
-        with Image.open(ROOT / photo) as source:
-            image.paste(ImageOps.fit(source.convert('RGB'), (400, 470)), (748, 104))
+        image.paste(photo_tile(photo), (748, 104))
     draw.text((56, 44), '0161 ACTIVE', font=font(28), fill='#dffc3a')
     draw.line((56, 88, 1144, 88), fill='#454945', width=2)
     draw.text((56, 126), eyebrow.upper(), font=font(18), fill='#dffc3a')
@@ -63,31 +80,22 @@ def card(path, title, eyebrow, photo):
     draw.text((56, 560), 'SPORTS CLUBS / GREATER MANCHESTER', font=font(18), fill='#a5aaa2')
     image.save(path, quality=90)
 
-parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--site-url', help='Public HTTPS origin; defaults to data/site.json')
-parser.add_argument('--images-only', action='store_true')
-args = parser.parse_args()
-config_path = ROOT / 'data/site.json'
-config = json.loads(config_path.read_text())
-args.site_url = args.site_url or config['publicUrl']
-if not args.images_only:
-    origin = urlsplit(args.site_url or '')
-    if origin.scheme != 'https' or not origin.netloc or origin.path not in ('', '/') or origin.query or origin.fragment or origin.username or origin.password:
-        parser.error('--site-url must be a public HTTPS origin without a path, query or credentials')
-    base = args.site_url.rstrip('/')
-    config['publicUrl'] = base
-    config_path.write_text(json.dumps(config, indent=2) + '\n')
+# Image generation never edits HTML or site configuration; the Node generator owns those files.
 clubs = {c['profilePath']: c for c in json.loads((ROOT / 'data/clubs.json').read_text())['clubs']}
 output = ROOT / 'img/social'
 output.mkdir(exist_ok=True)
 count = 0
 for page in sorted(ROOT.rglob('*.html')):
     relative = page.relative_to(ROOT).as_posix()
-    if relative == 'html/nav.html':
-        continue
     club = clubs.get(relative)
     title = club['name'] if club else TITLES[relative]
-    eyebrow = f"{club['sport']} / {club.get('area') or 'Greater Manchester'}" if club else 'Greater Manchester'
+    eyebrow = 'Greater Manchester'
+    if club:
+        profile = ProfileEyebrow()
+        profile.feed(page.read_text())
+        eyebrow = ''.join(profile.parts).strip()
+        if not eyebrow:
+            raise ValueError(f'{relative}: rebuild profile pages before generating share images')
     slug = relative[:-5].replace('/', '-')
     image_path = output / f'{slug}.jpg'
     photo = club.get('imagePath') if club else None
@@ -96,31 +104,4 @@ for page in sorted(ROOT.rglob('*.html')):
         photo = photo.replace('.avif', '.jpg')
     card(image_path, title, eyebrow, photo)
     count += 1
-    if args.images_only:
-        continue
-    source = page.read_text()
-    metadata = Metadata()
-    metadata.feed(source)
-    assert metadata.description, relative
-    public_path = '' if relative == 'index.html' else relative
-    page_url = base + '/' + quote(public_path)
-    image_url = base + '/' + image_path.relative_to(ROOT).as_posix()
-    alt = f"{title} — {eyebrow}. 0161 Active." + (' Club photograph on the right.' if photo else '')
-    tags = {
-        'og:type': 'website', 'og:site_name': '0161 Active', 'og:locale': 'en_GB',
-        'og:title': title + ' | 0161 Active', 'og:description': metadata.description,
-        'og:url': page_url, 'og:image': image_url, 'og:image:type': 'image/jpeg',
-        'og:image:width': '1200', 'og:image:height': '630', 'og:image:alt': alt,
-        'twitter:card': 'summary_large_image', 'twitter:title': title + ' | 0161 Active',
-        'twitter:description': metadata.description, 'twitter:image': image_url, 'twitter:image:alt': alt,
-    }
-    source = re.sub(r'\n\s*<!-- Social preview -->.*?<!-- /Social preview -->', '', source, flags=re.S)
-    source = re.sub(r'\n\s*<link\b[^>]*rel="canonical"[^>]*>', '', source)
-    source = source.replace('</head>', f'  <link rel="canonical" href="{html.escape(page_url, quote=True)}">\n</head>', 1)
-    block = '\n  <!-- Social preview -->\n' + '\n'.join(
-        f'  <meta {"property" if key.startswith("og:") else "name"}="{key}" content="{html.escape(value, quote=True)}">'
-        for key, value in tags.items()
-    ) + '\n  <!-- /Social preview -->\n'
-    source = source.replace('</head>', block + '</head>', 1)
-    page.write_text(source)
-print(f'Generated {count} share images' + ('.' if args.images_only else ' and updated static social tags.'))
+print(f'Generated {count} share images. Run the profile generator to refresh their metadata.')

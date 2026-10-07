@@ -1,0 +1,7 @@
+/* Shared page defaults: establish typography and spacing without styling page components. */
+body {
+  margin: 0;
+  background: #111211;
+  color: #faecd2;
+  font: 14pt Arial, Helvetica, sans-serif;
+}

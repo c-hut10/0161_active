@@ -13,7 +13,6 @@
 }
 
 .sport-glossary-body [hidden] { display: none !important; }
-.sport-glossary-body .navbar { font-family: 'Courier New', Courier, monospace; }
 
 /* Intro: place the sport name and its short explanation on the same left-aligned frame as calendar. */
 .sport-glossary-page {
@@ -62,6 +61,7 @@
 .sport-glossary-filters input::placeholder { color: var(--glossary-grey); }
 .sport-glossary-filters input:focus-visible,
 .sport-glossary-filters select:focus-visible,
+.sport-club-name:focus-visible,
 .sport-club-link:focus-visible { outline: 2px solid var(--glossary-lime); outline-offset: 2px; }
 
 /* Directory: keep the changing tally above numbered club rows, with area and profile link at row end. */
@@ -82,14 +82,16 @@
 .sport-club-row__number::before { content: counter(club-entry, decimal-leading-zero); }
 .sport-club-row__details { min-width: 0; }
 .sport-club-row__details h3 { margin: 0; color: var(--glossary-paper); font-size: clamp(17px, 2vw, 23px); line-height: 1.1; letter-spacing: -.035em; text-transform: uppercase; }
-.sport-club-row__sessions { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px 12px; margin: 0; color: var(--glossary-grey); font-size: 10px; line-height: 1.5; text-align: center; }
+/* Club names offer the same profile route as the row arrow, with a generous touch area. */
+.sport-club-name { display: inline-block; box-sizing: border-box; min-height: 44px; padding: 8px 0; color: inherit; text-decoration: none; }
+.sport-club-name:hover,
+.sport-club-name:focus-visible { color: var(--glossary-lime); }
+.sport-club-row__sessions { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px 12px; margin: 0; color: var(--glossary-grey); font-size: 14px; line-height: 1.5; text-align: center; }
 .sport-club-row__day { white-space: nowrap; }
-.sport-club-row__area { margin: 0; color: var(--glossary-grey); font-size: 11px; text-align: right; }
+.sport-club-row__area { margin: 0; color: var(--glossary-grey); font-size: 14px; text-align: right; }
 .sport-club-link { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; color: var(--glossary-lime); font-size: 22px; text-decoration: none; transition: color .2s ease, transform .2s ease; }
 .sport-club-link:hover { color: var(--glossary-paper); transform: translateX(3px); }
 .sport-glossary-message { margin: 0 0 20px; padding: 14px 16px; border-left: 2px solid var(--glossary-lime); color: var(--glossary-grey); background: var(--glossary-panel); font-size: 13px; }
-.sport-glossary-footer { padding: 22px; color: var(--glossary-grey); background: var(--glossary-black); text-align: center; font-size: 12px; }
-.sport-glossary-footer a { color: var(--glossary-lime); }
 
 @media (max-width: 760px) {
   .sport-glossary-intro__row { display: block; }
@@ -103,7 +105,6 @@
 
 @media (max-width: 480px) {
   .sport-glossary-page { margin-top: 58px; padding-top: 28px; }
-  .sport-club-row__sessions { font-size: 9px; }
   .sport-club-row { min-height: 84px; }
 }
 

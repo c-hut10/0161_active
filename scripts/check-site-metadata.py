@@ -41,8 +41,6 @@ indexable = set()
 footer = (ROOT / 'templates/site-footer.inc').read_text().strip()
 for file in ROOT.rglob('*.html'):
     relative = file.relative_to(ROOT).as_posix()
-    if relative == 'html/nav.html':
-        continue
     p = Page()
     source = file.read_text()
     for script in re.finditer(r'<script\b([^>]*)>', source):

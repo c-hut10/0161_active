@@ -1,3 +1,6 @@
+import { formatPrice, displaySportName, onlineProfileAction, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
+import { resolveClubAreas } from './club-areas.mjs';
+
 (() => {
   const form = document.querySelector('#club-form');
   const error = document.querySelector('#form-error');
@@ -8,32 +11,31 @@
   const sessionList = document.querySelector('#training-sessions');
   const addSessionButton = document.querySelector('#add-session');
   const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
-  const dayNames = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const dayNumbers = { mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6, sun: 7 };
 
-  /* Shared locations: follow the preceding session and restore independent addresses when unchecked. */
+  /* Shared locations: copy the preceding address and postcode, or restore independent venue details. */
   function syncSessionLocations() {
     const blocks = [...sessionList.querySelectorAll('.training-session')];
     blocks.forEach((block, index) => {
       const checkbox = block.querySelector('[data-same-location]');
-      const address = block.querySelector('[data-session-field="meeting"]');
       block.querySelector('[data-same-location-option]').hidden = index === 0;
       if (index === 0) checkbox.checked = false;
-      // Hide manual entry and validate only independent addresses; keep the resolved value for submission.
-      address.closest('.field').hidden = checkbox.checked;
-      address.required = !checkbox.checked;
-      if (checkbox.checked) {
-        if (!address.readOnly) address.dataset.independentAddress = address.value;
-        address.value = blocks[index - 1].querySelector('[data-session-field="meeting"]').value;
-        address.readOnly = true;
-      } else {
-        if (address.readOnly) address.value = address.dataset.independentAddress || '';
-        address.readOnly = false;
-      }
+      // Require both venue fields unless their values are copied from the previous session.
+      block.querySelectorAll('[data-session-field="meeting"], [data-session-field="postcode"]').forEach(field => {
+        field.closest('.field').hidden = checkbox.checked;
+        field.required = !checkbox.checked;
+        if (checkbox.checked) {
+          if (!field.readOnly) field.dataset.independentValue = field.value;
+          field.value = blocks[index - 1].querySelector(`[data-session-field="${field.dataset.sessionField}"]`).value;
+          field.readOnly = true;
+        } else {
+          if (field.readOnly) field.value = field.dataset.independentValue || '';
+          field.readOnly = false;
+        }
+      });
     });
   }
 
-  /* Session data: preserve each training entry separately, including any special considerations. */
+  /* Session data: preserve each entry's title, experience level and special considerations. */
   function readSessions() {
     return [...sessionList.querySelectorAll('.training-session')].map(block => {
       const fields = Object.fromEntries([...block.querySelectorAll('[data-session-field]')].map(field => [
@@ -45,30 +47,37 @@
 
   function sessionSummary(session) {
     const time = [session.startTime, session.endTime].filter(Boolean).join('–');
-    return [dayNames[session.dayOfWeek], time, session.specialConsiderations].filter(Boolean).join(' · ');
+    return [session.title, dayNames[session.dayOfWeek], time, session.eligibility, session.specialConsiderations].filter(Boolean).join(' · ');
   }
 
   /* Submission summaries: static Netlify fields hold readable details and structured session JSON. */
   function syncSessions() {
     syncSessionLocations();
-    const sessions = readSessions();
+    const resolved = resolveClubAreas({ area: form.elements.namedItem('area').value, sessions: readSessions() });
+    const sessions = resolved.sessions;
     form.elements.namedItem('schedule').value = sessions.map(sessionSummary).filter(Boolean).join('\n');
     form.elements.namedItem('meeting').value = sessions.map((session, index) =>
-      session.meeting ? `Session ${index + 1}: ${session.meeting}` : ''
+      session.meeting ? `Session ${index + 1}: ${[session.meeting, session.postcode].filter(Boolean).join(', ')}` : ''
     ).filter(Boolean).join('\n');
     form.elements.namedItem('training-sessions').value = JSON.stringify(sessions);
-    return sessions;
+    return resolved;
   }
 
+  /* Session headings: reflect typed names and keep numbering correct after adding or removing entries. */
   function numberSessions() {
     const blocks = [...sessionList.querySelectorAll('.training-session')];
     blocks.forEach((block, index) => {
-      block.querySelector('[data-session-number]').textContent = index + 1;
+      const title = block.querySelector('[data-session-field="title"]').value.trim() || 'Training session';
+      const heading = block.querySelector('[data-session-heading]');
+      const text = `${index + 1}. ${title}`;
+      if (heading.textContent !== text) heading.textContent = text;
       const removeButton = block.querySelector('[data-remove-session]');
       removeButton.hidden = blocks.length === 1;
       removeButton.setAttribute('aria-label', `Remove training session ${index + 1}`);
     });
-    document.querySelector('#session-status').textContent = `${blocks.length} training ${blocks.length === 1 ? 'session' : 'sessions'} added.`;
+    const status = document.querySelector('#session-status');
+    const statusText = `${blocks.length} training ${blocks.length === 1 ? 'session' : 'sessions'} added.`;
+    if (status.textContent !== statusText) status.textContent = statusText;
   }
 
   /* Form state: read answers once so the preview and submission use the same values. */
@@ -78,7 +87,8 @@
   };
 
   function updatePreview() {
-    const sessions = syncSessions();
+    numberSessions();
+    const { sessions, area } = syncSessions();
     // Keep paid fields out of submissions when Free or Unknown is selected.
     const pricingType = form.elements.namedItem('pricing-type').value;
     const paid = ['monthly', 'annual', 'per-session'].includes(pricingType);
@@ -90,16 +100,19 @@
     // Paid clubs must explicitly confirm whether booking is required.
     form.elements.namedItem('booking-required').required = paid;
     const data = values();
-    const suffix = { monthly: 'month', annual: 'year', 'per-session': 'session' };
+    const priceTypes = { monthly: 'monthly_fee', annual: 'annual_fee', 'per-session': 'per_session' };
     const amount = data['pricing-amount'];
-    put('#preview-cost', pricingType === 'free' ? 'Free' : paid && amount
-      ? `£${Number(amount).toLocaleString('en-GB', { maximumFractionDigits: 2 })}/${suffix[pricingType]}` : 'Unknown', 'Unknown');
+    put('#preview-cost', formatPrice({ price: {
+      type: paid && !amount ? 'unknown' : priceTypes[pricingType] || pricingType,
+      amount: amount ? Number(amount) : null
+    } }, { compact: true, unknown: 'Unknown', minimumFractionDigits: 0 }), 'Unknown');
     document.querySelector('#preview-tasters-row').hidden = !(paid && Number(data['taster-sessions']) > 0);
     put('#preview-tasters', data['taster-sessions'] || '', '');
     document.querySelector('#preview-booking-row').hidden = !(paid && data['booking-required'] === 'yes');
     put('#preview-name', data.name, 'Your club name');
-    put('#preview-eyebrow', [data.sport, data.area].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
-    put('#preview-area', data.area, 'Your area');
+    put('#preview-eyebrow', [data.sport, area].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
+    put('#preview-area', area, 'Your area');
+    put('#preview-sport', displaySportName(data.sport), 'Your sport');
     put('#preview-description', data.description, 'Your club description will appear here.');
     put('#preview-schedule', data.schedule, 'Add your meeting times');
     put('#preview-meeting', data.meeting, 'Your public meeting place');
@@ -110,15 +123,10 @@
     contactAction.classList.toggle('is-available', hasContact);
     contactAction.setAttribute('aria-disabled', String(!hasContact));
 
-    const applyAction = document.querySelector('#preview-apply-action');
-    let hasApplyLink = false;
-    try {
-      hasApplyLink = ['http:', 'https:'].includes(new URL(data.link.trim()).protocol);
-    } catch {
-      hasApplyLink = false;
-    }
-    applyAction.classList.toggle('is-available', hasApplyLink);
-    applyAction.setAttribute('aria-disabled', String(!hasApplyLink));
+    const onlineAction = document.querySelector('#preview-online-action');
+    const onlineProfile = onlineProfileAction(data.link);
+    onlineAction.classList.toggle('is-available', Boolean(onlineProfile));
+    onlineAction.setAttribute('aria-disabled', String(!onlineProfile));
 
     document.querySelectorAll('[data-preview-day]').forEach(day => {
       const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
@@ -138,7 +146,9 @@
     document.body.classList.add('application-success-open');
     document.querySelector('[data-site-nav]').inert = true;
     document.querySelector('.register-page').inert = true;
-    document.querySelector('.register-footer').inert = true;
+    // Keep the shared footer outside the active confirmation dialog.
+    const footer = document.querySelector('[data-site-footer]');
+    if (footer) footer.inert = true;
 
     requestAnimationFrame(() => successScreen.classList.add('is-expanded'));
     const focusDelay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900;
@@ -149,7 +159,7 @@
   async function submitApplication(event) {
     event.preventDefault();
     if (submitting) return;
-    syncSessions();
+    const { area } = syncSessions();
     error.hidden = true;
     if (!form.reportValidity()) return;
 
@@ -161,6 +171,8 @@
     }
 
     const formData = new FormData(form);
+    // Submit the same postcode-derived club area shown in the live preview.
+    if (area) formData.set('area', area);
     if (!String(formData.get('g-recaptcha-response') || '').trim()) {
       error.textContent = 'Please complete the reCAPTCHA security check. If it has expired, complete it again before sending.';
       error.hidden = false;
@@ -195,7 +207,6 @@
   addSessionButton.addEventListener('click', () => {
     const block = sessionTemplate.cloneNode(true);
     sessionList.append(block);
-    numberSessions();
     updatePreview();
     block.querySelector('select').focus();
   });
@@ -203,14 +214,12 @@
     const removeButton = event.target.closest('[data-remove-session]');
     if (!removeButton || sessionList.children.length <= 1) return;
     removeButton.closest('.training-session').remove();
-    numberSessions();
     updatePreview();
     addSessionButton.focus();
   });
   form.addEventListener('input', updatePreview);
   form.addEventListener('change', updatePreview);
   form.addEventListener('submit', submitApplication);
-  numberSessions();
   updatePreview();
   // Enable submission once the repeatable session fields can be collected correctly.
   submitButton.disabled = false;

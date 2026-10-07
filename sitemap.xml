@@ -31,6 +31,9 @@
   <url><loc>https://0161active.co.uk/html/athletics/trafford-ac.html</loc></url>
   <url><loc>https://0161active.co.uk/html/athletics/wigan-harriers.html</loc></url>
   <url><loc>https://0161active.co.uk/html/athletics/winston-runners.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/badminton/ghap-badminton.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/basketball/manchester-lynx.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/basketball/salford-basketball-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/calendar.html</loc></url>
   <url><loc>https://0161active.co.uk/html/contact.html</loc></url>
   <url><loc>https://0161active.co.uk/html/cycling/bolton-clarion-cycling-club.html</loc></url>
@@ -53,6 +56,7 @@
   <url><loc>https://0161active.co.uk/html/football/warth-fold-and-redvales-community-sports-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/football/westbury-sports-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/football/wythenshawe-football-club.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/health-and-wellbeing/rehab-fitness.html</loc></url>
   <url><loc>https://0161active.co.uk/html/hockey/bowdon-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/hockey/didsbury-northern-hockey-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/hockey/oldham-hockey-club.html</loc></url>
@@ -60,18 +64,18 @@
   <url><loc>https://0161active.co.uk/html/hockey/stockport-bramhall-hockey-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/hockey/wigan-hockey-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/register.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/AncoatRunClub.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/DidsburyRunners.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/JustARunClub.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/ManchesterFrontrunners.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/MileShyClub.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/NotARunningClub.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/RedactedRunClub.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/SnappyRunners.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/TinyMoves.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/belle-vue-racers-running.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/chorlton-runners-running.html</loc></url>
-  <url><loc>https://0161active.co.uk/html/running/royton-road-runners.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/AncoatRunClub.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/DidsburyRunners.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/JustARunClub.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/ManchesterFrontrunners.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/MileShyClub.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/NotARunningClub.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/RedactedRunClub.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/SnappyRunners.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/TinyMoves.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/belle-vue-racers-running.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/chorlton-runners-running.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/royton-road-runners.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/directory.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/glossary.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/bowdon-club-squash.html</loc></url>

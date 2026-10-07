@@ -18,6 +18,18 @@
 
 ### Changed
 
+- Calendar navigation explains the combined day filter, places a complete filter reset below the weekday buttons, and gives every selected day its own animated top and bottom lines.
+- Selected calendar days share one combined agenda and an eyebrow listing every chosen weekday, with weekday labels on individual sessions.
+- Mobile homepage gallery captions stay visible over grayscale photos, using neon green text; desktop retains its original black captions and hazy green hover effect.
+- Increased session text sizes across the calendar, club profiles and sport glossaries; enlarged small information controls and adapted narrow timetable layouts.
+- Made sport-glossary club names link to their profiles while retaining the row arrows.
+- Added a data-driven training summary near the top of every club profile, including booking notes, irregular schedule notes and a link to the full timetable.
+- Calendar weekday selections now show only clubs with sessions on every selected day, including the active sport, price and area filters.
+- Consolidated club/sport JSON loading and online-profile URL validation across shared page components.
+- Removed the unused browser profile-rendering fallback, legacy component styles and experimental pages.
+- Assigned all HTML metadata to the Node generator; share-image generation now reads resolved profile areas and writes images only.
+- Calendar prepares matching sessions once and renders only the selected view, including multiple weekday agendas.
+
 - Homepage gallery images are decoded before animation, with stable responsive loop widths to avoid blank tiles during resizing.
 
 - Homepage links and canonical URL use the domain root, with Netlify redirects for /index and /index.html.
@@ -34,6 +46,6 @@ These changes have not yet been confirmed as deployed.
 
 - Reduced-motion gallery now scrolls both rows together in a single keyboard-accessible horizontal region.
 
-- Pausing the homepage gallery enables shared manual scrolling; resuming resets the scroll position and restores the animated rows.
+- Pausing the homepage gallery enables shared manual scrolling; resuming continues from the chosen position while keeping both rows' looping motion.
 
 - Added a dated training-times confirmation badge to club profiles, lists and calendar. No clubs are marked confirmed yet.
