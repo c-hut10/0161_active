@@ -14,7 +14,9 @@ Netlify stores the application. Email notifications require the dashboard setup 
 
 ## Submitted details
 
-The form includes club name, sport, area, description, audience, pricing type, paid amount, taster count, booking requirement, email, website/social link and additional information. `schedule` and `meeting` contain readable summaries. `training-sessions` preserves every session's day, start/end time, meeting point and special considerations as JSON. Disabled paid fields are omitted when Free or Unknown is selected.
+All questionnaire answers use the JSON names documented in docs/club-csv-format.md. Each session has a title, dayOfWeek, startTime, endTime, eligibility, meetingPoint, postcode and specialConsiderations. The named sessions field holds this JSON array; registrationCsv holds the equivalent CSV with one row per session. Stored areas and duplicate readable schedule/address fields have been removed. Additional information is public club content in additionalInformation. Paid-only fields are omitted for Free or Unknown.
+
+Field names have changed in this schema update. Deploy the updated static form so Netlify detects them, then check a live submission. Older submissions retain their previous field names and require translation; they are not rewritten.
 
 ## Failure and spam handling
 

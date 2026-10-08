@@ -1,24 +1,32 @@
-import { displaySportName, formatPrice, escapeHtml } from './club-formatting.mjs';
+import { formatPrice, formatPostcodes, escapeHtml } from './club-formatting.mjs';
 
-/* Shared session labels for calendar cards and club profiles. Explicit titles and
-   eligibility take precedence; a team name never implies an attendance policy. */
+/* Session names: use the supplied name or the shared Training/experience fallback. */
 export function sessionTitle(club, session) {
   if (session.title?.trim()) return session.title.trim();
-  const sport = displaySportName(String(club.sport || 'Club').replace(/-/g, ' '), { titleCase: true });
-  const activity = club.sport === 'run-club' ? 'Run' : `${sport} session`;
-  const group = session.group?.trim();
-  if (!group || group === session.meetingPoint) return activity;
-  return `${group} · ${activity}`;
+  return ['Training', session.eligibility?.trim()].filter(Boolean).join(' ');
 }
 
+/* Venues: display the separate postcode once alongside its training address. */
+export function sessionAddress(session) {
+  const address = formatPostcodes(session.meetingPoint || '');
+  const postcode = formatPostcodes(session.postcode || '');
+  return postcode && !address.toUpperCase().includes(postcode.toUpperCase())
+    ? [address, postcode].filter(Boolean).join(', ') : address;
+}
+
+/* Eligibility labels: share the same wording across calendars and omit missing details. */
 export function sessionAudience(session) {
-  return session.eligibility?.trim() || 'Who can attend: confirm with club';
+  const audience = session.eligibility?.trim() || '';
+  if (/^beginner$/i.test(audience)) return 'Beginners Welcome';
+  if (/^(intermediate|advanced)$/i.test(audience)) {
+    return `${audience.charAt(0).toUpperCase()}${audience.slice(1).toLowerCase()} Level`;
+  }
+  return audience;
 }
 
 /* Schedule notes: retain irregular frequencies wherever a session is summarised. */
 export function sessionScheduleNote(session) {
-  const detail = session.specialConsiderations !== session.group
-    ? session.specialConsiderations?.trim() : '';
+  const detail = session.specialConsiderations?.trim();
   return [session.everyOtherWeek ? 'Every other week' : '', detail].filter(Boolean).join(' · ');
 }
 

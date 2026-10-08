@@ -62,6 +62,15 @@
   opacity: 1;
   transition: opacity .5s ease;
 }
+/* Photo framing: favour the upper part of these group photos to keep heads visible. */
+#club-gallery .gallery-card[data-club-id="sale-harriers"] img,
+#club-gallery .gallery-card[data-club-id="ghap-badminton"] img {
+  object-position: center 25%;
+}
+/* Revolution framing: move the photo upward inside its gallery tile. */
+#club-gallery .gallery-card[data-club-id="manchester-revolution"] img {
+  object-position: center 75%;
+}
 #club-gallery .gallery-card a:hover img,
 #club-gallery .gallery-card a:focus-visible img { opacity: .5; }
 /* Desktop captions keep their original black text and animated reveal. */
@@ -136,8 +145,8 @@
   #club-gallery .gallery-caption h2::after { transition: none; }
 }
 
-@media (max-width: 600px) {
-  /* Mobile only: keep photos grayscale and captions visible before a profile is opened. */
+@media (max-width: 1040px) {
+  /* Match the mobile navbar: keep photos grayscale and captions visible without hover. */
   #club-gallery .gallery-card,
   #club-gallery .gallery-card--unavailable { background: #202220; }
   #club-gallery .gallery-card a { color: #dffc3a; }
@@ -156,6 +165,10 @@
   }
   #club-gallery .gallery-caption h2::before,
   #club-gallery .gallery-caption h2::after { transform: scaleX(1); transition: none; }
+}
+
+/* Compact phone sizing remains separate from the mobile colour and interaction rules. */
+@media (max-width: 600px) {
   .grid-container#club-gallery { --gallery-image-height: clamp(125px, 36vw, 210px); }
   #club-gallery .gallery-caption { left: 10px; bottom: 10px; max-width: calc(100% - 20px); }
   #club-gallery .gallery-caption h2 { font-size: 13px; }

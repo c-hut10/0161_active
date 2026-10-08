@@ -10,7 +10,13 @@ node scripts/build-site-metadata.cjs
 
 The image generator needs Pillow and currently uses macOS Arial fonts, with the native `sips` decoder for AVIF files unsupported by Pillow. It writes images only, using the generated profiles' resolved sport/area labels. The final Node build links new cards and owns all HTML metadata, canonical URLs and indexing files.
 
-Run the profile generator after changes to club data, the profile renderer or indexing policy. It embeds every club profile in the initial HTML, including details, sessions, links and source-check information. Generated profiles are displayed directly. The profile script adds calendar downloads; page rendering happens during generation. Rebuild and deploy profiles after data changes.
+Run the profile generator after changes to club data, the profile renderer or indexing policy. It embeds every club profile in the initial HTML, including details, sessions, links and Last Confirmed information. Generated profiles are displayed directly. The profile script adds calendar downloads; page rendering happens during generation. Rebuild and deploy profiles after data changes.
+
+## Local preview
+
+Run `node scripts/preview-site.cjs` and open `http://127.0.0.1:5502/`. An optional port can be supplied, for example `node scripts/preview-site.cjs 5503`. Stop the preview with Ctrl+C.
+
+This server explicitly sends AVIF as `image/avif` and disables asset caching. It serves project files on loopback only and does not accept form submissions. Refresh the browser after edits; it does not inject a live-reload script. This changes only the local preview, not Netlify hosting.
 
 ## Adding and updating profiles
 
@@ -24,6 +30,8 @@ Existing club share images are reused. New profiles use the general sports-direc
 
 `js/club-formatting.mjs` defines weekday names, session-time formatting and HTML escaping for the calendar, profiles, sport directories, registration summaries and navigation.
 
+`formatPostcodes` in that module standardises full postcodes to uppercase with one space before the final three characters, including codes embedded in addresses. `normalizeClubPostcodes` applies it to club and session address fields during data loading and profile generation. Registration uses the same formatter when a venue field loses focus and when serialising session answers.
+
 `js/site-data.mjs` caches club and sport JSON requests for the current page, sharing the parsed data and resolved areas between navigation and page components. Failed requests can be retried. `onlineProfileAction` in the formatting module validates each web link once and provides its Website, Instagram or Facebook label.
 
 `js/session-details.mjs` defines the Manchester Regional Arena track-access fee once in `ARENA_TRACK_FEE`. It applies automatically to Run Club and athletics sessions at that venue, including new entries. Change the amount there to update the note, green highlighting and calendar-download text together. Keep `venueNotes` for session-specific exceptions; do not duplicate the shared charge text in club records.
@@ -34,21 +42,15 @@ Club profiles include a training summary below their title and actions, generate
 
 `docs/postcode-area-rulebook.md` is the owner's naming reference. All 173 recorded sector labels are approved and may be changed only at the owner's request. External research must not replace them. After editing the table, run `node scripts/build-site-metadata.cjs`; it generates `js/postcode-areas.mjs` and rebuilds the static profiles.
 
-`js/club-areas.mjs` resolves session postcodes independently, accepting a `postcode` or `postcodeSector` field and postcodes within venue addresses. It supplies the same derived areas to the calendar, sport directories, profiles, gallery, map and registration preview. Club data is resolved in memory without rewriting `data/clubs.json`. Records without a matching postcode retain their existing areas, including locations outside the M1–M50 rulebook.
+`js/club-areas.mjs` resolves session postcodes independently, accepting a `postcode` or `postcodeSector` field and postcodes within venue addresses. It supplies the same derived areas to the calendar, sport directories, profiles, gallery, map and registration preview. Club data is resolved in memory without rewriting `data/clubs.json`. Records without a matching postcode have no derived area; unresolved sessions never inherit another training venue’s area. The migration review is in docs/club-data-review.md.
 
-The registration form collects a postcode per training session. “Same location as previous session” copies both the training address and postcode. Submitted session JSON and the preview use the resolved areas; the existing static `training-sessions` field captures the new answers through Netlify.
+The registration form collects a postcode per training session. “Same location as previous session” copies both the training address and postcode. The preview uses derived areas, but submitted session JSON contains only the underlying address and postcode. The named sessions field captures answers through Netlify, and registrationCsv supplies one CSV row per session.
 
-## Verification dates
+## Club schema and verification
 
-Every club has a `verification` object:
+See docs/club-csv-format.md for the complete questionnaire mapping and CSV import process. Schema version 2 uses one contact-email string and session-level training addresses/postcodes. Areas and weekday labels are derived; raw research answers are replaced by source URLs.
 
-- `lastSourceCheck`: record the source-review date alongside `research.checkedAt`, or null when no dated research exists.
-- `lastConfirmedByClub`: null unless someone has actually confirmed the details directly with the club. Record the evidence in the research notes before setting this date.
-- `status`: record `unverified`, `public-sources-reviewed` or `club-confirmed` when updating the club's verification details.
-
-Page generation validates these dates and reads the club data without modifying `clubs.json`. Update verification fields explicitly when reviewing sources or recording a club confirmation; rebuilding pages does not update them.
-
-Research dates are not publication dates or direct club confirmations. Edit `research.checkedAt` only after checking the sources. Do not change it when rebuilding the site or editing layout. Session-level placeholder flags and existing confirmation notes remain in the data.
+Verification contains only status (verified or unverified) and lastConfirmed (YYYY-MM-DD or null). New club-response CSV imports and updates set verified and the Europe/London import date. Existing public-source research does not become club confirmation. Page generation never changes verification dates.
 
 ## Search indexing
 
@@ -68,8 +70,6 @@ The registration page uses `css/site-base.css` for shared body defaults and `css
 
 Edit templates/site-footer.inc and css/site-footer.css, then run the profile generator to update the footer in every full HTML page. The footer is static and does not depend on JavaScript. Contact us is the final link in both desktop and mobile shared navigation. The contact page is now included in the sitemap; privacy remains noindex until its draft is complete.
 
-## Training-times confirmation badge
+## Club verification badge
 
-An explicit owner request can also set a club's `confirmed` field. Record the request and confirmation date, set `verification.trainingTimesConfirmedAt`, and rebuild profiles. Set `confirmed` to false when the owner withdraws confirmation.
-
-No clubs currently have direct training-time confirmation. The lime check badge is shown on profiles, sport club lists and calendar names only when `confirmed` is true and `verification.trainingTimesConfirmedAt` contains a valid `YYYY-MM-DD` date. This field is separate from general club confirmation and public-source review. Record who confirmed the current schedule, when, and the evidence in the club research notes before setting it. Rebuild static profiles after changing it. Clear it when session times change without fresh club confirmation. The date appears in the profile text and in the badge's accessible label and hover tooltip.
+Profiles, calendars and sport lists display the same lime badge when verification.status is verified and lastConfirmed is a valid date. The profile shows Last Confirmed beneath the title. Unverified records show no badge and no invented date. Map coordinate confirmation is separate and remains in data/club-map-locations.json.

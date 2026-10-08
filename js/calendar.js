@@ -1,8 +1,8 @@
 import { canonicalArea, WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml } from './club-formatting.mjs';
-import { trainingTimesBadge } from './club-verification.mjs';
+import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory } from './site-data.mjs';
 import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL, downloadClubCalendar } from './club-calendar.mjs';
-import { sessionTitle, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
 import { PRICE_TYPE_LABELS, PRICE_TYPE_ORDER, priceType, priceLabel, sportName as displaySportName, matchesClubFilters } from './club-directory-filters.js';
 
 /* Calendar data: read the shared JSON directory used to build both weekly and daily views. */
@@ -91,7 +91,7 @@ function populateFilters() {
 function areaMatches(club, session) {
   const selectedArea = areaFilter.value;
   if (selectedArea === 'all') return true;
-  return canonicalArea(session.area || club.area) === selectedArea;
+  return canonicalArea(session.area) === selectedArea;
 }
 
 function matchesFilters(club) {
@@ -143,10 +143,16 @@ function toggleDay(dayNumber) {
   setView(selectedDays.size ? 'day' : 'week');
 }
 
+/* Calendar eligibility: show a row only when the shared label has a supplied value. */
+function eligibilityMarkup(session) {
+  const audience = sessionAudience(session);
+  return audience ? `<span class="session-audience">${escapeHtml(audience)}</span>` : '';
+}
+
 /* Weekly view: render each club once using its prepared weekday session groups. */
 function renderWeekView(entries) {
   const header = `<div class="week-head" role="row">
-    <div role="columnheader">CLUB / AREA</div>
+    <div role="columnheader">CLUB / AREA (A–Z)</div>
     ${DAYS.map(day => `<div role="columnheader"><button type="button" data-day="${day.number}" aria-label="Show ${day.name} sessions">${day.short}</button></div>`).join('')}
   </div>`;
 
@@ -156,12 +162,12 @@ function renderWeekView(entries) {
     const cells = DAYS.map(day => {
       const sessions = sessionsByDay.get(day.number) || [];
       const content = sessions.length
-        ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(session.meetingPoint || session.area || 'Manchester')}${session.everyOtherWeek ? ', every other week' : ''}">
+        ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}${session.everyOtherWeek ? ', every other week' : ''}">
             <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <div class="week-session__top"><time>${escapeHtml(formatTime(session))}</time>${frequencyToggle(session)}</div>
-            <span class="session-audience">${escapeHtml(sessionAudience(session))}</span>
-            <span class="week-session__area">${escapeHtml(session.area || club.area || 'Manchester')}</span>
+            ${eligibilityMarkup(session)}
+            <span class="week-session__area">${escapeHtml(session.area || 'Area to confirm')}</span>
             ${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}
           </div>`).join('')
         : '<span class="week-empty" aria-hidden="true">—</span>';
@@ -171,7 +177,7 @@ function renderWeekView(entries) {
     return `<div class="week-row" role="row">
       <div class="week-club" role="rowheader">
         <div class="week-club__title">
-          <a href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${trainingTimesBadge(club)}</a>
+          <a href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
           <div class="club-calendar-control">
             <button type="button" class="club-calendar-download" data-calendar-club="${escapeHtml(club.id)}" aria-label="${escapeHtml(CALENDAR_DOWNLOAD_LABEL)} for ${escapeHtml(club.name)}" aria-describedby="calendar-tooltip-${escapeHtml(club.id)}">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-9 3v5m-3-3 3 3 3-3"/></svg>
@@ -179,7 +185,7 @@ function renderWeekView(entries) {
             <span class="club-calendar-tooltip" id="calendar-tooltip-${escapeHtml(club.id)}" role="tooltip">${escapeHtml(CALENDAR_DOWNLOAD_LABEL.toUpperCase())}<small>${escapeHtml(CALENDAR_FILE_LABEL)}</small></span>
           </div>
         </div>
-        <span>${escapeHtml(`${sportLabel} · ${club.area || 'Manchester'}`)}</span>
+        <span>${escapeHtml(`${sportLabel} · ${club.area || 'Area to confirm'}`)}</span>
       </div>${cells}
     </div>`;
   }).join('');
@@ -205,8 +211,8 @@ function renderSelectedDays(events, sportLabel, days, clubCount) {
     const sportLabel = displaySportName(club.sport);
     return `<article class="agenda-event">
       <div class="agenda-time"><span class="agenda-day">${escapeHtml(day.name)}</span><time>${escapeHtml(formatTime(session))}</time><span class="agenda-sport">${escapeHtml(sportLabel)}</span></div>
-      <a class="agenda-club" href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${trainingTimesBadge(club)}</a>
-      <div class="agenda-details"><strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}<span>${escapeHtml(sessionAudience(session))}</span><span>${escapeHtml(session.meetingPoint || session.area || 'Manchester area')}</span>${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}${frequencyToggle(session)}</div>
+      <a class="agenda-club" href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
+      <div class="agenda-details"><strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}${eligibilityMarkup(session)}<span>${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}</span>${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}${frequencyToggle(session)}</div>
       <span class="agenda-price">${escapeHtml(priceLabel(club))}</span>
     </article>`;
   }).join('');

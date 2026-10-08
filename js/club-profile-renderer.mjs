@@ -1,6 +1,7 @@
-import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, canonicalArea, formatPrice, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction } from './club-formatting.mjs';
-import { trainingTimesBadge, trainingTimesConfirmation, verificationDate } from './club-verification.mjs';
-import { sessionTitle, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatPrice, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction } from './club-formatting.mjs';
+import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
+import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { clubTrainingAreas } from './club-areas.mjs';
 
 /* About section: invite club details whenever no description has been supplied. */
 const ABOUT_CLUB_PARAGRAPHS = [
@@ -16,7 +17,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
   /* Club data: build each sports profile from its matching shared JSON record. */
   /* Contact action: email is the sole source of the Contact button. */
   function contactUrl(contact) {
-    const email = typeof contact === 'string' ? contact.trim() : String(contact?.email || '').trim();
+    const email = contact?.trim() || '';
     if (!email || !email.includes('@') || /^[a-z]+:/i.test(email)) return null;
     return { label: 'CONTACT', href: new URL(`mailto:${email}`).href };
   }
@@ -27,12 +28,6 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     const className = `profile-action${secondary ? ' profile-action--secondary' : ''}`;
     const external = href.startsWith('http:') || href.startsWith('https:');
     return `<a class="${className}" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(label)}</a>`;
-  }
-
-  /* Attendance: display confirmed per-session headcounts, or a clear placeholder. */
-  function attendanceText(count) {
-    if (!Number.isInteger(count) || count < 0) return 'To be confirmed';
-    return `${count} ${count === 1 ? 'person' : 'people'} per regular session`;
   }
 
   /* Training summary: show stored days, times and booking notes before the club photo. */
@@ -62,7 +57,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         </div>` : '';
     return `<section class="profile-training-summary" aria-labelledby="profile-training-summary-title">
       <div class="profile-training-summary__heading">
-        <h2 id="profile-training-summary-title">Training at a glance</h2>
+        <h2 id="profile-training-summary-title">Training Summary</h2>
         <a href="#profile-week-title">Full timetable <span aria-hidden="true">↗</span></a>
       </div>
       <div class="profile-training-summary__body${booking ? ' profile-training-summary__body--booking' : ''}">
@@ -83,8 +78,8 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
             <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <time>${escapeHtml(sessionTime(session))}</time>
-            <span>${escapeHtml(sessionAudience(session))}</span>
-            <span>${escapeHtml(session.meetingPoint || session.area || club.area || 'Location to confirm')}</span>
+            ${sessionAudience(session) ? `<span>${escapeHtml(sessionAudience(session))}</span>` : ''}
+            <span>${escapeHtml(sessionAddress(session) || session.area || 'Location to confirm')}</span>
             ${sessionVenueNote(club, session) ? `<span>${sessionVenueNoteHtml(club, session)}</span>` : ''}
             ${sessionScheduleNote(session) ? `<span>${escapeHtml(sessionScheduleNote(session))}</span>` : ''}
           </article>`).join('')
@@ -112,20 +107,18 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     ? `<img class="profile-photo" src="${escapeHtml(photoPath)}" alt="${escapeHtml(`${club.name} club photo`)}">`
     : '<div class="profile-photo profile-photo--missing">Club photo not available</div>';
   const sportLabel = displaySportName(club.sport, { titleCase: true });
-  const areaLabel = canonicalArea(club.area);
+  const areas = clubTrainingAreas(club);
   const sportArea = [
     sportLabel ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport))}">${escapeHtml(sportLabel)}</a>` : '',
-    areaLabel && club.sport ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport, club.area))}">${escapeHtml(areaLabel)}</a>` : areaLabel ? escapeHtml(areaLabel) : ''
+    ...areas.map(area => club.sport ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport, area))}">${escapeHtml(area)}</a>` : escapeHtml(area))
   ].filter(Boolean).join(' · ') || 'MANCHESTER CLUB';
-  const tagline = club.title ? `<p class="profile-tagline">${escapeHtml(club.title)}</p>` : '';
   const detailRow = (label, value) => `<div class="profile-detail-row"><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`;
   const isPaidClub = ['monthly_fee', 'annual_fee', 'per_session', 'paid'].includes(club.price?.type);
   const details = [
-    detailRow('AREA', club.area || 'Manchester area'),
-    club.location && club.location !== 'Manchester' && club.location !== club.area
-      ? detailRow('LOCATION', club.location)
-      : '',
     detailRow('SPORT', club.sport ? displaySportName(club.sport, { titleCase: true }) : 'To confirm'),
+    detailRow('AREA', areas.join(' · ') || 'Area to confirm'),
+    // Training locations: jump to the weekly timetable containing each session's venue.
+    '<div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div>',
     detailRow('COST', formatPrice(club, { compact: true, unknown: 'Not listed', free: 'free', missingAmount: 'amount to confirm' })),
     club.pricingNotes ? detailRow('PRICING DETAILS', club.pricingNotes) : '',
     club.tasterNotes ? detailRow('TASTER DETAILS', club.tasterNotes) : '',
@@ -133,20 +126,13 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     isPaidClub && Number.isInteger(club.tasterSessionCount) && club.tasterSessionCount > 0
       ? detailRow('TASTER SESSION(S)', String(club.tasterSessionCount))
       : '',
-    isPaidClub && club.bookingRequired === true ? detailRow('BOOKING', 'Required') : '',
-    detailRow('REGULAR SESSION ATTENDANCE', attendanceText(club.regularSessionAttendance)),
-    Array.isArray(club.tags) && club.tags.length ? detailRow('TAGS', club.tags.join(' · ')) : ''
+    isPaidClub && club.bookingRequired === true ? detailRow('BOOKING', 'Required') : ''
   ].join('');
   const onlineUrl = club.onlineProfile?.url;
-  const latestCheck = [
-    club.verification?.lastSourceCheck || club.research?.checkedAt,
-    club.verification?.lastConfirmedByClub,
-    trainingTimesConfirmation(club)?.date
-  ].map(verificationDate).filter(Boolean).sort((a, b) => b.date.localeCompare(a.date))[0];
-  const informationDate = latestCheck
-    ? `Information last checked: <time datetime="${latestCheck.date}">${latestCheck.label}</time>`
-    : 'Information last checked: not yet recorded';
-  const verificationLabel = club.confirmed === true ? '' : 'Unverified · ';
+  const confirmation = clubConfirmation(club);
+  const informationDate = confirmation
+    ? `Last Confirmed: <time datetime="${confirmation.date}">${confirmation.label}</time>`
+    : 'Unverified · Last Confirmed: not yet recorded';
   const actions = [
     renderAction(contactUrl(club.contact), true),
     renderAction(onlineProfileAction(onlineUrl, pageUrl))
@@ -155,9 +141,8 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
   const html = `<section class="profile-heading" aria-labelledby="profile-title">
       <div class="profile-heading__identity">
         <p class="profile-eyebrow">${sportArea}</p>
-        <h1 id="profile-title">${escapeHtml(club.name)}${trainingTimesBadge(club)}</h1>
-        <p class="profile-information-date">${verificationLabel}${informationDate}</p>
-        ${tagline}
+        <h1 id="profile-title">${escapeHtml(club.name)}${clubVerificationBadge(club)}</h1>
+        <p class="profile-information-date">${informationDate}</p>
       </div>
       ${actions ? `<div class="profile-actions" aria-label="Club actions">${actions}</div>` : ''}
     </section>
@@ -174,6 +159,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         ? `<p>${escapeHtml(club.description)}</p>`
         : ABOUT_CLUB_PARAGRAPHS.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n        ')}
     </section>
-    ${renderWeek(club, [club.trainingNotes, club.research?.fields?.['Issues / confirmation needed'], notice].filter(Boolean).join(' '))}`;
+    ${club.additionalInformation?.trim() ? `<section class="profile-about" aria-labelledby="profile-additional-title"><h2 id="profile-additional-title">Additional information</h2><p>${escapeHtml(club.additionalInformation)}</p></section>` : ''}
+    ${renderWeek(club, [club.trainingNotes, notice].filter(Boolean).join(' '))}`;
   return { html, title: `${club.name} | 0161 Active` };
 }

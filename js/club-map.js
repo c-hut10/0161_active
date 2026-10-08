@@ -44,7 +44,7 @@ function popup(entries) {
   for (const club of entries) {
     const item = document.createElement('div'); item.className = 'club-map-popup__club';
     const title = document.createElement('strong'); title.textContent = club.name; item.append(title);
-    const detail = document.createElement('p'); detail.textContent = `${sportName(club.sport)} · ${club.area || 'Manchester'} · ${priceLabel(club)}`; item.append(detail);
+    const detail = document.createElement('p'); detail.textContent = `${sportName(club.sport)} · ${club.area || 'Area to confirm'} · ${priceLabel(club)}`; item.append(detail);
     const accuracy = document.createElement('p'); accuracy.textContent = positionLabel(club); item.append(accuracy);
     const href = profileUrl(club);
     if (href) { const link = document.createElement('a'); link.href = href; link.textContent = 'View club profile'; item.append(link); }
@@ -91,7 +91,7 @@ function render(fit = true) {
     const item=document.createElement('li');
     const href=profileUrl(club); const link=document.createElement(href ? 'a':'span');
     if(href)link.href=href; link.textContent=club.name;item.append(link);
-    const detail=document.createElement('p');detail.textContent=`${sportName(club.sport)} · ${club.area || 'Manchester'} · ${priceLabel(club)}`;item.append(detail);
+    const detail=document.createElement('p');detail.textContent=`${sportName(club.sport)} · ${club.area || 'Area to confirm'} · ${priceLabel(club)}`;item.append(detail);
     const accuracy=document.createElement('small');accuracy.textContent=positionLabel(club);item.append(accuracy);
     if(map && clubPoint(club)) {const button=document.createElement('button');button.type='button';button.textContent='Show on map';button.setAttribute('aria-label',`Show ${club.name} on map`);button.addEventListener('click',()=>{const point=clubPoint(club);map.setView([point.lat,point.lon],14);markers.get(club.id)?.openPopup();mapElement.focus();});item.append(button);}
     list.append(item);

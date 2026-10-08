@@ -23,6 +23,14 @@ export function sessionTime(session) {
   return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
 }
 
+/* Postcodes: uppercase full UK codes and put one space before their final three characters. */
+export function formatPostcodes(value) {
+  return String(value || '').replace(
+    /\b(GIR|[A-Z]{1,2}\s*\d(?:\s*[A-Z\d])?)\s*(\d\s*[A-Z]\s*[A-Z])\b/gi,
+    (_, outward, inward) => `${outward.replace(/\s/g, '').toUpperCase()} ${inward.replace(/\s/g, '').toUpperCase()}`
+  );
+}
+
 /* Sport labels and routes: keep public names separate from stable data identifiers. */
 export function sportSlug(value) {
   const slug = String(value || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '')

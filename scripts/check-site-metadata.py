@@ -82,9 +82,8 @@ for club in clubs:
     assert 'profile-title' in p.ids, club['id']
     assert club['name'] in ''.join(p.text), club['id']
     v = club['verification']
-    assert v['lastSourceCheck'] == club.get('research', {}).get('checkedAt'), club['id']
-    assert 'Information last checked:' in ''.join(p.text), club['id']
-    if not club.get('confirmed'):
-        assert 'Unverified · Information last checked:' in ''.join(p.text), club['id']
+    assert 'Last Confirmed:' in ''.join(p.text), club['id']
+    if v['status'] != 'verified':
+        assert 'Unverified · Last Confirmed: not yet recorded' in ''.join(p.text), club['id']
     assert 'profile-verification' not in (ROOT / club['profilePath']).read_text(), club['id']
 print(f'Checked {len(pages)} pages, {len(clubs)} static profiles and {len(urls)} sitemap URLs.')

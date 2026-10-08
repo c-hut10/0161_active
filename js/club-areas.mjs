@@ -1,5 +1,20 @@
 import { POSTCODE_AREAS } from './postcode-areas.mjs';
-import { canonicalArea } from './club-formatting.mjs';
+import { canonicalArea, formatPostcodes } from './club-formatting.mjs';
+
+/* Address data: retain venue wording while standardising embedded and separate postcodes. */
+function formatLocationFields(record) {
+  const formatted = { ...record };
+  for (const key of ['meetingPoint', 'postcode']) {
+    if (typeof formatted[key] === 'string') formatted[key] = formatPostcodes(formatted[key]);
+  }
+  return formatted;
+}
+
+export function normalizeClubPostcodes(club) {
+  const formatted = formatLocationFields(club);
+  formatted.sessions = (club.sessions || []).map(formatLocationFields);
+  return formatted;
+}
 
 /* Postcode sectors: accept a sector key, a full postcode or a postcode within a venue address. */
 export function postcodeSector(value) {
@@ -19,19 +34,24 @@ export function areaFromPostcode(...values) {
   return '';
 }
 
-/* Club areas: resolve venues independently and keep existing areas where no rule matches. */
+/* Club areas: derive each venue independently; unknown postcodes never inherit another venue's area. */
 export function resolveClubAreas(club) {
-  const mappedSessions = (club.sessions || []).map(session => areaFromPostcode(
-    session.postcodeSector, session.postcode, session.postalCode, session.meetingPoint, session.meeting
-  ));
-  const area = areaFromPostcode(club.postcodeSector, club.postcode, club.postalCode, club.location)
-    || mappedSessions.find(Boolean) || canonicalArea(club.area);
-  return {
-    ...club,
-    area,
-    sessions: (club.sessions || []).map((session, index) => ({
-      ...session,
-      area: mappedSessions[index] || canonicalArea(session.area) || area
-    }))
+  club = normalizeClubPostcodes(club);
+  const sessions = club.sessions.map(session => ({
+    ...session, area: areaFromPostcode(session.postcode, session.meetingPoint)
+  }));
+  const resolved = { ...club, sessions };
+  return { ...resolved, area: clubTrainingAreas(resolved)[0] || '' };
+}
+
+/* Display areas: list each training area once, ordered by its first weekly session. */
+export function clubTrainingAreas(club) {
+  const sessions = Array.isArray(club.sessions) ? [...club.sessions] : [];
+  const dayOrder = session => {
+    const day = Number(session.dayOfWeek);
+    return day >= 1 && day <= 7 ? day : 8;
   };
+  sessions.sort((left, right) => dayOrder(left) - dayOrder(right)
+    || (left.startTime || '99:99').localeCompare(right.startTime || '99:99'));
+  return [...new Set(sessions.map(session => canonicalArea(session.area)).filter(Boolean))];
 }

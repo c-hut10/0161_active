@@ -1,7 +1,8 @@
 import { sportSlug, displaySportName, canonicalArea, DAY_NAMES as dayNames, sessionTime, escapeHtml } from './club-formatting.mjs';
 import { visibleSportRecords } from './sport-catalog.mjs';
-import { trainingTimesBadge } from './club-verification.mjs';
+import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
+import { clubTrainingAreas } from './club-areas.mjs';
 /* Sport glossary: filter clubs from the same JSON records used by profiles and calendar. */
 const clubList = document.querySelector('#club-list');
 const clubCount = document.querySelector('#club-count');
@@ -41,7 +42,7 @@ function matchingClubs() {
     if (selectedArea !== 'all' || selectedDay !== 'all') {
       const matchingSession = sessions.some(session => {
         const matchesArea = selectedArea === 'all'
-          || canonicalArea(session.area || club.area) === selectedArea;
+          || canonicalArea(session.area) === selectedArea;
         const matchesDay = selectedDay === 'all' || Number(session.dayOfWeek) === Number(selectedDay);
         return matchesArea && matchesDay;
       });
@@ -57,7 +58,7 @@ function matchingClubs() {
 function visibleSessions(club) {
   const selectedArea = areaFilter.value;
   return (club.sessions || []).filter(session => {
-    const area = canonicalArea(session.area || club.area);
+    const area = canonicalArea(session.area);
     return selectedArea === 'all' || area === selectedArea;
   });
 }
@@ -91,17 +92,17 @@ function renderDirectory() {
       : sessions.length
         ? sessions.map(session => {
           const dayNumber = Number(session.dayOfWeek);
-          const day = session.day || dayNames[dayNumber] || 'Day to confirm';
+          const day = dayNames[dayNumber] || 'Day to confirm';
           return `<span class="sport-club-row__day">${escapeHtml(day)} · ${escapeHtml(sessionTime(session))}</span>`;
         }).join('')
         : '<span class="sport-club-row__day">Training schedule to confirm</span>';
-    const area = canonicalArea(club.area || club.location || 'Manchester');
+    const area = clubTrainingAreas(club).join(' · ') || 'Area to confirm';
 
     return `<li>
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="${escapeHtml(profileHref(club))}">${escapeHtml(club.name)}${trainingTimesBadge(club)}</a></h3>
+          <h3><a class="sport-club-name" href="${escapeHtml(profileHref(club))}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a></h3>
         </div>
         <p class="sport-club-row__sessions">${schedule}</p>
         <p class="sport-club-row__area">${escapeHtml(area)}</p>

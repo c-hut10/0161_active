@@ -22,6 +22,8 @@ function makeRollingRow(clubList, rowNumber) {
   const addClub = (club, isDuplicate = false) => {
     const card = document.createElement('section');
     card.className = 'gallery-card';
+    // Club identity lets gallery-only photo framing apply to both looping copies.
+    card.dataset.clubId = club.id;
     const link = document.createElement('a');
     link.href = club.profilePath;
     const image = document.createElement('img');

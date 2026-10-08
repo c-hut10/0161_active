@@ -1,5 +1,6 @@
-import { formatPrice, displaySportName, onlineProfileAction, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
-import { resolveClubAreas } from './club-areas.mjs';
+import { formatPrice, formatPostcodes, displaySportName, onlineProfileAction, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
+import { areaFromPostcode, clubTrainingAreas } from './club-areas.mjs';
+import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submission.mjs';
 
 (() => {
   const form = document.querySelector('#club-form');
@@ -12,6 +13,49 @@ import { resolveClubAreas } from './club-areas.mjs';
   const addSessionButton = document.querySelector('#add-session');
   const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
 
+  /* Application steps: keep all answers in the form while showing one section at a time. */
+  const sections = [...form.querySelectorAll('[data-form-step]')];
+  const stepLabels = [...document.querySelectorAll('[data-registration-step]')];
+  const navigation = document.querySelector('#form-navigation');
+  const previousStep = document.querySelector('#previous-step');
+  const nextStep = document.querySelector('#next-step');
+  const submission = document.querySelector('#form-submission');
+  let currentStep = 0;
+
+  function showStep(index, focusHeading = true) {
+    currentStep = index;
+    sections.forEach((section, position) => { section.hidden = position !== index; });
+    stepLabels.forEach((label, position) => {
+      const active = position === index;
+      label.classList.toggle('step-current', active);
+      if (active) label.setAttribute('aria-current', 'step');
+      else label.removeAttribute('aria-current');
+    });
+    previousStep.hidden = index === 0;
+    nextStep.hidden = index === sections.length - 1;
+    submission.hidden = index !== sections.length - 1;
+    if (index < sections.length - 1) nextStep.innerHTML = `Next: ${stepLabels[index + 1].querySelector('b').textContent} <span aria-hidden="true">↗</span>`;
+    if (focusHeading) sections[index].querySelector('h2').focus();
+  }
+
+  /* Validation: reveal the section containing an invalid field before reporting its error. */
+  function validateStep(index) {
+    const invalid = [...sections[index].querySelectorAll('input, select, textarea')]
+      .find(field => field.willValidate && !field.validity.valid);
+    if (!invalid) return true;
+    if (currentStep !== index) showStep(index, false);
+    invalid.reportValidity();
+    invalid.focus();
+    return false;
+  }
+
+  function advanceStep() {
+    if (submitting || currentStep === sections.length - 1) return;
+    updatePreview();
+    error.hidden = true;
+    if (validateStep(currentStep)) showStep(currentStep + 1);
+  }
+
   /* Shared locations: copy the preceding address and postcode, or restore independent venue details. */
   function syncSessionLocations() {
     const blocks = [...sessionList.querySelectorAll('.training-session')];
@@ -20,7 +64,7 @@ import { resolveClubAreas } from './club-areas.mjs';
       block.querySelector('[data-same-location-option]').hidden = index === 0;
       if (index === 0) checkbox.checked = false;
       // Require both venue fields unless their values are copied from the previous session.
-      block.querySelectorAll('[data-session-field="meeting"], [data-session-field="postcode"]').forEach(field => {
+      block.querySelectorAll('[data-session-field="meetingPoint"], [data-session-field="postcode"]').forEach(field => {
         field.closest('.field').hidden = checkbox.checked;
         field.required = !checkbox.checked;
         if (checkbox.checked) {
@@ -39,9 +83,10 @@ import { resolveClubAreas } from './club-areas.mjs';
   function readSessions() {
     return [...sessionList.querySelectorAll('.training-session')].map(block => {
       const fields = Object.fromEntries([...block.querySelectorAll('[data-session-field]')].map(field => [
-        field.dataset.sessionField, field.value.trim()
+        field.dataset.sessionField, ['postcode', 'meetingPoint'].includes(field.dataset.sessionField)
+          ? formatPostcodes(field.value.trim()) : field.value.trim()
       ]));
-      return { ...fields, dayOfWeek: Number(fields.dayOfWeek) || null };
+      return sessionAnswers(fields);
     });
   }
 
@@ -50,17 +95,18 @@ import { resolveClubAreas } from './club-areas.mjs';
     return [session.title, dayNames[session.dayOfWeek], time, session.eligibility, session.specialConsiderations].filter(Boolean).join(' · ');
   }
 
-  /* Submission summaries: static Netlify fields hold readable details and structured session JSON. */
+  /* Session collection: submit canonical fields while deriving areas only for the preview. */
   function syncSessions() {
     syncSessionLocations();
-    const resolved = resolveClubAreas({ area: form.elements.namedItem('area').value, sessions: readSessions() });
-    const sessions = resolved.sessions;
-    form.elements.namedItem('schedule').value = sessions.map(sessionSummary).filter(Boolean).join('\n');
-    form.elements.namedItem('meeting').value = sessions.map((session, index) =>
-      session.meeting ? `Session ${index + 1}: ${[session.meeting, session.postcode].filter(Boolean).join(', ')}` : ''
-    ).filter(Boolean).join('\n');
-    form.elements.namedItem('training-sessions').value = JSON.stringify(sessions);
-    return resolved;
+    // Resolve each venue independently; unknown sectors stay blank for review.
+    const sessions = readSessions();
+    const previewSessions = sessions.map(session => ({
+      ...session,
+      area: areaFromPostcode(session.postcode, session.meetingPoint)
+    }));
+    const areas = clubTrainingAreas({ sessions: previewSessions });
+    form.elements.namedItem('sessions').value = JSON.stringify(sessions);
+    return { sessions, areas };
   }
 
   /* Session headings: reflect typed names and keep numbering correct after adding or removing entries. */
@@ -88,45 +134,49 @@ import { resolveClubAreas } from './club-areas.mjs';
 
   function updatePreview() {
     numberSessions();
-    const { sessions, area } = syncSessions();
+    const { sessions, areas } = syncSessions();
+    const areaLabel = areas.join(' · ');
     // Keep paid fields out of submissions when Free or Unknown is selected.
-    const pricingType = form.elements.namedItem('pricing-type').value;
-    const paid = ['monthly', 'annual', 'per-session'].includes(pricingType);
+    const pricingType = form.elements.namedItem('price.type').value;
+    const paid = PAID_PRICE_TYPES.includes(pricingType);
     form.querySelectorAll('[data-paid-pricing]').forEach(row => {
       row.hidden = !paid;
       row.querySelector('input, select').disabled = !paid;
     });
-    form.elements.namedItem('pricing-amount').required = paid;
+    form.elements.namedItem('price.amount').required = paid;
     // Paid clubs must explicitly confirm whether booking is required.
-    form.elements.namedItem('booking-required').required = paid;
+    form.elements.namedItem('bookingRequired').required = paid;
     const data = values();
-    const priceTypes = { monthly: 'monthly_fee', annual: 'annual_fee', 'per-session': 'per_session' };
-    const amount = data['pricing-amount'];
+    const amount = data['price.amount'];
     put('#preview-cost', formatPrice({ price: {
-      type: paid && !amount ? 'unknown' : priceTypes[pricingType] || pricingType,
+      type: paid && !amount ? 'unknown' : pricingType,
       amount: amount ? Number(amount) : null
     } }, { compact: true, unknown: 'Unknown', minimumFractionDigits: 0 }), 'Unknown');
-    document.querySelector('#preview-tasters-row').hidden = !(paid && Number(data['taster-sessions']) > 0);
-    put('#preview-tasters', data['taster-sessions'] || '', '');
-    document.querySelector('#preview-booking-row').hidden = !(paid && data['booking-required'] === 'yes');
+    document.querySelector('#preview-tasters-row').hidden = !(paid && Number(data.tasterSessionCount) > 0);
+    put('#preview-tasters', data.tasterSessionCount || '', '');
+    document.querySelector('#preview-booking-row').hidden = !(paid && data.bookingRequired === 'yes');
     put('#preview-name', data.name, 'Your club name');
-    put('#preview-eyebrow', [data.sport, area].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
-    put('#preview-area', area, 'Your area');
+    put('#preview-eyebrow', [data.sport, areaLabel].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
+    put('#preview-area', areaLabel, 'Area to confirm');
     put('#preview-sport', displaySportName(data.sport), 'Your sport');
     put('#preview-description', data.description, 'Your club description will appear here.');
-    put('#preview-schedule', data.schedule, 'Add your meeting times');
-    put('#preview-meeting', data.meeting, 'Your public meeting place');
-    put('#preview-week-location', data.meeting || data.area, 'Add your public meeting place');
+    put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Add your meeting times');
+    put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
+    document.querySelector('#preview-additional-section').hidden = !data.additionalInformation.trim();
+    put('#preview-additional', data.additionalInformation, '');
+    // Capture spreadsheet rows alongside the structured JSON without submitting stored areas.
+    form.elements.namedItem('registrationCsv').value = submissionCsv(data, sessions);
 
     const contactAction = document.querySelector('#preview-contact-action');
-    const hasContact = Boolean(data.email.trim());
+    const hasContact = Boolean(data.contact.trim());
     contactAction.classList.toggle('is-available', hasContact);
     contactAction.setAttribute('aria-disabled', String(!hasContact));
 
     const onlineAction = document.querySelector('#preview-online-action');
-    const onlineProfile = onlineProfileAction(data.link);
+    const onlineProfile = onlineProfileAction(data['onlineProfile.url']);
     onlineAction.classList.toggle('is-available', Boolean(onlineProfile));
     onlineAction.setAttribute('aria-disabled', String(!onlineProfile));
+    onlineAction.textContent = onlineProfile?.label || 'WEBSITE';
 
     document.querySelectorAll('[data-preview-day]').forEach(day => {
       const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
@@ -159,8 +209,16 @@ import { resolveClubAreas } from './club-areas.mjs';
   async function submitApplication(event) {
     event.preventDefault();
     if (submitting) return;
-    const { area } = syncSessions();
+    // Enter on an earlier step advances the form instead of submitting incomplete answers.
+    if (currentStep < sections.length - 1) {
+      advanceStep();
+      return;
+    }
+    updatePreview();
     error.hidden = true;
+    for (let index = 0; index < sections.length; index++) {
+      if (!validateStep(index)) return;
+    }
     if (!form.reportValidity()) return;
 
     /* Local previews cannot receive Netlify Forms submissions. Keep the answers available. */
@@ -171,8 +229,6 @@ import { resolveClubAreas } from './club-areas.mjs';
     }
 
     const formData = new FormData(form);
-    // Submit the same postcode-derived club area shown in the live preview.
-    if (area) formData.set('area', area);
     if (!String(formData.get('g-recaptcha-response') || '').trim()) {
       error.textContent = 'Please complete the reCAPTCHA security check. If it has expired, complete it again before sending.';
       error.hidden = false;
@@ -180,6 +236,7 @@ import { resolveClubAreas } from './club-areas.mjs';
     }
     submitting = true;
 
+    previousStep.disabled = true;
     submitButton.disabled = true;
     submitButton.textContent = 'Sending your application…';
     try {
@@ -200,6 +257,7 @@ import { resolveClubAreas } from './club-areas.mjs';
       submitButton.innerHTML = 'Send club application <span aria-hidden="true">↗</span>';
     } finally {
       submitting = false;
+      previousStep.disabled = false;
     }
   }
 
@@ -219,8 +277,24 @@ import { resolveClubAreas } from './club-areas.mjs';
   });
   form.addEventListener('input', updatePreview);
   form.addEventListener('change', updatePreview);
+  // Format completed venue fields without moving the cursor while the user is typing.
+  sessionList.addEventListener('focusout', event => {
+    if (!event.target.matches('[data-session-field="postcode"], [data-session-field="meetingPoint"]')) return;
+    event.target.value = formatPostcodes(event.target.value.trim());
+    updatePreview();
+  });
   form.addEventListener('submit', submitApplication);
+  previousStep.addEventListener('click', () => {
+    if (submitting || currentStep === 0) return;
+    error.hidden = true;
+    showStep(currentStep - 1);
+  });
+  nextStep.addEventListener('click', advanceStep);
   updatePreview();
+  // Validate visible steps ourselves so hidden required fields never block navigation.
+  form.noValidate = true;
+  navigation.hidden = false;
+  showStep(0, false);
   // Enable submission once the repeatable session fields can be collected correctly.
   submitButton.disabled = false;
 })();

@@ -27,14 +27,10 @@ for (const club of data.clubs) {
   if (profilePaths.has(club.profilePath)) throw new Error(`Duplicate profile path: ${club.profilePath}`);
   clubIds.add(club.id);
   profilePaths.add(club.profilePath);
-  const checked = club.research?.checkedAt;
-  const confirmed = club.verification?.lastConfirmedByClub || null;
-  const trainingConfirmed = club.verification?.trainingTimesConfirmedAt || null;
-  if (trainingConfirmed && !verificationDate(trainingConfirmed)) throw new Error(`Invalid training confirmation date for ${club.id}`);
-  if (checked && !verificationDate(checked)) throw new Error(`Invalid research date for ${club.id}`);
-  if (confirmed && !verificationDate(confirmed)) throw new Error(`Invalid club confirmation date for ${club.id}`);
-  const sourceChecked = club.verification?.lastSourceCheck;
-  if (sourceChecked && !verificationDate(sourceChecked)) throw new Error(`Invalid source-check date for ${club.id}`);
+  const { status, lastConfirmed } = club.verification || {};
+  if (!['verified', 'unverified'].includes(status)) throw new Error(`Invalid verification status for ${club.id}`);
+  if (lastConfirmed && !verificationDate(lastConfirmed)) throw new Error(`Invalid confirmation date for ${club.id}`);
+  if ((status === 'verified') !== Boolean(lastConfirmed)) throw new Error(`Verification status/date mismatch for ${club.id}`);
 }
 /* Sector lookup: generate the small browser module from the owner's approved naming table. */
 const rulebook = fs.readFileSync(path.join(root, 'docs/postcode-area-rulebook.md'), 'utf8');

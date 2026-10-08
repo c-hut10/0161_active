@@ -5,13 +5,14 @@ export function verificationDate(value) {
   return { date: value, label: date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) };
 }
 
-export function trainingTimesConfirmation(club) {
-  return club.confirmed === true ? verificationDate(club.verification?.trainingTimesConfirmedAt) : null;
+/* Confirmation: one status and date are shared by imports, profiles and badges. */
+export function clubConfirmation(club) {
+  return club.verification?.status === 'verified' ? verificationDate(club.verification.lastConfirmed) : null;
 }
 
-export function trainingTimesBadge(club) {
-  const confirmation = trainingTimesConfirmation(club);
+export function clubVerificationBadge(club) {
+  const confirmation = clubConfirmation(club);
   if (!confirmation) return '';
-  const label = `Training times confirmed by the club on ${confirmation.label}`;
+  const label = `Club verified · Last Confirmed: ${confirmation.label}`;
   return `<span class="club-verified" role="img" aria-label="${label}" title="${label}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`;
 }

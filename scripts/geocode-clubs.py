@@ -48,22 +48,20 @@ def lookup(query):
     return result
 
 def address_for(club):
-    raw = club.get('location') or club.get('research', {}).get('fields', {}).get('Address / meeting point')
+    # Map the earliest listed training venue; no separate club address is stored.
+    sessions = sorted(club.get('sessions', []), key=lambda session: (session.get('dayOfWeek') or 8, session.get('startTime') or '99:99'))
+    session = next((session for session in sessions if session.get('meetingPoint')), {})
+    raw = session.get('meetingPoint')
     if not raw or raw.strip().lower() in ('manchester', 'unknown', 'not listed'):
         return None
     value = re.sub(r'\([^)]*\)', '', raw)
-    # Repair spaces introduced within UK postcodes in the imported research.
+    # Keep older venue text usable when it contains spaces inside a postcode.
     value = re.sub(r'\b([A-Z]{1,2})\s*(\d{1,2})\s*(\d)\s*([A-Z])\s*([A-Z])\b', r'\1\2 \3\4\5', value)
     value = re.sub(r'\s+', ' ', value).strip(' ,')
+    postcode = session.get('postcode')
+    if postcode and postcode.upper() not in value.upper():
+        value += ', ' + postcode
     return value
-
-def area_for(club):
-    area = (club.get('area') or 'Manchester').split('/')[0].strip()
-    if area == 'City Centre': return 'Manchester city centre'
-    if area in ('Seedfield', 'Redvales'): return area + ', Bury'
-    if area == 'Markland Hill': return area + ', Bolton'
-    if area == 'Spotland': return area + ', Rochdale'
-    return area + ', Greater Manchester'
 
 for club in clubs:
     if club.get('coordinates'):
@@ -78,10 +76,6 @@ for club in clubs:
     if results and results[0].get('addresstype') == 'road':
         results = []  # A road centroid is not a match for the requested club venue.
     precision = 'venue'
-    if not results:
-        query = area_for(club)
-        results = lookup(query)
-        precision = 'area'
     if results:
         match = results[0]
         point = {'lat': float(match['lat']), 'lon': float(match['lon']), 'precision': precision,

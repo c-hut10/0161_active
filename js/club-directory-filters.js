@@ -9,7 +9,7 @@ export function sportName(value) {
 export function matchesClubFilters(club, { sport = 'all', price = 'all', area = 'all' }) {
   return (sport === 'all' || club.sport === sport)
     && (price === 'all' || priceType(club) === price)
-    && (area === 'all' || canonicalArea(club.area) === canonicalArea(area) || (club.sessions || []).some(session => canonicalArea(session.area || club.area) === canonicalArea(area)));
+    && (area === 'all' || canonicalArea(club.area) === canonicalArea(area) || (club.sessions || []).some(session => canonicalArea(session.area) === canonicalArea(area)));
 }
 export function validCoordinates(point) {
   return point && typeof point.lat === 'number' && typeof point.lon === 'number'

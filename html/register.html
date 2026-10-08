@@ -6,7 +6,7 @@
   <meta name="description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <title>Register your club | 0161 Active</title>
   <link rel="stylesheet" href="../css/site-base.css">
-  <link rel="stylesheet" href="../css/register.css?v=20261007-standalone">
+  <link rel="stylesheet" href="../css/register.css?v=20261008-staircase">
   <link rel="icon" href="../img/0161 Active_Logo.png">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
   <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
@@ -43,36 +43,40 @@
   <main class="register-page" id="main-content" tabindex="-1">
     <section class="intro">
       <p class="eyebrow">REGISTER</p>
-      <h1>Add your club.</h1>
+      <h1>Join our network.</h1>
       <p>Tell us a little about your club.</p>
       <p>We'll handle the rest.</p>
-      <div class="steps" aria-label="Registration steps"><span class="step-current"><b>Fill Out</b></span><span><b>Submit</b></span><span><b>We review</b></span></div>
+      <!-- Application progress: name each section and highlight the current step. -->
+      <ol class="steps" aria-label="Application steps">
+        <li class="step-current" data-registration-step aria-current="step"><span aria-hidden="true">1</span><b>The basics</b></li>
+        <li data-registration-step><span aria-hidden="true">2</span><b>Training sessions</b></li>
+        <li data-registration-step><span aria-hidden="true">3</span><b>Contact details</b></li>
+      </ol>
     </section>
 
     <div class="register-layout">
       <form id="club-form" class="club-form" name="club-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true">
         <input type="hidden" name="form-name" value="club-registration">
         <p hidden><label>Leave this field empty: <input name="bot-field"></label></p>
-        <section class="form-section">
+        <section class="form-section" data-form-step aria-labelledby="basics-heading">
           <p class="section-number">01 / THE BASICS</p>
-          <h2>What should people know?</h2>
+          <h2 id="basics-heading" tabindex="-1">What should people know?</h2>
           <!-- Keep required asterisks inline with their field titles. -->
           <div class="field-grid">
             <label class="field field-wide"><span class="field-title">Club name <span class="required">*</span></span><input name="name" required maxlength="70" placeholder="e.g. Northern Striders" autocomplete="organization"></label>
             <label class="field"><span class="field-title">Sport or activity <span class="required">*</span></span><input name="sport" required maxlength="50" placeholder="e.g. Rugby Union"></label>
-            <label class="field"><span class="field-title">Area <span class="required">*</span></span><input name="area" required maxlength="60" placeholder="e.g. Ancoats, Hulme"></label>
             <!-- Pricing: paid options reveal their amount, tasters and booking details. -->
-            <label class="field"><span class="field-title">Pricing type</span><select name="pricing-type"><option value="unknown">Unknown</option><option value="free">Free</option><option value="monthly">Monthly fee</option><option value="annual">Annual fee</option><option value="per-session">Per session</option></select></label>
-            <label class="field" data-paid-pricing hidden><span class="field-title">Amount (£) <span class="required">*</span></span><input name="pricing-amount" type="number" min="0.01" step="0.01" placeholder="e.g. 10" disabled></label>
-            <label class="field" data-paid-pricing hidden><span class="field-title">Taster sessions</span><input name="taster-sessions" type="number" min="0" step="1" placeholder="e.g. 3" disabled></label>
-            <label class="field pricing-booking" data-paid-pricing hidden><span class="field-title">Booking required <span class="required">*</span></span><select name="booking-required" required disabled><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label class="field"><span class="field-title">Pricing type</span><select name="price.type"><option value="unknown">Unknown</option><option value="free">Free</option><option value="monthly_fee">Monthly fee</option><option value="annual_fee">Annual fee</option><option value="per_session">Per session</option></select></label>
+            <label class="field" data-paid-pricing hidden><span class="field-title">Amount (£) <span class="required">*</span></span><input name="price.amount" type="number" min="0.01" step="0.01" placeholder="e.g. 10" disabled></label>
+            <label class="field" data-paid-pricing hidden><span class="field-title">Taster sessions</span><input name="tasterSessionCount" type="number" min="0" step="1" placeholder="e.g. 3" disabled></label>
+            <label class="field pricing-booking" data-paid-pricing hidden><span class="field-title">Booking required <span class="required">*</span></span><select name="bookingRequired" required disabled><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide"><span class="field-title">About the club <span class="required">*</span></span><textarea name="description" required maxlength="600" rows="4" placeholder="Tell us some more about your club!"></textarea><small>Up to 600 characters.</small></label>
           </div>
         </section>
 
-        <section class="form-section">
-          <p class="section-number">02 / FIND YOUR PEOPLE</p>
-          <h2>Who can join in?</h2>
+        <section class="form-section" data-form-step aria-labelledby="training-heading">
+          <p class="section-number">02 / TRAINING SESSIONS</p>
+          <h2 id="training-heading" tabindex="-1">Who can join in?</h2>
           <!-- Repeatable sessions: collect each day's own time and public meeting point. -->
           <p class="session-help">Add each training session separately, including sessions that meet in different places.</p>
           <div id="training-sessions">
@@ -88,7 +92,7 @@
                 <label class="field field-wide"><span class="field-title">Experience level</span><select data-session-field="eligibility"><option value="">Choose an experience level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option><option value="All Abilities">All Abilities</option></select></label>
                 <!-- Additional sessions can reuse the previous session's current address. -->
                 <label class="session-same-location field-wide" data-same-location-option hidden><input type="checkbox" data-same-location> Same location as previous session</label>
-                <label class="field field-wide"><span class="field-title">Training address <span class="required">*</span></span><input data-session-field="meeting" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"></label>
+                <label class="field field-wide"><span class="field-title">Training address <span class="required">*</span></span><input data-session-field="meetingPoint" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"></label>
                 <!-- Session postcode: categorise each training venue using the shared area rulebook. -->
                 <label class="field field-wide"><span class="field-title">Postcode <span class="required">*</span></span><input data-session-field="postcode" required maxlength="12" placeholder="e.g. M21 7SX" autocomplete="postal-code"></label>
               </div>
@@ -99,22 +103,27 @@
           <button class="session-add" id="add-session" type="button">Add another session <span aria-hidden="true">＋</span></button>
           <p class="session-status" id="session-status" aria-live="polite"></p>
           <!-- Static named fields let Netlify capture all repeatable sessions in one application. -->
-          <input type="hidden" name="schedule">
-          <input type="hidden" name="meeting">
-          <input type="hidden" name="training-sessions">
+          <input type="hidden" name="registrationCsv">
+          <input type="hidden" name="sessions">
         </section>
 
-        <section class="form-section">
-          <p class="section-number">03 / SAY HELLO</p>
-          <h2>How can people reach you?</h2>
+        <section class="form-section" data-form-step aria-labelledby="contact-heading">
+          <p class="section-number">03 / CONTACT DETAILS</p>
+          <h2 id="contact-heading" tabindex="-1">How can people reach you?</h2>
           <div class="field-grid">
-            <label class="field"><span class="field-title">Contact email <span class="required">*</span></span><input name="email" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email" aria-describedby="contact-email-note"><small id="contact-email-note">Our team will get in touch via this email if we have any more questions.</small></label>
-            <label class="field">Website or social link<input name="link" type="url" maxlength="200" placeholder="https://"></label>
-            <!-- Optional notes are included with the application for the review team. -->
-            <label class="field field-wide"><span class="field-title">Additional information</span><textarea name="additional-information" maxlength="2000" rows="4" placeholder="Anything else you would like us to know?"></textarea></label>
+            <label class="field"><span class="field-title">Contact email <span class="required">*</span></span><input name="contact" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email" aria-describedby="contact-email-note"><small id="contact-email-note">Our team will get in touch via this email if we have any more questions.</small></label>
+            <label class="field">Website or social link<input name="onlineProfile.url" type="url" maxlength="200" placeholder="https://"></label>
+            <!-- Additional details: this answer is public content in the club profile. -->
+            <label class="field field-wide"><span class="field-title">Additional information</span><textarea name="additionalInformation" maxlength="2000" rows="4" placeholder="Anything else you would like us to know?"></textarea><small>This information may appear publicly on your club profile.</small></label>
           </div>
         </section>
 
+        <!-- Step controls: move between sections while retaining every entered answer. -->
+        <div class="form-navigation" id="form-navigation" hidden>
+          <button class="step-back" id="previous-step" type="button" hidden>Back</button>
+          <button class="step-next" id="next-step" type="button">Next: Training sessions <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="form-submission" id="form-submission">
         <p class="privacy-note">Your club application will be reviewed by our team. If approved, your club details and public meeting point will be added to the website, along with your contact email (unless otherwise specified). A member of our team will be in touch if we have any additional questions. <a href="/html/privacy.html">Read our privacy policy.</a></p>
         <div class="registration-captcha">
           <p>Complete the security check before sending your application.</p>
@@ -124,6 +133,7 @@
         <!-- JavaScript collects every session before sending the application to Netlify. -->
         <noscript><p class="form-error">Please enable JavaScript to submit all of your training sessions, or contact contact.0161active@gmail.com for help.</p></noscript>
         <button class="generate-button" type="submit" disabled>Send club application <span aria-hidden="true">↗</span></button>
+        </div>
         <p id="form-error" class="form-error" role="alert" hidden></p>
       </form>
 
@@ -148,13 +158,11 @@
             </div>
             <div class="preview-copy">
               <dl class="preview-details">
-                <div><dt>AREA</dt><dd id="preview-area">Your area</dd></div>
-                <div><dt>LOCATION</dt><dd id="preview-meeting">Your public meeting place</dd></div>
                 <div><dt>SPORT</dt><dd id="preview-sport">Your sport</dd></div>
+                <div><dt>AREA</dt><dd id="preview-area">Your area</dd></div>
                 <div><dt>COST</dt><dd id="preview-cost">Unknown</dd></div>
                 <div id="preview-tasters-row" hidden><dt>TASTER SESSION(S)</dt><dd id="preview-tasters"></dd></div>
                 <div id="preview-booking-row" hidden><dt>BOOKING</dt><dd>Required</dd></div>
-                <div><dt>REGULAR SESSION ATTENDANCE</dt><dd>To be confirmed</dd></div>
               </dl>
             </div>
           </section>
@@ -162,6 +170,7 @@
             <h3 id="preview-about-title">ABOUT THE CLUB</h3>
             <p id="preview-description">Your club description will appear here.</p>
           </section>
+          <section class="preview-about" id="preview-additional-section" hidden><h3>ADDITIONAL INFORMATION</h3><p id="preview-additional"></p></section>
           <section class="preview-week" aria-labelledby="preview-week-title">
             <div class="preview-week__heading"><h3 id="preview-week-title">Week at a glance</h3><span>WEEKLY SCHEDULE</span></div>
             <div class="preview-week__grid" aria-label="Weekly schedule preview">
@@ -213,6 +222,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script type="module" src="../js/register.js?v=20261007-cleanup"></script>
+  <script type="module" src="../js/register.js?v=20261008-club-schema-2"></script>
 </body>
 </html>
