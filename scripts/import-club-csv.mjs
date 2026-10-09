@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CSV_COLUMNS, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, clubAnswers } from '../js/club-submission.mjs';
+import { CSV_COLUMNS, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, MEMBERSHIP_PERIODS, clubAnswers } from '../js/club-submission.mjs';
 import { sportSlug, WEEK_DAYS } from '../js/club-formatting.mjs';
 import { areaFromPostcode } from '../js/club-areas.mjs';
 import { verificationDate } from '../js/club-verification.mjs';
+import { leagueAnswers, LEAGUE_COVERAGES } from '../js/club-leagues.mjs';
 
 /* CSV decoding: preserve quoted commas, line breaks and escaped quotes in club answers. */
 function readCsv(source) {
@@ -81,6 +82,28 @@ const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
 const updates = [];
 for (const [id, group] of groups) {
   const answers = clubAnswers(group.values, group.rows.map(row => row.session));
+  /* Preserve the club's wording and reject contradictory gender eligibility answers. */
+  const genderSpecific = group.values.genderSpecific || '';
+  const genderEligibility = group.values.genderEligibility || '';
+  if (!['', 'yes', 'no'].includes(genderSpecific)) errors.push(`${id}: genderSpecific must be yes, no or blank when unknown.`);
+  if (genderSpecific === 'yes' && !genderEligibility) errors.push(`${id}: gender-specific clubs require genderEligibility.`);
+  if (genderEligibility.length > 150) errors.push(`${id}: genderEligibility must be up to 150 characters.`);
+  if (genderSpecific !== 'yes' && genderEligibility) errors.push(`${id}: genderEligibility requires genderSpecific yes.`);
+  /* Validate every submitted league before normalisation can drop incomplete answers. */
+  const participation = group.values.participatesInLeague;
+  const leagues = leagueAnswers(group.values);
+  if (!['', 'yes', 'no'].includes(participation)) errors.push(`${id}: participatesInLeague must be yes, no or blank when unknown.`);
+  if (participation === 'yes' && !leagues.length) errors.push(`${id}: Yes requires at least one league name and coverage.`);
+  if (participation !== 'yes' && leagues.length) errors.push(`${id}: league details require participatesInLeague yes.`);
+  const scopes = new Map();
+  leagues.forEach((league, index) => {
+    if (!league.teamName || league.teamName.length > 150) errors.push(`${id}: league ${index + 1} requires a team name of up to 150 characters.`);
+    if (!league.name || league.name.length > 150) errors.push(`${id}: league ${index + 1} requires a name of up to 150 characters.`);
+    if (!Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) errors.push(`${id}: league ${index + 1} coverage must be local_county, regional or national.`);
+    const key = league.name.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-GB');
+    if (scopes.has(key) && scopes.get(key) !== league.coverage) errors.push(`${id}: conflicting coverage for ${league.name}.`);
+    scopes.set(key, league.coverage);
+  });
   if (!knownSports.has(answers.sport)) errors.push(`${id}: sport is not in the approved directory.`);
   if (answers.contact && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(answers.contact)) errors.push(`${id}: contact must be an email address or blank.`);
   if (answers.onlineProfile) {
@@ -88,6 +111,18 @@ for (const [id, group] of groups) {
     catch { errors.push(`${id}: onlineProfile.url must be a complete HTTP or HTTPS URL.`); }
   }
   if (!['free', 'unknown', ...PAID_PRICE_TYPES].includes(answers.price.type)) errors.push(`${id}: invalid price.type.`);
+  /* Optional membership must be complete and belong to a pay-per-session club. */
+  const membershipValues = ['membership.period', 'membership.amount', 'membership.sessionAmount'].map(field => group.values[field]);
+  if (membershipValues.some(Boolean)) {
+    const membership = answers.membership;
+    if (answers.price.type !== 'per_session') errors.push(`${id}: optional membership requires price.type per_session.`);
+    else if (!membership || !MEMBERSHIP_PERIODS.includes(membership.period)) errors.push(`${id}: membership.period must be monthly or annual.`);
+    else {
+      if (!Number.isFinite(membership.amount) || membership.amount <= 0) errors.push(`${id}: membership.amount must be a positive amount in pounds.`);
+      if (!Number.isFinite(membership.sessionAmount) || membership.sessionAmount < 0) errors.push(`${id}: membership.sessionAmount must be zero or a positive amount in pounds.`);
+      if (Number.isFinite(answers.price.amount) && membership.sessionAmount > answers.price.amount) warnings.push(`${id}: member session price exceeds the standard price; please confirm.`);
+    }
+  }
   if (PAID_PRICE_TYPES.includes(answers.price.type)) {
     if (!Number.isFinite(answers.price.amount) || answers.price.amount <= 0) errors.push(`${id}: paid clubs require a positive price.amount.`);
     if (answers.bookingRequired === null) errors.push(`${id}: paid clubs require bookingRequired yes or no.`);
@@ -119,7 +154,9 @@ for (const [id, group] of groups) {
     coordinates: existing?.coordinates || null,
     sources: existing?.sources || [],
     // New answers supersede old public notes that may describe a previous schedule or price.
-    pricingNotes: null, bookingNotes: null, tasterNotes: null, trainingNotes: null,
+    pricingNotes: null, bookingNotes: null, tasterNotes: null,
+    // A complete form response supersedes owner-held venues with its submitted sessions.
+    trainingVenues: [],
     verification: { status: 'verified', lastConfirmed: importDate }
   });
 }

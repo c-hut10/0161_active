@@ -4,12 +4,13 @@
   <!-- Page metadata: generate the title, description and canonical URL from club data. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore Marple Sports Club Table Tennis: Table Tennis on 0161 Active. Fri endly social table tennis for all ages; equipment available">
+  <!-- Browser tab icon: use the shared 0161 Active logo for every club. -->
+  <meta name="description" content="Explore Marple Sports Club Table Tennis: Table Tennis in Marple. Fri endly social table tennis for all ages; equipment available">
   <title>Marple Sports Club Table Tennis | 0161 Active</title>
-  <link rel="stylesheet" href="../../css/0161_Page.css">
-  <link rel="stylesheet" href="../../css/club-profile.css">
-  <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
-  <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
+  <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
+  <link rel="stylesheet" href="../../css/club-profile.css?v=20261009-mobile-actions">
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
+  <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html">
 
   <!-- Social preview -->
@@ -17,18 +18,18 @@
   <meta property="og:site_name" content="0161 Active">
   <meta property="og:locale" content="en_GB">
   <meta property="og:title" content="Marple Sports Club Table Tennis | 0161 Active">
-  <meta property="og:description" content="Explore Marple Sports Club Table Tennis: Table Tennis on 0161 Active. Fri endly social table tennis for all ages; equipment available">
+  <meta property="og:description" content="Explore Marple Sports Club Table Tennis: Table Tennis in Marple. Fri endly social table tennis for all ages; equipment available">
   <meta property="og:url" content="https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Marple Sports Club Table Tennis | 0161 Active">
-  <meta name="twitter:description" content="Explore Marple Sports Club Table Tennis: Table Tennis on 0161 Active. Fri endly social table tennis for all ages; equipment available">
-  <meta property="og:image" content="https://0161active.co.uk/img/social/html-table-tennis-marple-sports-club-table-tennis.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Marple Sports Club Table Tennis — Table Tennis. 0161 Active.">
-  <meta name="twitter:image" content="https://0161active.co.uk/img/social/html-table-tennis-marple-sports-club-table-tennis.jpg">
-  <meta name="twitter:image:alt" content="Marple Sports Club Table Tennis — Table Tennis. 0161 Active.">
+  <meta name="twitter:description" content="Explore Marple Sports Club Table Tennis: Table Tennis in Marple. Fri endly social table tennis for all ages; equipment available">
+  <meta property="og:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="0161 Active logo">
+  <meta name="twitter:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
+  <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
 
   <!-- Shared styles and controls: keep navigation, privacy and accessibility consistent. -->
@@ -38,17 +39,52 @@
   <link rel="stylesheet" href="/css/accessibility.css">
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
+  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
+  <!-- Structured data -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html#page","url":"https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html","name":"Marple Sports Club Table Tennis | 0161 Active","description":"Explore Marple Sports Club Table Tennis: Table Tennis in Marple. Fri endly social table tennis for all ages; equipment available","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html#club"}},{"@type":"SportsOrganization","@id":"https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html#club","name":"Marple Sports Club Table Tennis","description":"Fri endly social table tennis for all ages; equipment available","mainEntityOfPage":{"@id":"https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html#page"},"sport":"table tennis","email":"secretary@marplesportsclub.com","sameAs":["https://www.marplesportsclub.com/"]}]}</script>
+  <!-- /Structured data -->
 </head>
 <body class="profile-body">
   <a class="skip-link" href="#club-profile-root">Skip to main content</a>
   <!-- Site navigation: reuse the global navigation on every club profile. -->
-  <div data-site-nav></div>
+  <div data-site-nav><header class="site-navbar">
+    <div class="site-navbar__bar">
+      <a class="site-navbar__brand" href="/" aria-label="0161 Active home"><img src="/img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a>
+      <nav class="site-navbar__desktop" aria-label="Main navigation">
+        <div class="site-navbar__sports">
+          <a class="site-navbar__link" href="/html/sports/directory.html">SPORTS</a>
+          <div class="site-navbar__sports-panel" aria-label="Sports directory links">
+            <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
+            <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
+          </div>
+        </div>
+        <a class="site-navbar__link" href="/html/calendar.html">CALENDAR</a>
+        <a class="site-navbar__link" href="/html/register.html">REGISTER YOUR CLUB</a>
+        <a class="site-navbar__link" href="/html/contact.html">CONTACT US</a>
+      </nav>
+      <button class="site-navbar__menu-button" type="button" aria-controls="site-mobile-drawer" aria-expanded="false">MENU</button>
+    </div>
+    <button class="site-navbar__overlay" type="button" aria-label="Close menu" hidden></button>
+    <nav class="site-navbar__drawer" id="site-mobile-drawer" aria-label="Mobile navigation" aria-hidden="true" inert>
+      <div class="site-navbar__drawer-header">
+        <p class="site-navbar__drawer-title">MENU</p>
+        <button class="site-navbar__close" type="button">CLOSE ×</button>
+      </div>
+      <a class="site-navbar__drawer-link" href="/html/sports/directory.html">SPORTS <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header></div><!-- /Site navigation -->
 
   <!-- Profile content: embed the shared renderer's output for viewing without JavaScript. -->
   <main class="profile-main" id="club-profile-root" data-club-id="marple-sports-club-table-tennis" tabindex="-1">
     <section class="profile-heading" aria-labelledby="profile-title">
       <div class="profile-heading__identity">
-        <p class="profile-eyebrow"><a href="../sports/glossary.html?sport=table-tennis">Table Tennis</a></p>
+        <p class="profile-eyebrow"><a href="../sports/table-tennis.html">Table Tennis</a> · <a href="../sports/table-tennis.html?area=Marple">Marple</a></p>
         <h1 id="profile-title">Marple Sports Club Table Tennis</h1>
         <p class="profile-information-date">Unverified · Last Confirmed: not yet recorded</p>
       </div>
@@ -73,7 +109,7 @@
     <section class="profile-overview" aria-label="Marple Sports Club Table Tennis photo and details">
       <div class="profile-photo profile-photo--missing">Club photo not available</div>
       <div class="profile-copy">
-        <dl class="profile-details-list"><div class="profile-detail-row"><dt>SPORT</dt><dd>Table Tennis</dd></div><div class="profile-detail-row"><dt>AREA</dt><dd>Area to confirm</dd></div><div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div><div class="profile-detail-row"><dt>COST</dt><dd>Not listed</dd></div><div class="profile-detail-row"><dt>BOOKING DETAILS</dt><dd>Not required: come along</dd></div></dl>
+        <dl class="profile-details-list"><div class="profile-detail-row"><dt>SPORT</dt><dd>Table Tennis</dd></div><div class="profile-detail-row"><dt>AREA</dt><dd>Marple</dd></div><div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div><div class="profile-detail-row"><dt>COST</dt><dd>Not listed</dd></div><div class="profile-detail-row"><dt>BOOKING DETAILS</dt><dd>Not required: come along</dd></div></dl>
       </div>
     </section>
     <section class="profile-about" aria-labelledby="profile-about-title">
@@ -116,7 +152,7 @@
         <p class="profile-day__name">SUN</p>
         <span class="profile-empty">—</span>
       </div></div>
-      <p class="profile-week__notice">Wed 20:15 We are still building our database. Please double-check with clubs before attending a session.</p>
+      <p class="profile-week__notice">We are still building our database. Please double-check with clubs before attending a session.</p>
     </section>
   </main>
 
@@ -137,6 +173,6 @@
     </nav>
   </div>
 </footer>
-  <script type="module" src="../../js/club-profile.js"></script>
+  <script type="module" src="../../js/club-profile.js?v=20261009-loading-states"></script>
 </body>
 </html>

@@ -1,14 +1,12 @@
 # Metadata and club maintenance
 
-`data/site.json` holds the public origin. Home links use `/`. After changing the origin, run the Node generator and deploy the generated HTML, sitemap and robots file together. When share-card text or photos change, use the full image-refresh sequence below.
+`data/site.json` holds the public origin. Home links use `/`. After changing the origin, run the Node generator and deploy the generated HTML, sitemap and robots file together.
 
 ```sh
 node scripts/build-site-metadata.cjs
-python3 scripts/generate-social-previews.py
-node scripts/build-site-metadata.cjs
 ```
 
-The image generator needs Pillow and currently uses macOS Arial fonts, with the native `sips` decoder for AVIF files unsupported by Pillow. It writes images only, using the generated profiles' resolved sport/area labels. The final Node build links new cards and owns all HTML metadata, canonical URLs and indexing files.
+Every page uses `img/0161 Active_Logo.png` for its favicon and Open Graph/Twitter image. The older social-card generator is not part of the current build workflow.
 
 Run the profile generator after changes to club data, the profile renderer or indexing policy. It embeds every club profile in the initial HTML, including details, sessions, links and Last Confirmed information. Generated profiles are displayed directly. The profile script adds calendar downloads; page rendering happens during generation. Rebuild and deploy profiles after data changes.
 
@@ -24,7 +22,17 @@ This server explicitly sends AVIF as `image/avif` and disables asset caching. It
 
 Add each club with a unique `id` and a `profilePath` of `html/<sport>/<club>.html`, then run `node scripts/build-site-metadata.cjs`. The generator creates missing sport folders and profile pages, updates existing pages, regenerates titles/descriptions/canonical and social tags, and includes the new pages in the sitemap. It does not need a copied profile page or change club verification dates. Profile filenames cannot be `index.html`.
 
-Existing club share images are reused. New profiles use the general sports-directory share image until a dedicated JPEG card is generated. Run the social-image generator after creating new profile HTML, then run the Node generator again to link the new cards. Skip image generation for routine session updates that do not affect the image. Unchanged generated HTML files are not rewritten.
+## Homepage gallery
+
+The generator chooses 10 available club photos for each build using `js/home-gallery-renderer.mjs`. Their images, captions and profile links are embedded directly in `index.html`. `js/home-gallery.js` shuffles only those prerendered cards on each visit and adds pause/resume controls. It does not fetch the club directory or choose another photo set. A rebuild rotates the set; deploy the rebuilt homepage to publish that selection.
+
+## Generated sport pages and navigation
+
+The build creates `html/sports/<sport-slug>.html` for each visible sport using `templates/sport-glossary.inc`. Each page contains its club list, title, description, canonical URL and sharing metadata in the initial HTML. Area/day/search controls enhance that list in the browser. Older `glossary.html?sport=...` links open the new sport page and retain the area filter. New links use the generated sport paths directly.
+
+Visibility still follows `data/sports.json` through `visibleSportRecords`. When a sport is hidden, the build removes its marked generated glossary; hand-authored files are preserved. Rebuild after changing club records or sport visibility.
+
+`js/sport-glossary-renderer.mjs`, `js/sports-directory-renderer.mjs`, `js/calendar-week-renderer.mjs` and `js/site-nav-renderer.mjs` share HTML rendering between the build and browser. The sports directory, full-week calendar and global navigation are embedded during generation. JavaScript adds search, filters, day selections, downloads and mobile menu controls. Data-loading failures retain the generated content.
 
 ## Shared session display
 
@@ -40,9 +48,9 @@ Club profiles include a training summary below their title and actions, generate
 
 ## Postcode area naming
 
-`docs/postcode-area-rulebook.md` is the owner's naming reference. All 173 recorded sector labels are approved and may be changed only at the owner's request. External research must not replace them. After editing the table, run `node scripts/build-site-metadata.cjs`; it generates `js/postcode-areas.mjs` and rebuilds the static profiles.
+`docs/postcode-area-rulebook.md` contains the single approved postcode-to-area table and all naming policies. Add or change mappings there only, then run `node scripts/build-site-metadata.cjs`; it generates `js/postcode-areas.mjs` and rebuilds the static profiles. The generated JavaScript lookup is not a second editable rulebook.
 
-`js/club-areas.mjs` resolves session postcodes independently, accepting a `postcode` or `postcodeSector` field and postcodes within venue addresses. It supplies the same derived areas to the calendar, sport directories, profiles, gallery, map and registration preview. Club data is resolved in memory without rewriting `data/clubs.json`. Records without a matching postcode have no derived area; unresolved sessions never inherit another training venue’s area. The migration review is in docs/club-data-review.md.
+`js/club-areas.mjs` uses that generated lookup to resolve session and undated venue postcodes. It supplies the derived areas across the website without rewriting `data/clubs.json`. See the rulebook's Maintenance and implementation section for resolution behaviour. `docs/club-data-review.md` is a historical migration report, not a source of mapping rules.
 
 The registration form collects a postcode per training session. “Same location as previous session” copies both the training address and postcode. The preview uses derived areas, but submitted session JSON contains only the underlying address and postcode. The named sessions field captures answers through Netlify, and registrationCsv supplies one CSV row per session.
 
@@ -54,9 +62,9 @@ Verification contains only status (verified or unverified) and lastConfirmed (YY
 
 ## Search indexing
 
-The sitemap includes finished public pages and all club profiles. It excludes the 404 page, About/Resources placeholders, the draft privacy policy and the Run Club redirect page. Excluded pages carry `noindex, follow`; they remain crawlable so search engines can read that instruction. Remove finished pages from the exclusion set in the profile generator when ready. The empty navigation fragment and experimental Test/random pages have been removed.
+The sitemap includes public pages, all club profiles and generated sport glossaries. It excludes the 404 page, draft privacy policy and generic glossary compatibility page; those carry `noindex, follow`. About, Resources and the former Run Club placeholder were removed. The Run Club sport now has a generated glossary at `html/sports/run-club.html`.
 
-The sitemap omits `lastmod` until real content-change dates can be tracked. Never replace research dates with build dates to manufacture freshness. The shared sport glossary still uses a general static canonical/preview; dedicated sport pages are a separate improvement.
+The sitemap omits `lastmod` until real content-change dates can be tracked. Never replace research dates with build dates to manufacture freshness. Sport canonicals are written directly into HTML and exclude optional area/day/search filters.
 
 ## Release checks
 

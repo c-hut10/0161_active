@@ -32,10 +32,6 @@ main{
      width: 100%;
 }
 
-@media (max-width: 760px) {
-  main { margin-top: 80px; }
-}
-
 /* Existing content defaults: component styles refine images, sections and side panels. */
 main img{
     filter: grayscale(1);

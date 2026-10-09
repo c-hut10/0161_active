@@ -1,13 +1,16 @@
 import { formatPostcodes, sportSlug } from './club-formatting.mjs';
 import { sessionTitle } from './session-details.mjs';
+import { normaliseLeagues, leagueAnswers } from './club-leagues.mjs';
 
 /* Questionnaire contract: CSV headings mirror JSON paths, with one session per row. */
-export const CLUB_ANSWER_FIELDS = ['name', 'sport', 'description', 'contact', 'onlineProfile.url',
-  'price.type', 'price.amount', 'tasterSessionCount', 'bookingRequired', 'additionalInformation'];
+export const CLUB_ANSWER_FIELDS = ['name', 'sport', 'genderSpecific', 'genderEligibility', 'participatesInLeague', 'participatingLeagues.teamName', 'participatingLeagues.name', 'participatingLeagues.coverage', 'description', 'contact', 'onlineProfile.url',
+  'price.type', 'price.amount', 'membership.period', 'membership.amount', 'membership.sessionAmount',
+  'tasterSessionCount', 'bookingRequired', 'additionalInformation'];
 export const SESSION_ANSWER_FIELDS = ['title', 'dayOfWeek', 'startTime', 'endTime',
   'meetingPoint', 'postcode', 'eligibility', 'specialConsiderations'];
 export const CSV_COLUMNS = ['id', ...CLUB_ANSWER_FIELDS, ...SESSION_ANSWER_FIELDS.map(field => `sessions.${field}`)];
 export const PAID_PRICE_TYPES = ['monthly_fee', 'annual_fee', 'per_session'];
+export const MEMBERSHIP_PERIODS = ['monthly', 'annual'];
 const text = value => String(value ?? '').trim();
 const optional = value => text(value) || null;
 
@@ -27,8 +30,19 @@ export function clubAnswers(values, sessions) {
   const url = optional(values['onlineProfile.url']);
   return {
     name: text(values.name), sport: sportSlug(values.sport), description: optional(values.description),
+    // Unknown stays unknown; free text is stored only for a gender-specific club.
+    genderSpecific: values.genderSpecific === 'yes' ? true : values.genderSpecific === 'no' ? false : null,
+    genderEligibility: values.genderSpecific === 'yes' ? optional(values.genderEligibility) : null,
+    participatesInLeague: values.participatesInLeague === 'yes' ? true : values.participatesInLeague === 'no' ? false : null,
+    participatingLeagues: values.participatesInLeague === 'yes' ? normaliseLeagues(leagueAnswers(values)) : [],
     contact: optional(values.contact), onlineProfile: url ? { url } : null,
     price: { type, amount: type === 'free' ? 0 : paid && text(values['price.amount']) ? Number(values['price.amount']) : null, currency: 'GBP' },
+    // Optional membership supplements the standard pay-per-session rate, never replaces it.
+    membership: type === 'per_session' && text(values['membership.period']) ? {
+      period: text(values['membership.period']),
+      amount: text(values['membership.amount']) ? Number(values['membership.amount']) : null,
+      sessionAmount: text(values['membership.sessionAmount']) ? Number(values['membership.sessionAmount']) : null
+    } : null,
     tasterSessionCount: paid && text(values.tasterSessionCount) ? Number(values.tasterSessionCount) : null,
     bookingRequired: paid ? text(values.bookingRequired) === 'yes' ? true : text(values.bookingRequired) === 'no' ? false : null : false,
     additionalInformation: optional(values.additionalInformation), sessions: sessions.map(sessionAnswers)

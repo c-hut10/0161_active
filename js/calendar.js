@@ -1,9 +1,11 @@
+import { renderWeekGrid, frequencyToggle, eligibilityMarkup } from './calendar-week-renderer.mjs';
 import { canonicalArea, WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory } from './site-data.mjs';
-import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL, downloadClubCalendar } from './club-calendar.mjs';
-import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
-import { PRICE_TYPE_LABELS, PRICE_TYPE_ORDER, priceType, priceLabel, sportName as displaySportName, matchesClubFilters } from './club-directory-filters.js';
+import { beginControlLoading } from './control-loading.mjs';
+import { downloadClubCalendar } from './club-calendar.mjs';
+import { sessionTitle, sessionAddress, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { priceLabel, sportName as displaySportName, matchesClubFilters } from './club-directory-filters.js';
 
 /* Calendar data: read the shared JSON directory used to build both weekly and daily views. */
 const sportFilter = document.querySelector('#filter-sport');
@@ -58,33 +60,15 @@ backToTop.addEventListener('click', () => {
 });
 
 /* Session notes: explain group restrictions and special schedules without guessing times. */
-function frequencyToggle(session) {
-  const note = sessionScheduleNote(session);
-  return note
-    ? `<details class="session-frequency"><summary aria-label="Show session details">i</summary><span>${escapeHtml(note)}</span></details>`
-    : '';
-}
-
-function sitePath(path) {
-  return path ? `../${path}` : '#';
-}
-
 /* Filter controls are populated from the dataset so future sports and areas need no UI rewrite. */
 function populateFilters() {
   const sports = [...new Set(clubs.map(club => club.sport).filter(Boolean))].sort();
-  const priceTypes = [...new Set(clubs.map(priceType))].sort((a, b) => {
-    const indexA = PRICE_TYPE_ORDER.indexOf(a);
-    const indexB = PRICE_TYPE_ORDER.indexOf(b);
-    return (indexA < 0 ? PRICE_TYPE_ORDER.length : indexA) - (indexB < 0 ? PRICE_TYPE_ORDER.length : indexB)
-      || a.localeCompare(b);
-  });
   const areas = [...new Set(clubs.flatMap(club => [club.area, ...(club.sessions || []).map(session => session.area)]).map(canonicalArea).filter(Boolean))].sort();
 
   sports.forEach(sport => sportFilter.add(new Option(displaySportName(sport), sport)));
-  priceTypes.forEach(type => {
-    const label = PRICE_TYPE_LABELS[type] || 'Other price';
-    priceFilter.add(new Option(label, type));
-  });
+  /* Membership includes membership-only clubs and optional memberships alongside session pricing. */
+  priceFilter.replaceChildren(new Option('Any price', 'all'), new Option('Free', 'free'),
+    new Option('Pay-per-session', 'per_session'), new Option('Membership', 'membership'));
   areas.forEach(area => areaFilter.add(new Option(area, area)));
 }
 
@@ -143,56 +127,6 @@ function toggleDay(dayNumber) {
   setView(selectedDays.size ? 'day' : 'week');
 }
 
-/* Calendar eligibility: show a row only when the shared label has a supplied value. */
-function eligibilityMarkup(session) {
-  const audience = sessionAudience(session);
-  return audience ? `<span class="session-audience">${escapeHtml(audience)}</span>` : '';
-}
-
-/* Weekly view: render each club once using its prepared weekday session groups. */
-function renderWeekView(entries) {
-  const header = `<div class="week-head" role="row">
-    <div role="columnheader">CLUB / AREA (A–Z)</div>
-    ${DAYS.map(day => `<div role="columnheader"><button type="button" data-day="${day.number}" aria-label="Show ${day.name} sessions">${day.short}</button></div>`).join('')}
-  </div>`;
-
-  const rows = entries.map(({ club, sessionsByDay }) => {
-    /* Full-week sublabel: display the stored sport key in title case. */
-    const sportLabel = displaySportName(club.sport);
-    const cells = DAYS.map(day => {
-      const sessions = sessionsByDay.get(day.number) || [];
-      const content = sessions.length
-        ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}${session.everyOtherWeek ? ', every other week' : ''}">
-            <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
-            ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
-            <div class="week-session__top"><time>${escapeHtml(formatTime(session))}</time>${frequencyToggle(session)}</div>
-            ${eligibilityMarkup(session)}
-            <span class="week-session__area">${escapeHtml(session.area || 'Area to confirm')}</span>
-            ${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}
-          </div>`).join('')
-        : '<span class="week-empty" aria-hidden="true">—</span>';
-      return `<div class="week-cell" role="cell"><span class="week-day-label">${day.short}</span>${content}</div>`;
-    }).join('');
-
-    return `<div class="week-row" role="row">
-      <div class="week-club" role="rowheader">
-        <div class="week-club__title">
-          <a href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
-          <div class="club-calendar-control">
-            <button type="button" class="club-calendar-download" data-calendar-club="${escapeHtml(club.id)}" aria-label="${escapeHtml(CALENDAR_DOWNLOAD_LABEL)} for ${escapeHtml(club.name)}" aria-describedby="calendar-tooltip-${escapeHtml(club.id)}">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18m-9 3v5m-3-3 3 3 3-3"/></svg>
-            </button>
-            <span class="club-calendar-tooltip" id="calendar-tooltip-${escapeHtml(club.id)}" role="tooltip">${escapeHtml(CALENDAR_DOWNLOAD_LABEL.toUpperCase())}<small>${escapeHtml(CALENDAR_FILE_LABEL)}</small></span>
-          </div>
-        </div>
-        <span>${escapeHtml(`${sportLabel} · ${club.area || 'Area to confirm'}`)}</span>
-      </div>${cells}
-    </div>`;
-  }).join('');
-
-  weekGrid.innerHTML = `${header}${rows || '<p class="agenda-empty">No clubs match these filters.</p>'}`;
-}
-
 /* Shared eyebrows: keep sport labels and singular/plural club counts consistent in both views. */
 function calendarEyebrow(sportLabel, count) {
   return `${sportLabel} · ${count} ${count === 1 ? 'club' : 'clubs'}`.toUpperCase();
@@ -211,7 +145,7 @@ function renderSelectedDays(events, sportLabel, days, clubCount) {
     const sportLabel = displaySportName(club.sport);
     return `<article class="agenda-event">
       <div class="agenda-time"><span class="agenda-day">${escapeHtml(day.name)}</span><time>${escapeHtml(formatTime(session))}</time><span class="agenda-sport">${escapeHtml(sportLabel)}</span></div>
-      <a class="agenda-club" href="${escapeHtml(sitePath(club.profilePath))}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
+      <a class="agenda-club" href="${escapeHtml(`/${club.profilePath}`)}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
       <div class="agenda-details"><strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}${eligibilityMarkup(session)}<span>${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}</span>${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}${frequencyToggle(session)}</div>
       <span class="agenda-price">${escapeHtml(priceLabel(club))}</span>
     </article>`;
@@ -242,7 +176,7 @@ function renderCalendar() {
     clubCount = entries.length;
     sessionCount = entries.reduce((total, entry) => total + entry.sessions.length, 0);
     weekOverline.textContent = calendarEyebrow(sportLabel, clubCount);
-    renderWeekView(entries);
+    weekGrid.innerHTML = renderWeekGrid(entries);
   } else {
     const days = DAYS.filter(day => selectedDays.has(day.number));
     /* Combined day filter: each club needs an area-matching session on every selected day. */
@@ -277,15 +211,19 @@ weekGrid.addEventListener('click', async event => {
   const downloadButton = event.target.closest('[data-calendar-club]');
   if (downloadButton) {
     downloadButton.disabled = true;
+    downloadButton.setAttribute('aria-busy', 'true');
+    downloadStatus.textContent = 'Preparing calendar…';
+    downloadStatus.hidden = false;
     try {
       const club = clubs.find(item => item.id === downloadButton.dataset.calendarClub);
       if (!club) throw new Error('Club calendar is unavailable.');
-      downloadStatus.textContent = downloadClubCalendar(club, new URL(sitePath(club.profilePath), window.location.href).href);
+      downloadStatus.textContent = downloadClubCalendar(club, new URL(`/${club.profilePath}`, window.location.href).href);
     } catch (error) {
       downloadStatus.textContent = error.message;
     } finally {
       downloadStatus.hidden = false;
       downloadButton.disabled = false;
+      downloadButton.removeAttribute('aria-busy');
     }
     return;
   }
@@ -303,17 +241,21 @@ clearFilters.addEventListener('click', () => {
 
 /* Startup: load the compact static directory and gracefully report a missing or invalid file. */
 async function loadCalendarData() {
+  const finishLoading = beginControlLoading(
+    [sportFilter, priceFilter, areaFilter, ...dayNavigation.querySelectorAll('button'),
+      ...weekGrid.querySelectorAll('button')], calendarMessage
+  );
   try {
     const data = await loadClubDirectory();
     clubs = data.clubs;
     populateFilters();
-    calendarMessage.hidden = true;
+    finishLoading();
     renderCalendar();
   } catch (error) {
-    calendarMessage.textContent = error.message || 'The club directory could not be loaded.';
+    finishLoading(false);
+    // Retain the generated schedule if fresh data cannot be loaded for filtering.
+    calendarMessage.textContent = 'Filters are unavailable. You can still browse the schedule and open club profiles.';
     calendarMessage.hidden = false;
-    resultCount.textContent = 'Sessions unavailable';
-    weekOverline.textContent = 'CLUBS UNAVAILABLE';
   }
 }
 

@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore sports available across Greater Manchester, from running and cycling to team sports. Choose a sport to browse local clubs.">
   <title>Sports directory | 0161 Active</title>
-  <link rel="stylesheet" href="../../css/0161_Page.css">
-  <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
-  <link rel="stylesheet" href="../../css/sport-glossary.css">
-  <link rel="stylesheet" href="../../css/sports-directory.css">
-  <link rel="icon" href="../../img/0161 Active_Logo.png">
-  <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
-  <script type="module" src="../../js/sports-directory.js"></script>
+  <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
+  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261009-leagues">
+  <link rel="stylesheet" href="../../css/sports-directory.css?v=20261009-centred-arrow">
+  <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
+  <script type="module" src="../../js/sports-directory.js?v=20261009-leagues"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
   <link rel="stylesheet" href="/css/accessibility.css">
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
+  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="canonical" href="https://0161active.co.uk/html/sports/directory.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -26,21 +26,55 @@
   <meta property="og:title" content="Sports directory | 0161 Active">
   <meta property="og:description" content="Explore sports available across Greater Manchester, from running and cycling to team sports. Choose a sport to browse local clubs.">
   <meta property="og:url" content="https://0161active.co.uk/html/sports/directory.html">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Sports directory | 0161 Active">
   <meta name="twitter:description" content="Explore sports available across Greater Manchester, from running and cycling to team sports. Choose a sport to browse local clubs.">
-  <meta property="og:image" content="https://0161active.co.uk/img/social/html-sports-directory.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Sports directory | 0161 Active — Greater Manchester. 0161 Active.">
-  <meta name="twitter:image" content="https://0161active.co.uk/img/social/html-sports-directory.jpg">
-  <meta name="twitter:image:alt" content="Sports directory | 0161 Active — Greater Manchester. 0161 Active.">
+  <meta property="og:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="0161 Active logo">
+  <meta name="twitter:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
+  <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
+  <!-- Structured data -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/directory.html#page","url":"https://0161active.co.uk/html/sports/directory.html","name":"Sports directory | 0161 Active","description":"Explore sports available across Greater Manchester, from running and cycling to team sports. Choose a sport to browse local clubs.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/directory.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/directory.html#list","numberOfItems":15,"itemListElement":[{"@type":"ListItem","position":1,"name":"American Football","url":"https://0161active.co.uk/html/sports/american-football.html"},{"@type":"ListItem","position":2,"name":"Archery","url":"https://0161active.co.uk/html/sports/archery.html"},{"@type":"ListItem","position":3,"name":"Athletics","url":"https://0161active.co.uk/html/sports/athletics.html"},{"@type":"ListItem","position":4,"name":"Badminton","url":"https://0161active.co.uk/html/sports/badminton.html"},{"@type":"ListItem","position":5,"name":"Basketball","url":"https://0161active.co.uk/html/sports/basketball.html"},{"@type":"ListItem","position":6,"name":"Cycling","url":"https://0161active.co.uk/html/sports/cycling.html"},{"@type":"ListItem","position":7,"name":"Football","url":"https://0161active.co.uk/html/sports/football.html"},{"@type":"ListItem","position":8,"name":"Health & Wellbeing","url":"https://0161active.co.uk/html/sports/health-and-wellbeing.html"},{"@type":"ListItem","position":9,"name":"Hockey","url":"https://0161active.co.uk/html/sports/hockey.html"},{"@type":"ListItem","position":10,"name":"Run Club","url":"https://0161active.co.uk/html/sports/run-club.html"},{"@type":"ListItem","position":11,"name":"Squash","url":"https://0161active.co.uk/html/sports/squash.html"},{"@type":"ListItem","position":12,"name":"Table Tennis","url":"https://0161active.co.uk/html/sports/table-tennis.html"},{"@type":"ListItem","position":13,"name":"Touch Rugby","url":"https://0161active.co.uk/html/sports/touch-rugby.html"},{"@type":"ListItem","position":14,"name":"Ultimate Frisbee","url":"https://0161active.co.uk/html/sports/ultimate-frisbee.html"},{"@type":"ListItem","position":15,"name":"Wheelchair Basketball","url":"https://0161active.co.uk/html/sports/wheelchair-basketball.html"}]}]}</script>
+  <!-- /Structured data -->
 </head>
 <body class="sport-glossary-body">
 <a class="skip-link" href="#main-content">Skip to main content</a>
-  <div data-site-nav></div>
+  <div data-site-nav><header class="site-navbar">
+    <div class="site-navbar__bar">
+      <a class="site-navbar__brand" href="/" aria-label="0161 Active home"><img src="/img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a>
+      <nav class="site-navbar__desktop" aria-label="Main navigation">
+        <div class="site-navbar__sports">
+          <a class="site-navbar__link" href="/html/sports/directory.html" aria-current="page">SPORTS</a>
+          <div class="site-navbar__sports-panel" aria-label="Sports directory links">
+            <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
+            <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
+          </div>
+        </div>
+        <a class="site-navbar__link" href="/html/calendar.html">CALENDAR</a>
+        <a class="site-navbar__link" href="/html/register.html">REGISTER YOUR CLUB</a>
+        <a class="site-navbar__link" href="/html/contact.html">CONTACT US</a>
+      </nav>
+      <button class="site-navbar__menu-button" type="button" aria-controls="site-mobile-drawer" aria-expanded="false">MENU</button>
+    </div>
+    <button class="site-navbar__overlay" type="button" aria-label="Close menu" hidden></button>
+    <nav class="site-navbar__drawer" id="site-mobile-drawer" aria-label="Mobile navigation" aria-hidden="true" inert>
+      <div class="site-navbar__drawer-header">
+        <p class="site-navbar__drawer-title">MENU</p>
+        <button class="site-navbar__close" type="button">CLOSE ×</button>
+      </div>
+      <a class="site-navbar__drawer-link" href="/html/sports/directory.html" aria-current="page">SPORTS <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header></div><!-- /Site navigation -->
 
   <!-- Sports directory: browse every sport and open its glossary page. -->
   <main class="sport-glossary-page sports-directory-page" id="main-content" tabindex="-1">
@@ -53,11 +87,89 @@
     <section class="sports-directory-controls" aria-label="Search the sports directory">
       <label for="sports-search">FIND A SPORT</label>
       <input id="sports-search" type="search" placeholder="Search sports" autocomplete="off">
-      <p class="sports-directory-count" id="sports-count" aria-live="polite">Loading sports…</p>
+      <p class="sports-directory-count" id="sports-count" aria-live="polite">15 SPORTS · 106 CLUBS ON RECORD</p>
     </section>
 
     <div class="sports-directory-message" id="sports-message" role="status" hidden></div>
-    <div class="sports-directory-groups" id="sports-groups"></div>
+    <div class="sports-directory-groups" id="sports-groups"><section class="sports-accessible-group" aria-labelledby="sports-accessible-title">
+    <h2 id="sports-accessible-title" class="sports-accessible-group__title">ACCESSIBLE SPORTS</h2>
+    <div class="sports-directory-grid"><a class="sports-directory-card" href="wheelchair-basketball.html">
+      <span class="sports-directory-card__name">Wheelchair Basketball</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>2 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+  </section><section class="sports-other-group" aria-labelledby="sports-other-title">
+    <h2 id="sports-other-title" class="sports-accessible-group__title">OTHER SPORTS</h2>
+    <section class="sports-letter-group" aria-labelledby="sports-letter-A">
+      <h3 id="sports-letter-A" class="sports-letter-group__letter">A</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="american-football.html">
+      <span class="sports-directory-card__name">American Football</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>2 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a><a class="sports-directory-card" href="archery.html">
+      <span class="sports-directory-card__name">Archery</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a><a class="sports-directory-card" href="athletics.html">
+      <span class="sports-directory-card__name">Athletics</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>21 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-B">
+      <h3 id="sports-letter-B" class="sports-letter-group__letter">B</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="badminton.html">
+      <span class="sports-directory-card__name">Badminton</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a><a class="sports-directory-card" href="basketball.html">
+      <span class="sports-directory-card__name">Basketball</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>25 CLUBS</span><span class="sports-directory-card__leagues">4 LOCAL LEAGUES</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-C">
+      <h3 id="sports-letter-C" class="sports-letter-group__letter">C</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="cycling.html">
+      <span class="sports-directory-card__name">Cycling</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>9 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-F">
+      <h3 id="sports-letter-F" class="sports-letter-group__letter">F</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="football.html">
+      <span class="sports-directory-card__name">Football</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>11 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-H">
+      <h3 id="sports-letter-H" class="sports-letter-group__letter">H</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="health-and-wellbeing.html">
+      <span class="sports-directory-card__name">Health &amp; Wellbeing</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a><a class="sports-directory-card" href="hockey.html">
+      <span class="sports-directory-card__name">Hockey</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>6 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-R">
+      <h3 id="sports-letter-R" class="sports-letter-group__letter">R</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="run-club.html">
+      <span class="sports-directory-card__name">Run Club</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>11 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-S">
+      <h3 id="sports-letter-S" class="sports-letter-group__letter">S</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="squash.html">
+      <span class="sports-directory-card__name">Squash</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>6 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-T">
+      <h3 id="sports-letter-T" class="sports-letter-group__letter">T</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="table-tennis.html">
+      <span class="sports-directory-card__name">Table Tennis</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>4 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a><a class="sports-directory-card" href="touch-rugby.html">
+      <span class="sports-directory-card__name">Touch Rugby</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section><section class="sports-letter-group" aria-labelledby="sports-letter-U">
+      <h3 id="sports-letter-U" class="sports-letter-group__letter">U</h3>
+      <div class="sports-directory-grid"><a class="sports-directory-card" href="ultimate-frisbee.html">
+      <span class="sports-directory-card__name">Ultimate Frisbee</span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+    </a></div>
+    </section>
+  </section></div>
   </main>
 
   <footer class="site-footer" data-site-footer>

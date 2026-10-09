@@ -1,5 +1,6 @@
 /* Global navigation: one shared desktop bar and mobile drawer for every site page. */
-:root { --site-nav-height: 100px; }
+/* Page clearance follows the header height; fluid gaps preserve the existing intro spacing. */
+:root { --site-nav-height: 100px; --site-page-gap: clamp(10px, calc(5vw - 42px), 30px); }
 .site-navbar,
 .site-navbar * { box-sizing: border-box; }
 .site-navbar {
@@ -130,7 +131,7 @@ body.site-nav-open { overflow: hidden; }
 }
 
 @media (max-width: 1040px) {
-  :root { --site-nav-height: 80px; }
+  :root { --site-nav-height: 80px; --site-page-gap: clamp(6px, calc(5vw - 22px), 30px); }
   .site-navbar { height: var(--site-nav-height); }
   .site-navbar__bar { position: relative; height: var(--site-nav-height); min-height: var(--site-nav-height); justify-content: flex-end; }
   /* Crop the transparent canvas and keep the resized logo mark close to the left edge. */

@@ -101,7 +101,6 @@
       "pricingNotes": null,
       "bookingNotes": "The website says to just turn up. Contact the club for current session details.",
       "tasterNotes": null,
-      "trainingNotes": "Schedule supplied on 6 October 2026: Monday gym 16:00; Wednesday walking group 11:30 and gym 16:00; Thursday run club 12:00; Friday yoga 15:00; Sunday run club 12:00. End times have not been supplied. Thursday's start time updates the previously published website timetable.",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -116,7 +115,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "not-a-running-club",
@@ -167,7 +169,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "tiny-moves",
@@ -200,7 +205,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Mon 18:15",
       "bookingRequired": null,
       "verification": {
         "status": "unverified",
@@ -216,7 +220,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "just-a-run-club",
@@ -258,7 +265,10 @@
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "redacted-run-club",
@@ -300,7 +310,10 @@
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-frontrunners",
@@ -351,7 +364,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": "Thu rsday/Sat urday tasters offered; count unspecified",
-      "trainingNotes": "Tue 18:45 track Manchester Regional Arena; Thu 19:00 Aquatics Centre(arrive 18:50); Sat 10:00 Longford Park(arrive 09:50)",
       "bookingRequired": null,
       "verification": {
         "status": "unverified",
@@ -377,7 +389,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "mile-shy-club",
@@ -419,7 +434,10 @@
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "didsbury-runners",
@@ -452,7 +470,6 @@
       "pricingNotes": null,
       "bookingNotes": "Register before first trial",
       "tasterNotes": "One Monday trial within a month of registering",
-      "trainingNotes": "Mon day 18:45 (arrive 18:30). Wed nesday track: time unconfirmed. First Wed nesday each month: hill reps, time unconfirmed.",
       "tasterSessionCount": 1,
       "bookingRequired": null,
       "verification": {
@@ -479,7 +496,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "ancoats-run-club",
@@ -521,7 +541,10 @@
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "mcr-harriers",
@@ -574,7 +597,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "sale-harriers",
@@ -681,7 +707,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "trafford-ac",
@@ -725,7 +754,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": "First session offered as a taster",
-      "trainingNotes": "Mon/Thu age 9–10 17:30–18:30; age 11–12 18:00–19:00; age 13+18:30–20:30",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -756,7 +784,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "mcr-ymca-harriers",
@@ -809,7 +840,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "blackley-north-mcr-ac",
@@ -853,7 +887,6 @@
       "pricingNotes": null,
       "bookingNotes": "Waiting list for new members",
       "tasterNotes": null,
-      "trainingNotes": "Mon/Thu 19:00–20:45",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -879,7 +912,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "salford-met-ac",
@@ -941,7 +977,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "belle-vue-racers",
@@ -985,7 +1024,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "salford-harriers",
@@ -1039,7 +1081,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": "Try training for a few weeks before joining",
-      "trainingNotes": "Juniors: Tue 18:00–19:00 track; Wed 18:00–19:00 and 19:00–20:00 circuits; Thu 18:00–20:00 winter hills; Sat variable",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1070,7 +1111,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "chorlton-runners",
@@ -1132,7 +1176,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "winston-runners",
@@ -1185,7 +1232,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "sale-dragons",
@@ -1247,7 +1297,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "swinton-running-club",
@@ -1309,7 +1362,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "prestwich-ac",
@@ -1372,7 +1428,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "stockport-harriers",
@@ -1434,7 +1493,6 @@
       "pricingNotes": null,
       "bookingNotes": "Age 7–10 waiting list; other groups contact coach",
       "tasterNotes": null,
-      "trainingNotes": "Multiple groups: Mon senior endurance 19:00–20:00; Tue/Thu introductory juniors 19:00–20:00 and senior endurance 19:00–20:00; Wed inclusive age 7–11 18:30–19:30 and age 12–16 19:30–20:30; Fri disability group 18:00–19:00 during term. Additional group schedules on source page.",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1465,7 +1523,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "altrincham-ac",
@@ -1518,7 +1579,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "oldham-and-royton-harriers",
@@ -1571,7 +1635,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "radcliffe-ac",
@@ -1624,7 +1691,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "assheton-bowmen",
@@ -1668,7 +1738,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed/Fri 10:00–21:00; Sun from 09:00; keyholders flexible access",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1694,7 +1763,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "moorside-archery-club",
@@ -1719,7 +1791,6 @@
       "pricingNotes": null,
       "bookingNotes": "Required for beginners course",
       "tasterNotes": null,
-      "trainingNotes": "Beginners Tue sday evenings; exact time not published",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1739,7 +1810,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "eccles-archery-club",
@@ -1764,7 +1838,6 @@
       "pricingNotes": null,
       "bookingNotes": "Required for beginners course",
       "tasterNotes": null,
-      "trainingNotes": "24/7 member access, no fixed shooting times",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1789,7 +1862,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "mcr-titans-mens",
@@ -1833,7 +1909,6 @@
       ],
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1847,7 +1922,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "mcr-titans-womens",
@@ -1891,7 +1969,6 @@
       ],
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1911,7 +1988,10 @@
             "onlineProfile"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "rochdale-company-of-archers",
@@ -1937,7 +2017,6 @@
       "pricingNotes": null,
       "bookingNotes": "Book taster/beginners course",
       "tasterNotes": "2-hour taster; age 8+",
-      "trainingNotes": "Fri dayjuniorsmeet 18:30 before coaching; actual coaching start not published",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -1957,7 +2036,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "spinners-mill-archers",
@@ -1983,7 +2065,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Tue/Wed/Thu/Sat/Sun access from 10:00 (2025 council report)",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2008,7 +2089,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "stalybridge-archery-club",
@@ -2034,7 +2118,6 @@
       "pricingNotes": null,
       "bookingNotes": "Book taster or beginners course",
       "tasterNotes": "Adult 2-hour taster",
-      "trainingNotes": "Tue/Thu 18:30–21:00 senior coaching; Sat 14:00–17:00 senior,09:30–14:00 juniors; beginner course usually Mon 19:00–21:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2054,7 +2137,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "wigan-orrell-archers",
@@ -2080,7 +2166,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Summer outdoor / winter indoor venues; times not captured",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2095,7 +2180,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bolton-united-harriers-athletics-club",
@@ -2120,7 +2208,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": "First couple of sessions offered as tasters; ask front desk",
-      "trainingNotes": "Tue/Thu 18:00–21:00 training window; group start/finish varies; extra weekend sessions",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2140,7 +2227,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bury-athletic-club",
@@ -2186,7 +2276,6 @@
       "pricingNotes": null,
       "bookingNotes": "Enquiry form required for tasters",
       "tasterNotes": "Four tasters offered",
-      "trainingNotes": "Tuesday and Thursday: Track Session 19:00–20:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2206,7 +2295,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "rochdale-harriers-ac",
@@ -2231,7 +2323,6 @@
       "pricingNotes": null,
       "bookingNotes": "Contact before taster; older juniors attend Tue sdays by prior arrangement",
       "tasterNotes": "Three tasters offered",
-      "trainingNotes": "Tue seniors 19:00(arrive 18:45); Thu juniors 19:00; senior Thu rsdays ad hoc, not weekly",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2256,7 +2347,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "wigan-harriers",
@@ -2281,7 +2375,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Endurance Tue sday and Thu rsday evenings; times not captured",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2306,7 +2399,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bolton-clarion-cycling-club",
@@ -2331,7 +2427,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2350,7 +2445,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bury-clarion-cycling-club",
@@ -2375,7 +2473,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed 18:00; Sun 09:00 (governing-body listing)",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2395,7 +2492,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "chorlton-velo",
@@ -2448,7 +2548,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed 18:30; Sat 09:00; Sun 08:15",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2463,7 +2562,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-wheelers",
@@ -2498,7 +2600,6 @@
       "pricingNotes": null,
       "bookingNotes": "Contact club before first ride",
       "tasterNotes": "Up to 3 nonmember rides",
-      "trainingNotes": "Wed 18:30, approximately 2 hours; weekends variable",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2523,7 +2624,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "rochdale-cycling-club",
@@ -2546,7 +2650,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Sat urday arrive 08:30 / depart 09:00 (directory)",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2559,7 +2662,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "stockport-clarion-cycling-club",
@@ -2584,7 +2690,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Wed MTB 18:30 summer /19:00 winter; first Wed monthly gravel ride instead. Sun day road rides mornings, time unspecified.",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2604,7 +2709,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "stockport-community-cycling-club",
@@ -2629,7 +2737,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Rides vary; check ride calendar",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2648,7 +2755,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "wigan-wheelers-and-triathlon-club",
@@ -2701,7 +2811,6 @@
       "pricingNotes": null,
       "bookingNotes": "Under 18 contact club before joining",
       "tasterNotes": null,
-      "trainingNotes": "Wed 18:00; Sat 09:00; Sun 08:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2726,7 +2835,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "wythenshawe-wheelers-cycling-club",
@@ -2779,7 +2891,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Tue/Wed 09:30–12:00; Sat 13:00–15:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2794,7 +2905,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "beswick-community-football-club-pd-coaching",
@@ -2819,7 +2933,6 @@
       "pricingNotes": null,
       "bookingNotes": "Required through online session booking",
       "tasterNotes": null,
-      "trainingNotes": "EGS Mon day 1.5 h; Fri day younger/older 1 h; dates released through booking system",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2844,7 +2957,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bury-amateurs-afc",
@@ -2867,7 +2983,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2880,7 +2995,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bury-football-club",
@@ -2905,7 +3023,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2924,7 +3041,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-football-dreams",
@@ -2947,7 +3067,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -2961,7 +3080,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "radcliffe-borough-juniors",
@@ -2986,7 +3108,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3011,7 +3132,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "radcliffe-juniors-fc",
@@ -3034,7 +3158,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3048,7 +3171,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "ramsbottom-united-jfc",
@@ -3071,7 +3197,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3084,7 +3209,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "seedfield-fc",
@@ -3107,7 +3235,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3120,7 +3247,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "warth-fold-and-redvales-community-sports-club",
@@ -3143,7 +3273,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3156,7 +3285,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "westbury-sports-club",
@@ -3191,7 +3323,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Ladies open age 16+: Thu 20:00–21:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3211,7 +3342,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "wythenshawe-football-club",
@@ -3236,7 +3370,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3261,7 +3394,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "didsbury-northern-hockey-club",
@@ -3286,7 +3422,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3301,7 +3436,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "oldham-hockey-club",
@@ -3326,7 +3464,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu Sep–Mar juniors 18:30–19:30; seniors 19:00–20:30",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3346,7 +3483,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "south-manchester-hockey-club",
@@ -3381,7 +3521,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu rsday 19:00–21:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3396,7 +3535,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "stockport-bramhall-hockey-club",
@@ -3494,7 +3636,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": "Three tasters offered",
-      "trainingNotes": "Mon mixed 19:30–21:00; Tue juniors 18:00–19:00/Y 7+18:00–19:30; Tue men 19:30–21:15; Wed women 19:30–21:15; Sun juniors 10:00–11:00/Y 7+10:30–12:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3514,7 +3655,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "wigan-hockey-club",
@@ -3539,7 +3683,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Men 1 Mon 19:30–21:00; Wed men 1/2 19:30–21:00; Wed women 1/2 19:00–20:30; Wed juniors 18:00–19:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3564,7 +3707,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bowdon-club",
@@ -3589,7 +3735,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3608,7 +3753,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bowdon-club-squash",
@@ -3633,7 +3781,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3652,7 +3799,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "belle-vue-racers-running",
@@ -3677,7 +3827,6 @@
       "pricingNotes": null,
       "bookingNotes": "Contact club before taster",
       "tasterNotes": null,
-      "trainingNotes": "Thu 19:00–20:00(arrive 18:45)",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3697,7 +3846,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "chorlton-runners-running",
@@ -3722,7 +3874,6 @@
       "pricingNotes": null,
       "bookingNotes": "Not required for social runs; other trials arrange with secretary",
       "tasterNotes": "Three tryouts for most sessions; Sun day runs open to nonmembers",
-      "trainingNotes": "Tue 18:45 and 19:00–20:15; Fri track 18:30 Longford Park; Sun 09:00 social; Tue hill/fell usually 18:30 variable outside Manchester",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3742,7 +3893,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "royton-road-runners",
@@ -3767,7 +3921,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": "Try training for a few weeks before joining",
-      "trainingNotes": "Mon day/Thu rsday evenings; exact times not captured",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3782,7 +3935,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "cheetham-hill-squash",
@@ -3807,7 +3963,6 @@
       "pricingNotes": null,
       "bookingNotes": "Court booking through membership system",
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3821,7 +3976,10 @@
             "contact"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-tennis-racquet-club",
@@ -3846,7 +4004,6 @@
       "pricingNotes": null,
       "bookingNotes": "Contact club to book court or lesson",
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3866,7 +4023,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "south-manchester-squash-racketball-club",
@@ -3910,7 +4070,6 @@
       "pricingNotes": null,
       "bookingNotes": "Register interest for nonmember group coaching",
       "tasterNotes": null,
-      "trainingNotes": "Tue squash 19:15–20:45; Thu racketball 20:00–21:30",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3925,7 +4084,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "the-northern",
@@ -3960,7 +4122,6 @@
       "pricingNotes": null,
       "bookingNotes": "Required via app/site or reception for courts and coaching",
       "tasterNotes": "Junior squash trial offered",
-      "trainingNotes": "Tue social 18:00–21:00; Wed Xpress 18:20–19:20; Wed improvers 19:30–20:30 (April 2026 policy)",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -3985,7 +4146,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "markland-hill-racquets-club",
@@ -4010,7 +4174,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4030,7 +4193,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "markland-hill-racquets-club-table-tennis",
@@ -4055,7 +4221,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4075,7 +4240,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "affinity-table-tennis-club",
@@ -4100,7 +4268,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu rsday evenings and Sun day afternoons; precise times not captured",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4125,7 +4292,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "flixton-table-tennis-flixton-cricket-and-sports-club",
@@ -4150,7 +4320,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Not found",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4170,7 +4339,10 @@
             "general"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "marple-sports-club-table-tennis",
@@ -4205,7 +4377,6 @@
       "pricingNotes": null,
       "bookingNotes": "Not required: come along",
       "tasterNotes": null,
-      "trainingNotes": "Wed 20:15",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4225,7 +4396,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-foxes",
@@ -4260,7 +4434,6 @@
       "pricingNotes": null,
       "bookingNotes": "Not required; message first recommended",
       "tasterNotes": null,
-      "trainingNotes": "Mon 18:00–20:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4275,7 +4448,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-social-touch-rugby",
@@ -4300,7 +4476,6 @@
       "pricingNotes": null,
       "bookingNotes": "Not required; first-timers may email beforehand",
       "tasterNotes": null,
-      "trainingNotes": "May–Aug Thu 19:00–20:30; Sep–Apr Sat 10:30–12:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4320,7 +4495,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-village-spartans-touch",
@@ -4345,7 +4523,6 @@
       "pricingNotes": null,
       "bookingNotes": "Register and contact volunteers before first training",
       "tasterNotes": "Up to 8 sessions in first 4 weeks, adult 18+, subject to availability",
-      "trainingNotes": "Mon day approximately 19:00 spring/summer; Touch season mid Jan–mid Oct",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4365,7 +4542,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "duffa",
@@ -4390,7 +4570,6 @@
       "pricingNotes": null,
       "bookingNotes": "Not required for outdoor sessions; beginners welcome",
       "tasterNotes": null,
-      "trainingNotes": "Sun day sessions; beginners first Sun day of month. Exact monthly times on Instagram.",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4421,7 +4600,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "bolton-bulls",
@@ -4444,7 +4626,6 @@
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
-      "trainingNotes": "Thu 20:30–22:30 (older fundraiser/directory)",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4463,7 +4644,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-revolution",
@@ -4525,7 +4709,6 @@
       "pricingNotes": null,
       "bookingNotes": "Contact manager before attending",
       "tasterNotes": null,
-      "trainingNotes": "Mon/Thu first team 20:00–22:00; Mon second team 18:00–20:00; Thu development 18:00–20:00",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4540,7 +4723,10 @@
             "training"
           ]
         }
-      ]
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "ghap-badminton",
@@ -4586,13 +4772,16 @@
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null
     },
     {
       "id": "manchester-lynx",
       "name": "Manchester Lynx",
       "sport": "basketball",
-      "description": "",
+      "description": null,
       "imagePath": "img/basketball/basketball-Manchester Lynx.avif",
       "profilePath": "html/basketball/manchester-lynx.html",
       "coordinates": null,
@@ -4603,8 +4792,10 @@
       },
       "tasterSessionCount": null,
       "bookingRequired": null,
-      "contact": null,
-      "onlineProfile": null,
+      "contact": "manchesterlynx@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/manchesterlynx/?hl=en"
+      },
       "sessions": [
         {
           "dayOfWeek": 3,
@@ -4632,32 +4823,1227 @@
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Lynx",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/manchesterlynx/?hl=en"
+        }
+      ],
+      "participatesInLeague": true,
+      "genderSpecific": true,
+      "genderEligibility": "FLINTA"
     },
     {
       "id": "salford-basketball-club",
       "name": "Salford Basketball Club",
       "sport": "basketball",
-      "description": "",
+      "description": "Building basketball in Salford 🏀 Youth & Men's Teams | Local league competition | Community first",
       "imagePath": "img/basketball/basketball-Salford Basketball Club.avif",
       "profilePath": "html/basketball/salford-basketball-club.html",
       "coordinates": null,
       "price": {
-        "type": "unknown",
-        "amount": null,
+        "type": "per_session",
+        "amount": 6,
         "currency": "GBP"
       },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
-      "contact": null,
-      "onlineProfile": null,
-      "sessions": [],
+      "tasterSessionCount": 0,
+      "bookingRequired": false,
+      "contact": "salfordbasketballclub@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/salfordbc/?hl=en"
+      },
+      "sessions": [
+        {
+          "title": "Open Scrim",
+          "dayOfWeek": 5,
+          "startTime": "19:00",
+          "endTime": "21:00",
+          "meetingPoint": "The Crescent Sports Centre",
+          "postcode": "M5 4WT",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null
+        }
+      ],
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
       },
       "additionalInformation": null,
-      "sources": []
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [
+        {
+          "teamName": "Salford",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/salfordbc/?hl=en"
+        }
+      ],
+      "participatesInLeague": true,
+      "genderSpecific": true,
+      "genderEligibility": "Men"
+    },
+    {
+      "id": "bury-blue-devils",
+      "imagePath": null,
+      "profilePath": "html/basketball/bury-blue-devils.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Bury Blue Devils",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Bury Blue Devils",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/bury_blue_devils/?hl=en"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/bury_blue_devils/?hl=en"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Bury Grammar School",
+          "postcode": "BL9 0HN"
+        }
+      ]
+    },
+    {
+      "id": "cardinal-langley-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/cardinal-langley-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Cardinal Langley Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Cardinal Langley 1",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/61573437996897/mentions/"
+        },
+        {
+          "teamName": "Cardinal Langley 2",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/61573437996897/mentions/"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.facebook.com/61573437996897/mentions/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Heywood Sports Village",
+          "postcode": "OL10 4TW"
+        }
+      ]
+    },
+    {
+      "id": "moss-side-tropics",
+      "imagePath": null,
+      "profilePath": "html/basketball/moss-side-tropics.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Moss Side Tropics",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Moss Side Tropics",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/mosssidetropics/"
+        }
+      ],
+      "contact": "tropicsmcr@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/mosssidetropics/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Denmark Road Sports Centre",
+          "postcode": "M15 6FG"
+        }
+      ]
+    },
+    {
+      "id": "trafford-giants",
+      "imagePath": null,
+      "profilePath": "html/basketball/trafford-giants.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Trafford Giants",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Trafford Giants",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://mabl.co.uk/teams/trafford-giants"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://mabl.co.uk/teams/trafford-giants"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [
+        {
+          "title": "Training",
+          "dayOfWeek": 1,
+          "startTime": "20:00",
+          "endTime": "21:30",
+          "meetingPoint": "The Hough End Centre (Police Sports & Social Club)Hough End",
+          "postcode": "M21 7SX",
+          "eligibility": null,
+          "specialConsiderations": null
+        }
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      }
+    },
+    {
+      "id": "ymca-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/ymca-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "YMCA Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "YMCA",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://mabl.co.uk/teams/ymca"
+        },
+        {
+          "teamName": "YMCA Free City",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://mabl.co.uk/teams/ymca-free-city"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://mabl.co.uk/teams/ymca"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "The Y Club Castlefield Hotel",
+          "postcode": "M3 4JR"
+        }
+      ]
+    },
+    {
+      "id": "8ight5ive2wo",
+      "imagePath": null,
+      "profilePath": "html/basketball/8ight5ive2wo.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "8ight5ive2wo",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "8ight5ive2wo",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/8ight5ive2wo/"
+        }
+      ],
+      "contact": "8ight5ive2wo.uk@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.facebook.com/8ight5ive2wo/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Dixons Newall Green Academy",
+          "postcode": "M23 2SX"
+        }
+      ]
+    },
+    {
+      "id": "belle-vue-bears",
+      "imagePath": null,
+      "profilePath": "html/basketball/belle-vue-bears.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Belle Vue Bears",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Belle Vue Bears",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/bellevuebears/"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/bellevuebears/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "National Basketball Performance Centre",
+          "postcode": "M12 4TF"
+        }
+      ]
+    },
+    {
+      "id": "burnley-blazers",
+      "imagePath": null,
+      "profilePath": "html/basketball/burnley-blazers.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Burnley Blazers",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Burnley Blazers",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/blazersbasketballclub/?locale=en_GB"
+        }
+      ],
+      "contact": "burnleyblazers@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.facebook.com/blazersbasketballclub/?locale=en_GB"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Spirit of Sport Centre",
+          "postcode": "BB10 3AA"
+        }
+      ]
+    },
+    {
+      "id": "cheshire-hornets",
+      "imagePath": null,
+      "profilePath": "html/basketball/cheshire-hornets.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Cheshire Hornets",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Cheshire Hornets 1",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/CheshireHornets/?locale=en_GB"
+        },
+        {
+          "teamName": "Cheshire Hornets 2",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/CheshireHornets/?locale=en_GB"
+        }
+      ],
+      "contact": "greggno11@hotmail.co.uk",
+      "onlineProfile": {
+        "url": "https://www.facebook.com/CheshireHornets/?locale=en_GB"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Reaseheath College Sports Centre",
+          "postcode": "CW5 6DF"
+        }
+      ]
+    },
+    {
+      "id": "preston-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/preston-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Preston Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "City of Preston",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.prestonbasketball.com"
+        }
+      ],
+      "contact": "prestonbasketballclub@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.prestonbasketball.com"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "St Augustines Building / Leisure Centre",
+          "postcode": "PR1 3YJ"
+        }
+      ]
+    },
+    {
+      "id": "horwich-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/horwich-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Horwich Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Horwich Locos",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.horwichbasketball.co.uk"
+        }
+      ],
+      "contact": "horwichbasketballclub@hotmail.com",
+      "onlineProfile": {
+        "url": "https://www.horwichbasketball.co.uk"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [
+        {
+          "title": "Senior Training",
+          "dayOfWeek": 2,
+          "startTime": "20:00",
+          "endTime": "22:00",
+          "meetingPoint": "St Josephs RC High School, Chorley New Road",
+          "postcode": "BL6 6HW",
+          "eligibility": null,
+          "specialConsiderations": null
+        }
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      }
+    },
+    {
+      "id": "manchester-spartans",
+      "imagePath": null,
+      "profilePath": "html/basketball/manchester-spartans.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Manchester Spartans",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men · Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Spartans",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://mcrspartans.com"
+        },
+        {
+          "teamName": "Manchester Spartans U23",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://mcrspartans.com"
+        },
+        {
+          "teamName": "Manchester Spartans",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://mcrspartans.com"
+        }
+      ],
+      "contact": "info@mcrspartans.com",
+      "onlineProfile": {
+        "url": "https://mcrspartans.com"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "The East Manchester Academy",
+          "postcode": "M11 3DS"
+        }
+      ]
+    },
+    {
+      "id": "mars-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/mars-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Mars Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Mars",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://mabl.co.uk/teams/mars"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://mabl.co.uk/teams/mars"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Oasis Academy Media City UK",
+          "postcode": "M50 3UQ"
+        }
+      ]
+    },
+    {
+      "id": "tameside-vikings",
+      "imagePath": null,
+      "profilePath": "html/basketball/tameside-vikings.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Tameside Vikings",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men · Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Tameside Vikings 1",
+          "name": "MABL Men's Championship Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/tamesidevikings?fbclid=IwY2xjawU2J-tleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEemx6nmY6sT9i8_-bp6-iNdN8AwVren1CVX_Zs6wLa4g5A_DWPxYmCpXnFjyM_aem_0jmgFerHSlgidWFHaDD_wQ"
+        },
+        {
+          "teamName": "Tameside Vikings 2",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/tamesidevikings?fbclid=IwY2xjawU2J-tleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEemx6nmY6sT9i8_-bp6-iNdN8AwVren1CVX_Zs6wLa4g5A_DWPxYmCpXnFjyM_aem_0jmgFerHSlgidWFHaDD_wQ"
+        },
+        {
+          "teamName": "Tameside Valkyries",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/tamesidevikings?fbclid=IwY2xjawU2J-tleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEemx6nmY6sT9i8_-bp6-iNdN8AwVren1CVX_Zs6wLa4g5A_DWPxYmCpXnFjyM_aem_0jmgFerHSlgidWFHaDD_wQ"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/tamesidevikings?fbclid=IwY2xjawU2J-tleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEemx6nmY6sT9i8_-bp6-iNdN8AwVren1CVX_Zs6wLa4g5A_DWPxYmCpXnFjyM_aem_0jmgFerHSlgidWFHaDD_wQ"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Astley Sports Village",
+          "postcode": "SK16 5BL"
+        },
+        {
+          "meetingPoint": "Alder Community High School",
+          "postcode": "SK14 5NJ"
+        }
+      ]
+    },
+    {
+      "id": "high-peak-steelers",
+      "imagePath": null,
+      "profilePath": "html/basketball/high-peak-steelers.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "High Peak Steelers",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "High Peak Steelers",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.high-peak-basketball-club.com"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.high-peak-basketball-club.com"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Wright Robinson College",
+          "postcode": "M18 8RL"
+        }
+      ]
+    },
+    {
+      "id": "limitless-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/limitless-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Limitless Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Limitless",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/lbc45_/"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/lbc45_/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "All Hallows RC High School",
+          "postcode": "M6 8AA"
+        }
+      ]
+    },
+    {
+      "id": "manchester-hongkongers",
+      "imagePath": null,
+      "profilePath": "html/basketball/manchester-hongkongers.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Manchester HongKongers",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester HongKongers",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://manchesterhkers.com"
+        }
+      ],
+      "contact": "info@manchesterhkers.com",
+      "onlineProfile": {
+        "url": "https://manchesterhkers.com"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [
+        {
+          "title": "Free Training",
+          "dayOfWeek": 6,
+          "startTime": "09:00",
+          "endTime": "11:00",
+          "meetingPoint": "Platt Lane Complex, Yew Tree Rd, Fallowfield",
+          "postcode": "M14 7UU",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null
+        },
+        {
+          "title": "Senior Training",
+          "dayOfWeek": 3,
+          "startTime": "19:00",
+          "endTime": "21:00",
+          "meetingPoint": "Manchester College Openshaw Campus",
+          "postcode": "M11 2WH",
+          "eligibility": null,
+          "specialConsiderations": null
+        }
+      ],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      }
+    },
+    {
+      "id": "warrington-hongkongers",
+      "imagePath": null,
+      "profilePath": "html/basketball/warrington-hongkongers.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Warrington Hongkongers",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Warrington Hongkongers",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.facebook.com/p/Warrington-Hkers-Basketball-Club-61585924917421/"
+        }
+      ],
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.facebook.com/p/Warrington-Hkers-Basketball-Club-61585924917421/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "St Ambrose College",
+          "postcode": "WA15 0HE"
+        }
+      ]
+    },
+    {
+      "id": "cheshire-roar",
+      "imagePath": null,
+      "profilePath": "html/basketball/cheshire-roar.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Cheshire Roar",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Cheshire Roar",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://cheshireroar.co.uk"
+        }
+      ],
+      "contact": "cheshireroar@outlook.com",
+      "onlineProfile": {
+        "url": "https://cheshireroar.co.uk"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Hawarden High School",
+          "postcode": "CH5 3DN"
+        }
+      ]
+    },
+    {
+      "id": "female-basketball-association",
+      "imagePath": null,
+      "profilePath": "html/basketball/female-basketball-association.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Female Basketball Association",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "FBA Manchester",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.fbaengland.com"
+        },
+        {
+          "teamName": "FBA Rockettes",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.fbaengland.com"
+        }
+      ],
+      "contact": "info@fbaengland.com",
+      "onlineProfile": {
+        "url": "https://www.fbaengland.com"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "St Anne's RC Voluntary Academy",
+          "postcode": "SK4 2QP"
+        }
+      ]
+    },
+    {
+      "id": "greater-manchester-titans",
+      "imagePath": null,
+      "profilePath": "html/basketball/greater-manchester-titans.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Greater Manchester Titans",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Greater Manchester Titans",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://greatermanchesterbasketball.com"
+        }
+      ],
+      "contact": "Info@greatermanchesterbasketball.com",
+      "onlineProfile": {
+        "url": "https://greatermanchesterbasketball.com"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Bolton One",
+          "postcode": "BL3 5BN"
+        }
+      ]
+    },
+    {
+      "id": "lancashire-spinners",
+      "imagePath": null,
+      "profilePath": "html/basketball/lancashire-spinners.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Lancashire Spinners",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Lancashire Spinners",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.lancashirespinners.org"
+        }
+      ],
+      "contact": "andrea.garland@hotmail.co.uk",
+      "onlineProfile": {
+        "url": "https://www.lancashirespinners.org"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Elton High School",
+          "postcode": "BL8 1RN"
+        }
+      ]
+    },
+    {
+      "id": "stockport-basketball-club",
+      "imagePath": null,
+      "profilePath": "html/basketball/stockport-basketball-club.html",
+      "coordinates": null,
+      "sources": [],
+      "name": "Stockport Basketball Club",
+      "sport": "basketball",
+      "description": null,
+      "genderSpecific": true,
+      "genderEligibility": "Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Stockport Lapwings Green",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.instagram.com/stockportlapwingsbasketball/"
+        }
+      ],
+      "contact": "enquiries@stockportbasketballclub.co.uk",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/stockportlapwingsbasketball/"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": null,
+      "sessions": [],
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "trainingVenues": [
+        {
+          "meetingPoint": "Mea Central",
+          "postcode": "M14 6PL"
+        }
+      ]
+    }
+  ],
+  "leagueGuests": [
+    {
+      "id": "liverpool-basketball-club",
+      "name": "Liverpool Basketball Club",
+      "sport": "basketball",
+      "onlineProfile": {
+        "url": "https://www.liverpoolbasketball.com"
+      },
+      "genderSpecific": true,
+      "genderEligibility": "Men · Women",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Liverpool",
+          "name": "MABL Men's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.liverpoolbasketball.com"
+        },
+        {
+          "teamName": "Liverpool",
+          "name": "MABL Women's Premier Division",
+          "coverage": "regional",
+          "url": "https://www.liverpoolbasketball.com"
+        }
+      ]
+    },
+    {
+      "id": "northwest-warriors-basketball-club",
+      "name": "Northwest Warriors Basketball Club",
+      "sport": "basketball",
+      "onlineProfile": {
+        "url": "https://www.nwwarriors.co.uk/?fbclid=IwY2xjawU2K_JleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEetRKCR1DdX8ZgSHrKPhUmm-1MIbxzhvGoXJKK5W6tVdFq1KM2xryOxq4dkTk_aem_9lnEEVGI-2H7uWs_pJ9f_Q"
+      },
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Northwest Warriors",
+          "name": "MABL Men's Div 1 Division",
+          "coverage": "regional",
+          "url": "https://www.nwwarriors.co.uk/?fbclid=IwY2xjawU2K_JleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEetRKCR1DdX8ZgSHrKPhUmm-1MIbxzhvGoXJKK5W6tVdFq1KM2xryOxq4dkTk_aem_9lnEEVGI-2H7uWs_pJ9f_Q"
+        }
+      ]
     }
   ]
 }

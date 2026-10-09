@@ -1,0 +1,16 @@
+# Credentials and local hosting settings must stay outside Git.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.netlify/
+
+# Generated deployment output and local machine artefacts.
+/dist/
+node_modules/
+.DS_Store
+*.log
+
+# Keep future response exports private; the blank CSV template remains versioned.
+/private-imports/

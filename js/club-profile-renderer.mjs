@@ -1,7 +1,8 @@
-import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatPrice, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction } from './club-formatting.mjs';
+import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatPrice, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel } from './club-formatting.mjs';
 import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
 import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
+import { leagueNamesLabel } from './club-leagues.mjs';
 
 /* About section: invite club details whenever no description has been supplied. */
 const ABOUT_CLUB_PARAGRAPHS = [
@@ -114,12 +115,18 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
   ].filter(Boolean).join(' · ') || 'MANCHESTER CLUB';
   const detailRow = (label, value) => `<div class="profile-detail-row"><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`;
   const isPaidClub = ['monthly_fee', 'annual_fee', 'per_session', 'paid'].includes(club.price?.type);
+  const leagueLabel = leagueNamesLabel(club.participatingLeagues);
+  const genderLabel = genderEligibilityLabel(club);
   const details = [
     detailRow('SPORT', club.sport ? displaySportName(club.sport, { titleCase: true }) : 'To confirm'),
+    // Show confirmed eligibility without assigning a gender answer to existing records.
+    genderLabel ? detailRow('GENDER ELIGIBILITY', genderLabel) : '',
+    leagueLabel ? detailRow('LEAGUE', leagueLabel) : '',
     detailRow('AREA', areas.join(' · ') || 'Area to confirm'),
     // Training locations: jump to the weekly timetable containing each session's venue.
     '<div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div>',
     detailRow('COST', formatPrice(club, { compact: true, unknown: 'Not listed', free: 'free', missingAmount: 'amount to confirm' })),
+    formatMembership(club) ? detailRow('OPTIONAL MEMBERSHIP', formatMembership(club)) : '',
     club.pricingNotes ? detailRow('PRICING DETAILS', club.pricingNotes) : '',
     club.tasterNotes ? detailRow('TASTER DETAILS', club.tasterNotes) : '',
     club.bookingNotes ? detailRow('BOOKING DETAILS', club.bookingNotes) : '',
@@ -160,6 +167,6 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         : ABOUT_CLUB_PARAGRAPHS.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n        ')}
     </section>
     ${club.additionalInformation?.trim() ? `<section class="profile-about" aria-labelledby="profile-additional-title"><h2 id="profile-additional-title">Additional information</h2><p>${escapeHtml(club.additionalInformation)}</p></section>` : ''}
-    ${renderWeek(club, [club.trainingNotes, notice].filter(Boolean).join(' '))}`;
+    ${renderWeek(club, notice)}`;
   return { html, title: `${club.name} | 0161 Active` };
 }

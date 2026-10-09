@@ -24,7 +24,7 @@
 
 .mission-panels__eyebrow { color: #dfff3a; }
 
-.mission-panels__heading h2 {
+.mission-panels__heading h1 {
   max-width: 850px;
   margin: 12px 0 0;
   color: var(--white);
@@ -34,6 +34,29 @@
   text-transform: uppercase;
 }
 .mission-panels__period { color: #ff3030; }
+
+/* Homepage directory action: a normal-flow link fits both desktop and narrow screens. */
+.mission-panels__find-club {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 48px;
+  margin-top: 24px;
+  padding: 14px 22px;
+  border: 1px solid #dffc3a;
+  color: #111211;
+  background: #dffc3a;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.mission-panels__find-club:hover { background: #faecd2; border-color: #faecd2; }
+.mission-panels__find-club:focus-visible { outline: 2px solid #faecd2; outline-offset: 4px; }
 
 /* Vertical story stack: normal page scrolling reveals each full-height panel in order. */
 .mission-panels__stack {

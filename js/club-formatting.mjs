@@ -11,6 +11,16 @@ export const WEEK_DAYS = [
 export const DAY_NAMES = ['', ...WEEK_DAYS.map(day => day.name)];
 export const DAY_NUMBERS = Object.fromEntries(WEEK_DAYS.map(day => [day.short.toLowerCase(), day.number]));
 
+/* Gender display: shorten Men/Women combinations without changing the stored answer. */
+export function genderEligibilityLabel(club) {
+  if (club.genderSpecific === false) return 'All genders';
+  if (club.genderSpecific !== true) return '';
+  const answer = String(club.genderEligibility || '').trim();
+  const labels = answer.toLowerCase().replace(/['’]/g, '').split(/\s*(?:·|\/|,|&|\+|\band\b)\s*/).filter(Boolean);
+  const normalised = new Set(labels.map(label => label.replace(/^(men|women)s$/, '$1')));
+  return normalised.size === 2 && normalised.has('men') && normalised.has('women') ? 'All Welcome' : answer;
+}
+
 /* Display helpers: escape submitted text and format the same session time in every view. */
 export function escapeHtml(value = '') {
   return String(value).replace(/[&<>"']/g, character => ({
@@ -53,9 +63,11 @@ export function canonicalArea(value) {
 }
 
 export function sportGlossaryUrl(sport, area, base = '../sports/glossary.html') {
-  const params = new URLSearchParams({ sport: sportSlug(sport) });
+  // Each sport has generated HTML; area remains an optional browser filter.
+  const page = base.replace(/[^/]*$/, `${sportSlug(sport)}.html`);
+  const params = new URLSearchParams();
   if (area) params.set('area', canonicalArea(area));
-  return `${base}?${params.toString()}`;
+  return `${page}${params.size ? `?${params.toString()}` : ''}`;
 }
 
 /* Online club actions: validate a web URL once and identify its public button label. */
@@ -74,10 +86,10 @@ export function onlineProfileAction(value, base) {
   }
 }
 
-/* Pricing: share fee types and currency formatting while retaining each view's wording. */
+/* Pricing: share membership labels and currency formatting while keeping stored types compatible. */
 export const PRICE_TYPE_LABELS = {
-  free: 'Free', monthly_fee: 'Monthly fee', annual_fee: 'Annual fee',
-  per_session: 'Per-session fee', paid: 'Paid', unknown: 'Price not confirmed'
+  free: 'Free', monthly_fee: 'Monthly membership', annual_fee: 'Annual membership',
+  per_session: 'Pay-per-session', paid: 'Paid', unknown: 'Price not confirmed'
 };
 export const PRICE_TYPE_ORDER = ['free', 'monthly_fee', 'annual_fee', 'per_session', 'paid', 'unknown'];
 const PRICE_PERIODS = {
@@ -87,6 +99,21 @@ const PRICE_PERIODS = {
 };
 
 export function priceType(club) { return club.price?.type || 'unknown'; }
+
+/* Optional membership: display both recurring membership and the member session charge. */
+export function formatMembership(club, options = {}) {
+  const membership = club.membership;
+  if (priceType(club) !== 'per_session' || !membership
+    || !['monthly', 'annual'].includes(membership.period)
+    || !Number.isFinite(membership.amount) || membership.amount <= 0
+    || !Number.isFinite(membership.sessionAmount) || membership.sessionAmount < 0) return '';
+  const currency = club.price?.currency || 'GBP';
+  const recurring = formatPrice({ price: {
+    type: membership.period === 'monthly' ? 'monthly_fee' : 'annual_fee', amount: membership.amount, currency
+  } }, { ...options, compact: true });
+  const session = formatPrice({ price: { type: 'per_session', amount: membership.sessionAmount, currency } }, { ...options, compact: true });
+  return `${recurring} + ${session}`;
+}
 
 export function formatPrice(club, {
   compact = false, unknown = 'Price not confirmed', free = 'Free',

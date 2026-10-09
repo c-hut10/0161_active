@@ -1,7 +1,8 @@
-import { sportSlug, displaySportName, canonicalArea, DAY_NAMES as dayNames, sessionTime, escapeHtml } from './club-formatting.mjs';
+import { sportSlug, displaySportName, canonicalArea, sportGlossaryUrl } from './club-formatting.mjs';
 import { visibleSportRecords } from './sport-catalog.mjs';
-import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
+import { renderSportClubRows } from './sport-glossary-renderer.mjs';
+import { beginControlLoading } from './control-loading.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
 /* Sport glossary: filter clubs from the same JSON records used by profiles and calendar. */
 const clubList = document.querySelector('#club-list');
@@ -20,13 +21,12 @@ function sportCollectionLabel(name) {
 }
 
 function clubAreas(club) {
-  return [...new Set([club.area, ...(club.sessions || []).map(session => session.area)]
-    .map(canonicalArea)
-    .filter(Boolean))];
+  return clubTrainingAreas(club);
 }
 
 function populateAreas() {
   const areas = [...new Set(sportClubs.flatMap(clubAreas))].sort((a, b) => a.localeCompare(b));
+  areaFilter.replaceChildren(new Option('All areas', 'all'));
   areas.forEach(area => areaFilter.add(new Option(area, area)));
 }
 
@@ -48,24 +48,11 @@ function matchingClubs() {
       });
       const matchesClubAreaWithoutSession = selectedDay === 'all'
         && selectedArea !== 'all'
-        && canonicalArea(club.area) === selectedArea;
+        && clubAreas(club).includes(selectedArea);
       if (!matchingSession && !matchesClubAreaWithoutSession) return false;
     }
     return true;
   }).sort((a, b) => a.name.localeCompare(b.name));
-}
-
-function visibleSessions(club) {
-  const selectedArea = areaFilter.value;
-  return (club.sessions || []).filter(session => {
-    const area = canonicalArea(session.area);
-    return selectedArea === 'all' || area === selectedArea;
-  });
-}
-
-function profileHref(club) {
-  const path = typeof club.profilePath === 'string' ? club.profilePath : '';
-  return path.startsWith('html/') ? `../${path.slice('html/'.length)}` : '#';
 }
 
 function renderDirectory() {
@@ -84,38 +71,20 @@ function renderDirectory() {
   }
 
   directoryMessage.hidden = true;
-  clubList.innerHTML = filteredClubs.map(club => {
-    const sessions = visibleSessions(club);
-    /* Compact busy schedules: replace four or more listed entries with one summary label. */
-    const schedule = (Array.isArray(club.sessions) ? club.sessions.length : 0) > 3
-      ? '<span class="sport-club-row__day">3+ weekly sessions</span>'
-      : sessions.length
-        ? sessions.map(session => {
-          const dayNumber = Number(session.dayOfWeek);
-          const day = dayNames[dayNumber] || 'Day to confirm';
-          return `<span class="sport-club-row__day">${escapeHtml(day)} · ${escapeHtml(sessionTime(session))}</span>`;
-        }).join('')
-        : '<span class="sport-club-row__day">Training schedule to confirm</span>';
-    const area = clubTrainingAreas(club).join(' · ') || 'Area to confirm';
-
-    return `<li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="${escapeHtml(profileHref(club))}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a></h3>
-        </div>
-        <p class="sport-club-row__sessions">${schedule}</p>
-        <p class="sport-club-row__area">${escapeHtml(area)}</p>
-        <a class="sport-club-link" href="${escapeHtml(profileHref(club))}" aria-label="Open ${escapeHtml(club.name)} profile">↗</a>
-      </article>
-    </li>`;
-  }).join('');
+  clubList.innerHTML = renderSportClubRows(filteredClubs, areaFilter.value);
 }
 
 /* Data startup: choose a sport by URL and build its area/day filtered numbered club list. */
 async function loadGlossary() {
+  const finishLoading = beginControlLoading([clubSearch, areaFilter, dayFilter], directoryMessage);
   try {
-    const requestedSlug = sportSlug(new URLSearchParams(window.location.search).get('sport') || 'run-club');
+    const params = new URLSearchParams(window.location.search);
+    const requestedSlug = document.body.dataset.sport || sportSlug(params.get('sport') || 'run-club');
+    // Older query-based links retain their area filter when opening the generated sport page.
+    if (!document.body.dataset.sport) {
+      window.location.replace(sportGlossaryUrl(requestedSlug, params.get('area'), '/html/sports/glossary.html'));
+      return;
+    }
     const [sportsData, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
     const sports = Array.isArray(sportsData.sports) ? sportsData.sports : [];
     const canonicalSportName = sports.find(name => sportSlug(name) === requestedSlug)
@@ -126,8 +95,6 @@ async function loadGlossary() {
     document.querySelector('#club-list').setAttribute('aria-label', `${sportName} listings in Manchester`);
     document.querySelector('.sport-club-directory').setAttribute('aria-label', `${sportName} listings`);
     document.querySelector('.sport-glossary-filters').setAttribute('aria-label', `Filter ${sportName} listings`);
-    document.title = `${sportName} | 0161 Active`;
-    document.querySelector('meta[name="description"]').content = `Explore ${sportName.toLowerCase()} clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.`;
     const clubs = clubsData.clubs;
     const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug
       && club.hiddenFromSportList !== true);
@@ -138,11 +105,13 @@ async function loadGlossary() {
     const requestedArea = canonicalArea(new URLSearchParams(window.location.search).get('area') || '');
     const matchingArea = [...areaFilter.options].find(option => option.value.toLocaleLowerCase() === requestedArea.toLocaleLowerCase());
     if (matchingArea) areaFilter.value = matchingArea.value;
+    finishLoading();
     renderDirectory();
   } catch (error) {
-    clubCount.textContent = 'CLUB DIRECTORY UNAVAILABLE';
+    finishLoading(false);
+    // Preserve the generated club list rather than replacing it with a loading error.
     directoryMessage.hidden = false;
-    directoryMessage.textContent = error.message || 'The club directory could not be loaded.';
+    directoryMessage.textContent = 'Filters are unavailable. You can still browse the clubs below.';
   }
 }
 

@@ -14,7 +14,7 @@ Netlify stores the application. Email notifications require the dashboard setup 
 
 ## Submitted details
 
-All questionnaire answers use the JSON names documented in docs/club-csv-format.md. Each session has a title, dayOfWeek, startTime, endTime, eligibility, meetingPoint, postcode and specialConsiderations. The named sessions field holds this JSON array; registrationCsv holds the equivalent CSV with one row per session. Stored areas and duplicate readable schedule/address fields have been removed. Additional information is public club content in additionalInformation. Paid-only fields are omitted for Free or Unknown.
+All questionnaire answers use the JSON names documented in docs/club-csv-format.md. Each session has a title, dayOfWeek, startTime, endTime, eligibility, meetingPoint, postcode and specialConsiderations. The named sessions field holds this JSON array; registrationCsv holds the equivalent CSV with one row per session. Stored areas and duplicate readable schedule/address fields have been removed. Additional information is public club content in additionalInformation. Paid-only fields are omitted for Free or Unknown. Optional membership fields (`membership.period`, `membership.amount`, `membership.sessionAmount`) are submitted only for pay-per-session clubs offering membership. The CSV has 28 columns; blank membership cells mean no optional membership.
 
 Field names have changed in this schema update. Deploy the updated static form so Netlify detects them, then check a live submission. Older submissions retain their previous field names and require translation; they are not rewritten.
 
@@ -36,3 +36,11 @@ The form and empty widget mount use `data-netlify-recaptcha="true"` for Netlify-
 6. Check mobile layout and the retry behaviour after an expired check.
 
 The CAPTCHA cannot be rendered or verified by the plain local preview. These live checks remain outstanding. Current credit-based Netlify plans include free unlimited Forms; legacy plans have separate submission allowances. Check your account's plan and Forms usage rather than enabling paid upgrades.
+
+## Gender eligibility
+
+The required genderSpecific Yes/No question appears near the start of The basics. Yes reveals a blank, required genderEligibility text box for the club's own wording; No disables and omits that text field. Both named fields are included in the CSV contract, which now has 28 columns. Deploy the revised form so Netlify detects the new fields. The profile and preview show GENDER ELIGIBILITY below SPORT; No displays All genders and unanswered existing records show no row.
+
+## League participation
+
+participatesInLeague captures Yes/No. Yes reveals repeatable team name, league name and coverage questions. The named fields participatingLeagues.teamName, participatingLeagues.name and participatingLeagues.coverage preserve each combination in matching lines; registrationCsv contains the same answers. Users enter each team name directly. No stores an empty list. Deploy the revised form before checking detection of all four fields in Netlify. National names appear only on club profiles, while Local/County and Regional records feed glossary discovery with separate club and team counts.

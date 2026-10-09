@@ -4,6 +4,9 @@
 # Compatibility for the former Running sport paths.
 /html/running/* /html/run-club/:splat 301!
 /img/running/* /img/run-club/:splat 301!
+# Retired pages: preserve existing links with redirects to their current destinations.
+/html/about.html / 301!
+/html/resources.html /html/sports/directory.html 301!
 /html/sports/running.html /html/sports/run-club.html 301!
 /img/social/html-sports-running.jpg /img/social/html-sports-run-club.jpg 301!
 /img/social/html-running-MileShyClub.jpg /img/social/html-run-club-MileShyClub.jpg 301!

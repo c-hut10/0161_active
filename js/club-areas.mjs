@@ -13,14 +13,15 @@ function formatLocationFields(record) {
 export function normalizeClubPostcodes(club) {
   const formatted = formatLocationFields(club);
   formatted.sessions = (club.sessions || []).map(formatLocationFields);
+  if (Array.isArray(club.trainingVenues)) formatted.trainingVenues = club.trainingVenues.map(formatLocationFields);
   return formatted;
 }
 
 /* Postcode sectors: accept a sector key, a full postcode or a postcode within a venue address. */
 export function postcodeSector(value) {
   const text = String(value || '').trim().toUpperCase();
-  const sector = text.match(/^(M\s*\d{1,2})\s*(\d)$/);
-  const postcode = text.match(/\b(M\s*\d{1,2})\s*(\d)\s*[A-Z]{2}\b/);
+  const sector = text.match(/^([A-Z]{1,2}\s*\d{1,2}[A-Z]?)\s*(\d)$/);
+  const postcode = text.match(/\b([A-Z]{1,2}\s*\d{1,2}[A-Z]?)\s*(\d)\s*[A-Z]{2}\b/);
   const match = sector || postcode;
   return match ? `${match[1].replace(/\s/g, '')} ${match[2]}` : '';
 }
@@ -53,5 +54,7 @@ export function clubTrainingAreas(club) {
   };
   sessions.sort((left, right) => dayOrder(left) - dayOrder(right)
     || (left.startTime || '99:99').localeCompare(right.startTime || '99:99'));
-  return [...new Set(sessions.map(session => canonicalArea(session.area)).filter(Boolean))];
+  // Undated venues support area discovery but never create calendar sessions.
+  const venues = (club.trainingVenues || []).map(venue => areaFromPostcode(venue.postcode, venue.meetingPoint));
+  return [...new Set([...sessions.map(session => canonicalArea(session.area)), ...venues].filter(Boolean))];
 }

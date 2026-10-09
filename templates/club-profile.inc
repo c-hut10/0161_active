@@ -4,10 +4,12 @@
   <!-- Page metadata: generate the title, description and canonical URL from club data. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Browser tab icon: use the shared 0161 Active logo for every club. -->
+  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <meta name="description" content="{{description}}">
   <title>{{title}}</title>
-  <link rel="stylesheet" href="../../css/0161_Page.css">
-  <link rel="stylesheet" href="../../css/club-profile.css">
+  <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
+  <link rel="stylesheet" href="../../css/club-profile.css?v=20261009-mobile-actions">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
   <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
   <link rel="canonical" href="{{pageUrl}}">
@@ -45,6 +47,6 @@
 
   <!-- Footer and enhancements: share the footer and enable calendar downloads. -->
 {{footer}}
-  <script type="module" src="../../js/club-profile.js"></script>
+  <script type="module" src="../../js/club-profile.js?v=20261009-loading-states"></script>
 </body>
 </html>

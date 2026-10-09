@@ -1,6 +1,8 @@
-import { displaySportName, sportGlossaryUrl, escapeHtml as escapeDirectoryText } from './club-formatting.mjs';
+import { displaySportName } from './club-formatting.mjs';
+import { renderSportsDirectory } from './sports-directory-renderer.mjs';
 import { visibleSportRecords } from './sport-catalog.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
+import { beginControlLoading } from './control-loading.mjs';
 
 /* Sports directory: render the official sport catalog, an accessible-sports group, and club counts. */
 const sportsSearch = document.querySelector('#sports-search');
@@ -26,44 +28,22 @@ function renderSports() {
   }
 
   sportsMessage.hidden = true;
-  const accessibleEntries = filtered.filter(sport => sport.accessible);
-  const otherEntries = filtered.filter(sport => !sport.accessible);
-  const groups = new Map();
-  otherEntries.forEach(sport => {
-    const letter = displaySportName(sport.name).charAt(0).toLocaleUpperCase();
-    if (!groups.has(letter)) groups.set(letter, []);
-    groups.get(letter).push(sport);
-  });
-
-  const renderCards = entries => `<div class="sports-directory-grid">${entries.map(sport => `<a class="sports-directory-card" href="${escapeDirectoryText(sportGlossaryUrl(sport.slug, null, 'glossary.html'))}">
-      <span class="sports-directory-card__name">${escapeDirectoryText(displaySportName(sport.name))}</span>
-      <span class="sports-directory-card__meta">${sport.clubCount ? `${sport.clubCount} ${sport.clubCount === 1 ? 'CLUB' : 'CLUBS'}` : 'GLOSSARY'} <span aria-hidden="true">↗</span></span>
-    </a>`).join('')}</div>`;
-  const accessibleSection = accessibleEntries.length ? `<section class="sports-accessible-group" aria-labelledby="sports-accessible-title">
-    <h2 id="sports-accessible-title" class="sports-accessible-group__title">ACCESSIBLE SPORTS</h2>
-    ${renderCards(accessibleEntries)}
-  </section>` : '';
-  const otherSection = otherEntries.length ? `<section class="sports-other-group" aria-labelledby="sports-other-title">
-    <h2 id="sports-other-title" class="sports-accessible-group__title">OTHER SPORTS</h2>
-    ${[...groups.entries()].map(([letter, entries]) => `<section class="sports-letter-group" aria-labelledby="sports-letter-${letter}">
-      <h3 id="sports-letter-${letter}" class="sports-letter-group__letter">${escapeDirectoryText(letter)}</h3>
-      ${renderCards(entries)}
-    </section>`).join('')}
-  </section>` : '';
-
-  sportsGroups.innerHTML = accessibleSection + otherSection;
+  sportsGroups.innerHTML = renderSportsDirectory(filtered);
 }
 
 /* Load the official catalog and count current club records that match its sport names. */
 async function loadSportsDirectory() {
+  const finishLoading = beginControlLoading([sportsSearch], sportsMessage);
   try {
     const [sportsData, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
     sportRecords = visibleSportRecords(sportsData, clubsData.clubs);
+    finishLoading();
     renderSports();
   } catch (error) {
-    sportsCount.textContent = 'SPORT DIRECTORY UNAVAILABLE';
+    finishLoading(false);
+    // Keep generated sport links usable when browser data loading fails.
     sportsMessage.hidden = false;
-    sportsMessage.textContent = error.message || 'The sports directory could not be loaded.';
+    sportsMessage.textContent = 'Search is unavailable. You can still browse the sports below.';
   }
 }
 

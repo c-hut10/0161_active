@@ -5,49 +5,194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Sports Page" content="Community Sports Database of Manchester UK Region">
     <meta name="description" content="Find sports clubs and weekly sessions across Greater Manchester. Explore local activities by sport, area and day with 0161 Active.">
-    <title>0161 Active | Sports clubs in Greater Manchester</title>
-    <link rel="stylesheet" href="css/0161_Page.css">
+    <title>0161 Active: Sport Club Database</title>
+    <link rel="stylesheet" href="css/0161_Page.css?v=20261009-breakpoints">
     <link rel="stylesheet" href="css/home-gallery.css?v=20261008-gallery-revolution-framing">
-    <link rel="stylesheet" href="css/home-panels.css">
-    <link rel="icon" href="img/0161 Active_Logo.png">
+    <link rel="stylesheet" href="css/home-panels.css?v=20261009-find-club">
 
-  <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
-  <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
+  <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
+  <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
   <link rel="stylesheet" href="/css/accessibility.css">
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
+  <!-- Without JavaScript: stop movement and allow manual browsing of the static photo rows. -->
+  <noscript><style>
+    #club-gallery { overflow-x: auto; }
+    #club-gallery .gallery-row { overflow: visible; }
+    #club-gallery .gallery-track { animation: none; }
+    .gallery-pause { display: none; }
+  </style></noscript>
+  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="canonical" href="https://0161active.co.uk/">
   <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="0161 Active">
   <meta property="og:locale" content="en_GB">
-  <meta property="og:title" content="0161 Active | Sports clubs in Greater Manchester">
+  <meta property="og:title" content="0161 Active: Sport Club Database">
   <meta property="og:description" content="Find sports clubs and weekly sessions across Greater Manchester. Explore local activities by sport, area and day with 0161 Active.">
   <meta property="og:url" content="https://0161active.co.uk/">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="0161 Active | Sports clubs in Greater Manchester">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="0161 Active: Sport Club Database">
   <meta name="twitter:description" content="Find sports clubs and weekly sessions across Greater Manchester. Explore local activities by sport, area and day with 0161 Active.">
-  <meta property="og:image" content="https://0161active.co.uk/img/social/index.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="0161 Active | Sports clubs in Greater Manchester — Greater Manchester. 0161 Active.">
-  <meta name="twitter:image" content="https://0161active.co.uk/img/social/index.jpg">
-  <meta name="twitter:image:alt" content="0161 Active | Sports clubs in Greater Manchester — Greater Manchester. 0161 Active.">
+  <meta property="og:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="0161 Active logo">
+  <meta name="twitter:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
+  <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
+  <!-- Structured data -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://0161active.co.uk/#page","url":"https://0161active.co.uk/","name":"0161 Active: Sport Club Database","description":"Find sports clubs and weekly sessions across Greater Manchester. Explore local activities by sport, area and day with 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"}},{"@type":"Organization","@id":"https://0161active.co.uk/#organization","name":"0161 Active","url":"https://0161active.co.uk/","logo":"https://0161active.co.uk/img/0161%20Active_Logo.png","email":"contact.0161active@gmail.com"},{"@type":"WebSite","@id":"https://0161active.co.uk/#website","url":"https://0161active.co.uk/","name":"0161 Active","inLanguage":"en-GB","publisher":{"@id":"https://0161active.co.uk/#organization"}}]}</script>
+  <!-- /Structured data -->
 </head>
 
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
-<div data-site-nav></div>
+<div data-site-nav><header class="site-navbar">
+    <div class="site-navbar__bar">
+      <a class="site-navbar__brand" href="/" aria-label="0161 Active home"><img src="/img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a>
+      <nav class="site-navbar__desktop" aria-label="Main navigation">
+        <div class="site-navbar__sports">
+          <a class="site-navbar__link" href="/html/sports/directory.html">SPORTS</a>
+          <div class="site-navbar__sports-panel" aria-label="Sports directory links">
+            <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
+            <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
+          </div>
+        </div>
+        <a class="site-navbar__link" href="/html/calendar.html">CALENDAR</a>
+        <a class="site-navbar__link" href="/html/register.html">REGISTER YOUR CLUB</a>
+        <a class="site-navbar__link" href="/html/contact.html">CONTACT US</a>
+      </nav>
+      <button class="site-navbar__menu-button" type="button" aria-controls="site-mobile-drawer" aria-expanded="false">MENU</button>
+    </div>
+    <button class="site-navbar__overlay" type="button" aria-label="Close menu" hidden></button>
+    <nav class="site-navbar__drawer" id="site-mobile-drawer" aria-label="Mobile navigation" aria-hidden="true" inert>
+      <div class="site-navbar__drawer-header">
+        <p class="site-navbar__drawer-title">MENU</p>
+        <button class="site-navbar__close" type="button">CLOSE ×</button>
+      </div>
+      <a class="site-navbar__drawer-link" href="/html/sports/directory.html">SPORTS <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header></div><!-- /Site navigation -->
 
     <main class="gallery-main" id="main-content" tabindex="-1">
 
-        <!-- Homepage club gallery: JavaScript shuffles clubs and fills two rows of five photo tiles. -->
-        <div class="grid-container" id="club-gallery" role="region" tabindex="0" aria-label="Featured local sports clubs"></div>
+        <!-- Homepage gallery: the build supplies photos and links; visits shuffle the existing set. -->
+        <div class="grid-container" id="club-gallery" role="region" tabindex="0" aria-label="Featured local sports clubs"><div class="gallery-row" aria-label="Featured clubs row 1">
+      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:0s;"><section class="gallery-card" data-club-id="tiny-moves">
+        <a href="/html/run-club/TinyMoves.html">
+          <img src="/img/run-club/TinyMoves.jpeg" alt="Tiny Moves club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Tiny Moves</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="didsbury-runners">
+        <a href="/html/run-club/DidsburyRunners.html">
+          <img src="/img/run-club/DidsburyRunners.jpg" alt="Didsbury Runners club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Didsbury Runners</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="manchester-revolution">
+        <a href="/html/wheelchair-basketball/manchester-revolution.html">
+          <img src="/img/wheelchair basketball/wheelchair basketball-Manchester Revolution.avif" alt="Manchester Revolution club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Revolution</h2><p class="gallery-caption__details">wheelchair basketball · Longsight</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="belle-vue-racers-running">
+        <a href="/html/run-club/belle-vue-racers-running.html">
+          <img src="/img/athletics/athletics-Belle Vue Racers.avif" alt="Belle Vue Racers club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Belle Vue Racers</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="just-a-run-club">
+        <a href="/html/run-club/JustARunClub.html">
+          <img src="/img/run-club/JustARunClub.webp" alt="Just A Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Just A Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="tiny-moves" aria-hidden="true">
+        <a href="/html/run-club/TinyMoves.html" tabindex="-1">
+          <img src="/img/run-club/TinyMoves.jpeg" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Tiny Moves</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="didsbury-runners" aria-hidden="true">
+        <a href="/html/run-club/DidsburyRunners.html" tabindex="-1">
+          <img src="/img/run-club/DidsburyRunners.jpg" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Didsbury Runners</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="manchester-revolution" aria-hidden="true">
+        <a href="/html/wheelchair-basketball/manchester-revolution.html" tabindex="-1">
+          <img src="/img/wheelchair basketball/wheelchair basketball-Manchester Revolution.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Revolution</h2><p class="gallery-caption__details">wheelchair basketball · Longsight</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="belle-vue-racers-running" aria-hidden="true">
+        <a href="/html/run-club/belle-vue-racers-running.html" tabindex="-1">
+          <img src="/img/athletics/athletics-Belle Vue Racers.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Belle Vue Racers</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="just-a-run-club" aria-hidden="true">
+        <a href="/html/run-club/JustARunClub.html" tabindex="-1">
+          <img src="/img/run-club/JustARunClub.webp" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Just A Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section></div>
+    </div><div class="gallery-row" aria-label="Featured clubs row 2">
+      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:-6.666666666666667s;"><section class="gallery-card" data-club-id="manchester-frontrunners">
+        <a href="/html/run-club/ManchesterFrontrunners.html">
+          <img src="/img/run-club/ManchesterFrontrunners.jpg" alt="Manchester Frontrunners club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Frontrunners</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="rehab-fitness">
+        <a href="/html/health-and-wellbeing/rehab-fitness.html">
+          <img src="/img/health-and-wellbeing/health and wellbeing-Rehab Fitness.avif" alt="Rehab Fitness club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Rehab Fitness</h2><p class="gallery-caption__details">health &amp; wellbeing · Ancoats</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="redacted-run-club">
+        <a href="/html/run-club/RedactedRunClub.html">
+          <img src="/img/run-club/RedactedRunClub.jpeg" alt="Redacted Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Redacted Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="salford-basketball-club">
+        <a href="/html/basketball/salford-basketball-club.html">
+          <img src="/img/basketball/basketball-Salford Basketball Club.avif" alt="Salford Basketball Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Salford Basketball Club</h2><p class="gallery-caption__details">basketball · Salford</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="ancoats-run-club">
+        <a href="/html/run-club/AncoatRunClub.html">
+          <img src="/img/run-club/AncoatRunClub.avif" alt="Ancoats Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="manchester-frontrunners" aria-hidden="true">
+        <a href="/html/run-club/ManchesterFrontrunners.html" tabindex="-1">
+          <img src="/img/run-club/ManchesterFrontrunners.jpg" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Frontrunners</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="rehab-fitness" aria-hidden="true">
+        <a href="/html/health-and-wellbeing/rehab-fitness.html" tabindex="-1">
+          <img src="/img/health-and-wellbeing/health and wellbeing-Rehab Fitness.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Rehab Fitness</h2><p class="gallery-caption__details">health &amp; wellbeing · Ancoats</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="redacted-run-club" aria-hidden="true">
+        <a href="/html/run-club/RedactedRunClub.html" tabindex="-1">
+          <img src="/img/run-club/RedactedRunClub.jpeg" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Redacted Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="salford-basketball-club" aria-hidden="true">
+        <a href="/html/basketball/salford-basketball-club.html" tabindex="-1">
+          <img src="/img/basketball/basketball-Salford Basketball Club.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Salford Basketball Club</h2><p class="gallery-caption__details">basketball · Salford</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="ancoats-run-club" aria-hidden="true">
+        <a href="/html/run-club/AncoatRunClub.html" tabindex="-1">
+          <img src="/img/run-club/AncoatRunClub.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section></div>
+    </div></div>
         <button class="gallery-pause" type="button" data-gallery-pause aria-controls="club-gallery" aria-pressed="false">Pause gallery</button>
     </main>
 
@@ -80,26 +225,28 @@
     <section class="mission-panels" id="mission-panels" aria-label="Our mission">
         <div class="mission-panels__heading">
             <p class="mission-panels__eyebrow">Manchester’s sports club database</p>
-            <h2>Movement for everyone<span class="mission-panels__period">.</span></h2>
+            <h1>Movement for everyone<span class="mission-panels__period">.</span></h1>
+            <!-- Directory shortcut: help visitors choose a sport directly from the homepage. -->
+            <a class="mission-panels__find-club" href="/html/sports/directory.html">Find a club <span aria-hidden="true">↗</span></a>
         </div>
 
         <div class="mission-panels__stack" aria-label="Scroll through our mission">
             <article class="mission-panel" aria-label="A community-driven sports organisation">
-                <img src="img/hockey/atul-pandey-TFQxG7quwto-unsplash.avif" alt="" >
+                <img src="img/hockey/atul-pandey-TFQxG7quwto-unsplash.avif" alt="" loading="lazy" decoding="async">
                 <div class="mission-panel__copy">
                     <p class="mission-panel__number">01 / 03</p>
                     <h3>A community group with one goal in mind...</h3>
                 </div>
             </article>
             <article class="mission-panel" aria-label="Getting Manchester moving">
-                <img src="img/basketball/james-lee-JB41zA4movk-unsplash.avif" alt="">
+                <img src="img/basketball/james-lee-JB41zA4movk-unsplash.avif" alt="" loading="lazy" decoding="async">
                 <div class="mission-panel__copy">
                     <p class="mission-panel__number">02 / 03</p>
                     <h3>To keep Manchester moving...</h3>
                 </div>
             </article>
             <article class="mission-panel" aria-label="Making it happen">
-                <img src="img/football/jannes-glas-cuhQcfp3By4-unsplash.avif" alt="">
+                <img src="img/football/jannes-glas-cuhQcfp3By4-unsplash.avif" alt="" loading="lazy" decoding="async">
                 <div class="mission-panel__copy">
                     <p class="mission-panel__number">03 / 03</p>
                     <h3 class="mission-panel__stacked-heading">
@@ -129,7 +276,7 @@
     </nav>
   </div>
 </footer>
-    <script type="module" src="js/home-gallery.js?v=20261008-gallery-photo-framing"></script>
+    <script type="module" src="js/home-gallery.js?v=20261009-prerendered-gallery"></script>
     <script src="js/home-panels.js"></script>
 </body>
 </html>

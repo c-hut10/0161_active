@@ -1,6 +1,6 @@
 # Postcode sector naming rulebook
 
-Saved: 7 October 2026.
+Saved: 7 October 2026. Stockport, BL, OL and WA expansions: 9 October 2026.
 
 ## Authority and purpose
 
@@ -8,7 +8,7 @@ This document is the project owner's naming rulebook for postcode sectors. The a
 
 External postcode sources may provide research for new entries, but must not replace or reinterpret an approved label. Change an approved label only when the owner requests it. The approved entries are naming rules for this website.
 
-All 173 recorded sector labels between M1 and M50 have been approved by the owner. The recorded sector list is a research reference, not a claim that every current or historical sector is included.
+The single table below contains all 403 approved mappings: 173 Manchester M sectors, 39 Stockport SK sectors, 46 BL sectors, 62 OL sectors and 83 WA sectors. This file is the sole editable source of postcode-to-area assignments; `js/postcode-areas.mjs` is generated from it. The list is not a claim that every current or historical sector is included.
 
 ## Naming rules
 
@@ -20,8 +20,25 @@ All 173 recorded sector labels between M1 and M50 have been approved by the owne
 - **M44 5 → Partington** is an approved naming rule and must be retained.
 - Write sector keys in uppercase with one space, for example **M20 3**.
 - New sector entries require owner approval before they are added to this table.
-- Raise an unfamiliar sector with the owner rather than guessing its area.
+- For the Stockport, BL, OL and WA expansions, the owner delegated broad, approximate assignments. Use the nearest sensible main-town label without escalating minor boundary overlaps or creating smaller village labels. The existing Manchester M-sector decisions remain unchanged.
+- Sectors outside an approved grouping remain unmapped until their broad labels are agreed.
 - Use the same approved labels for the calendar, sport directories, club profiles, gallery and map.
+
+## Stockport grouping policy
+
+The owner approved ten labels and approximate grouping on 9 October 2026: Stockport, Cheadle, Cheadle Hulme, Gatley, Heald Green, Bramhall, Hazel Grove, Marple, Reddish and The Heatons. These are estimated location categories for 0161 Active. Smaller places are grouped into the chosen label: SK6 uses Marple throughout, including Bredbury, Romiley, Woodley and High Lane. Existing M-sector rules remain unchanged.
+
+Sector inventory: [GeoPunk SK area](https://www.geopunk.co.uk/postcode-areas/SK). Settlement references: [SK postcode districts](https://en.wikipedia.org/wiki/SK_postcode_area), [SK7 sector labels](https://housemetric.co.uk/analysis/district/SK7/Hazel-Grove), [SK8 sector labels](https://www.streetlist.co.uk/sk/sk8). The owner's broad grouping takes precedence over smaller settlement names in those references.
+
+## Broad BL, OL and WA grouping policy
+
+On 9 October 2026 the owner requested the same broad treatment for BL, OL and WA, with even less subdivision. These are estimated location categories, not precise administrative boundaries. The broad choices below are the website's naming decisions derived from postcode-town references.
+
+- **BL:** BL1–BL7 use Bolton; BL0, BL8 and BL9 use Bury. Horwich, Farnworth, Westhoughton, Ramsbottom and other smaller settlements are included in those wider labels.
+- **OL:** OL1–OL4 and OL8–OL9 use Oldham; OL5–OL7 use Ashton-under-Lyne; OL10–OL12 and OL15–OL16 use Rochdale. Heywood and Littleborough therefore use Rochdale. OL13 uses Bacup and OL14 uses Todmorden.
+- **WA:** WA1–WA5 and WA13 use Warrington; WA6 uses Frodsham; WA7 uses Runcorn; WA8 uses Widnes; WA9–WA12 use St Helens; WA14–WA15 use Altrincham; WA16 uses Knutsford. Lymm uses Warrington, Newton-le-Willows uses St Helens, and Hale, Bowdon and Timperley use Altrincham.
+
+Sector inventories: [GeoPunk BL](https://www.geopunk.co.uk/postcode-areas/BL), [GeoPunk OL](https://www.geopunk.co.uk/postcode-areas/OL), [GeoPunk WA](https://www.geopunk.co.uk/postcode-areas/WA). Post-town references: [BL districts](https://en.wikipedia.org/wiki/BL_postcode_area), [OL districts](https://en.wikipedia.org/wiki/OL_postcode_area), [WA districts](https://en.wikipedia.org/wiki/WA_postcode_area). The table includes the geographic sectors listed by those inventories; special non-geographic districts are not assigned a training area.
 
 ## Approved sector labels
 
@@ -202,14 +219,245 @@ The owner approved the remaining research labels on 7 October 2026. Every entry 
 | M50 1 | Salford Quays | [Sector page](https://www.streetlist.co.uk/m/m50/m50-1) |
 | M50 2 | Media City | Owner decision |
 | M50 3 | Salford Quays | [Sector page](https://www.streetlist.co.uk/m/m50/m50-3) |
+| SK1 1 | Stockport | Owner-approved broad grouping |
+| SK1 2 | Stockport | Owner-approved broad grouping |
+| SK1 3 | Stockport | Owner-approved broad grouping |
+| SK1 4 | Stockport | Owner-approved broad grouping |
+| SK2 5 | Stockport | Owner-approved broad grouping |
+| SK2 6 | Stockport | Owner-approved broad grouping |
+| SK2 7 | Stockport | Owner-approved broad grouping |
+| SK3 0 | Stockport | Owner-approved broad grouping |
+| SK3 8 | Stockport | Owner-approved broad grouping |
+| SK3 9 | Stockport | Owner-approved broad grouping |
+| SK4 1 | The Heatons | Owner-approved broad grouping |
+| SK4 2 | The Heatons | Owner-approved broad grouping |
+| SK4 3 | The Heatons | Owner-approved broad grouping |
+| SK4 4 | The Heatons | Owner-approved broad grouping |
+| SK4 5 | The Heatons | Owner-approved broad grouping |
+| SK5 6 | Reddish | Owner-approved broad grouping |
+| SK5 7 | Reddish | Owner-approved broad grouping |
+| SK5 8 | Reddish | Owner-approved broad grouping |
+| SK6 1 | Marple | Owner-approved broad grouping |
+| SK6 2 | Marple | Owner-approved broad grouping |
+| SK6 3 | Marple | Owner-approved broad grouping |
+| SK6 4 | Marple | Owner-approved broad grouping |
+| SK6 5 | Marple | Owner-approved broad grouping |
+| SK6 6 | Marple | Owner-approved broad grouping |
+| SK6 7 | Marple | Owner-approved broad grouping |
+| SK6 8 | Marple | Owner-approved broad grouping |
+| SK7 1 | Bramhall | Owner-approved broad grouping |
+| SK7 2 | Bramhall | Owner-approved broad grouping |
+| SK7 3 | Bramhall | Owner-approved broad grouping |
+| SK7 4 | Hazel Grove | Owner-approved broad grouping |
+| SK7 5 | Hazel Grove | Owner-approved broad grouping |
+| SK7 6 | Hazel Grove | Owner-approved broad grouping |
+| SK8 1 | Cheadle | Owner-approved broad grouping |
+| SK8 2 | Cheadle | Owner-approved broad grouping |
+| SK8 3 | Heald Green | Owner-approved broad grouping |
+| SK8 4 | Gatley | Owner-approved broad grouping |
+| SK8 5 | Cheadle Hulme | Owner-approved broad grouping |
+| SK8 6 | Cheadle Hulme | Owner-approved broad grouping |
+| SK8 7 | Cheadle Hulme | Owner-approved broad grouping |
+| BL0 0 | Bury | Owner-authorised broad grouping |
+| BL0 9 | Bury | Owner-authorised broad grouping |
+| BL1 1 | Bolton | Owner-authorised broad grouping |
+| BL1 2 | Bolton | Owner-authorised broad grouping |
+| BL1 3 | Bolton | Owner-authorised broad grouping |
+| BL1 4 | Bolton | Owner-authorised broad grouping |
+| BL1 5 | Bolton | Owner-authorised broad grouping |
+| BL1 6 | Bolton | Owner-authorised broad grouping |
+| BL1 7 | Bolton | Owner-authorised broad grouping |
+| BL1 8 | Bolton | Owner-authorised broad grouping |
+| BL2 1 | Bolton | Owner-authorised broad grouping |
+| BL2 2 | Bolton | Owner-authorised broad grouping |
+| BL2 3 | Bolton | Owner-authorised broad grouping |
+| BL2 4 | Bolton | Owner-authorised broad grouping |
+| BL2 5 | Bolton | Owner-authorised broad grouping |
+| BL2 6 | Bolton | Owner-authorised broad grouping |
+| BL3 1 | Bolton | Owner-authorised broad grouping |
+| BL3 2 | Bolton | Owner-authorised broad grouping |
+| BL3 3 | Bolton | Owner-authorised broad grouping |
+| BL3 4 | Bolton | Owner-authorised broad grouping |
+| BL3 5 | Bolton | Owner-authorised broad grouping |
+| BL3 6 | Bolton | Owner-authorised broad grouping |
+| BL4 0 | Bolton | Owner-authorised broad grouping |
+| BL4 7 | Bolton | Owner-authorised broad grouping |
+| BL4 8 | Bolton | Owner-authorised broad grouping |
+| BL4 9 | Bolton | Owner-authorised broad grouping |
+| BL5 1 | Bolton | Owner-authorised broad grouping |
+| BL5 2 | Bolton | Owner-authorised broad grouping |
+| BL5 3 | Bolton | Owner-authorised broad grouping |
+| BL6 4 | Bolton | Owner-authorised broad grouping |
+| BL6 5 | Bolton | Owner-authorised broad grouping |
+| BL6 6 | Bolton | Owner-authorised broad grouping |
+| BL6 7 | Bolton | Owner-authorised broad grouping |
+| BL7 0 | Bolton | Owner-authorised broad grouping |
+| BL7 8 | Bolton | Owner-authorised broad grouping |
+| BL7 9 | Bolton | Owner-authorised broad grouping |
+| BL8 1 | Bury | Owner-authorised broad grouping |
+| BL8 2 | Bury | Owner-authorised broad grouping |
+| BL8 3 | Bury | Owner-authorised broad grouping |
+| BL8 4 | Bury | Owner-authorised broad grouping |
+| BL9 0 | Bury | Owner-authorised broad grouping |
+| BL9 5 | Bury | Owner-authorised broad grouping |
+| BL9 6 | Bury | Owner-authorised broad grouping |
+| BL9 7 | Bury | Owner-authorised broad grouping |
+| BL9 8 | Bury | Owner-authorised broad grouping |
+| BL9 9 | Bury | Owner-authorised broad grouping |
+| OL1 1 | Oldham | Owner-authorised broad grouping |
+| OL1 2 | Oldham | Owner-authorised broad grouping |
+| OL1 3 | Oldham | Owner-authorised broad grouping |
+| OL1 4 | Oldham | Owner-authorised broad grouping |
+| OL2 5 | Oldham | Owner-authorised broad grouping |
+| OL2 6 | Oldham | Owner-authorised broad grouping |
+| OL2 7 | Oldham | Owner-authorised broad grouping |
+| OL2 8 | Oldham | Owner-authorised broad grouping |
+| OL3 5 | Oldham | Owner-authorised broad grouping |
+| OL3 6 | Oldham | Owner-authorised broad grouping |
+| OL3 7 | Oldham | Owner-authorised broad grouping |
+| OL4 1 | Oldham | Owner-authorised broad grouping |
+| OL4 2 | Oldham | Owner-authorised broad grouping |
+| OL4 3 | Oldham | Owner-authorised broad grouping |
+| OL4 4 | Oldham | Owner-authorised broad grouping |
+| OL4 5 | Oldham | Owner-authorised broad grouping |
+| OL5 0 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL5 9 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL6 6 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL6 7 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL6 8 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL6 9 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL7 0 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL7 9 | Ashton-under-Lyne | Owner-authorised broad grouping |
+| OL8 1 | Oldham | Owner-authorised broad grouping |
+| OL8 2 | Oldham | Owner-authorised broad grouping |
+| OL8 3 | Oldham | Owner-authorised broad grouping |
+| OL8 4 | Oldham | Owner-authorised broad grouping |
+| OL9 0 | Oldham | Owner-authorised broad grouping |
+| OL9 6 | Oldham | Owner-authorised broad grouping |
+| OL9 7 | Oldham | Owner-authorised broad grouping |
+| OL9 8 | Oldham | Owner-authorised broad grouping |
+| OL9 9 | Oldham | Owner-authorised broad grouping |
+| OL10 1 | Rochdale | Owner-authorised broad grouping |
+| OL10 2 | Rochdale | Owner-authorised broad grouping |
+| OL10 3 | Rochdale | Owner-authorised broad grouping |
+| OL10 4 | Rochdale | Owner-authorised broad grouping |
+| OL11 1 | Rochdale | Owner-authorised broad grouping |
+| OL11 2 | Rochdale | Owner-authorised broad grouping |
+| OL11 3 | Rochdale | Owner-authorised broad grouping |
+| OL11 4 | Rochdale | Owner-authorised broad grouping |
+| OL11 5 | Rochdale | Owner-authorised broad grouping |
+| OL12 0 | Rochdale | Owner-authorised broad grouping |
+| OL12 6 | Rochdale | Owner-authorised broad grouping |
+| OL12 7 | Rochdale | Owner-authorised broad grouping |
+| OL12 8 | Rochdale | Owner-authorised broad grouping |
+| OL12 9 | Rochdale | Owner-authorised broad grouping |
+| OL13 0 | Bacup | Owner-authorised broad grouping |
+| OL13 8 | Bacup | Owner-authorised broad grouping |
+| OL13 9 | Bacup | Owner-authorised broad grouping |
+| OL14 5 | Todmorden | Owner-authorised broad grouping |
+| OL14 6 | Todmorden | Owner-authorised broad grouping |
+| OL14 7 | Todmorden | Owner-authorised broad grouping |
+| OL14 8 | Todmorden | Owner-authorised broad grouping |
+| OL15 0 | Rochdale | Owner-authorised broad grouping |
+| OL15 8 | Rochdale | Owner-authorised broad grouping |
+| OL15 9 | Rochdale | Owner-authorised broad grouping |
+| OL16 1 | Rochdale | Owner-authorised broad grouping |
+| OL16 2 | Rochdale | Owner-authorised broad grouping |
+| OL16 3 | Rochdale | Owner-authorised broad grouping |
+| OL16 4 | Rochdale | Owner-authorised broad grouping |
+| OL16 5 | Rochdale | Owner-authorised broad grouping |
+| WA1 1 | Warrington | Owner-authorised broad grouping |
+| WA1 2 | Warrington | Owner-authorised broad grouping |
+| WA1 3 | Warrington | Owner-authorised broad grouping |
+| WA1 4 | Warrington | Owner-authorised broad grouping |
+| WA2 0 | Warrington | Owner-authorised broad grouping |
+| WA2 7 | Warrington | Owner-authorised broad grouping |
+| WA2 8 | Warrington | Owner-authorised broad grouping |
+| WA2 9 | Warrington | Owner-authorised broad grouping |
+| WA3 1 | Warrington | Owner-authorised broad grouping |
+| WA3 2 | Warrington | Owner-authorised broad grouping |
+| WA3 3 | Warrington | Owner-authorised broad grouping |
+| WA3 4 | Warrington | Owner-authorised broad grouping |
+| WA3 5 | Warrington | Owner-authorised broad grouping |
+| WA3 6 | Warrington | Owner-authorised broad grouping |
+| WA3 7 | Warrington | Owner-authorised broad grouping |
+| WA4 1 | Warrington | Owner-authorised broad grouping |
+| WA4 2 | Warrington | Owner-authorised broad grouping |
+| WA4 3 | Warrington | Owner-authorised broad grouping |
+| WA4 4 | Warrington | Owner-authorised broad grouping |
+| WA4 5 | Warrington | Owner-authorised broad grouping |
+| WA4 6 | Warrington | Owner-authorised broad grouping |
+| WA5 0 | Warrington | Owner-authorised broad grouping |
+| WA5 1 | Warrington | Owner-authorised broad grouping |
+| WA5 2 | Warrington | Owner-authorised broad grouping |
+| WA5 3 | Warrington | Owner-authorised broad grouping |
+| WA5 4 | Warrington | Owner-authorised broad grouping |
+| WA5 7 | Warrington | Owner-authorised broad grouping |
+| WA5 8 | Warrington | Owner-authorised broad grouping |
+| WA5 9 | Warrington | Owner-authorised broad grouping |
+| WA6 0 | Frodsham | Owner-authorised broad grouping |
+| WA6 6 | Frodsham | Owner-authorised broad grouping |
+| WA6 7 | Frodsham | Owner-authorised broad grouping |
+| WA6 8 | Frodsham | Owner-authorised broad grouping |
+| WA6 9 | Frodsham | Owner-authorised broad grouping |
+| WA7 1 | Runcorn | Owner-authorised broad grouping |
+| WA7 2 | Runcorn | Owner-authorised broad grouping |
+| WA7 3 | Runcorn | Owner-authorised broad grouping |
+| WA7 4 | Runcorn | Owner-authorised broad grouping |
+| WA7 5 | Runcorn | Owner-authorised broad grouping |
+| WA7 6 | Runcorn | Owner-authorised broad grouping |
+| WA8 0 | Widnes | Owner-authorised broad grouping |
+| WA8 3 | Widnes | Owner-authorised broad grouping |
+| WA8 4 | Widnes | Owner-authorised broad grouping |
+| WA8 5 | Widnes | Owner-authorised broad grouping |
+| WA8 6 | Widnes | Owner-authorised broad grouping |
+| WA8 7 | Widnes | Owner-authorised broad grouping |
+| WA8 8 | Widnes | Owner-authorised broad grouping |
+| WA8 9 | Widnes | Owner-authorised broad grouping |
+| WA9 1 | St Helens | Owner-authorised broad grouping |
+| WA9 2 | St Helens | Owner-authorised broad grouping |
+| WA9 3 | St Helens | Owner-authorised broad grouping |
+| WA9 4 | St Helens | Owner-authorised broad grouping |
+| WA9 5 | St Helens | Owner-authorised broad grouping |
+| WA10 1 | St Helens | Owner-authorised broad grouping |
+| WA10 2 | St Helens | Owner-authorised broad grouping |
+| WA10 3 | St Helens | Owner-authorised broad grouping |
+| WA10 4 | St Helens | Owner-authorised broad grouping |
+| WA10 5 | St Helens | Owner-authorised broad grouping |
+| WA10 6 | St Helens | Owner-authorised broad grouping |
+| WA11 0 | St Helens | Owner-authorised broad grouping |
+| WA11 7 | St Helens | Owner-authorised broad grouping |
+| WA11 8 | St Helens | Owner-authorised broad grouping |
+| WA11 9 | St Helens | Owner-authorised broad grouping |
+| WA12 0 | St Helens | Owner-authorised broad grouping |
+| WA12 8 | St Helens | Owner-authorised broad grouping |
+| WA12 9 | St Helens | Owner-authorised broad grouping |
+| WA13 0 | Warrington | Owner-authorised broad grouping |
+| WA13 9 | Warrington | Owner-authorised broad grouping |
+| WA14 1 | Altrincham | Owner-authorised broad grouping |
+| WA14 2 | Altrincham | Owner-authorised broad grouping |
+| WA14 3 | Altrincham | Owner-authorised broad grouping |
+| WA14 4 | Altrincham | Owner-authorised broad grouping |
+| WA14 5 | Altrincham | Owner-authorised broad grouping |
+| WA15 0 | Altrincham | Owner-authorised broad grouping |
+| WA15 6 | Altrincham | Owner-authorised broad grouping |
+| WA15 7 | Altrincham | Owner-authorised broad grouping |
+| WA15 8 | Altrincham | Owner-authorised broad grouping |
+| WA15 9 | Altrincham | Owner-authorised broad grouping |
+| WA16 0 | Knutsford | Owner-authorised broad grouping |
+| WA16 6 | Knutsford | Owner-authorised broad grouping |
+| WA16 7 | Knutsford | Owner-authorised broad grouping |
+| WA16 8 | Knutsford | Owner-authorised broad grouping |
+| WA16 9 | Knutsford | Owner-authorised broad grouping |
 
 ## Maintenance and implementation
 
+
 Edit sector names in this table, then run `node scripts/build-site-metadata.cjs`. The build generates `js/postcode-areas.mjs` from this document and regenerates the static profile pages. Do not hand-edit the generated lookup.
 
-`js/club-areas.mjs` resolves each session's own postcode to its approved area. A club's main area comes from its supplied location postcode, or its first session with a mapped postcode. Entries without a matching postcode retain their existing area. Club records are read without rewriting `data/clubs.json`.
+`js/club-areas.mjs` resolves each session's own postcode to its approved area. Club areas are listed in weekly session order, followed by areas from undated `trainingVenues`. Unmapped postcodes stay uncategorised. Club records are read without rewriting `data/clubs.json`.
 
-The same resolved records feed area filters and labels throughout the site. Full addresses remain available as meeting locations; the area label is used for categorisation. A postcode sector can also be provided directly using a `postcodeSector` field.
+The same resolved records feed area filters and labels throughout the site. Full addresses remain available as meeting locations; the area label is used for categorisation. The lookup accepts either a full postcode or a sector key. The table currently covers the recorded M, Stockport SK1–SK8, BL, OL and WA sectors. Other SK districts and other postcode areas remain unmapped.
 
 ## Background references
 

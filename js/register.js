@@ -1,6 +1,7 @@
-import { formatPrice, formatPostcodes, displaySportName, onlineProfileAction, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
+import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlineProfileAction, genderEligibilityLabel, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { areaFromPostcode, clubTrainingAreas } from './club-areas.mjs';
-import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submission.mjs';
+import { PAID_PRICE_TYPES, clubAnswers, sessionAnswers, submissionCsv } from './club-submission.mjs';
+import { leagueNamesLabel } from './club-leagues.mjs';
 
 (() => {
   const form = document.querySelector('#club-form');
@@ -12,6 +13,9 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
   const sessionList = document.querySelector('#training-sessions');
   const addSessionButton = document.querySelector('#add-session');
   const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
+  const leagueList = document.querySelector('#participating-leagues');
+  const leagueTemplate = leagueList.querySelector('.league-entry').cloneNode(true);
+  const addLeagueButton = document.querySelector('#add-league');
 
   /* Application steps: keep all answers in the form while showing one section at a time. */
   const sections = [...form.querySelectorAll('[data-form-step]')];
@@ -38,15 +42,57 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
     if (focusHeading) sections[index].querySelector('h2').focus();
   }
 
-  /* Validation: reveal the section containing an invalid field before reporting its error. */
+  /* Field errors: retain readable messages and connect them to their inputs for assistive tools. */
+  const fieldErrors = new WeakMap();
+  let errorNumber = 0;
+  function validateField(field, showError = false) {
+    if (field.dataset.sessionField === 'postcode') {
+      const postcode = formatPostcodes(field.value.trim());
+      field.setCustomValidity(field.value && !/^(?:GIR|[A-Z]{1,2}\d[A-Z\d]?) \d[A-Z]{2}$/.test(postcode)
+        ? 'Enter a full postcode, for example M21 7SX.' : '');
+    }
+    const invalid = field.willValidate && !field.validity.valid;
+    let message = fieldErrors.get(field);
+    if (invalid && (showError || message)) {
+      if (!message) {
+        message = document.createElement('small');
+        message.className = 'field-error';
+        message.id = `registration-field-error-${++errorNumber}`;
+        field.closest('.field').append(message);
+        fieldErrors.set(field, message);
+        const descriptions = field.getAttribute('aria-describedby');
+        field.setAttribute('aria-describedby', [descriptions, message.id].filter(Boolean).join(' '));
+      }
+      const validity = field.validity;
+      message.textContent = validity.valueMissing ? 'Please complete this field.'
+        : validity.typeMismatch && field.type === 'email' ? 'Enter a valid email address, for example hello@yourclub.org.'
+        : validity.typeMismatch && field.type === 'url' ? 'Enter a full website or social link starting with https://.'
+        : field.validationMessage;
+      message.hidden = false;
+      field.setAttribute('aria-invalid', 'true');
+    } else if (!invalid) {
+      if (message) message.hidden = true;
+      field.removeAttribute('aria-invalid');
+    }
+    return !invalid;
+  }
+
+  /* Step validation: reveal the right section, show all errors, and focus the first invalid input. */
   function validateStep(index) {
-    const invalid = [...sections[index].querySelectorAll('input, select, textarea')]
-      .find(field => field.willValidate && !field.validity.valid);
+    const invalidFields = [...sections[index].querySelectorAll('input, select, textarea')]
+      .filter(field => !validateField(field, true));
+    const invalid = invalidFields[0];
     if (!invalid) return true;
     if (currentStep !== index) showStep(index, false);
-    invalid.reportValidity();
     invalid.focus();
     return false;
+  }
+
+  /* Submission errors: announce the problem and bring it into the user's keyboard focus. */
+  function showSubmissionError(message) {
+    error.textContent = message;
+    error.hidden = false;
+    error.focus();
   }
 
   function advanceStep() {
@@ -134,6 +180,35 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
 
   function updatePreview() {
     numberSessions();
+    // Reveal and require the free-text answer only when Yes is selected.
+    const genderSpecific = form.elements.namedItem('genderSpecific').value;
+    const genderEligibility = form.elements.namedItem('genderEligibility');
+    document.querySelector('#gender-eligibility-field').hidden = genderSpecific !== 'yes';
+    genderEligibility.disabled = genderSpecific !== 'yes';
+    genderEligibility.required = genderSpecific === 'yes';
+    // Collect each league's name and coverage together; hide and omit details for No.
+    const participates = form.elements.namedItem('participatesInLeague').value === 'yes';
+    document.querySelector('#league-questions').hidden = !participates;
+    const leagueBlocks = [...leagueList.querySelectorAll('.league-entry')];
+    const leagueAnswers = leagueBlocks.map((block, index) => {
+      block.querySelector('[data-league-heading]').textContent = `League ${index + 1}`;
+      const remove = block.querySelector('[data-remove-league]');
+      remove.hidden = leagueBlocks.length === 1;
+      remove.setAttribute('aria-label', `Remove league ${index + 1}`);
+      block.querySelectorAll('[data-league-field]').forEach(field => {
+        field.disabled = !participates;
+        field.required = participates;
+      });
+      const team = block.querySelector('[data-league-field="teamName"]');
+      return { teamName: team.value.trim(), name: block.querySelector('[data-league-field="name"]').value.trim(),
+        coverage: block.querySelector('[data-league-field="coverage"]').value };
+    });
+    form.elements.namedItem('participatingLeagues.name').value = participates ? leagueAnswers.map(league => league.name).join('\n') : '';
+    form.elements.namedItem('participatingLeagues.teamName').value = participates ? leagueAnswers.map(league => league.teamName).join('\n') : '';
+    form.elements.namedItem('participatingLeagues.coverage').value = participates ? leagueAnswers.map(league => league.coverage).join('\n') : '';
+    const leagueStatus = document.querySelector('#league-status');
+    const leagueStatusText = `${leagueBlocks.length} ${leagueBlocks.length === 1 ? 'league' : 'leagues'} added.`;
+    if (leagueStatus.textContent !== leagueStatusText) leagueStatus.textContent = leagueStatusText;
     const { sessions, areas } = syncSessions();
     const areaLabel = areas.join(' · ');
     // Keep paid fields out of submissions when Free or Unknown is selected.
@@ -146,12 +221,28 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
     form.elements.namedItem('price.amount').required = paid;
     // Paid clubs must explicitly confirm whether booking is required.
     form.elements.namedItem('bookingRequired').required = paid;
+    // Only pay-per-session clubs expose the optional recurring membership questions.
+    const membershipPeriod = form.elements.namedItem('membership.period');
+    const canOfferMembership = pricingType === 'per_session';
+    membershipPeriod.closest('.field').hidden = !canOfferMembership;
+    membershipPeriod.disabled = !canOfferMembership;
+    const hasMembership = canOfferMembership && Boolean(membershipPeriod.value);
+    form.querySelectorAll('[data-membership-pricing]').forEach(row => {
+      row.hidden = !hasMembership;
+      const field = row.querySelector('input');
+      field.disabled = !hasMembership;
+      field.required = hasMembership;
+    });
     const data = values();
+    const previewClub = clubAnswers(data, sessions);
     const amount = data['price.amount'];
     put('#preview-cost', formatPrice({ price: {
       type: paid && !amount ? 'unknown' : pricingType,
       amount: amount ? Number(amount) : null
     } }, { compact: true, unknown: 'Unknown', minimumFractionDigits: 0 }), 'Unknown');
+    const membershipLabel = formatMembership(previewClub, { minimumFractionDigits: 0 });
+    document.querySelector('#preview-membership-row').hidden = !membershipLabel;
+    put('#preview-membership', membershipLabel, '');
     document.querySelector('#preview-tasters-row').hidden = !(paid && Number(data.tasterSessionCount) > 0);
     put('#preview-tasters', data.tasterSessionCount || '', '');
     document.querySelector('#preview-booking-row').hidden = !(paid && data.bookingRequired === 'yes');
@@ -159,6 +250,11 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
     put('#preview-eyebrow', [data.sport, areaLabel].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
     put('#preview-area', areaLabel, 'Area to confirm');
     put('#preview-sport', displaySportName(data.sport), 'Your sport');
+    document.querySelector('#preview-gender-row').hidden = previewClub.genderSpecific === null;
+    put('#preview-gender', genderEligibilityLabel(previewClub), '');
+    const leagues = previewClub.participatingLeagues;
+    document.querySelector('#preview-leagues-row').hidden = !leagues.length;
+    put('#preview-leagues', leagueNamesLabel(leagues), '');
     put('#preview-description', data.description, 'Your club description will appear here.');
     put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Add your meeting times');
     put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
@@ -184,6 +280,8 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
       day.classList.toggle('has-session', hasSession);
       day.querySelector('b').textContent = hasSession ? `${count} ${count === 1 ? 'SESSION' : 'SESSIONS'}` : '—';
     });
+    // Clear corrected errors, including paid fields that have become disabled.
+    form.querySelectorAll('[aria-invalid="true"]').forEach(field => validateField(field));
   }
 
   /* Success state: expand the confirmation screen from the submitted button. */
@@ -223,15 +321,13 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
 
     /* Local previews cannot receive Netlify Forms submissions. Keep the answers available. */
     if (window.location.protocol === 'file:' || ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)) {
-      error.textContent = 'Please submit this application from our live website. Local previews cannot send applications.';
-      error.hidden = false;
+      showSubmissionError('Please submit this application from our live website. Local previews cannot send applications.');
       return;
     }
 
     const formData = new FormData(form);
     if (!String(formData.get('g-recaptcha-response') || '').trim()) {
-      error.textContent = 'Please complete the reCAPTCHA security check. If it has expired, complete it again before sending.';
-      error.hidden = false;
+      showSubmissionError('Please complete the reCAPTCHA security check. If it has expired, complete it again before sending.');
       return;
     }
     submitting = true;
@@ -239,29 +335,55 @@ import { PAID_PRICE_TYPES, sessionAnswers, submissionCsv } from './club-submissi
     previousStep.disabled = true;
     submitButton.disabled = true;
     submitButton.textContent = 'Sending your application…';
+    const controller = new AbortController();
+    let timedOut = false;
+    // A timeout cannot prove rejection: the server may have received the application already.
+    const timeout = window.setTimeout(() => { timedOut = true; controller.abort(); }, 30000);
+    let failureMessage = 'We could not confirm whether your application arrived. Your answers are still here. Check your connection and contact contact.0161active@gmail.com before retrying to avoid a duplicate application.';
     try {
       const body = new URLSearchParams(formData).toString();
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body
+        body,
+        signal: controller.signal
       });
-      if (!response.ok || response.redirected) throw new Error('The application could not be sent. Please complete the security check again and retry.');
+      if (!response.ok || response.redirected) {
+        if (response.status >= 400 && response.status < 500) {
+          failureMessage = 'Your application was not accepted. Complete the security check again and retry. If it still fails, email contact.0161active@gmail.com for help.';
+        }
+        throw new Error('Submission was not confirmed.');
+      }
 
       showSuccessScreen();
-    } catch (problem) {
+    } catch {
       if (typeof window.grecaptcha?.reset === 'function') window.grecaptcha.reset();
-      error.textContent = problem.message || 'We could not send your application. Please check your connection and try again.';
-      error.hidden = false;
       submitButton.disabled = false;
       submitButton.innerHTML = 'Send club application <span aria-hidden="true">↗</span>';
+      showSubmissionError(timedOut
+        ? 'This is taking longer than expected. Your application may have arrived, and your answers are still here. Contact contact.0161active@gmail.com before retrying to avoid sending it twice.'
+        : failureMessage);
     } finally {
+      window.clearTimeout(timeout);
       submitting = false;
       previousStep.disabled = false;
     }
   }
 
   /* Interactions: keep the preview live and submit applications through the configured form host. */
+  addLeagueButton.addEventListener('click', () => {
+    const block = leagueTemplate.cloneNode(true);
+    leagueList.append(block);
+    updatePreview();
+    block.querySelector('select').focus();
+  });
+  leagueList.addEventListener('click', event => {
+    const remove = event.target.closest('[data-remove-league]');
+    if (!remove || leagueList.children.length <= 1) return;
+    remove.closest('.league-entry').remove();
+    updatePreview();
+    addLeagueButton.focus();
+  });
   addSessionButton.addEventListener('click', () => {
     const block = sessionTemplate.cloneNode(true);
     sessionList.append(block);

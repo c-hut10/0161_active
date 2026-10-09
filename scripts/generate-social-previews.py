@@ -26,15 +26,12 @@ class ProfileEyebrow(HTMLParser):
 TITLES = {
     'index.html': 'Movement for everyone',
     '404.html': 'Lost your way?',
-    'html/about.html': 'About 0161 Active',
     'html/contact.html': 'Contact 0161 Active',
     'html/privacy.html': 'Privacy policy',
-    'html/resources.html': 'Resources',
     'html/calendar.html': 'Club calendar',
     'html/register.html': 'Register your club',
     'html/sports/directory.html': 'Sports directory',
     'html/sports/glossary.html': 'Find your sport',
-    'html/sports/run-club.html': 'Run Club directory',
 }
 
 def font(size):

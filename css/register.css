@@ -2,7 +2,7 @@
 :root { --reg-ink:#171817; --reg-lime:#dfff3a; --reg-paper:#f7f5ed; --reg-muted:#a4a79c; }
 html { scroll-behavior:smooth; }
 body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helvetica,sans-serif; }
-.register-page { box-sizing:border-box; width:100%; max-width:1500px; min-height:calc(100vh - 58px); margin:58px auto 0; padding:clamp(28px, 5vw, 72px) clamp(18px, 5vw, 72px) 76px; background:var(--reg-ink); color:var(--reg-paper); }
+.register-page { box-sizing:border-box; width:100%; max-width:1500px; min-height:calc(100vh - var(--site-nav-height, 100px)); margin:var(--site-nav-height, 100px) auto 0; padding:var(--site-page-gap, 30px) clamp(18px, 5vw, 72px) 76px; background:var(--reg-ink); color:var(--reg-paper); }
 .register-page *, .register-page *::before, .register-page *::after { box-sizing:border-box; }
 .register-page h1,.register-page h2,.register-page p { margin-top:0; }
 .register-page h1 { color:#faecd2; text-transform:uppercase; }
@@ -39,13 +39,18 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 /* The submission notice follows the button width and wraps within narrow screens. */
 .club-form .privacy-note { width:100%; max-width:none; overflow-wrap:anywhere; }
 .generate-button:disabled { opacity:.65; cursor:wait; }
+/* Validation feedback: preserve field messages and make focused submission errors easy to find. */
+.field .field-error { color:#ff9c87; font-size:13px; line-height:1.5; }
+.field .field-error[hidden] { display:none; }
+.field [aria-invalid="true"] { border-color:#ff9c87; outline:1px solid #ff9c87; }
+.form-error:focus { outline:2px solid #ff9c87; outline-offset:5px; }
 /* Preview container: keep the live profile alongside the form on wider screens. */
-.preview-column { position:sticky; top:92px; min-width:0; }
+.preview-column { position:sticky; top:calc(var(--site-nav-height, 100px) + 12px); min-width:0; }
 .preview-panel { padding:16px; border:1px solid #42453e; color:#111211; background:#1d1f1c; }
 .preview-top { display:flex; justify-content:space-between; margin:0 0 14px; color:#aeb0a6; font-size:9px; font-weight:800; letter-spacing:.15em; }
 .live-dot { color:var(--reg-lime); }
 @media(max-width:850px) { .register-layout { grid-template-columns:1fr; }.preview-column { position:static; max-width:600px; width:100%; margin:0 auto; }.preview-panel { width:100%; }.intro { margin-bottom:35px; } }
-@media(max-width:560px) { .register-page { margin-top:58px; padding:28px 20px 48px; }.steps { gap:8px; }.steps li:nth-child(2) { margin-left:28px; }.steps li:nth-child(3) { margin-left:56px; }.step-next { min-width:0; }.field-grid { grid-template-columns:1fr; }.field-wide { grid-column:auto; }.form-section { padding:25px 0; } }
+@media(max-width:560px) { .register-page { padding:var(--site-page-gap, 6px) 20px 48px; }.steps { gap:8px; }.steps li:nth-child(2) { margin-left:28px; }.steps li:nth-child(3) { margin-left:56px; }.step-next { min-width:0; }.field-grid { grid-template-columns:1fr; }.field-wide { grid-column:auto; }.form-section { padding:25px 0; } }
 
 /* Session editor: keep repeated training details grouped and usable on narrow screens. */
 .training-session { min-width:0; margin:20px 0; padding:20px; border:1px solid #484b44; background:#20221f; }
