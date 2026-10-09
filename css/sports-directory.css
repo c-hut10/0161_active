@@ -1,5 +1,6 @@
 /* Sport index: group the full catalog alphabetically into compact, responsive directory cards. */
 .sports-directory-page { padding-bottom: 100px; }
+.sports-directory-card__leagues { font-size:9px; line-height:1.4; }
 .sports-directory-controls {
   display: grid;
   grid-template-columns: auto minmax(180px, 420px) 1fr;
@@ -45,7 +46,10 @@
 .sports-directory-card:hover,
 .sports-directory-card:focus-visible { color: var(--glossary-black); background: var(--glossary-lime); outline: none; }
 .sports-directory-card__name { min-width: 0; font-size: 12px; font-weight: 700; line-height: 1.3; }
-.sports-directory-card__meta { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; color: var(--glossary-grey); font-size: 8px; font-weight: 700; letter-spacing: .08em; }
+/* Sport totals: stack the counts and centre the navigation arrow alongside both lines. */
+.sports-directory-card__meta { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; color: var(--glossary-grey); font-size: 8px; font-weight: 700; letter-spacing: .08em; }
+.sports-directory-card__counts { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+.sports-directory-card__arrow { font-size: 16px; line-height: 1; }
 .sports-directory-card:hover .sports-directory-card__meta,
 .sports-directory-card:focus-visible .sports-directory-card__meta { color: var(--glossary-black); }
 

@@ -1,0 +1,32 @@
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 2000; padding: 12px 18px; color: #111211; background: #faecd2; font: 700 16px Arial, sans-serif; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+:where(a, button, input, select, textarea, summary):focus-visible { outline: 2px solid #dffc3a; outline-offset: 4px; }
+.accessibility-dialog { box-sizing: border-box; width: min(520px, calc(100% - 32px)); max-height: 85dvh; overflow: auto; padding: 28px; border: 1px solid #dffc3a; background: #111211; color: #faecd2; font: 16px/1.6 Arial, sans-serif; }
+.accessibility-dialog::backdrop { background: #000b; }
+.accessibility-dialog h2 { margin: 0; font-size: 24px; }
+.accessibility-dialog label { display: flex; align-items: center; gap: 12px; min-height: 48px; cursor: pointer; }
+.accessibility-dialog input { width: 22px; height: 22px; accent-color: #dffc3a; }
+.accessibility-dialog button, .gallery-pause { min-height: 44px; padding: 10px 16px; border: 1px solid #faecd2; background: #111211; color: #faecd2; font: 700 14px Arial, sans-serif; cursor: pointer; }
+.gallery-pause { margin: 12px 20px; }
+.a11y-larger-text :where(p, li, dd, label, input, select, textarea, small) { font-size: max(18px, 1em) !important; }
+.a11y-reduce-motion *, .a11y-reduce-motion *::before, .a11y-reduce-motion *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+#club-gallery.is-paused .gallery-track { animation: none; transform: none; margin-left: calc(var(--gallery-card-width) * var(--paused-offset, 0)); }
+#club-gallery:focus-within .gallery-track { animation-play-state: paused; }
+.a11y-reduce-motion .grid-container#club-gallery,
+.grid-container#club-gallery.is-paused { overflow-x: auto; overflow-y: hidden; container-type: inline-size; }
+.a11y-reduce-motion #club-gallery .gallery-row,
+#club-gallery.is-paused .gallery-row { width: max-content; overflow: visible; container-type: normal; }
+.a11y-reduce-motion #club-gallery .gallery-track,
+#club-gallery.is-paused .gallery-track { width: max-content; }
+.a11y-reduce-motion #club-gallery .gallery-card[aria-hidden="true"] { display: none; }
+.a11y-reduce-motion #club-gallery .gallery-track { margin-left: 0; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .grid-container#club-gallery { overflow-x: auto; overflow-y: hidden; container-type: inline-size; }
+  #club-gallery .gallery-row { width: max-content; overflow: visible; container-type: normal; }
+  #club-gallery .gallery-track { width: max-content; margin-left: 0; }
+  #club-gallery .gallery-card[aria-hidden="true"] { display: none; }
+  .gallery-pause { display: none; }
+}
+
+.a11y-reduce-motion .gallery-pause { display: none; }

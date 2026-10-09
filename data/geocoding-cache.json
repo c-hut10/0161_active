@@ -1,0 +1,1400 @@
+{
+  "Co-op Food, Burton Road, West Didsbury": [
+    {
+      "place_id": 278022212,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 180715872,
+      "lat": "53.4259642",
+      "lon": "-2.2428643",
+      "category": "shop",
+      "type": "convenience",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "shop",
+      "name": "Co-op",
+      "display_name": "Co-op, 175, Burton Road, West Didsbury, Manchester, Greater Manchester, England, M20 2LN, United Kingdom",
+      "boundingbox": [
+        "53.4258903",
+        "53.4261844",
+        "-2.2432211",
+        "-2.2425830"
+      ]
+    }
+  ],
+  "Manchester city centre": [
+    {
+      "place_id": 277963978,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 354135390,
+      "lat": "53.4880867",
+      "lon": "-2.2441724",
+      "category": "leisure",
+      "type": "stadium",
+      "place_rank": 30,
+      "importance": 0.5201495453187774,
+      "addresstype": "leisure",
+      "name": "AO Arena",
+      "display_name": "AO Arena, Hunts Bank, Medieval Quarter, City Centre, Manchester, Greater Manchester, England, M3 1AR, United Kingdom",
+      "boundingbox": [
+        "53.4873002",
+        "53.4889104",
+        "-2.2454538",
+        "-2.2427182"
+      ]
+    }
+  ],
+  "Castlefield, Greater Manchester": [
+    {
+      "place_id": 276910252,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 602203640,
+      "lat": "53.4758224",
+      "lon": "-2.2557001",
+      "category": "place",
+      "type": "neighbourhood",
+      "place_rank": 24,
+      "importance": 0.35263345776344923,
+      "addresstype": "neighbourhood",
+      "name": "Castlefield",
+      "display_name": "Castlefield, City Centre, Manchester, Greater Manchester, England, United Kingdom",
+      "boundingbox": [
+        "53.4723690",
+        "53.4804494",
+        "-2.2614234",
+        "-2.2496190"
+      ]
+    }
+  ],
+  "Heaton Park, Greater Manchester": [
+    {
+      "place_id": 276570825,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 4716592,
+      "lat": "53.5346250",
+      "lon": "-2.2560869",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.4362884253550549,
+      "addresstype": "park",
+      "name": "Heaton Park",
+      "display_name": "Heaton Park, Manchester, Greater Manchester, England, United Kingdom",
+      "boundingbox": [
+        "53.5248201",
+        "53.5444005",
+        "-2.2686752",
+        "-2.2397366"
+      ]
+    }
+  ],
+  "Moss Side, Greater Manchester": [
+    {
+      "place_id": 275237463,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 5982118967,
+      "lat": "53.4547635",
+      "lon": "-2.2442531",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.40893382561531794,
+      "addresstype": "suburb",
+      "name": "Moss Side",
+      "display_name": "Moss Side, Manchester, Greater Manchester, England, M14 4RP, United Kingdom",
+      "boundingbox": [
+        "53.4347635",
+        "53.4747635",
+        "-2.2642531",
+        "-2.2242531"
+      ]
+    }
+  ],
+  "Didsbury, Greater Manchester": [
+    {
+      "place_id": 278206752,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 293888035,
+      "lat": "53.4168134",
+      "lon": "-2.2321381",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.4401108075321503,
+      "addresstype": "suburb",
+      "name": "Didsbury",
+      "display_name": "Didsbury, Manchester, Greater Manchester, England, M20 2AY, United Kingdom",
+      "boundingbox": [
+        "53.3968134",
+        "53.4368134",
+        "-2.2521381",
+        "-2.2121381"
+      ]
+    }
+  ],
+  "Ancoats, Greater Manchester": [
+    {
+      "place_id": 276680773,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 532671584,
+      "lat": "53.4849976",
+      "lon": "-2.2276032",
+      "category": "place",
+      "type": "neighbourhood",
+      "place_rank": 24,
+      "importance": 0.3793875555226289,
+      "addresstype": "suburb",
+      "name": "Ancoats",
+      "display_name": "Ancoats, Manchester, Greater Manchester, England, United Kingdom",
+      "boundingbox": [
+        "53.4824783",
+        "53.4875875",
+        "-2.2325278",
+        "-2.2231476"
+      ]
+    }
+  ],
+  "Wythenshawe, Greater Manchester": [
+    {
+      "place_id": 276807709,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 5723864762,
+      "lat": "53.3803596",
+      "lon": "-2.2632079",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4335521303750159,
+      "addresstype": "town",
+      "name": "Wythenshawe",
+      "display_name": "Wythenshawe, Manchester, Greater Manchester, England, M22 5RE, United Kingdom",
+      "boundingbox": [
+        "53.3403596",
+        "53.4203596",
+        "-2.3032079",
+        "-2.2232079"
+      ]
+    }
+  ],
+  "Sale, Greater Manchester": [
+    {
+      "place_id": 277219358,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 21652617,
+      "lat": "53.4244939",
+      "lon": "-2.3184150",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4457828906463019,
+      "addresstype": "town",
+      "name": "Sale",
+      "display_name": "Sale, Trafford, Greater Manchester, England, M33 2AB, United Kingdom",
+      "boundingbox": [
+        "53.3844939",
+        "53.4644939",
+        "-2.3584150",
+        "-2.2784150"
+      ]
+    }
+  ],
+  "Stretford, Greater Manchester": [
+    {
+      "place_id": 276812364,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 12560255737,
+      "lat": "53.4477056",
+      "lon": "-2.3234400",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4549611684177966,
+      "addresstype": "town",
+      "name": "Stretford",
+      "display_name": "Stretford, Trafford, Greater Manchester, England, M32 9HP, United Kingdom",
+      "boundingbox": [
+        "53.4077056",
+        "53.4877056",
+        "-2.3634400",
+        "-2.2834400"
+      ]
+    }
+  ],
+  "Deansgate, Greater Manchester": [
+    {
+      "place_id": 277485170,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 114421555,
+      "lat": "53.4741781",
+      "lon": "-2.2510902",
+      "category": "building",
+      "type": "train_station",
+      "place_rank": 30,
+      "importance": 0.4299627096914104,
+      "addresstype": "building",
+      "name": "Deansgate",
+      "display_name": "Deansgate, Hewitt Street, First Street, City Centre, Manchester, Greater Manchester, England, M15 4GB, United Kingdom",
+      "boundingbox": [
+        "53.4739779",
+        "53.4743933",
+        "-2.2514490",
+        "-2.2504301"
+      ]
+    }
+  ],
+  "Boggart Hole Clough Athletics Track, Charlestown Road, Blackley, M9 7DH": [],
+  "Charlestown, Greater Manchester": [
+    {
+      "place_id": 274960626,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 9537977958,
+      "lat": "53.5265818",
+      "lon": "-2.1953926",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.1467266124971389,
+      "addresstype": "suburb",
+      "name": "Charlestown",
+      "display_name": "Charlestown, Manchester, Greater Manchester, England, M9 7AN, United Kingdom",
+      "boundingbox": [
+        "53.5065818",
+        "53.5465818",
+        "-2.2153926",
+        "-2.1753926"
+      ]
+    }
+  ],
+  "Eccles, Greater Manchester": [
+    {
+      "place_id": 275371986,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 307938234,
+      "lat": "53.4840887",
+      "lon": "-2.3375175",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4452007487319592,
+      "addresstype": "town",
+      "name": "Eccles",
+      "display_name": "Eccles, Salford, Greater Manchester, England, M30 0PW, United Kingdom",
+      "boundingbox": [
+        "53.4440887",
+        "53.5240887",
+        "-2.3775175",
+        "-2.2975175"
+      ]
+    }
+  ],
+  "Chorlton, Greater Manchester": [
+    {
+      "place_id": 277155939,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "relation",
+      "osm_id": 9070818,
+      "lat": "53.4404341",
+      "lon": "-2.2844155",
+      "category": "boundary",
+      "type": "political",
+      "place_rank": 25,
+      "importance": 0.06674483939879454,
+      "addresstype": "political",
+      "name": "Chorlton",
+      "display_name": "Chorlton, Manchester, Greater Manchester, England, United Kingdom",
+      "boundingbox": [
+        "53.4302144",
+        "53.4507152",
+        "-2.3002012",
+        "-2.2673374"
+      ]
+    }
+  ],
+  "Altrincham, Greater Manchester": [
+    {
+      "place_id": 275329435,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329925,
+      "lat": "53.3839662",
+      "lon": "-2.3525463",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.47885933049322416,
+      "addresstype": "town",
+      "name": "Altrincham",
+      "display_name": "Altrincham, Trafford, Greater Manchester, England, WA14 2DW, United Kingdom",
+      "boundingbox": [
+        "53.3439662",
+        "53.4239662",
+        "-2.3925463",
+        "-2.3125463"
+      ]
+    }
+  ],
+  "Prestwich, Greater Manchester": [
+    {
+      "place_id": 275133035,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329885,
+      "lat": "53.5304274",
+      "lon": "-2.2960186",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4338135699802763,
+      "addresstype": "town",
+      "name": "Prestwich",
+      "display_name": "Prestwich, Bury, Greater Manchester, England, M25 3JT, United Kingdom",
+      "boundingbox": [
+        "53.4904274",
+        "53.5704274",
+        "-2.3360186",
+        "-2.2560186"
+      ]
+    }
+  ],
+  "Woodbank Park Athletics Stadium, Stockport": [],
+  "Stockport, Greater Manchester": [
+    {
+      "place_id": 273943854,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 33079336,
+      "lat": "53.4079010",
+      "lon": "-2.1602430",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.5621897985863148,
+      "addresstype": "town",
+      "name": "Stockport",
+      "display_name": "Stockport, Greater Manchester, England, SK1 3FZ, United Kingdom",
+      "boundingbox": [
+        "53.3679010",
+        "53.4479010",
+        "-2.2002430",
+        "-2.1202430"
+      ]
+    }
+  ],
+  "Oldham, Greater Manchester": [
+    {
+      "place_id": 276794278,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329894,
+      "lat": "53.5415797",
+      "lon": "-2.1147831",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.5591822434978618,
+      "addresstype": "town",
+      "name": "Oldham",
+      "display_name": "Oldham, Greater Manchester, England, OL1 1HE, United Kingdom",
+      "boundingbox": [
+        "53.5015797",
+        "53.5815797",
+        "-2.1547831",
+        "-2.0747831"
+      ]
+    }
+  ],
+  "Radcliffe, Greater Manchester": [
+    {
+      "place_id": 276608032,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329883,
+      "lat": "53.5593382",
+      "lon": "-2.3261546",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4263602961431367,
+      "addresstype": "town",
+      "name": "Radcliffe",
+      "display_name": "Radcliffe, Bury, Greater Manchester, England, M26 1NR, United Kingdom",
+      "boundingbox": [
+        "53.5193382",
+        "53.5993382",
+        "-2.3661546",
+        "-2.2861546"
+      ]
+    }
+  ],
+  "Holyrood Memorial Hall, Moorside Road, M27 0HJ": [],
+  "Swinton, Greater Manchester": [
+    {
+      "place_id": 273808939,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329919,
+      "lat": "53.5095363",
+      "lon": "-2.3417975",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4216117942344225,
+      "addresstype": "town",
+      "name": "Swinton",
+      "display_name": "Swinton, Salford, Greater Manchester, England, M27 0WN, United Kingdom",
+      "boundingbox": [
+        "53.4695363",
+        "53.5495363",
+        "-2.3817975",
+        "-2.3017975"
+      ]
+    }
+  ],
+  "216 Peel Green Road, M30 7DR": [
+    {
+      "place_id": 276856411,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 568382744,
+      "lat": "53.4770700",
+      "lon": "-2.3675925",
+      "category": "highway",
+      "type": "tertiary",
+      "place_rank": 26,
+      "importance": 0.053393250171663964,
+      "addresstype": "road",
+      "name": "Peel Green Road",
+      "display_name": "Peel Green Road, Peel Green, Worsley, Salford, Greater Manchester, England, M30 7BX, United Kingdom",
+      "boundingbox": [
+        "53.4767202",
+        "53.4774199",
+        "-2.3676492",
+        "-2.3675599"
+      ]
+    }
+  ],
+  "Longsight, Greater Manchester": [
+    {
+      "place_id": 275631838,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 915770915,
+      "lat": "53.4570594",
+      "lon": "-2.2053626",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.39106112740783944,
+      "addresstype": "suburb",
+      "name": "Longsight",
+      "display_name": "Longsight, Manchester, Greater Manchester, England, M13 0YD, United Kingdom",
+      "boundingbox": [
+        "53.4370594",
+        "53.4770594",
+        "-2.2253626",
+        "-2.1853626"
+      ]
+    }
+  ],
+  "Droylsden, Greater Manchester": [
+    {
+      "place_id": 276932881,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 1044242463,
+      "lat": "53.4786034",
+      "lon": "-2.1491964",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4175037806385018,
+      "addresstype": "town",
+      "name": "Droylsden",
+      "display_name": "Droylsden, Tameside, Greater Manchester, England, M43 6GN, United Kingdom",
+      "boundingbox": [
+        "53.4386034",
+        "53.5186034",
+        "-2.1891964",
+        "-2.1091964"
+      ]
+    }
+  ],
+  "Ashworth Road, Rochdale, OL11 5UP": [
+    {
+      "place_id": 277275537,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1152453300,
+      "lat": "53.6152674",
+      "lon": "-2.2291014",
+      "category": "highway",
+      "type": "tertiary",
+      "place_rank": 26,
+      "importance": 0.05339327916380557,
+      "addresstype": "road",
+      "name": "Ashworth Road",
+      "display_name": "Ashworth Road, Bamford, Norden, Rochdale, Greater Manchester, England, OL11 5UP, United Kingdom",
+      "boundingbox": [
+        "53.6139755",
+        "53.6170832",
+        "-2.2296152",
+        "-2.2281838"
+      ]
+    }
+  ],
+  "Leigh Spinners Mill, Leigh": [
+    {
+      "place_id": 276838880,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1001030481,
+      "lat": "53.4931332",
+      "lon": "-2.4929817",
+      "category": "building",
+      "type": "industrial",
+      "place_rank": 30,
+      "importance": 0.2562004762132184,
+      "addresstype": "building",
+      "name": "Leigh Spinners Mill",
+      "display_name": "Leigh Spinners Mill, Park Lane, Hooten Gardens, Bedford, Leigh, Wigan, Greater Manchester, England, WN7 2LB, United Kingdom",
+      "boundingbox": [
+        "53.4926348",
+        "53.4936533",
+        "-2.4940912",
+        "-2.4918618"
+      ]
+    }
+  ],
+  "Mottram Road, Stalybridge, SK15 2QS": [
+    {
+      "place_id": 278157139,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 368281598,
+      "lat": "53.4831605",
+      "lon": "-2.0504595",
+      "category": "highway",
+      "type": "trunk",
+      "place_rank": 26,
+      "importance": 0.05338912413214309,
+      "addresstype": "road",
+      "name": "Mottram Road",
+      "display_name": "Mottram Road, Cocker Hill, Stalybridge, Tameside, Greater Manchester, England, SK15 2QP, United Kingdom",
+      "boundingbox": [
+        "53.4828587",
+        "53.4834523",
+        "-2.0508233",
+        "-2.0501036"
+      ]
+    }
+  ],
+  "Wigan, Greater Manchester": [
+    {
+      "place_id": 276659889,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329909,
+      "lat": "53.5462150",
+      "lon": "-2.6319112",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.5725872143177345,
+      "addresstype": "town",
+      "name": "Wigan",
+      "display_name": "Wigan, Greater Manchester, England, WN1 1NR, United Kingdom",
+      "boundingbox": [
+        "53.5062150",
+        "53.5862150",
+        "-2.6719112",
+        "-2.5919112"
+      ]
+    }
+  ],
+  "Leverhulme Park athletics track, Bolton, BL2 6EB": [
+    {
+      "place_id": 277755608,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "relation",
+      "osm_id": 7741281,
+      "lat": "53.5741596",
+      "lon": "-2.3948788",
+      "category": "leisure",
+      "type": "track",
+      "place_rank": 30,
+      "importance": 6.287098496981792e-05,
+      "addresstype": "leisure",
+      "name": "Leverhulme Park Athletics Track",
+      "display_name": "Leverhulme Park Athletics Track, Long Lane, Darcy Lever, Farnworth, Bolton, Greater Manchester, England, BL2 6SB, United Kingdom",
+      "boundingbox": [
+        "53.5734622",
+        "53.5749110",
+        "-2.3968297",
+        "-2.3945551"
+      ]
+    }
+  ],
+  "Athletics track, Market Street, Bury": [],
+  "Bury, Greater Manchester": [
+    {
+      "place_id": 278398907,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329906,
+      "lat": "53.5927543",
+      "lon": "-2.2972827",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.5311955455886853,
+      "addresstype": "town",
+      "name": "Bury",
+      "display_name": "Bury, Greater Manchester, England, BL9 0AJ, United Kingdom",
+      "boundingbox": [
+        "53.5527543",
+        "53.6327543",
+        "-2.3372827",
+        "-2.2572827"
+      ]
+    }
+  ],
+  "Kingsway Sport Area, Turfhill Road, Rochdale, OL16 4XA": [],
+  "Rochdale, Greater Manchester": [
+    {
+      "place_id": 277107749,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329903,
+      "lat": "53.6153659",
+      "lon": "-2.1557561",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.546127070894096,
+      "addresstype": "town",
+      "name": "Rochdale",
+      "display_name": "Rochdale, Greater Manchester, England, OL16 1NL, United Kingdom",
+      "boundingbox": [
+        "53.5753659",
+        "53.6553659",
+        "-2.1957561",
+        "-2.1157561"
+      ]
+    }
+  ],
+  "Bolton, Greater Manchester": [
+    {
+      "place_id": 275095677,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329908,
+      "lat": "53.5782863",
+      "lon": "-2.4300367",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.5819666279343234,
+      "addresstype": "town",
+      "name": "Bolton",
+      "display_name": "Bolton, Greater Manchester, England, BL1 1RU, United Kingdom",
+      "boundingbox": [
+        "53.5382863",
+        "53.6182863",
+        "-2.4700367",
+        "-2.3900367"
+      ]
+    }
+  ],
+  "Woodstock, Didsbury": [
+    {
+      "place_id": 279518751,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 179988969,
+      "lat": "53.4217058",
+      "lon": "-2.2456733",
+      "category": "amenity",
+      "type": "pub",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "amenity",
+      "name": "The Woodstock Arms",
+      "display_name": "The Woodstock Arms, 139, Barlow Moor Road, West Didsbury, Manchester, Greater Manchester, England, M20 2DY, United Kingdom",
+      "boundingbox": [
+        "53.4215694",
+        "53.4218268",
+        "-2.2458748",
+        "-2.2454639"
+      ]
+    }
+  ],
+  "The Gateway pub, Didsbury": [
+    {
+      "place_id": 276940352,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1162448877,
+      "lat": "53.4081070",
+      "lon": "-2.2204401",
+      "category": "amenity",
+      "type": "pub",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "amenity",
+      "name": "The Gateway",
+      "display_name": "The Gateway, 882, Wilmslow Road, Parrs Wood, Didsbury, Manchester, Greater Manchester, England, M20 5PG, United Kingdom",
+      "boundingbox": [
+        "53.4078662",
+        "53.4085105",
+        "-2.2207745",
+        "-2.2201252"
+      ]
+    }
+  ],
+  "Clubhouse, 43 Molyneux Street, Rochdale": [],
+  "Spotland, Rochdale": [
+    {
+      "place_id": 276971239,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 37764621,
+      "lat": "53.6207953",
+      "lon": "-2.1799129",
+      "category": "leisure",
+      "type": "stadium",
+      "place_rank": 30,
+      "importance": 0.4825978077388109,
+      "addresstype": "leisure",
+      "name": "Crown Oil Arena",
+      "display_name": "Crown Oil Arena, Willbutts Lane, Spotland Bridge, Rochdale, Greater Manchester, England, OL11 5DB, United Kingdom",
+      "boundingbox": [
+        "53.6202222",
+        "53.6213552",
+        "-2.1810221",
+        "-2.1787997"
+      ]
+    }
+  ],
+  "Car park opposite Arden Arms, Millgate, Stockport , SK1 2LX": [],
+  "Wythenshawe cycling track, M23 0AB": [],
+  "Beswick, Greater Manchester": [
+    {
+      "place_id": 277087827,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 307762966,
+      "lat": "53.4772765",
+      "lon": "-2.2052143",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.3453315576369598,
+      "addresstype": "suburb",
+      "name": "Beswick",
+      "display_name": "Beswick, Manchester, Greater Manchester, England, M11 3DN, United Kingdom",
+      "boundingbox": [
+        "53.4572765",
+        "53.4972765",
+        "-2.2252143",
+        "-2.1852143"
+      ]
+    }
+  ],
+  "Close Park, Radcliffe, M26 2QS": [
+    {
+      "place_id": 274401599,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 4967163,
+      "lat": "53.5458509",
+      "lon": "-2.3071096",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.053391739528496185,
+      "addresstype": "road",
+      "name": "Oakdale Close",
+      "display_name": "Oakdale Close, Park Lane, Whitefield, Bury, Greater Manchester, England, M45 7LU, United Kingdom",
+      "boundingbox": [
+        "53.5452911",
+        "53.5463329",
+        "-2.3074777",
+        "-2.3070197"
+      ]
+    }
+  ],
+  "Redbank Playing Field, Unsworth Street, Radcliffe": [],
+  "Ramsbottom, Greater Manchester": [
+    {
+      "place_id": 278110057,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27039321,
+      "lat": "53.6483830",
+      "lon": "-2.3156960",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.4127618832342703,
+      "addresstype": "town",
+      "name": "Ramsbottom",
+      "display_name": "Ramsbottom, Bury, Greater Manchester, England, BL0 9BP, United Kingdom",
+      "boundingbox": [
+        "53.6083830",
+        "53.6883830",
+        "-2.3556960",
+        "-2.2756960"
+      ]
+    }
+  ],
+  "Seedfield, Bury": [
+    {
+      "place_id": 276657345,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 638694794,
+      "lat": "53.6095847",
+      "lon": "-2.2992193",
+      "category": "natural",
+      "type": "wood",
+      "place_rank": 22,
+      "importance": 0.10672507286182953,
+      "addresstype": "wood",
+      "name": "Seedfield Wood",
+      "display_name": "Seedfield Wood, Woodhill, Fernhill, Limefield, Bury, Greater Manchester, England, United Kingdom",
+      "boundingbox": [
+        "53.6069845",
+        "53.6122086",
+        "-2.3006916",
+        "-2.2969997"
+      ]
+    }
+  ],
+  "Redvales, Bury": [
+    {
+      "place_id": 276574074,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 30687179,
+      "lat": "53.5757428",
+      "lon": "-2.2978435",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.1467250728618295,
+      "addresstype": "suburb",
+      "name": "Redvales",
+      "display_name": "Redvales, Hollins, Bury, Greater Manchester, England, BL9 9SQ, United Kingdom",
+      "boundingbox": [
+        "53.5557428",
+        "53.5957428",
+        "-2.3178435",
+        "-2.2778435"
+      ]
+    }
+  ],
+  "The Barracks Playing Fields, Bexley Drive, Bury, BL8 2XD": [],
+  "Hollyhedge Park Community Stadium, Altrincham Road, Wythenshawe, M22 4US": [],
+  "Hough End Centre, Mauldeth Road West, Manchester , M21 7SX": [],
+  "Newman RC College, Broadway, Chadderton, OL9 9QY": [
+    {
+      "place_id": 273828356,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 175757712,
+      "lat": "53.5376564",
+      "lon": "-2.1535553",
+      "category": "amenity",
+      "type": "school",
+      "place_rank": 30,
+      "importance": 0.1507975276546128,
+      "addresstype": "amenity",
+      "name": "Saint John Henry Newman Roman Catholic College",
+      "display_name": "Saint John Henry Newman Roman Catholic College, Broadway, Stock Brook, Nimble Nook, Chadderton, Oldham, Greater Manchester, England, OL9 9QY, United Kingdom",
+      "boundingbox": [
+        "53.5361899",
+        "53.5389524",
+        "-2.1563172",
+        "-2.1513101"
+      ]
+    }
+  ],
+  "CHS South": [
+    {
+      "place_id": 277760008,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1019772967,
+      "lat": "53.4369385",
+      "lon": "-2.2588507",
+      "category": "amenity",
+      "type": "school",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "amenity",
+      "name": "CHS South",
+      "display_name": "CHS South, 451, Mauldeth Road West, Whalley Range, Manchester, Greater Manchester, England, M21 7SX, United Kingdom",
+      "boundingbox": [
+        "53.4357337",
+        "53.4381770",
+        "-2.2607776",
+        "-2.2561340"
+      ]
+    }
+  ],
+  "Bramhall High School, Seal Road, Bramhall, SK7 2JT": [
+    {
+      "place_id": 276936137,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 179057116,
+      "lat": "53.3671820",
+      "lon": "-2.1505244",
+      "category": "amenity",
+      "type": "school",
+      "place_rank": 30,
+      "importance": 0.2946949388609965,
+      "addresstype": "amenity",
+      "name": "Bramhall High School",
+      "display_name": "Bramhall High School, Seal Road, Pownall Green, Bramhall Moor, Bramhall, Stockport, Greater Manchester, England, SK7 2JT, United Kingdom",
+      "boundingbox": [
+        "53.3654403",
+        "53.3690415",
+        "-2.1552215",
+        "-2.1452670"
+      ]
+    }
+  ],
+  "South Downs Road, Bowdon, Altrincham, WA14 3DT": [
+    {
+      "place_id": 277941700,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1412821992,
+      "lat": "53.3747021",
+      "lon": "-2.3562365",
+      "category": "highway",
+      "type": "secondary",
+      "place_rank": 26,
+      "importance": 0.053390703440909404,
+      "addresstype": "road",
+      "name": "South Downs Road",
+      "display_name": "South Downs Road, Bowdon, Altrincham, Trafford, Greater Manchester, England, WA14 2HX, United Kingdom",
+      "boundingbox": [
+        "53.3743623",
+        "53.3749336",
+        "-2.3594607",
+        "-2.3530414"
+      ]
+    }
+  ],
+  "Manchester Regional Arena, Sportcity": [],
+  "Sportcity, Greater Manchester": [
+    {
+      "place_id": 278109961,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 25034634,
+      "lat": "53.4868459",
+      "lon": "-2.2022818",
+      "category": "highway",
+      "type": "unclassified",
+      "place_rank": 26,
+      "importance": 0.05341150606546117,
+      "addresstype": "road",
+      "name": "Sportcity Way",
+      "display_name": "Sportcity Way, Bradford, Manchester, Greater Manchester, England, M11 3DU, United Kingdom",
+      "boundingbox": [
+        "53.4863038",
+        "53.4872356",
+        "-2.2053781",
+        "-2.1991082"
+      ]
+    }
+  ],
+  "Bowling Green pub, Chorlton": [
+    {
+      "place_id": 277454978,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 266158030,
+      "lat": "53.4373038",
+      "lon": "-2.2830062",
+      "category": "amenity",
+      "type": "pub",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "amenity",
+      "name": "Bowling Green Chorlton",
+      "display_name": "Bowling Green Chorlton, Brookburn Road, Chorlton-cum-Hardy, Manchester, Greater Manchester, England, M21 9ES, United Kingdom",
+      "boundingbox": [
+        "53.4371624",
+        "53.4373837",
+        "-2.2831574",
+        "-2.2828550"
+      ]
+    }
+  ],
+  "Royton Cricket Club": [
+    {
+      "place_id": 277765580,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 433287983,
+      "lat": "53.5674154",
+      "lon": "-2.1311837",
+      "category": "leisure",
+      "type": "pitch",
+      "place_rank": 30,
+      "importance": 6.152666514071896e-05,
+      "addresstype": "leisure",
+      "name": "Royton Cricket Crown Green Bowls Club",
+      "display_name": "Royton Cricket Crown Green Bowls Club, Denbydale Way, High Crompton, Thorp, Royton, Oldham, Greater Manchester, England, OL2 5TN, United Kingdom",
+      "boundingbox": [
+        "53.5671782",
+        "53.5676333",
+        "-2.1315418",
+        "-2.1308123"
+      ]
+    }
+  ],
+  "Cheetham Hill Sports Club, Catherine Road, Manchester, M8 4HF": [
+    {
+      "place_id": 275817830,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 32133940,
+      "lat": "53.5181896",
+      "lon": "-2.2528456",
+      "category": "leisure",
+      "type": "sports_centre",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "leisure",
+      "name": "Cheetham Hill Sports Club",
+      "display_name": "Cheetham Hill Sports Club, Catherine Road, Crumpsall, Manchester, Greater Manchester, England, M8 4HF, United Kingdom",
+      "boundingbox": [
+        "53.5174529",
+        "53.5189179",
+        "-2.2541743",
+        "-2.2514370"
+      ]
+    }
+  ],
+  "33 Blackfriars Road, Salford, M3 7AQ": [
+    {
+      "place_id": 276825636,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 9673021387,
+      "lat": "53.4860925",
+      "lon": "-2.2524519",
+      "category": "club",
+      "type": "sport",
+      "place_rank": 30,
+      "importance": 0.28939223170644257,
+      "addresstype": "club",
+      "name": "Manchester Tennis & Racquet Club",
+      "display_name": "Manchester Tennis & Racquet Club, 33, Blackfriars Road, Trinity, Blackfriars, City Centre, Salford, Greater Manchester, England, M3 7AQ, United Kingdom",
+      "boundingbox": [
+        "53.4860425",
+        "53.4861425",
+        "-2.2525019",
+        "-2.2524019"
+      ]
+    }
+  ],
+  "Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD": [
+    {
+      "place_id": 277925999,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 722469870,
+      "lat": "53.4361524",
+      "lon": "-2.2461040",
+      "category": "leisure",
+      "type": "fitness_centre",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "leisure",
+      "name": "Hough End Leisure Centre",
+      "display_name": "Hough End Leisure Centre, 480, Princess Road, West Didsbury, Manchester, Greater Manchester, England, M20 1HD, United Kingdom",
+      "boundingbox": [
+        "53.4359201",
+        "53.4364851",
+        "-2.2464794",
+        "-2.2456263"
+      ]
+    }
+  ],
+  "Palatine Road, Didsbury, Manchester, M20 3YA": [
+    {
+      "place_id": 276980169,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1455808876,
+      "lat": "53.4250355",
+      "lon": "-2.2368881",
+      "category": "highway",
+      "type": "secondary",
+      "place_rank": 26,
+      "importance": 0.05341150606546117,
+      "addresstype": "road",
+      "name": "Palatine Road",
+      "display_name": "Palatine Road, West Didsbury, Manchester, Greater Manchester, England, M20 3ZA, United Kingdom",
+      "boundingbox": [
+        "53.4248821",
+        "53.4251879",
+        "-2.2370643",
+        "-2.2367110"
+      ]
+    }
+  ],
+  "Victoria Road, Bolton, BL1 5AN": [
+    {
+      "place_id": 276580953,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 58370339,
+      "lat": "53.5834593",
+      "lon": "-2.4802844",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.053396204318303164,
+      "addresstype": "road",
+      "name": "Victoria Road",
+      "display_name": "Victoria Road, Markland Hill, Bolton, Greater Manchester, England, BL1 5GQ, United Kingdom",
+      "boundingbox": [
+        "53.5833300",
+        "53.5838419",
+        "-2.4828224",
+        "-2.4776202"
+      ]
+    }
+  ],
+  "Fallowfield Tennis Club": [
+    {
+      "place_id": 276779122,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 1189596115,
+      "lat": "53.4389570",
+      "lon": "-2.2242988",
+      "category": "leisure",
+      "type": "sports_centre",
+      "place_rank": 30,
+      "importance": 7.817273212782509e-05,
+      "addresstype": "leisure",
+      "name": "Fallowfield Bowling and Lawn Tennis Club",
+      "display_name": "Fallowfield Bowling and Lawn Tennis Club, 81, Wellington Road, Fallowfield, Manchester, Greater Manchester, England, M14 6BN, United Kingdom",
+      "boundingbox": [
+        "53.4384509",
+        "53.4394787",
+        "-2.2249329",
+        "-2.2233890"
+      ]
+    }
+  ],
+  "Lawrence Road, Flixton, Urmston, M41 8UU": [],
+  "Flixton, Greater Manchester": [
+    {
+      "place_id": 278452290,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 6414583140,
+      "lat": "53.4437085",
+      "lon": "-2.3839554",
+      "category": "railway",
+      "type": "station",
+      "place_rank": 30,
+      "importance": 0.37858398060478177,
+      "addresstype": "railway",
+      "name": "Flixton",
+      "display_name": "Flixton, Bottom's Path, Davyhulme, Flixton, Trafford, Greater Manchester, England, M41 6JH, United Kingdom",
+      "boundingbox": [
+        "53.4387085",
+        "53.4487085",
+        "-2.3889554",
+        "-2.3789554"
+      ]
+    }
+  ],
+  "Bowden Lane, Marple, Stockport, SK6 6ND": [
+    {
+      "place_id": 275974716,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 32195010,
+      "lat": "53.3973578",
+      "lon": "-2.0713494",
+      "category": "highway",
+      "type": "residential",
+      "place_rank": 26,
+      "importance": 0.05339468757152663,
+      "addresstype": "road",
+      "name": "Bowden Lane",
+      "display_name": "Bowden Lane, Cherry Tree, Marple, Stockport, Greater Manchester, England, SK6 6LJ, United Kingdom",
+      "boundingbox": [
+        "53.3956447",
+        "53.3984671",
+        "-2.0730815",
+        "-2.0702712"
+      ]
+    }
+  ],
+  "Longford Park, next to Firswood Community Centre, 72 Great Stone Road, Stretford, M32 8QS": [],
+  "Sale Sports Club, Dane Road / Clarendon Crescent, Sale, M33 2DE": [],
+  "Fog Lane Park, Didsbury": [
+    {
+      "place_id": 277188350,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "way",
+      "osm_id": 4971299,
+      "lat": "53.4236433",
+      "lon": "-2.2224040",
+      "category": "leisure",
+      "type": "park",
+      "place_rank": 24,
+      "importance": 0.08007817273212785,
+      "addresstype": "park",
+      "name": "Fog Lane Park",
+      "display_name": "Fog Lane Park, Didsbury, Manchester, Greater Manchester, England, United Kingdom",
+      "boundingbox": [
+        "53.4216087",
+        "53.4260518",
+        "-2.2272844",
+        "-2.2178429"
+      ]
+    }
+  ],
+  "Smithills Sports Centre, Smithills Dean Road, Bolton, BL1 6JS": [],
+  "National Basketball Performance Centre, Kirkmanshulme Lane, Manchester, M12 4TF": [],
+  "Gorton, Greater Manchester": [
+    {
+      "place_id": 276656428,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 6367868937,
+      "lat": "53.4689321",
+      "lon": "-2.1677485",
+      "category": "railway",
+      "type": "station",
+      "place_rank": 30,
+      "importance": 0.3807705141182751,
+      "addresstype": "railway",
+      "name": "Gorton",
+      "display_name": "Gorton, Longford Street, Gorton, Manchester, Greater Manchester, England, M18 8QG, United Kingdom",
+      "boundingbox": [
+        "53.4639321",
+        "53.4739321",
+        "-2.1727485",
+        "-2.1627485"
+      ]
+    }
+  ],
+  "Stalybridge, Greater Manchester": [
+    {
+      "place_id": 276791257,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329893,
+      "lat": "53.4840214",
+      "lon": "-2.0562536",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.44882621826855235,
+      "addresstype": "town",
+      "name": "Stalybridge",
+      "display_name": "Stalybridge, Tameside, Greater Manchester, England, SK15 1JU, United Kingdom",
+      "boundingbox": [
+        "53.4440214",
+        "53.5240214",
+        "-2.0962536",
+        "-2.0162536"
+      ]
+    }
+  ],
+  "Bowdon, Greater Manchester": [
+    {
+      "place_id": 277139363,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 27329930,
+      "lat": "53.3760258",
+      "lon": "-2.3653395",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.3552828743550627,
+      "addresstype": "suburb",
+      "name": "Bowdon",
+      "display_name": "Bowdon, Altrincham, Trafford, Greater Manchester, England, WA14 3LZ, United Kingdom",
+      "boundingbox": [
+        "53.3560258",
+        "53.3960258",
+        "-2.3853395",
+        "-2.3453395"
+      ]
+    }
+  ],
+  "Markland Hill, Bolton": [
+    {
+      "place_id": 276847179,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 30915877,
+      "lat": "53.5824926",
+      "lon": "-2.4792738",
+      "category": "place",
+      "type": "suburb",
+      "place_rank": 19,
+      "importance": 0.1467295376516365,
+      "addresstype": "suburb",
+      "name": "Markland Hill",
+      "display_name": "Markland Hill, Bolton, Greater Manchester, England, BL1 5BD, United Kingdom",
+      "boundingbox": [
+        "53.5624926",
+        "53.6024926",
+        "-2.4992738",
+        "-2.4592738"
+      ]
+    }
+  ],
+  "Marple, Greater Manchester": [
+    {
+      "place_id": 276992365,
+      "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+      "osm_type": "node",
+      "osm_id": 30000451,
+      "lat": "53.3930149",
+      "lon": "-2.0693132",
+      "category": "place",
+      "type": "town",
+      "place_rank": 18,
+      "importance": 0.3971205322578132,
+      "addresstype": "town",
+      "name": "Marple",
+      "display_name": "Marple, Stockport, Greater Manchester, England, SK6 6DB, United Kingdom",
+      "boundingbox": [
+        "53.3530149",
+        "53.4330149",
+        "-2.1093132",
+        "-2.0293132"
+      ]
+    }
+  ]
+}

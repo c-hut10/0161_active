@@ -5,7 +5,7 @@
   color: var(--panel-paper);
   background: var(--panel-ink);
   font-family: Arial, Helvetica, sans-serif;
-  padding: clamp(42px, 7vw, 100px) 0 32px;
+  padding: 24px 0 32px;
 }
 
 .mission-panels__heading {
@@ -14,7 +14,6 @@
 }
 
 .mission-panels__eyebrow,
-.mission-panel__kicker,
 .mission-panel__number {
   margin: 0;
   font-size: 11px;
@@ -25,7 +24,7 @@
 
 .mission-panels__eyebrow { color: #dfff3a; }
 
-.mission-panels__heading h2 {
+.mission-panels__heading h1 {
   max-width: 850px;
   margin: 12px 0 0;
   color: var(--white);
@@ -36,20 +35,34 @@
 }
 .mission-panels__period { color: #ff3030; }
 
+/* Homepage directory action: a normal-flow link fits both desktop and narrow screens. */
+.mission-panels__find-club {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 48px;
+  margin-top: 24px;
+  padding: 14px 22px;
+  border: 1px solid #dffc3a;
+  color: #111211;
+  background: #dffc3a;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.mission-panels__find-club:hover { background: #faecd2; border-color: #faecd2; }
+.mission-panels__find-club:focus-visible { outline: 2px solid #faecd2; outline-offset: 4px; }
+
 /* Vertical story stack: normal page scrolling reveals each full-height panel in order. */
 .mission-panels__stack {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-/* Homepage contact link: keep the email white in its default and interactive states. */
-.home-footer a,
-.home-footer a:visited,
-.home-footer a:hover,
-.home-footer a:focus-visible {
-  color: #fff;
-  text-decoration: none;
 }
 
 /* Each slide uses a full-viewport photo with its own editorial text box. */
@@ -106,7 +119,6 @@
 }
 
 .mission-panel__number { color: #687220; }
-.mission-panel__kicker { margin-top: 34px; color: #687220; }
 
 .mission-panel__copy h3 {
   margin: 12px 0 0;
@@ -142,7 +154,6 @@
     width: auto;
     padding: 24px;
   }
-  .mission-panel__kicker { margin-top: 22px; }
   .mission-panel__copy h3 { font-size: clamp(30px, 10vw, 46px); }
 }
 

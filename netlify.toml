@@ -1,0 +1,7 @@
+# Generate static pages and publish only the prepared public folder.
+[build]
+  command = "node scripts/build-site-metadata.cjs && node scripts/package-site.cjs"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

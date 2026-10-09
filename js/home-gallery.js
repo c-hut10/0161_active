@@ -1,94 +1,64 @@
-/* Gallery cap: draw at most twenty image-backed clubs from the shared directory. */
-const GALLERY_IMAGE_LIMIT = 20;
+import { shuffleGalleryItems } from './home-gallery-renderer.mjs';
 
-/* Gallery labels: use Run Club for display without renaming stored sport values. */
-function displaySportName(name) {
-  return String(name || '').toLocaleLowerCase() === 'running' ? 'Run Club' : name;
-}
-
-/* Build one rolling row; the second copy makes the movement loop without an empty gap. */
-function makeRollingRow(clubList, rowNumber) {
-  const row = document.createElement('div');
-  row.className = 'gallery-row';
-  row.setAttribute('aria-label', `Featured clubs row ${rowNumber}`);
-  const track = document.createElement('div');
-  track.className = 'gallery-track';
-  // Shared timing keeps both rows at the same speed and offsets row two by half a card.
-  const durationSeconds = Math.max(50, clubList.length * 8 / 0.6);
-  track.style.setProperty('--roll-duration', `${durationSeconds}s`);
-  if (rowNumber === 2) {
-    track.style.setProperty('--roll-phase-offset', `${-(durationSeconds / (clubList.length * 2))}s`);
-  }
-
-  const addClub = (club, isDuplicate = false) => {
-    const card = document.createElement('section');
-    card.className = 'gallery-card';
-    const link = document.createElement('a');
-    link.href = club.profilePath;
-    const image = document.createElement('img');
-    image.src = club.imagePath;
-    image.alt = isDuplicate ? '' : `${club.name} club photo`;
-    image.loading = 'lazy';
-    image.decoding = 'async';
-    const caption = document.createElement('div');
-    caption.className = 'gallery-caption';
-    const heading = document.createElement('h2');
-    heading.textContent = club.name;
-    const subtitle = document.createElement('p');
-    subtitle.className = 'gallery-caption__details';
-    subtitle.textContent = [displaySportName(club.sport), club.area].filter(Boolean).join(' · ');
-    caption.append(heading, subtitle);
-    link.append(image, caption);
-    card.append(link);
-
-    if (isDuplicate) {
-      card.setAttribute('aria-hidden', 'true');
-      link.tabIndex = -1;
-    }
-    track.append(card);
-  };
-
-  clubList.forEach(club => addClub(club));
-  clubList.forEach(club => addClub(club, true));
-  row.append(track);
-  return row;
-}
-
-/* Gallery setup: randomly sample clubs with photos, then roll the sample through two rows. */
-async function renderRandomClubs() {
+/* Gallery enhancement: shuffle the prerendered photos without fetching another set. */
+function renderRandomClubs() {
   const gallery = document.querySelector('#club-gallery');
   if (!gallery) return;
-
-  try {
-    const response = await fetch('data/clubs.json');
-    if (!response.ok) throw new Error('Club gallery data could not be loaded.');
-    const directory = await response.json();
-    const clubsWithPhotos = Array.isArray(directory.clubs)
-      ? directory.clubs.filter(club => typeof club.imagePath === 'string'
-        && club.imagePath.startsWith('img/')
-        && typeof club.profilePath === 'string'
-        && club.profilePath.startsWith('html/'))
-      : [];
-
-    const shuffled = [...clubsWithPhotos];
-    for (let index = shuffled.length - 1; index > 0; index--) {
-      const swapIndex = Math.floor(Math.random() * (index + 1));
-      [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
-    }
-
-    const selectedClubs = shuffled.slice(0, GALLERY_IMAGE_LIMIT);
-    if (!selectedClubs.length) {
-      gallery.replaceChildren();
-      return;
-    }
-    const splitPoint = Math.ceil(selectedClubs.length / 2);
-    const firstRow = selectedClubs.slice(0, splitPoint);
-    const secondRow = selectedClubs.slice(splitPoint);
-    if (!secondRow.length) secondRow.push(...firstRow);
-    gallery.replaceChildren(makeRollingRow(firstRow, 1), makeRollingRow(secondRow, 2));
-  } catch {
-    gallery.replaceChildren();
+  const pause = document.querySelector('[data-gallery-pause]');
+  /* Pause/resume: translate the visible card position into a loop phase, including manual scrolling. */
+  pause?.addEventListener('click', () => {
+    const paused = !gallery.classList.contains('is-paused');
+    const scrollPosition = gallery.scrollLeft;
+    gallery.querySelectorAll('.gallery-track').forEach(track => {
+      const cardWidth = track.querySelector('.gallery-card').getBoundingClientRect().width;
+      if (paused) {
+        const transform = getComputedStyle(track).transform;
+        const offset = transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m41;
+        track.style.setProperty('--paused-offset', String(offset / cardWidth));
+      } else {
+        const offset = Number(track.style.getPropertyValue('--paused-offset'));
+        const loopCards = Number(track.style.getPropertyValue('--gallery-card-count')) / 2;
+        const duration = parseFloat(track.style.getPropertyValue('--roll-duration'));
+        // Whole-loop offsets are visually equivalent because the club sequence is repeated.
+        const position = -offset + scrollPosition / cardWidth;
+        const phase = ((position % loopCards) + loopCards) % loopCards;
+        track.style.setProperty('--roll-phase-offset', `${-duration * phase / loopCards}s`);
+        track.style.removeProperty('--paused-offset');
+      }
+    });
+    gallery.classList.toggle('is-paused', paused);
+    if (!paused) gallery.scrollLeft = 0;
+    pause.setAttribute('aria-pressed', String(paused));
+    pause.textContent = paused ? 'Resume gallery' : 'Pause gallery';
+  });
+  const sizeGallery = () => {
+    gallery.style.setProperty('--gallery-card-width', `${gallery.clientWidth / 3}px`);
+  };
+  if (!CSS.supports('width', '1cqw')) {
+    sizeGallery();
+    if ('ResizeObserver' in window) new ResizeObserver(sizeGallery).observe(gallery);
+    else window.addEventListener('resize', sizeGallery);
   }
+
+  const tracks = [...gallery.querySelectorAll('.gallery-track')];
+  const cards = shuffleGalleryItems([...gallery.querySelectorAll('.gallery-card:not([aria-hidden="true"])')]);
+  if (!tracks.length || !cards.length) return;
+  const split = Math.ceil(cards.length / 2);
+  tracks.forEach((track, index) => {
+    const rowCards = index === 0 ? cards.slice(0, split) : cards.slice(split);
+    const duplicates = rowCards.map(card => {
+      const copy = card.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      copy.querySelector('a').tabIndex = -1;
+      copy.querySelector('img').alt = '';
+      return copy;
+    });
+    track.replaceChildren(...rowCards, ...duplicates);
+  });
+  // Retain readable captions if a photo fails; no loading wait blocks the initial gallery.
+  gallery.querySelectorAll('img').forEach(image => {
+    image.decode().catch(() => image.closest('.gallery-card').classList.add('gallery-card--unavailable'));
+  });
 }
 
 renderRandomClubs();

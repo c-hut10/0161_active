@@ -1,0 +1,23 @@
+/index.html / 301!
+/index / 301!
+
+# Compatibility for the former Running sport paths.
+/html/running/* /html/run-club/:splat 301!
+/img/running/* /img/run-club/:splat 301!
+# Retired pages: preserve existing links with redirects to their current destinations.
+/html/about.html / 301!
+/html/resources.html /html/sports/directory.html 301!
+/html/sports/running.html /html/sports/run-club.html 301!
+/img/social/html-sports-running.jpg /img/social/html-sports-run-club.jpg 301!
+/img/social/html-running-MileShyClub.jpg /img/social/html-run-club-MileShyClub.jpg 301!
+/img/social/html-running-belle-vue-racers-running.jpg /img/social/html-run-club-belle-vue-racers-running.jpg 301!
+/img/social/html-running-JustARunClub.jpg /img/social/html-run-club-JustARunClub.jpg 301!
+/img/social/html-running-TinyMoves.jpg /img/social/html-run-club-TinyMoves.jpg 301!
+/img/social/html-running-NotARunningClub.jpg /img/social/html-run-club-NotARunningClub.jpg 301!
+/img/social/html-running-AncoatRunClub.jpg /img/social/html-run-club-AncoatRunClub.jpg 301!
+/img/social/html-running-ManchesterFrontrunners.jpg /img/social/html-run-club-ManchesterFrontrunners.jpg 301!
+/img/social/html-running-RedactedRunClub.jpg /img/social/html-run-club-RedactedRunClub.jpg 301!
+/img/social/html-running-SnappyRunners.jpg /img/social/html-run-club-SnappyRunners.jpg 301!
+/img/social/html-running-chorlton-runners-running.jpg /img/social/html-run-club-chorlton-runners-running.jpg 301!
+/img/social/html-running-royton-road-runners.jpg /img/social/html-run-club-royton-road-runners.jpg 301!
+/img/social/html-running-DidsburyRunners.jpg /img/social/html-run-club-DidsburyRunners.jpg 301!

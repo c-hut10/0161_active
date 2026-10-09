@@ -1,3 +1,9 @@
+import { sportSlug, displaySportName, canonicalArea, sportGlossaryUrl } from './club-formatting.mjs';
+import { visibleSportRecords } from './sport-catalog.mjs';
+import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
+import { renderSportClubRows } from './sport-glossary-renderer.mjs';
+import { beginControlLoading } from './control-loading.mjs';
+import { clubTrainingAreas } from './club-areas.mjs';
 /* Sport glossary: filter clubs from the same JSON records used by profiles and calendar. */
 const clubList = document.querySelector('#club-list');
 const clubCount = document.querySelector('#club-count');
@@ -6,55 +12,21 @@ const dayFilter = document.querySelector('#day-filter');
 const clubSearch = document.querySelector('#club-search');
 const directoryMessage = document.querySelector('#directory-message');
 
-const dayNames = ['', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 let sportClubs = [];
 let sportName = 'Run Club';
 let sportIsVisible = true;
-
-/* Escaping: render shared club data as text so submitted names cannot become markup. */
-function escapeHtml(value = '') {
-  return String(value).replace(/[&<>"']/g, character => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  })[character]);
-}
-
-function sportSlug(value) {
-  return String(value).normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-    .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-/* Display names: keep the running route while showing the site's Run Club label. */
-function displaySportName(name) {
-  return sportSlug(name) === 'running' ? 'Run Club' : name;
-}
 
 function sportCollectionLabel(name) {
   return name === 'Run Club' ? 'run clubs' : `${name.toLocaleLowerCase()} clubs`;
 }
 
-/* Area labels: fold directional Didsbury variants into one stable filter and display label. */
-function canonicalArea(area) {
-  const value = String(area || '').trim();
-  return /didsbury/i.test(value) ? 'Didsbury' : value;
-}
-
 function clubAreas(club) {
-  return [...new Set([club.area, ...(club.sessions || []).map(session => session.area)]
-    .map(canonicalArea)
-    .filter(Boolean))];
-}
-
-function sessionTime(session) {
-  if (!session.startTime) return 'Time TBC';
-  return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
+  return clubTrainingAreas(club);
 }
 
 function populateAreas() {
   const areas = [...new Set(sportClubs.flatMap(clubAreas))].sort((a, b) => a.localeCompare(b));
+  areaFilter.replaceChildren(new Option('All areas', 'all'));
   areas.forEach(area => areaFilter.add(new Option(area, area)));
 }
 
@@ -70,30 +42,17 @@ function matchingClubs() {
     if (selectedArea !== 'all' || selectedDay !== 'all') {
       const matchingSession = sessions.some(session => {
         const matchesArea = selectedArea === 'all'
-          || canonicalArea(session.area || club.area) === selectedArea;
+          || canonicalArea(session.area) === selectedArea;
         const matchesDay = selectedDay === 'all' || Number(session.dayOfWeek) === Number(selectedDay);
         return matchesArea && matchesDay;
       });
       const matchesClubAreaWithoutSession = selectedDay === 'all'
         && selectedArea !== 'all'
-        && canonicalArea(club.area) === selectedArea;
+        && clubAreas(club).includes(selectedArea);
       if (!matchingSession && !matchesClubAreaWithoutSession) return false;
     }
     return true;
   }).sort((a, b) => a.name.localeCompare(b.name));
-}
-
-function visibleSessions(club) {
-  const selectedArea = areaFilter.value;
-  return (club.sessions || []).filter(session => {
-    const area = canonicalArea(session.area || club.area);
-    return selectedArea === 'all' || area === selectedArea;
-  });
-}
-
-function profileHref(club) {
-  const path = typeof club.profilePath === 'string' ? club.profilePath : '';
-  return path.startsWith('html/') ? `../${path.slice('html/'.length)}` : '#';
 }
 
 function renderDirectory() {
@@ -112,44 +71,21 @@ function renderDirectory() {
   }
 
   directoryMessage.hidden = true;
-  clubList.innerHTML = filteredClubs.map(club => {
-    const sessions = visibleSessions(club);
-    /* Compact busy schedules: replace four or more listed entries with one summary label. */
-    const schedule = (Array.isArray(club.sessions) ? club.sessions.length : 0) > 3
-      ? '<span class="sport-club-row__day">3+ weekly sessions</span>'
-      : sessions.length
-        ? sessions.map(session => {
-          const dayNumber = Number(session.dayOfWeek);
-          const day = session.day || dayNames[dayNumber] || 'Day to confirm';
-          return `<span class="sport-club-row__day">${escapeHtml(day)} · ${escapeHtml(sessionTime(session))}</span>`;
-        }).join('')
-        : '<span class="sport-club-row__day">Training schedule to confirm</span>';
-    const area = canonicalArea(club.area || club.location || 'Manchester');
-
-    return `<li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3>${escapeHtml(club.name)}</h3>
-        </div>
-        <p class="sport-club-row__sessions">${schedule}</p>
-        <p class="sport-club-row__area">${escapeHtml(area)}</p>
-        <a class="sport-club-link" href="${escapeHtml(profileHref(club))}" aria-label="Open ${escapeHtml(club.name)} profile">↗</a>
-      </article>
-    </li>`;
-  }).join('');
+  clubList.innerHTML = renderSportClubRows(filteredClubs, areaFilter.value);
 }
 
 /* Data startup: choose a sport by URL and build its area/day filtered numbered club list. */
 async function loadGlossary() {
+  const finishLoading = beginControlLoading([clubSearch, areaFilter, dayFilter], directoryMessage);
   try {
-    const requestedSlug = new URLSearchParams(window.location.search).get('sport') || 'running';
-    const [sportsResponse, clubsResponse] = await Promise.all([
-      fetch('../../data/sports.json'),
-      fetch('../../data/clubs.json')
-    ]);
-    if (!sportsResponse.ok || !clubsResponse.ok) throw new Error('The club directory could not be loaded. Please try again later.');
-    const [sportsData, clubsData] = await Promise.all([sportsResponse.json(), clubsResponse.json()]);
+    const params = new URLSearchParams(window.location.search);
+    const requestedSlug = document.body.dataset.sport || sportSlug(params.get('sport') || 'run-club');
+    // Older query-based links retain their area filter when opening the generated sport page.
+    if (!document.body.dataset.sport) {
+      window.location.replace(sportGlossaryUrl(requestedSlug, params.get('area'), '/html/sports/glossary.html'));
+      return;
+    }
+    const [sportsData, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
     const sports = Array.isArray(sportsData.sports) ? sportsData.sports : [];
     const canonicalSportName = sports.find(name => sportSlug(name) === requestedSlug)
       || requestedSlug.split('-').filter(Boolean).map(word => word[0].toUpperCase() + word.slice(1)).join(' ')
@@ -159,27 +95,68 @@ async function loadGlossary() {
     document.querySelector('#club-list').setAttribute('aria-label', `${sportName} listings in Manchester`);
     document.querySelector('.sport-club-directory').setAttribute('aria-label', `${sportName} listings`);
     document.querySelector('.sport-glossary-filters').setAttribute('aria-label', `Filter ${sportName} listings`);
-    document.title = `${sportName} | 0161 Active`;
-    const clubs = Array.isArray(clubsData.clubs) ? clubsData.clubs : [];
-    const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug);
-    const visibleWhenEmpty = new Set((Array.isArray(sportsData.visibleWhenEmpty) ? sportsData.visibleWhenEmpty : []).map(sportSlug));
-    const hiddenSports = new Set((Array.isArray(sportsData.hiddenSports) ? sportsData.hiddenSports : []).map(sportSlug));
+    const clubs = clubsData.clubs;
+    const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug
+      && club.hiddenFromSportList !== true);
     /* Direct glossary URLs follow the same availability rules as the menus and directory. */
-    sportIsVisible = !hiddenSports.has(requestedSlug)
-      && (matchingClubs.length > 0 || visibleWhenEmpty.has(requestedSlug));
+    sportIsVisible = visibleSportRecords(sportsData, clubs).some(sport => sport.slug === requestedSlug);
     sportClubs = sportIsVisible ? matchingClubs : [];
     populateAreas();
     const requestedArea = canonicalArea(new URLSearchParams(window.location.search).get('area') || '');
     const matchingArea = [...areaFilter.options].find(option => option.value.toLocaleLowerCase() === requestedArea.toLocaleLowerCase());
     if (matchingArea) areaFilter.value = matchingArea.value;
+    finishLoading();
     renderDirectory();
   } catch (error) {
-    clubCount.textContent = 'CLUB DIRECTORY UNAVAILABLE';
+    finishLoading(false);
+    // Preserve the generated club list rather than replacing it with a loading error.
     directoryMessage.hidden = false;
-    directoryMessage.textContent = error.message || 'The club directory could not be loaded.';
+    directoryMessage.textContent = 'Filters are unavailable. You can still browse the clubs below.';
   }
 }
 
 [areaFilter, dayFilter].forEach(filter => filter.addEventListener('change', renderDirectory));
 clubSearch.addEventListener('input', renderDirectory);
+
+/* League expansion: animate layout height so the content below follows the roster smoothly. */
+document.querySelectorAll('.league-card__teams').forEach(details => {
+  const summary = details.querySelector('summary');
+  const roster = details.querySelector('.sport-club-list');
+  let expanded = details.open;
+  let animation = null;
+
+  summary.addEventListener('click', event => {
+    event.preventDefault();
+    const currentHeight = details.getBoundingClientRect().height;
+    expanded = !expanded;
+    animation?.cancel();
+    animation = null;
+    roster.inert = !expanded;
+
+    // Native details remains the fallback; reduced motion changes state immediately.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      details.open = expanded;
+      details.classList.remove('is-animating');
+      return;
+    }
+
+    // Keep closing content rendered until its container finishes shrinking.
+    details.open = true;
+    const targetHeight = expanded
+      ? details.getBoundingClientRect().height
+      : summary.getBoundingClientRect().height;
+    details.classList.add('is-animating');
+    const nextAnimation = details.animate(
+      [{ height: `${currentHeight}px` }, { height: `${targetHeight}px` }],
+      { duration: 500, easing: 'cubic-bezier(.4, 0, .2, 1)' }
+    );
+    animation = nextAnimation;
+    nextAnimation.onfinish = () => {
+      if (animation !== nextAnimation) return;
+      details.open = expanded;
+      details.classList.remove('is-animating');
+      animation = null;
+    };
+  });
+});
 loadGlossary();
