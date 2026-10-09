@@ -24,6 +24,10 @@
 .league-back-link { display:inline-flex; align-items:center; min-height:44px; margin-bottom:16px; color:var(--glossary-paper); font-size:14px; text-decoration:none; }
 .league-back-link:hover { color:var(--glossary-lime); }
 .league-back-link:focus-visible { outline:2px solid var(--glossary-lime); outline-offset:4px; }
+/* League organiser: a quiet grey link directly below the page title. */
+.league-website { margin:14px 0 0; font-size:14px; }
+.league-website a { display:inline-flex; align-items:center; min-height:44px; color:var(--glossary-grey); text-underline-offset:3px; }
+.league-website a:focus-visible { outline:2px solid var(--glossary-lime); outline-offset:4px; }
 .league-card h3 { margin:0; color:var(--glossary-paper); font-size:22px; line-height:1.15; text-transform:uppercase; overflow-wrap:anywhere; }
 .league-card h3 a { display:inline-block; padding:8px 0; color:inherit; text-decoration:none; }
 .league-card h3 a:hover { color:var(--glossary-lime); }

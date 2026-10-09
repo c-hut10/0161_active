@@ -146,6 +146,8 @@ for (const [relative, league] of leaguePages) {
     pageUrl: escape(new URL(relative, `${base}/`).href), leagueName: escape(league.name),
     sportGlossaryUrl: escape(`/html/sports/${sportSlugValue}.html`), sportName: escape(sportName),
     coverageLabel: escape(`${LEAGUE_COVERAGES[league.coverage].replace(/\s+league$/i, '')} League`.toUpperCase()),
+    /* Optional organiser link: omit it entirely when the league has no supplied URL. */
+    leagueWebsite: league.leagueUrl ? `<p class="league-website"><a href="${escape(league.leagueUrl)}" target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab">(External League Website)</a></p>` : '',
     teamRows: renderLeagueTeamRows(league), footer
   };
   writeGeneratedFile(path.join(root, relative), leagueTemplate.replace(/\{\{(\w+)\}\}/g, (_, key) => {

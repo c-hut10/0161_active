@@ -22,7 +22,9 @@ export function normaliseLeagues(value) {
     if (!name || !teamName || !Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) return;
     const key = JSON.stringify([name.toLocaleLowerCase('en-GB'), league.coverage, teamName.toLocaleLowerCase('en-GB')]);
     if (!unique.has(key)) {
-      const entry = { teamName, name, coverage: league.coverage };
+      const entry = { teamName, name, leagueUrl: null, coverage: league.coverage };
+      // Organiser links are independent of the team's own online profile.
+      try { if (['https:', 'http:'].includes(new URL(league.leagueUrl).protocol)) entry.leagueUrl = league.leagueUrl; } catch {}
       // Team-specific source links preserve different teams' supplied online pages.
       try { if (['https:', 'http:'].includes(new URL(league.url).protocol)) entry.url = league.url; } catch {}
       unique.set(key, entry);
@@ -58,7 +60,14 @@ export function leagueRecords(clubs, sport) {
     discoverableLeagues(club).forEach(league => {
       const key = league.name.toLocaleLowerCase('en-GB');
       if (!records.has(key)) records.set(key, { name: league.name, coverage: league.coverage,
-        url: leaguePageUrl(sport, league.name), clubs: new Map(), teams: new Map() });
+        url: leaguePageUrl(sport, league.name), leagueUrl: null, clubs: new Map(), teams: new Map() });
+      const record = records.get(key);
+      if (league.leagueUrl) {
+        if (record.leagueUrl && new URL(record.leagueUrl).href !== new URL(league.leagueUrl).href) {
+          throw new Error(`Conflicting organiser URLs for league: ${league.name}`);
+        }
+        record.leagueUrl = league.leagueUrl;
+      }
       records.get(key).clubs.set(club.id, club);
       records.get(key).teams.set(JSON.stringify([club.id, league.teamName.toLocaleLowerCase('en-GB')]), { teamName: league.teamName, url: league.url || club.onlineProfile?.url, club });
     });
