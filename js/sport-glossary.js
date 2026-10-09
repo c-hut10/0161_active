@@ -117,4 +117,46 @@ async function loadGlossary() {
 
 [areaFilter, dayFilter].forEach(filter => filter.addEventListener('change', renderDirectory));
 clubSearch.addEventListener('input', renderDirectory);
+
+/* League expansion: animate layout height so the content below follows the roster smoothly. */
+document.querySelectorAll('.league-card__teams').forEach(details => {
+  const summary = details.querySelector('summary');
+  const roster = details.querySelector('.sport-club-list');
+  let expanded = details.open;
+  let animation = null;
+
+  summary.addEventListener('click', event => {
+    event.preventDefault();
+    const currentHeight = details.getBoundingClientRect().height;
+    expanded = !expanded;
+    animation?.cancel();
+    animation = null;
+    roster.inert = !expanded;
+
+    // Native details remains the fallback; reduced motion changes state immediately.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      details.open = expanded;
+      details.classList.remove('is-animating');
+      return;
+    }
+
+    // Keep closing content rendered until its container finishes shrinking.
+    details.open = true;
+    const targetHeight = expanded
+      ? details.getBoundingClientRect().height
+      : summary.getBoundingClientRect().height;
+    details.classList.add('is-animating');
+    const nextAnimation = details.animate(
+      [{ height: `${currentHeight}px` }, { height: `${targetHeight}px` }],
+      { duration: 500, easing: 'cubic-bezier(.4, 0, .2, 1)' }
+    );
+    animation = nextAnimation;
+    nextAnimation.onfinish = () => {
+      if (animation !== nextAnimation) return;
+      details.open = expanded;
+      details.classList.remove('is-animating');
+      animation = null;
+    };
+  });
+});
 loadGlossary();

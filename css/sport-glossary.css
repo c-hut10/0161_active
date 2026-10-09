@@ -17,7 +17,7 @@
 /* Local leagues: responsive text cards sit above the club filters and listings. */
 .local-leagues { margin:28px 0; }
 .local-leagues > h2 { margin:0 0 16px; color:var(--glossary-paper); font-size:22px; text-transform:uppercase; }
-.local-leagues__grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap:14px; }
+.local-leagues__grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 240px), 1fr)); align-items:start; gap:14px; }
 .league-card { display:block; box-sizing:border-box; min-width:0; padding:22px; border:1px solid var(--glossary-line); color:var(--glossary-paper); background:var(--glossary-panel); text-decoration:none; }
 .league-card__eyebrow { margin:0 0 12px; color:var(--glossary-lime); font-size:10px; font-weight:700; letter-spacing:.16em; }
 /* League back link: place sport navigation above the coverage eyebrow. */
@@ -31,10 +31,9 @@
 .league-card__count { margin:16px 0 0; color:var(--glossary-grey); font-size:13px; }
 /* Expand league rosters without requiring individual league pages. */
 .league-card__teams { margin-top:18px; font-size:14px; line-height:1.5; }
+/* Clip the roster only during expansion; normal layout keeps link focus outlines visible. */
+.league-card__teams.is-animating { overflow:hidden; }
 .league-card__teams summary { cursor:pointer; color:var(--glossary-lime); padding:8px 0; }
-.league-card__teams ol { padding-left:22px; }
-.league-card__teams li { margin:12px 0; overflow-wrap:anywhere; }
-.league-card__teams a { color:var(--glossary-paper); text-decoration:underline; }
 .league-card__teams a:focus-visible, .league-card__teams summary:focus-visible { outline:2px solid var(--glossary-lime); outline-offset:4px; }
 
 /* Intro: place the sport name and its short explanation on the same left-aligned frame as calendar. */
@@ -113,6 +112,17 @@
 /* League rows label the parent club separately from its allocated team name. */
 .league-team-club { flex-direction:column; align-items:center; color:var(--glossary-paper); overflow-wrap:anywhere; }
 .league-team-club > span { color:var(--glossary-grey); font-size:10px; letter-spacing:.13em; }
+/* Compact card rosters show just team names within the glossary's bordered bars. */
+.league-card__teams .sport-club-list { margin-top:12px; }
+.league-card__teams .league-team-name-bar { padding:8px 0; border-bottom:1px solid var(--glossary-line); color:var(--glossary-paper); font-size:16px; font-weight:700; line-height:1.2; text-transform:uppercase; overflow-wrap:anywhere; }
+.league-card__teams .sport-club-name { display:flex; align-items:center; width:100%; text-decoration:none; }
+/* Opening a native details control slides each bar into place in roster order. */
+.league-card__teams[open] .sport-club-list > li { animation:league-team-enter .45s ease-out both; animation-delay:calc(var(--team-order, 0) * 70ms); }
+.league-card__teams[open] .sport-club-list > li:focus-within { animation:none; }
+@keyframes league-team-enter {
+  from { opacity:0; transform:translateY(-14px); }
+  to { opacity:1; transform:translateY(0); }
+}
 .sport-club-row__day { white-space: nowrap; }
 .sport-club-row__area { margin: 0; color: var(--glossary-grey); font-size: 14px; text-align: right; }
 .sport-club-link { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; color: var(--glossary-lime); font-size: 22px; text-decoration: none; transition: color .2s ease, transform .2s ease; }
@@ -136,4 +146,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sport-club-link { transition: none; }
+  .league-card__teams[open] .sport-club-list > li { animation:none; }
 }

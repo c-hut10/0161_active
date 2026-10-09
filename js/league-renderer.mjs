@@ -16,12 +16,14 @@ function leagueTeamLinkAttributes(team) {
 }
 
 /* League pages identify both team and parent club without inventing team-specific schedules. */
-export function renderLeagueTeamRows(league) {
-  return [...league.teams].sort((a, b) => a.teamName.localeCompare(b.teamName)).map(team => {
+export function renderLeagueTeamRows(league, { animated = false, namesOnly = false } = {}) {
+  return [...league.teams].sort((a, b) => a.teamName.localeCompare(b.teamName)).map((team, index) => {
     const href = leagueTeamUrl(team);
     const linkAttributes = leagueTeamLinkAttributes(team);
     const title = escapeHtml(team.teamName);
-    return `<li><article class="sport-club-row league-team-row">
+    // Compact glossary bars contain only a clickable team name.
+    if (namesOnly) return `<li${animated ? ` style="--team-order:${index}"` : ''}><div class="league-team-name-bar">${href ? `<a class="sport-club-name" href="${escapeHtml(href)}"${linkAttributes}>${title}</a>` : `<span>${title}</span>`}</div></li>`;
+    return `<li${animated ? ` style="--team-order:${index}"` : ''}><article class="sport-club-row league-team-row">
       <span class="sport-club-row__number" aria-hidden="true"></span>
       <div class="sport-club-row__details"><h3>${href ? `<a class="sport-club-name" href="${escapeHtml(href)}"${linkAttributes}>${title}</a>` : title}</h3></div>
       <p class="sport-club-row__sessions league-team-club"><span>CLUB</span>${escapeHtml(team.club.name)}</p>
@@ -39,13 +41,9 @@ export function renderLocalLeagues(clubs, sport, availableUrls = new Set(), leag
     const content = `<p class="league-card__eyebrow">${escapeHtml(LEAGUE_COVERAGES[league.coverage].toUpperCase())}</p>
       <h3>${availableUrls.has(league.url) ? `<a href="${escapeHtml(league.url)}">${escapeHtml(league.name)}</a>` : escapeHtml(league.name)}</h3>
       <p class="league-card__count">${league.clubs.length} ${league.clubs.length === 1 ? 'club' : 'clubs'} · ${league.teams.length} ${league.teams.length === 1 ? 'team' : 'teams'}</p>`;
-    // External participants have no local profile; local teams share their parent club page.
-    const teams = [...league.teams].sort((a, b) => a.teamName.localeCompare(b.teamName)).map(team => {
-      const safeUrl = leagueTeamUrl(team);
-      const label = escapeHtml(team.teamName);
-      return `<li>${safeUrl ? `<a href="${escapeHtml(safeUrl)}"${leagueTeamLinkAttributes(team)}>${label}</a>` : label}</li>`;
-    }).join('');
-    return `<article class="league-card" data-league-url="${escapeHtml(league.url)}">${content}<details class="league-card__teams"><summary>View teams</summary><ol>${teams}</ol></details></article>`;
+    // The same numbered team bars serve league pages and animated glossary rosters.
+    const teams = renderLeagueTeamRows(league, { animated: true, namesOnly: true });
+    return `<article class="league-card" data-league-url="${escapeHtml(league.url)}">${content}<details class="league-card__teams"><summary>View teams</summary><ol class="sport-club-list" aria-label="Teams in ${escapeHtml(league.name)}">${teams}</ol></details></article>`;
   }).join('');
   return `<section class="local-leagues" aria-labelledby="local-leagues-title">
     <h2 id="local-leagues-title">Local leagues</h2>

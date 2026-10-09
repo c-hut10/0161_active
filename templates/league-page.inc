@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="stylesheet" href="/css/0161_Page.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
-  <link rel="stylesheet" href="/css/sport-glossary.css?v=20261009-league-pages">
+  <link rel="stylesheet" href="/css/sport-glossary.css?v=20261010-league-animation">
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <link rel="stylesheet" href="/css/accessibility.css">

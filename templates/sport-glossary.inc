@@ -7,9 +7,9 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
-  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261009-league-pages">
+  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261010-smooth-leagues">
   <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
-  <script type="module" src="../../js/sport-glossary.js?v=20261009-basketball-venues"></script>
+  <script type="module" src="../../js/sport-glossary.js?v=20261010-smooth-leagues"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
