@@ -37,7 +37,7 @@
   <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
   <!-- Structured data -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/ultimate-frisbee.html#page","url":"https://0161active.co.uk/html/sports/ultimate-frisbee.html","name":"Ultimate Frisbee | 0161 Active","description":"Explore Ultimate Frisbee clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/ultimate-frisbee.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/ultimate-frisbee.html#list","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"name":"DUFFA","url":"https://0161active.co.uk/html/ultimate-frisbee/duffa.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/ultimate-frisbee.html#page","url":"https://0161active.co.uk/html/sports/ultimate-frisbee.html","name":"Ultimate Frisbee | 0161 Active","description":"Explore Ultimate Frisbee clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/ultimate-frisbee.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/ultimate-frisbee.html#list","numberOfItems":3,"itemListElement":[{"@type":"ListItem","position":1,"name":"Black Sheep Ultimate","url":"https://0161active.co.uk/html/ultimate-frisbee/black-sheep-ultimate.html"},{"@type":"ListItem","position":2,"name":"Duffa Ultimate (Didsbury Ultimate Frisbee For Amateurs)","url":"https://0161active.co.uk/html/ultimate-frisbee/duffa.html"},{"@type":"ListItem","position":3,"name":"Manchester Ultimate","url":"https://0161active.co.uk/html/ultimate-frisbee/manchester-ultimate.html"}]}]}</script>
   <!-- /Structured data -->
 </head>
 <body class="sport-glossary-body" data-sport="ultimate-frisbee">
@@ -87,14 +87,19 @@
     </header>
 
     <!-- League overview precedes the filters; counts use the full sport list. -->
-
+    <section class="local-leagues" aria-labelledby="local-leagues-title">
+    <h2 id="local-leagues-title">Local leagues</h2>
+    <div class="local-leagues__grid"><article class="league-card" data-league-url="/html/leagues/ultimate-frisbee/manchester-autumn-league.html"><p class="league-card__eyebrow">REGIONAL</p>
+      <h3><a href="/html/leagues/ultimate-frisbee/manchester-autumn-league.html">Manchester Autumn League</a></h3>
+      <p class="league-card__count">2 clubs · 7 teams</p><details class="league-card__teams"><summary>View teams</summary><ol class="sport-club-list" aria-label="Teams in Manchester Autumn League"><li style="--team-order:0"><div class="league-team-name-bar"><a class="sport-club-name" href="/html/ultimate-frisbee/black-sheep-ultimate.html">Black Sheep</a></div></li><li style="--team-order:1"><div class="league-team-name-bar"><span>Didsbury Freaks</span></div></li><li style="--team-order:2"><div class="league-team-name-bar"><span>KSFB</span></div></li><li style="--team-order:3"><div class="league-team-name-bar"><span>Last of the Summer Wines</span></div></li><li style="--team-order:4"><div class="league-team-name-bar"><span>Mamak</span></div></li><li style="--team-order:5"><div class="league-team-name-bar"><a class="sport-club-name" href="/html/ultimate-frisbee/manchester-ultimate.html">Manchester Ultimate</a></div></li><li style="--team-order:6"><div class="league-team-name-bar"><span>Slipped Discs</span></div></li></ol></details></article></div>
+  </section>
 
     <section class="sport-glossary-filters" aria-label="Filter clubs">
       <label>SEARCH CLUBS
         <input id="club-search" type="search" placeholder="Club name" autocomplete="off">
       </label>
       <label>AREA
-        <select id="area-filter"><option value="all">All areas</option></select>
+        <select id="area-filter"><option value="all">All areas</option><option value="Chorlton">Chorlton</option><option value="Fallowfield">Fallowfield</option><option value="Moss Side">Moss Side</option></select>
       </label>
       <label>DAY
         <select id="day-filter">
@@ -113,17 +118,37 @@
     <noscript><p class="sport-glossary-message">You can browse every club below. Enable JavaScript to use the filters.</p></noscript>
     <!-- Club rows are generated at build time, then updated by browser filters. -->
     <section class="sport-club-directory" aria-label="Club results">
-      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">01 CLUBS SHOWN</p></div>
+      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">03 CLUBS SHOWN</p></div>
       <p class="sport-glossary-message" id="directory-message" role="status" hidden></p>
       <ol class="sport-club-list" id="club-list" aria-label="Ultimate Frisbee clubs"><li>
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/ultimate-frisbee/duffa.html">DUFFA</a></h3>
+          <h3><a class="sport-club-name" href="/html/ultimate-frisbee/black-sheep-ultimate.html">Black Sheep Ultimate</a></h3>
         </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
-        <a class="sport-club-link" href="/html/ultimate-frisbee/duffa.html" aria-label="Open DUFFA profile">↗</a>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Saturday · 10:00–12:30</span><span class="sport-club-row__day">Thursday · 20:00–22:00</span></p>
+        <p class="sport-club-row__area">Moss Side · Fallowfield</p>
+        <a class="sport-club-link" href="/html/ultimate-frisbee/black-sheep-ultimate.html" aria-label="Open Black Sheep Ultimate profile">↗</a>
+      </article>
+    </li><li>
+      <article class="sport-club-row">
+        <span class="sport-club-row__number" aria-hidden="true"></span>
+        <div class="sport-club-row__details">
+          <h3><a class="sport-club-name" href="/html/ultimate-frisbee/duffa.html">Duffa Ultimate (Didsbury Ultimate Frisbee For Amateurs)</a></h3>
+        </div>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 19:00–21:00</span><span class="sport-club-row__day">Sunday · 15:00–17:00</span></p>
+        <p class="sport-club-row__area">Chorlton · Fallowfield</p>
+        <a class="sport-club-link" href="/html/ultimate-frisbee/duffa.html" aria-label="Open Duffa Ultimate (Didsbury Ultimate Frisbee For Amateurs) profile">↗</a>
+      </article>
+    </li><li>
+      <article class="sport-club-row">
+        <span class="sport-club-row__number" aria-hidden="true"></span>
+        <div class="sport-club-row__details">
+          <h3><a class="sport-club-name" href="/html/ultimate-frisbee/manchester-ultimate.html">Manchester Ultimate</a></h3>
+        </div>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 20:00–22:00</span><span class="sport-club-row__day">Saturday · 10:00–12:00</span></p>
+        <p class="sport-club-row__area">Moss Side · Fallowfield</p>
+        <a class="sport-club-link" href="/html/ultimate-frisbee/manchester-ultimate.html" aria-label="Open Manchester Ultimate profile">↗</a>
       </article>
     </li></ol>
     </section>

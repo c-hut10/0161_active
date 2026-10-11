@@ -4,8 +4,8 @@ import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory } from './site-data.mjs';
 import { beginControlLoading } from './control-loading.mjs';
 import { downloadClubCalendar } from './club-calendar.mjs';
-import { sessionTitle, sessionAddress, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
-import { priceLabel, sportName as displaySportName, matchesClubFilters } from './club-directory-filters.js';
+import { sessionTitle, sessionAddress, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
+import { priceLabel, sportName as displaySportName, matchesClubFilters, matchesSessionPrice } from './club-directory-filters.js';
 
 /* Calendar data: read the shared JSON directory used to build both weekly and daily views. */
 const sportFilter = document.querySelector('#filter-sport');
@@ -89,7 +89,8 @@ function getVisibleClubs() {
 /* Prepared sessions: apply the area filter once and group each club's sessions by weekday. */
 function prepareCalendarEntries() {
   return getVisibleClubs().map(club => {
-    const sessions = (club.sessions || []).filter(session => areaMatches(club, session));
+    const sessions = (club.sessions || []).filter(session => areaMatches(club, session)
+      && matchesSessionPrice(club, session, priceFilter.value));
     const sessionsByDay = new Map();
     sessions.forEach(session => {
       const day = Number(session.dayOfWeek);
@@ -97,7 +98,7 @@ function prepareCalendarEntries() {
       sessionsByDay.get(day).push(session);
     });
     return { club, sessions, sessionsByDay };
-  });
+  }).filter(entry => entry.sessions.length || !(entry.club.sessions || []).length);
 }
 
 function setView(viewName) {
@@ -147,7 +148,7 @@ function renderSelectedDays(events, sportLabel, days, clubCount) {
       <div class="agenda-time"><span class="agenda-day">${escapeHtml(day.name)}</span><time>${escapeHtml(formatTime(session))}</time><span class="agenda-sport">${escapeHtml(sportLabel)}</span></div>
       <a class="agenda-club" href="${escapeHtml(`/${club.profilePath}`)}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
       <div class="agenda-details"><strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}${eligibilityMarkup(session)}<span>${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}</span>${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}${frequencyToggle(session)}</div>
-      <span class="agenda-price">${escapeHtml(priceLabel(club))}</span>
+      <span class="agenda-price">${escapeHtml(priceLabel(club, session))}${sessionTerms(club, session, { includePrice: false }).map(term => `<br><span>${escapeHtml(term)}</span>`).join('')}</span>
     </article>`;
   }).join('');
   const emptyMessage = days.length > 1

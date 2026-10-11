@@ -68,7 +68,8 @@ export function leagueRecords(clubs, sport) {
         }
         record.leagueUrl = league.leagueUrl;
       }
-      records.get(key).clubs.set(club.id, club);
+      // Unassigned league teams have no known parent club and must not inflate club counts.
+      if (club.teamOnly !== true) records.get(key).clubs.set(club.id, club);
       records.get(key).teams.set(JSON.stringify([club.id, league.teamName.toLocaleLowerCase('en-GB')]), { teamName: league.teamName, url: league.url || club.onlineProfile?.url, club });
     });
   });

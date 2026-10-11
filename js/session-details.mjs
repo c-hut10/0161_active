@@ -1,5 +1,25 @@
 import { formatPrice, formatPostcodes, escapeHtml } from './club-formatting.mjs';
 
+/* Session costs: optional overrides inherit the club price when no session price is supplied. */
+export function sessionPricingClub(club, session) {
+  return session?.price ? { ...club, price: session.price } : club;
+}
+
+/* Profile cost summary: show distinct session prices rather than implying every session costs the same. */
+export function clubSessionPriceLabel(club, options = {}) {
+  if (!(club.sessions || []).some(session => session.price)) return formatPrice(club, options);
+  return [...new Set(club.sessions.map(session => formatPrice(sessionPricingClub(club, session), options)))].join(' · ');
+}
+
+/* Explicit session terms appear in every timetable and calendar download. */
+export function sessionTerms(club, session, { includePrice = true } = {}) {
+  return [
+    includePrice && session.price ? `Cost: ${formatPrice(sessionPricingClub(club, session), { compact: true })}` : '',
+    session.bookingRequired === true ? 'Please contact the club for booking information'
+      : session.bookingRequired === false ? 'Booking not required' : ''
+  ].filter(Boolean);
+}
+
 /* Session names: use the supplied name or the shared Training/experience fallback. */
 export function sessionTitle(club, session) {
   if (session.title?.trim()) return session.title.trim();

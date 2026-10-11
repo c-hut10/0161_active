@@ -78,17 +78,12 @@
 .profile-training-summary__heading a { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; color: var(--profile-lime); font-size: 14px; text-decoration: none; }
 .profile-training-summary__heading a:hover,
 .profile-training-summary__heading a:focus-visible { color: var(--profile-paper); text-decoration: underline; text-underline-offset: 4px; }
-.profile-training-summary__body--booking { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .4fr); align-items: start; gap: 20px; }
 .profile-training-summary__sessions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
 .profile-training-summary__session { min-width: 0; padding: 10px 12px; border-left: 2px solid var(--profile-lime); background: var(--profile-panel); }
 .profile-training-summary__session strong { display: block; margin-bottom: 4px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
 .profile-training-summary__session time { color: var(--profile-paper); font-size: 14px; font-weight: 700; }
 .profile-training-summary__session span { display: block; margin-top: 5px; color: var(--profile-grey); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
-.profile-training-summary__booking { padding-left: 16px; border-left: 1px solid var(--profile-line); }
-.profile-training-summary__booking h3 { margin: 0 0 6px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
-.profile-training-summary__booking p,
 .profile-training-summary__empty { margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
-.profile-training-summary__booking p + p { margin-top: 6px; color: var(--profile-grey); }
 
 /* Overview: pair a compact club photo with the editable facts and introduction. */
 .profile-overview {
@@ -141,6 +136,11 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* Detail links: retain the text colour while making league and booking destinations recognisable. */
+.profile-league-link, .profile-booking-link { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.profile-league-link:hover, .profile-booking-link:hover { color:var(--profile-lime); }
+.profile-league-link:focus-visible, .profile-booking-link:focus-visible { outline:2px solid var(--profile-lime); outline-offset:3px; }
 
 /* Club introduction: span the full profile width between the overview and weekly calendar. */
 .profile-about { width: 100%; padding: 26px 0 30px; border-bottom: 1px solid var(--profile-line); }
@@ -197,8 +197,6 @@
   .profile-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .profile-photo { min-height: 360px; }
   .profile-detail-row { grid-template-columns: minmax(82px, .4fr) minmax(0, 1fr); gap: 10px; }
-  .profile-training-summary__body--booking { grid-template-columns: 1fr; }
-  .profile-training-summary__booking { padding-left: 0; border-left: 0; }
 }
 
 @media (max-width: 560px) {

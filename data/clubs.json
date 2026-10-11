@@ -1813,7 +1813,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Holyrood Memorial Hall, Moorside Road",
+          "postcode": "M27 0HJ"
+        }
+      ]
     },
     {
       "id": "eccles-archery-club",
@@ -1865,7 +1871,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "216 Peel Green Road",
+          "postcode": "M30 7DR"
+        }
+      ]
     },
     {
       "id": "mcr-titans-mens",
@@ -2140,7 +2152,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Mottram Road, Stalybridge",
+          "postcode": "SK15 2QS"
+        }
+      ]
     },
     {
       "id": "wigan-orrell-archers",
@@ -2230,7 +2248,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Leverhulme Park athletics track, Bolton",
+          "postcode": "BL2 6EB"
+        }
+      ]
     },
     {
       "id": "bury-athletic-club",
@@ -2321,7 +2345,7 @@
       },
       "sessions": [],
       "pricingNotes": null,
-      "bookingNotes": "Contact before taster; older juniors attend Tue sdays by prior arrangement",
+      "bookingNotes": "Contact before taster",
       "tasterNotes": "Three tasters offered",
       "verification": {
         "status": "unverified",
@@ -2350,7 +2374,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Kingsway Sport Area, Turfhill Road, Rochdale",
+          "postcode": "OL16 4XA"
+        }
+      ]
     },
     {
       "id": "wigan-harriers",
@@ -2712,7 +2742,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Car park opposite Arden Arms, Millgate, Stockport",
+          "postcode": "SK1 2LX"
+        }
+      ]
     },
     {
       "id": "stockport-community-cycling-club",
@@ -3135,7 +3171,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Close Park, Radcliffe",
+          "postcode": "M26 2QS"
+        }
+      ]
     },
     {
       "id": "radcliffe-juniors-fc",
@@ -3397,7 +3439,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Hollyhedge Park Community Stadium, Altrincham Road, Wythenshawe",
+          "postcode": "M22 4US"
+        }
+      ]
     },
     {
       "id": "didsbury-northern-hockey-club",
@@ -3486,7 +3534,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Newman RC College, Broadway, Chadderton",
+          "postcode": "OL9 9QY"
+        }
+      ]
     },
     {
       "id": "south-manchester-hockey-club",
@@ -3756,7 +3810,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "South Downs Road, Bowdon, Altrincham",
+          "postcode": "WA14 3DT"
+        }
+      ]
     },
     {
       "id": "bowdon-club-squash",
@@ -3802,7 +3862,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "South Downs Road, Bowdon, Altrincham",
+          "postcode": "WA14 3DT"
+        }
+      ]
     },
     {
       "id": "belle-vue-racers-running",
@@ -3979,7 +4045,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Cheetham Hill Sports Club, Catherine Road, Manchester",
+          "postcode": "M8 4HF"
+        }
+      ]
     },
     {
       "id": "manchester-tennis-racquet-club",
@@ -4026,7 +4098,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "33 Blackfriars Road, Salford",
+          "postcode": "M3 7AQ"
+        }
+      ]
     },
     {
       "id": "south-manchester-squash-racketball-club",
@@ -4196,7 +4274,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Victoria Road, Bolton",
+          "postcode": "BL1 5AN"
+        }
+      ]
     },
     {
       "id": "markland-hill-racquets-club-table-tennis",
@@ -4243,7 +4327,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Victoria Road, Bolton",
+          "postcode": "BL1 5AN"
+        }
+      ]
     },
     {
       "id": "affinity-table-tennis-club",
@@ -4342,7 +4432,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Lawrence Road, Flixton, Urmston",
+          "postcode": "M41 8UU"
+        }
+      ]
     },
     {
       "id": "marple-sports-club-table-tennis",
@@ -4498,7 +4594,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Longford Park, next to Firswood Community Centre, 72 Great Stone Road, Stretford",
+          "postcode": "M32 8QS"
+        }
+      ]
     },
     {
       "id": "manchester-village-spartans-touch",
@@ -4545,30 +4647,69 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Sale Sports Club, Dane Road / Clarendon Crescent, Sale",
+          "postcode": "M33 2DE"
+        }
+      ]
     },
     {
       "id": "duffa",
-      "name": "DUFFA",
-      "sport": "ultimate frisbee",
-      "description": "Mixed beginner-friendly social Ultimate Fri sbee",
+      "name": "Duffa Ultimate (Didsbury Ultimate Frisbee For Amateurs)",
+      "sport": "ultimate-frisbee",
+      "description": "Manchester's pick-up, social-Ultimate club",
       "imagePath": null,
       "profilePath": "html/ultimate-frisbee/duffa.html",
       "coordinates": null,
       "price": {
-        "type": "unknown",
-        "amount": null,
+        "type": "per_session",
+        "amount": 5,
         "currency": "GBP"
       },
-      "tasterSessionCount": null,
+      "tasterSessionCount": 1,
       "bookingRequired": false,
       "contact": "info@duffa.org",
       "onlineProfile": {
-        "url": "https://www.duffa.org/"
+        "url": "https://www.duffa.org/try-ultimate-frisbee"
       },
-      "sessions": [],
+      "sessions": [
+        {
+          "title": "Indoor Training",
+          "dayOfWeek": 2,
+          "startTime": "19:00",
+          "endTime": "21:00",
+          "meetingPoint": "Chorlton High School, Nell Ln, Chorlton-cum-Hardy",
+          "postcode": "M21 7SL",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null,
+          "bookingRequired": false,
+          "price": {
+            "type": "per_session",
+            "amount": 5,
+            "currency": "GBP"
+          }
+        },
+        {
+          "title": "Outdoor Training",
+          "dayOfWeek": 7,
+          "startTime": "15:00",
+          "endTime": "17:00",
+          "meetingPoint": "139 Fog Ln, Parkville Rd, Park",
+          "postcode": "M20 4UP",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null,
+          "bookingRequired": false,
+          "price": {
+            "type": "free",
+            "amount": 0,
+            "currency": "GBP"
+          }
+        }
+      ],
       "pricingNotes": null,
-      "bookingNotes": "Not required for outdoor sessions; beginners welcome",
+      "bookingNotes": null,
       "tasterNotes": null,
       "verification": {
         "status": "unverified",
@@ -4603,7 +4744,10 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": false,
+      "genderSpecific": true,
+      "genderEligibility": "Men · Women",
+      "trainingVenues": []
     },
     {
       "id": "bolton-bulls",
@@ -4647,7 +4791,13 @@
       ],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Smithills Sports Centre, Smithills Dean Road, Bolton",
+          "postcode": "BL1 6JS"
+        }
+      ]
     },
     {
       "id": "manchester-revolution",
@@ -6031,6 +6181,148 @@
           "postcode": "M14 6PL"
         }
       ]
+    },
+    {
+      "id": "manchester-ultimate",
+      "name": "Manchester Ultimate",
+      "sport": "ultimate-frisbee",
+      "description": "Aiming to be an elite top competitive open team building the Manchester frisbee scene",
+      "imagePath": null,
+      "profilePath": "html/ultimate-frisbee/manchester-ultimate.html",
+      "coordinates": null,
+      "price": {
+        "type": "per_session",
+        "amount": 5,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": 1,
+      "bookingRequired": true,
+      "contact": "manchesterultimate0@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/manchesterultimate/"
+      },
+      "sessions": [
+        {
+          "title": "Autumn League",
+          "dayOfWeek": 4,
+          "startTime": "20:00",
+          "endTime": "22:00",
+          "meetingPoint": "Manchester Academy School",
+          "postcode": "M14 4PX",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null,
+          "bookingRequired": true,
+          "price": {
+            "type": "per_session",
+            "amount": 5,
+            "currency": "GBP"
+          }
+        },
+        {
+          "title": "Outdoor Training",
+          "dayOfWeek": 6,
+          "startTime": "10:00",
+          "endTime": "12:00",
+          "meetingPoint": "Hough End Playing Fields, 480 Princess Road",
+          "postcode": "M20 1HP",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null,
+          "bookingRequired": false,
+          "price": {
+            "type": "free",
+            "amount": 0,
+            "currency": "GBP"
+          }
+        }
+      ],
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "additionalInformation": null,
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "sources": [],
+      "genderSpecific": true,
+      "genderEligibility": "Men",
+      "trainingVenues": [],
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Ultimate",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        }
+      ]
+    },
+    {
+      "id": "black-sheep-ultimate",
+      "name": "Black Sheep Ultimate",
+      "sport": "ultimate-frisbee",
+      "description": "Our training sessions are open to players of any skill level who want to train, improve and play at a competitive level - or simply just have fun. All our events and activities can be found on our Facebook page, or you can email us with any further questions",
+      "imagePath": null,
+      "profilePath": "html/ultimate-frisbee/black-sheep-ultimate.html",
+      "coordinates": null,
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": 1,
+      "bookingRequired": true,
+      "contact": "blacksheepultimate@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/blkshpultimate/"
+      },
+      "sessions": [
+        {
+          "title": "Skills and Scrimmage",
+          "dayOfWeek": 6,
+          "startTime": "10:00",
+          "endTime": "12:30",
+          "meetingPoint": "139 Fog Ln, Parkville Rd, Park",
+          "postcode": "M20 4UP",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null,
+          "bookingRequired": false
+        },
+        {
+          "title": "Autumn League",
+          "dayOfWeek": 4,
+          "startTime": "20:00",
+          "endTime": "22:00",
+          "meetingPoint": "Manchester Academy School",
+          "postcode": "M14 4PX",
+          "eligibility": "All Abilities",
+          "specialConsiderations": null,
+          "bookingRequired": true
+        }
+      ],
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "additionalInformation": null,
+      "verification": {
+        "status": "unverified",
+        "lastConfirmed": null
+      },
+      "sources": [],
+      "genderSpecific": true,
+      "genderEligibility": "Men · Women",
+      "trainingVenues": [],
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Black Sheep",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        }
+      ]
     }
   ],
   "leagueGuests": [
@@ -6078,6 +6370,86 @@
           "leagueUrl": "https://mabl.co.uk",
           "coverage": "regional",
           "url": "https://www.nwwarriors.co.uk/?fbclid=IwY2xjawU2K_JleHRuA2FlbQIxMABwZG9mBWJyaWQRMERwU1N0MWxMbTZ6eE1sbk5zcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEetRKCR1DdX8ZgSHrKPhUmm-1MIbxzhvGoXJKK5W6tVdFq1KM2xryOxq4dkTk_aem_9lnEEVGI-2H7uWs_pJ9f_Q"
+        }
+      ]
+    },
+    {
+      "id": "manchester-autumn-league-ksfb",
+      "name": "KSFB",
+      "sport": "ultimate-frisbee",
+      "teamOnly": true,
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "KSFB",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        }
+      ]
+    },
+    {
+      "id": "manchester-autumn-league-last-of-the-summer-wines",
+      "name": "Last of the Summer Wines",
+      "sport": "ultimate-frisbee",
+      "teamOnly": true,
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Last of the Summer Wines",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        }
+      ]
+    },
+    {
+      "id": "manchester-autumn-league-slipped-discs",
+      "name": "Slipped Discs",
+      "sport": "ultimate-frisbee",
+      "teamOnly": true,
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Slipped Discs",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        }
+      ]
+    },
+    {
+      "id": "manchester-autumn-league-didsbury-freaks",
+      "name": "Didsbury Freaks",
+      "sport": "ultimate-frisbee",
+      "teamOnly": true,
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Didsbury Freaks",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        }
+      ]
+    },
+    {
+      "id": "manchester-autumn-league-mamak",
+      "name": "Mamak",
+      "sport": "ultimate-frisbee",
+      "teamOnly": true,
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Mamak",
+          "name": "Manchester Autumn League",
+          "leagueUrl": null,
+          "coverage": "regional"
         }
       ]
     }

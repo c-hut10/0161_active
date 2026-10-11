@@ -4,6 +4,7 @@ import { clubTrainingAreas } from './club-areas.mjs';
 
 /* Team links: local teams open their club profile; guests use their supplied website. */
 export function leagueTeamUrl(team) {
+  if (team.club.teamOnly === true) return '';
   const href = team.club.profilePath ? `/${team.club.profilePath}` : team.url;
   if (!href) return '';
   try { return ['http:', 'https:'].includes(new URL(href, 'https://0161active.co.uk').protocol) ? href : ''; }
@@ -26,7 +27,7 @@ export function renderLeagueTeamRows(league, { animated = false, namesOnly = fal
     return `<li${animated ? ` style="--team-order:${index}"` : ''}><article class="sport-club-row league-team-row">
       <span class="sport-club-row__number" aria-hidden="true"></span>
       <div class="sport-club-row__details"><h3>${href ? `<a class="sport-club-name" href="${escapeHtml(href)}"${linkAttributes}>${title}</a>` : title}</h3></div>
-      <p class="sport-club-row__sessions league-team-club"><span>CLUB</span>${escapeHtml(team.club.name)}</p>
+      ${team.club.teamOnly === true ? '' : `<p class="sport-club-row__sessions league-team-club"><span>CLUB</span>${escapeHtml(team.club.name)}</p>`}
       <p class="sport-club-row__area">${escapeHtml(clubTrainingAreas(team.club).join(' · '))}</p>
       ${href ? `<a class="sport-club-link" href="${escapeHtml(href)}"${linkAttributes} aria-label="Visit ${escapeHtml(team.club.name)}">↗</a>` : ''}
     </article></li>`;
