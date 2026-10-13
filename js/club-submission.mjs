@@ -3,7 +3,7 @@ import { sessionTitle } from './session-details.mjs';
 import { normaliseLeagues, leagueAnswers } from './club-leagues.mjs';
 
 /* Questionnaire contract: CSV headings mirror JSON paths, with one session per row. */
-export const CLUB_ANSWER_FIELDS = ['name', 'sport', 'genderSpecific', 'genderEligibility', 'participatesInLeague', 'participatingLeagues.teamName', 'participatingLeagues.name', 'participatingLeagues.coverage', 'description', 'contact', 'onlineProfile.url',
+export const CLUB_ANSWER_FIELDS = ['name', 'sport', 'beginnerFriendly', 'genderSpecific', 'genderEligibility', 'participatesInLeague', 'participatingLeagues.teamName', 'participatingLeagues.name', 'participatingLeagues.coverage', 'description', 'contact', 'onlineProfile.url',
   'price.type', 'price.amount', 'membership.period', 'membership.amount', 'membership.sessionAmount',
   'tasterSessionCount', 'bookingRequired', 'additionalInformation'];
 export const SESSION_ANSWER_FIELDS = ['title', 'dayOfWeek', 'startTime', 'endTime',
@@ -30,6 +30,8 @@ export function clubAnswers(values, sessions) {
   const url = optional(values['onlineProfile.url']);
   return {
     name: text(values.name), sport: sportSlug(values.sport), description: optional(values.description),
+    // Club-wide beginner welcome is independent of individual session experience levels.
+    beginnerFriendly: values.beginnerFriendly === 'yes' ? true : values.beginnerFriendly === 'no' ? false : null,
     // Unknown stays unknown; free text is stored only for a gender-specific club.
     genderSpecific: values.genderSpecific === 'yes' ? true : values.genderSpecific === 'no' ? false : null,
     genderEligibility: values.genderSpecific === 'yes' ? optional(values.genderEligibility) : null,

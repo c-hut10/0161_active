@@ -11,7 +11,20 @@ export const WEEK_DAYS = [
 export const DAY_NAMES = ['', ...WEEK_DAYS.map(day => day.name)];
 export const DAY_NUMBERS = Object.fromEntries(WEEK_DAYS.map(day => [day.short.toLowerCase(), day.number]));
 
+/* Directory maintenance: keep the flat JSON list grouped by sport, then alphabetised by club name. */
+export function compareClubsBySportAndName(left, right) {
+  const compare = (a, b) => String(a || '').localeCompare(String(b || ''), 'en-GB', { sensitivity: 'base' });
+  return compare(displaySportName(left.sport), displaySportName(right.sport))
+    || compare(left.name, right.name)
+    || compare(left.id, right.id);
+}
+
 /* Gender display: shorten Men/Women combinations without changing the stored answer. */
+/* Beginner friendliness is a club-wide answer; missing information never implies Yes or No. */
+export function beginnerFriendlyLabel(club) {
+  return club.beginnerFriendly === true ? 'Yes' : club.beginnerFriendly === false ? 'No' : '';
+}
+
 export function genderEligibilityLabel(club) {
   if (club.genderSpecific === false) return 'All genders';
   if (club.genderSpecific !== true) return '';

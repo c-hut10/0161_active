@@ -99,6 +99,8 @@
           <div class="field-grid">
             <label class="field field-wide"><span class="field-title">Club name <span class="required">*</span></span><input name="name" required maxlength="70" placeholder="e.g. Northern Striders" autocomplete="organization"></label>
             <label class="field"><span class="field-title">Sport or activity <span class="required">*</span></span><input name="sport" required maxlength="50" placeholder="e.g. Rugby Union"></label>
+            <!-- Beginner welcome: collect an explicit club-wide answer without changing session levels. -->
+            <label class="field field-wide"><span class="field-title">Is your club beginner friendly? <span class="required">*</span></span><select name="beginnerFriendly" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <!-- Gender eligibility: Yes reveals a blank box for the club's own wording. -->
             <label class="field field-wide"><span class="field-title">Is your team/club gender-specific? <span class="required">*</span></span><select name="genderSpecific" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide" id="gender-eligibility-field" hidden><span class="field-title">Who is it for? <span class="required">*</span></span><input name="genderEligibility" maxlength="150" disabled></label>
@@ -221,6 +223,7 @@
               <dl class="preview-details">
                 <div><dt>SPORT</dt><dd id="preview-sport">Your sport</dd></div>
                 <div id="preview-gender-row" hidden><dt>GENDER ELIGIBILITY</dt><dd id="preview-gender"></dd></div>
+                <div id="preview-beginner-row" hidden><dt>BEGINNER FRIENDLY</dt><dd id="preview-beginner"></dd></div>
                 <div id="preview-leagues-row" hidden><dt>LEAGUE</dt><dd id="preview-leagues"></dd></div>
                 <div><dt>AREA</dt><dd id="preview-area">Your area</dd></div>
                 <div><dt>COST</dt><dd id="preview-cost">Unknown</dd></div>
@@ -286,6 +289,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script type="module" src="../js/register.js?v=20261009-league-names"></script>
+  <script type="module" src="../js/register.js?v=20261012-beginner-friendly"></script>
 </body>
 </html>

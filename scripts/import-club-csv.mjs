@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CSV_COLUMNS, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, MEMBERSHIP_PERIODS, clubAnswers } from '../js/club-submission.mjs';
-import { sportSlug, WEEK_DAYS } from '../js/club-formatting.mjs';
+import { sportSlug, WEEK_DAYS, compareClubsBySportAndName } from '../js/club-formatting.mjs';
 import { areaFromPostcode } from '../js/club-areas.mjs';
 import { verificationDate } from '../js/club-verification.mjs';
 import { leagueAnswers, LEAGUE_COVERAGES } from '../js/club-leagues.mjs';
@@ -82,6 +82,7 @@ const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
 const updates = [];
 for (const [id, group] of groups) {
   const answers = clubAnswers(group.values, group.rows.map(row => row.session));
+  if (!['', 'yes', 'no'].includes(group.values.beginnerFriendly)) errors.push(`${id}: beginnerFriendly must be yes, no or blank when unknown.`);
   /* Preserve the club's wording and reject contradictory gender eligibility answers. */
   const genderSpecific = group.values.genderSpecific || '';
   const genderEligibility = group.values.genderEligibility || '';
@@ -168,7 +169,8 @@ if (args.includes('--write')) {
     const index = data.clubs.findIndex(club => club.id === update.id);
     if (index < 0) data.clubs.push(update); else data.clubs[index] = update;
   }
-  // One final write after every record has passed import validation.
+  // Keep new and updated clubs in sport/name order before the one final validated write.
+  data.clubs.sort(compareClubsBySportAndName);
   const temporary = `${dataFile}.tmp`;
   fs.writeFileSync(temporary, JSON.stringify(data, null, 2) + '\n');
   fs.renameSync(temporary, dataFile);

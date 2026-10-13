@@ -1,4 +1,4 @@
-import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlineProfileAction, genderEligibilityLabel, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
+import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { areaFromPostcode, clubTrainingAreas } from './club-areas.mjs';
 import { PAID_PRICE_TYPES, clubAnswers, sessionAnswers, submissionCsv } from './club-submission.mjs';
 import { leagueNamesLabel } from './club-leagues.mjs';
@@ -252,6 +252,9 @@ import { leagueNamesLabel } from './club-leagues.mjs';
     put('#preview-sport', displaySportName(data.sport), 'Your sport');
     document.querySelector('#preview-gender-row').hidden = previewClub.genderSpecific === null;
     put('#preview-gender', genderEligibilityLabel(previewClub), '');
+    const beginnerLabel = beginnerFriendlyLabel(previewClub);
+    document.querySelector('#preview-beginner-row').hidden = !beginnerLabel;
+    put('#preview-beginner', beginnerLabel, '');
     const leagues = previewClub.participatingLeagues;
     document.querySelector('#preview-leagues-row').hidden = !leagues.length;
     put('#preview-leagues', leagueNamesLabel(leagues), '');

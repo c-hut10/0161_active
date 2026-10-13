@@ -6,7 +6,7 @@
   <meta name="description" content="Plan your active week with the Greater Manchester club calendar. Browse sports sessions by day and filter by sport and area.">
   <title>Club calendar | 0161 Active</title>
   <link rel="stylesheet" href="../css/0161_Page.css?v=20261009-breakpoints">
-  <link rel="stylesheet" href="../css/calendar.css?v=20261009-breakpoints">
+  <link rel="stylesheet" href="../css/calendar.css?v=20261012-session-links">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
   <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
@@ -89,16 +89,20 @@
     <!-- Filters apply to both views and remain selected while switching between week and day. -->
     <section class="calendar-filters" aria-label="Filter club sessions">
       <label>SPORT
-        <select id="filter-sport" name="sport"><option value="all">All sports</option></select>
+        <select id="filter-sport" name="sport" aria-describedby="calendar-multi-filter-help"><option value="">All sports</option><option value="all">All sports (clear selections)</option></select>
       </label>
       <label>PRICE
         <select id="filter-price" name="price"><option value="all">Any price</option></select>
       </label>
       <label>AREA
-        <select id="filter-area" name="area"><option value="all">All Manchester</option></select>
+        <select id="filter-area" name="area" aria-describedby="calendar-multi-filter-help"><option value="">All areas</option><option value="all">All areas (clear selections)</option></select>
       </label>
       <p class="calendar-result-count" id="result-count" aria-live="polite">112 clubs · 120 sessions</p>
     </section>
+
+    <p class="calendar-selection-help calendar-multi-filter-help" id="calendar-multi-filter-help">Choose one or more sports and areas. Select a choice again or use its × label to remove it.</p>
+    <!-- Active filters: each sport, area and day has its own removable label. -->
+    <div class="calendar-active-filters" id="calendar-active-filters" role="group" aria-label="Active calendar filters" hidden></div>
 
     <!-- Day navigation: toggle one or more weekdays; clearing them restores the full week. -->
     <nav class="calendar-day-nav" id="calendar-day-nav" aria-label="Choose calendar view" aria-describedby="calendar-selection-help">
@@ -171,7 +175,7 @@
         </div>
         <span>Athletics · Altrincham</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:00–20:00, Timperley Track, 227-229 Grove Ln, Timperley, Altrincham, WA15 7UF">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/altrincham-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -179,7 +183,7 @@
             <span class="week-session__area">Altrincham</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–20:00, Timperley Track, 227-229 Grove Ln, Timperley, Altrincham, WA15 7UF">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/altrincham-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -200,7 +204,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:30–19:30, Ancoats Marina, Ancoats">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/AncoatRunClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -208,7 +212,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 09:00–10:00, Cutting Room Square, Ancoats">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/AncoatRunClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>09:00–10:00</time></div>
 
@@ -229,7 +233,7 @@
         </div>
         <span>Archery · Moston</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:00–21:00, Tudor Lodge, Victoria Ave E, M40 5SH">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/archery/assheton-bowmen.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–21:00</time></div>
 
@@ -237,7 +241,7 @@
             <span class="week-session__area">Moston</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 08:30–12:30, Tudor Lodge, Victoria Ave E, M40 5SH">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/archery/assheton-bowmen.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>08:30–12:30</time></div>
 
@@ -271,7 +275,7 @@
         </div>
         <span>Athletics · Beswick</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–20:00, Manchester Regional Arena, M11 3FF">
-            <strong class="session-title">Track Session</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/belle-vue-racers.html#profile-week-title">Track Session</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -318,7 +322,7 @@
         </div>
         <span>Ultimate-Frisbee · Moss Side</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 20:00–22:00, Manchester Academy School, M14 4PX">
-            <strong class="session-title">Autumn League</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/ultimate-frisbee/black-sheep-ultimate.html#profile-week-title">Autumn League</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -326,7 +330,7 @@
             <span class="week-session__area">Moss Side</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 10:00–12:30, 139 Fog Ln, Parkville Rd, Park, M20 4UP">
-            <strong class="session-title">Skills and Scrimmage</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/ultimate-frisbee/black-sheep-ultimate.html#profile-week-title">Skills and Scrimmage</a></strong>
 
             <div class="week-session__top"><time>10:00–12:30</time></div>
             <span class="session-audience">All Abilities</span>
@@ -347,7 +351,7 @@
         </div>
         <span>Athletics · Charlestown</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:00–20:45, Boggart Hole Clough Running Track, M9 7DH">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/blackley-north-mcr-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:45</time></div>
 
@@ -355,7 +359,7 @@
             <span class="week-session__area">Charlestown</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–20:45, Boggart Hole Clough Running Track, M9 7DH">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/blackley-north-mcr-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:45</time></div>
 
@@ -467,7 +471,7 @@
         </div>
         <span>Athletics · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:00–20:00, Athletics track, Market Street, Bury">
-            <strong class="session-title">Track Session</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/bury-athletic-club.html#profile-week-title">Track Session</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -475,7 +479,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–20:00, Athletics track, Market Street, Bury">
-            <strong class="session-title">Track Session</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/bury-athletic-club.html#profile-week-title">Track Session</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -587,7 +591,7 @@
         </div>
         <span>Athletics · Chorlton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:00–21:00, Bowling Green Pub, M21 9ES">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/chorlton-runners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
 
@@ -595,7 +599,7 @@
             <span class="week-session__area">Chorlton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><div class="week-session" aria-label="Friday, 18:30–20:00, Longford Park Stadium, M21 9TA">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/chorlton-runners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -603,7 +607,7 @@
             <span class="week-session__area">Chorlton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 9:00–11:00, Bowling Green Pub, M21 9ES">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/chorlton-runners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>9:00–11:00</time></div>
 
@@ -637,7 +641,7 @@
         </div>
         <span>Cycling · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:30, Woodstock, Didsbury (Sat urday social ride)">
-            <strong class="session-title">Club ride</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/chorlton-velo.html#profile-week-title">Club ride</a></strong>
 
             <div class="week-session__top"><time>18:30</time></div>
 
@@ -645,7 +649,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 09:00, Woodstock, Didsbury (Sat urday social ride)">
-            <strong class="session-title">Social ride</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/chorlton-velo.html#profile-week-title">Social ride</a></strong>
 
             <div class="week-session__top"><time>09:00</time></div>
 
@@ -653,7 +657,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 08:15, Woodstock, Didsbury (Sat urday social ride)">
-            <strong class="session-title">Club ride</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/chorlton-velo.html#profile-week-title">Club ride</a></strong>
 
             <div class="week-session__top"><time>08:15</time></div>
 
@@ -685,14 +689,14 @@
             <span class="club-calendar-tooltip" id="calendar-tooltip-didsbury-runners" role="tooltip">DOWNLOAD THIS WEEK’S SCHEDULE<small>(Downloadable .ics file)</small></span>
           </div>
         </div>
-        <span>Run Club · Area to confirm</span>
-      </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:45, Manchester">
-            <strong class="session-title">Social run; arrive 18:30</strong>
+        <span>Run Club · Didsbury</span>
+      </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:45, Didsbury Sports Ground, Ford Lane, M20 2RU">
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/DidsburyRunners.html#profile-week-title">Social run; arrive 18:30</a></strong>
 
             <div class="week-session__top"><time>18:45</time></div>
 
 
-            <span class="week-session__area">Area to confirm</span>
+            <span class="week-session__area">Didsbury</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><span class="week-empty" aria-hidden="true">—</span></div>
     </div><div class="week-row" role="row">
@@ -708,7 +712,7 @@
         </div>
         <span>Ultimate-Frisbee · Chorlton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:00–21:00, Chorlton High School, Nell Ln, Chorlton-cum-Hardy, M21 7SL">
-            <strong class="session-title">Indoor Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/ultimate-frisbee/duffa.html#profile-week-title">Indoor Training</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -716,7 +720,7 @@
             <span class="week-session__area">Chorlton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 15:00–17:00, 139 Fog Ln, Parkville Rd, Park, M20 4UP">
-            <strong class="session-title">Outdoor Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/ultimate-frisbee/duffa.html#profile-week-title">Outdoor Training</a></strong>
 
             <div class="week-session__top"><time>15:00–17:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -776,7 +780,7 @@
         </div>
         <span>Badminton · Old Trafford</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:00–21:00, The Sports Barn, Seymour Park, M16 9PQ">
-            <strong class="session-title">Team Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/badminton/ghap-badminton.html#profile-week-title">Team Training</a></strong>
 
             <div class="week-session__top"><time>18:00–21:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -784,7 +788,7 @@
             <span class="week-session__area">Old Trafford</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 10:00–13:00, Trinity Sports Centre, Cambridge Street, M15 6HP">
-            <strong class="session-title">Team Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/badminton/ghap-badminton.html#profile-week-title">Team Training</a></strong>
 
             <div class="week-session__top"><time>10:00–13:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -831,7 +835,7 @@
         </div>
         <span>Basketball · Bolton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 20:00–22:00, St Josephs RC High School, Chorley New Road, BL6 6HW">
-            <strong class="session-title">Senior Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/horwich-basketball-club.html#profile-week-title">Senior Training</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
 
@@ -852,7 +856,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:30–19:30, Castlefield Basin, Manchester">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/JustARunClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -860,7 +864,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 10:00–11:00, Salford Quays, Salford">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/JustARunClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>10:00–11:00</time></div>
 
@@ -920,7 +924,7 @@
         </div>
         <span>Touch Rugby · Fallowfield</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:00–20:00, Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD">
-            <strong class="session-title">Touch rugby</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/touch-rugby/manchester-foxes.html#profile-week-title">Touch rugby</a></strong>
 
             <div class="week-session__top"><time>18:00–20:00</time></div>
 
@@ -941,7 +945,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:45, Track at Manchester Regional Arena">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/ManchesterFrontrunners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:45</time></div>
 
@@ -949,7 +953,7 @@
             <span class="week-session__area">Area to confirm</span>
             <span class="session-subtitle">There is a <strong class="session-fee">£3.50</strong> charge to use the track.</span>
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00, Manchester Aquatics Centre; arrive 18:50">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/ManchesterFrontrunners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00</time></div>
 
@@ -957,7 +961,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 10:00, Longford Park; arrive 09:50">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/ManchesterFrontrunners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>10:00</time></div>
 
@@ -978,7 +982,7 @@
         </div>
         <span>Athletics · Wythenshawe</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:00–19:00, Wythenshawe Park Athletics Track, Wythenshawe Road, Manchester, M23 0AB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/mcr-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -986,7 +990,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:00–19:00, Wythenshawe Park Athletics Track, Wythenshawe Road, Manchester, M23 0AB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/mcr-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -1007,7 +1011,7 @@
         </div>
         <span>Basketball · Openshaw</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:00–21:00, Manchester College Openshaw Campus, M11 2WH">
-            <strong class="session-title">Senior Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/manchester-hongkongers.html#profile-week-title">Senior Training</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
 
@@ -1015,7 +1019,7 @@
             <span class="week-session__area">Openshaw</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 09:00–11:00, Platt Lane Complex, Yew Tree Rd, Fallowfield, M14 7UU">
-            <strong class="session-title">Free Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/manchester-hongkongers.html#profile-week-title">Free Training</a></strong>
 
             <div class="week-session__top"><time>09:00–11:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -1036,7 +1040,7 @@
         </div>
         <span>Basketball · Chorlton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:00–20:00, CHS South, 451 Mauldeth Road, M21 7SX">
-            <strong class="session-title">Training - Beginner</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/manchester-lynx.html#profile-week-title">Training - Beginner</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
             <span class="session-audience">Beginners</span>
@@ -1044,7 +1048,7 @@
             <span class="week-session__area">Chorlton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><div class="week-session" aria-label="Friday, 19:00–20:00, CHS South, 451 Mauldeth Road, M21 7SX">
-            <strong class="session-title">Training - Advanced</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/manchester-lynx.html#profile-week-title">Training - Advanced</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
             <span class="session-audience">Advanced levels</span>
@@ -1065,7 +1069,7 @@
         </div>
         <span>Wheelchair Basketball · Longsight</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 20:00–22:00, National Basketball Performance Centre, Kirkmanshulme Lane, Manchester, M12 4TF">
-            <strong class="session-title">First team</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/wheelchair-basketball/manchester-revolution.html#profile-week-title">First team</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
 
@@ -1073,7 +1077,7 @@
             <span class="week-session__area">Longsight</span>
 
           </div><div class="week-session" aria-label="Monday, 18:00–20:00, National Basketball Performance Centre, Kirkmanshulme Lane, Manchester, M12 4TF">
-            <strong class="session-title">Second team</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/wheelchair-basketball/manchester-revolution.html#profile-week-title">Second team</a></strong>
 
             <div class="week-session__top"><time>18:00–20:00</time></div>
 
@@ -1081,7 +1085,7 @@
             <span class="week-session__area">Longsight</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 20:00–22:00, National Basketball Performance Centre, Kirkmanshulme Lane, Manchester, M12 4TF">
-            <strong class="session-title">First team</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/wheelchair-basketball/manchester-revolution.html#profile-week-title">First team</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
 
@@ -1089,7 +1093,7 @@
             <span class="week-session__area">Longsight</span>
 
           </div><div class="week-session" aria-label="Thursday, 18:00–20:00, National Basketball Performance Centre, Kirkmanshulme Lane, Manchester, M12 4TF">
-            <strong class="session-title">Development</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/wheelchair-basketball/manchester-revolution.html#profile-week-title">Development</a></strong>
 
             <div class="week-session__top"><time>18:00–20:00</time></div>
 
@@ -1149,7 +1153,7 @@
         </div>
         <span>American Football · Longsight</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 20:00–22:00, Belle Vue Speedway Stadium, Kirkmanshulme Lane, M12 4WB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/american-football/mcr-titans-mens.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
 
@@ -1157,7 +1161,7 @@
             <span class="week-session__area">Longsight</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 10:00–12:00, Belle Vue Speedway Stadium, Kirkmanshulme Lane, M12 4WB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/american-football/mcr-titans-mens.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>10:00–12:00</time></div>
 
@@ -1178,7 +1182,7 @@
         </div>
         <span>American Football · Longsight</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 20:00–22:00, Belle Vue Speedway Stadium, Kirkmanshulme Lane, M12 4WB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/american-football/mcr-titans-womens.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
 
@@ -1186,7 +1190,7 @@
             <span class="week-session__area">Longsight</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 14:00–16:00, Aldwinians RUFC, Droylsden Road, M34 5SN">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/american-football/mcr-titans-womens.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>14:00–16:00</time></div>
 
@@ -1207,7 +1211,7 @@
         </div>
         <span>Ultimate-Frisbee · Moss Side</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 20:00–22:00, Manchester Academy School, M14 4PX">
-            <strong class="session-title">Autumn League</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/ultimate-frisbee/manchester-ultimate.html#profile-week-title">Autumn League</a></strong>
 
             <div class="week-session__top"><time>20:00–22:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -1215,7 +1219,7 @@
             <span class="week-session__area">Moss Side</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 10:00–12:00, Hough End Playing Fields, 480 Princess Road, M20 1HP">
-            <strong class="session-title">Outdoor Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/ultimate-frisbee/manchester-ultimate.html#profile-week-title">Outdoor Training</a></strong>
 
             <div class="week-session__top"><time>10:00–12:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -1249,7 +1253,7 @@
         </div>
         <span>Cycling · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:30, The Gateway pub, Didsbury (Wed nesday ride meeting point)">
-            <strong class="session-title">Social ride; approximately two hours</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/manchester-wheelers.html#profile-week-title">Social ride; approximately two hours</a></strong>
 
             <div class="week-session__top"><time>18:30</time></div>
 
@@ -1296,7 +1300,7 @@
         </div>
         <span>Table Tennis · Marple</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 20:15, Bowden Lane, Marple, Stockport, SK6 6ND">
-            <strong class="session-title">Social table tennis</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/table-tennis/marple-sports-club-table-tennis.html#profile-week-title">Social table tennis</a></strong>
 
             <div class="week-session__top"><time>20:15</time></div>
 
@@ -1330,7 +1334,7 @@
         </div>
         <span>Athletics · City Centre</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:30–20:00, The Y Club, Liverpool Road, M3 4JR">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/mcr-ymca-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -1338,7 +1342,7 @@
             <span class="week-session__area">City Centre</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:30–20:00, Manchester Regional Arena, M11 3FF">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/mcr-ymca-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -1359,7 +1363,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:30–19:30, Alexandra Park, Manchester">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/MileShyClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -1367,7 +1371,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:30–19:30, Manchester Aquatics Centre, Manchester">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/MileShyClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -1414,7 +1418,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:30–19:30, Co-op Food, Burton Road, West Didsbury">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/NotARunningClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -1422,7 +1426,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–20:30, Co-op Food, Burton Road, West Didsbury">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/NotARunningClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:30</time></div>
 
@@ -1443,7 +1447,7 @@
         </div>
         <span>Athletics · Oldham</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:45–20:30, Radclyffe Sports Centre, OL9 0LS">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/oldham-and-royton-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:45–20:30</time></div>
 
@@ -1451,7 +1455,7 @@
             <span class="week-session__area">Oldham</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:45–20:30, Radclyffe Sports Centre, OL9 0LS">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/oldham-and-royton-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:45–20:30</time></div>
 
@@ -1498,7 +1502,7 @@
         </div>
         <span>Athletics · Prestwich</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:00–20:00, Prestwich Tram Stop Bridge, Manchester, M25 1JY">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/prestwich-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -1506,7 +1510,7 @@
             <span class="week-session__area">Prestwich</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:00–20:00, Bury AC Track, BL9 9FX, every other week">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/prestwich-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time><details class="session-frequency"><summary aria-label="Show session details">i</summary><span>Every other week</span></details></div>
 
@@ -1514,7 +1518,7 @@
             <span class="week-session__area">Bury</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:30–19:30, Prestwich Tram Stop Bridge, Manchester, M25 1JY">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/prestwich-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -1535,7 +1539,7 @@
         </div>
         <span>Athletics · Radcliffe</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:00–20:30, Bury Livingwaters Church, M26 2GB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/radcliffe-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:30</time></div>
 
@@ -1543,7 +1547,7 @@
             <span class="week-session__area">Radcliffe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:00–20:00, Bury AC Track, BL9 9FX">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/radcliffe-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -1603,7 +1607,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:30–19:30, Piccadilly Gardens, Manchester">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/RedactedRunClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–19:30</time></div>
 
@@ -1611,7 +1615,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 09:30–10:30, Heaton Park, Manchester">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/RedactedRunClub.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>09:30–10:30</time></div>
 
@@ -1632,7 +1636,7 @@
         </div>
         <span>Health &amp; Wellbeing · Ancoats</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 16:00, Proper Gym">
-            <strong class="session-title">Gym session</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/health-and-wellbeing/rehab-fitness.html#profile-week-title">Gym session</a></strong>
 
             <div class="week-session__top"><time>16:00</time></div>
 
@@ -1640,7 +1644,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 11:30, Lancashire Hill Community Centre">
-            <strong class="session-title">Walking group</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/health-and-wellbeing/rehab-fitness.html#profile-week-title">Walking group</a></strong>
 
             <div class="week-session__top"><time>11:30</time></div>
 
@@ -1648,7 +1652,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div><div class="week-session" aria-label="Wednesday, 16:00, Proper Gym">
-            <strong class="session-title">Gym session</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/health-and-wellbeing/rehab-fitness.html#profile-week-title">Gym session</a></strong>
 
             <div class="week-session__top"><time>16:00</time></div>
 
@@ -1656,7 +1660,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 12:00, Phoenix Mill, 20 Piercy Street, Ancoats, Manchester M4 7HY">
-            <strong class="session-title">Run club</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/health-and-wellbeing/rehab-fitness.html#profile-week-title">Run club</a></strong>
 
             <div class="week-session__top"><time>12:00</time></div>
 
@@ -1664,7 +1668,7 @@
             <span class="week-session__area">Ancoats</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><div class="week-session" aria-label="Friday, 15:00, Phoenix Mill, upstairs room, Ancoats">
-            <strong class="session-title">Yoga</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/health-and-wellbeing/rehab-fitness.html#profile-week-title">Yoga</a></strong>
 
             <div class="week-session__top"><time>15:00</time></div>
 
@@ -1672,7 +1676,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 12:00, Phoenix Mill, 20 Piercy Street, Ancoats, Manchester M4 7HY">
-            <strong class="session-title">Run club</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/health-and-wellbeing/rehab-fitness.html#profile-week-title">Run club</a></strong>
 
             <div class="week-session__top"><time>12:00</time></div>
 
@@ -1745,7 +1749,7 @@
         </div>
         <span>Athletics · Sale</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:30–20:00, Trafford MV RFCC, M33 6LR">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-dragons.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -1753,7 +1757,7 @@
             <span class="week-session__area">Sale</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:15–19:00, 227-229 Grove Ln, Timperley, Altrincham, WA15 7UF">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-dragons.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:15–19:00</time></div>
 
@@ -1761,7 +1765,7 @@
             <span class="week-session__area">Altrincham</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:30–20:00, Trafford MV RFCC, M33 6LR">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-dragons.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -1782,7 +1786,7 @@
         </div>
         <span>Athletics · Sale</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:00–20:00, The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG">
-            <strong class="session-title">Adult Endurance</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Endurance</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -1790,7 +1794,7 @@
             <span class="week-session__area">Sale</span>
 
           </div><div class="week-session" aria-label="Monday, 19:00–20:30, Wythenshawe Park, Manchester, M23 0AB">
-            <strong class="session-title">Adult Advanced Endurance</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Advanced Endurance</a></strong>
 
             <div class="week-session__top"><time>19:00–20:30</time></div>
 
@@ -1798,7 +1802,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:00–20:30, Wythenshawe Park, Manchester, M23 0AB">
-            <strong class="session-title">Adult Advanced Endurance- Road/Grass/Trail</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Advanced Endurance- Road/Grass/Trail</a></strong>
 
             <div class="week-session__top"><time>19:00–20:30</time></div>
 
@@ -1806,7 +1810,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:00–20:00, The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG">
-            <strong class="session-title">Adult Endurance</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Endurance</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -1814,7 +1818,7 @@
             <span class="week-session__area">Sale</span>
 
           </div><div class="week-session" aria-label="Wednesday, 19:00–20:30, Wythenshawe Park, Manchester, M23 0AB">
-            <strong class="session-title">Adult Advanced Endurance</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Advanced Endurance</a></strong>
 
             <div class="week-session__top"><time>19:00–20:30</time></div>
 
@@ -1822,7 +1826,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–20:00, The Clubhouse, Crossford Bridge, Danefield Rd, Sale, M33 7BG">
-            <strong class="session-title">Adult Endurance - Beginner/Improver</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Endurance - Beginner/Improver</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -1830,7 +1834,7 @@
             <span class="week-session__area">Sale</span>
 
           </div><div class="week-session" aria-label="Thursday, 19:00–20:30, Wythenshawe Park, Manchester, M23 0AB">
-            <strong class="session-title">Adult Advanced Endurance - Intervals</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Advanced Endurance - Intervals</a></strong>
 
             <div class="week-session__top"><time>19:00–20:30</time></div>
 
@@ -1838,7 +1842,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 9:30–11:30, Wythenshawe Park, Manchester, M23 0AB">
-            <strong class="session-title">Adult Advanced Endurance</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/sale-harriers.html#profile-week-title">Adult Advanced Endurance</a></strong>
 
             <div class="week-session__top"><time>9:30–11:30</time></div>
 
@@ -1859,7 +1863,7 @@
         </div>
         <span>Basketball · Salford</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><div class="week-session" aria-label="Friday, 19:00–21:00, The Crescent Sports Centre, M5 4WT">
-            <strong class="session-title">Open Scrim</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/salford-basketball-club.html#profile-week-title">Open Scrim</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
             <span class="session-audience">All Abilities</span>
@@ -1880,7 +1884,7 @@
         </div>
         <span>Athletics · Beswick</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:30–20:00, Manchester Regional Arena, M11 3FF">
-            <strong class="session-title">Endurance - Track Session</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/salford-harriers.html#profile-week-title">Endurance - Track Session</a></strong>
 
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -1888,7 +1892,7 @@
             <span class="week-session__area">Beswick</span>
             <span class="session-subtitle">There is a <strong class="session-fee">£3.50</strong> charge to use the track.</span>
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:30–20:00, The Bluebell Pub, M40 9PY">
-            <strong class="session-title">All-Abilities Endurance - Long Run</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/salford-harriers.html#profile-week-title">All-Abilities Endurance - Long Run</a></strong>
             <span class="session-subtitle">7–9 miles</span>
             <div class="week-session__top"><time>18:30–20:00</time></div>
 
@@ -1896,7 +1900,7 @@
             <span class="week-session__area">Moston</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 9:30–11:00, Heaton Park Golf Course Carpark, M25 2SW">
-            <strong class="session-title">Endurance - Grass/Park Paths</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/salford-harriers.html#profile-week-title">Endurance - Grass/Park Paths</a></strong>
 
             <div class="week-session__top"><time>9:30–11:00</time></div>
 
@@ -1917,7 +1921,7 @@
         </div>
         <span>Athletics · Winton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:30–20:30, Cleavley Athletics Track, M30 8HY">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/salford-met-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:30–20:30</time></div>
 
@@ -1925,7 +1929,7 @@
             <span class="week-session__area">Winton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:30–20:30, Cleavley Athletics Track, M30 8HY">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/salford-met-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:30–20:30</time></div>
 
@@ -1933,7 +1937,7 @@
             <span class="week-session__area">Winton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:30–20:30, Cleavley Athletics Track, M30 8HY">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/salford-met-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:30–20:30</time></div>
 
@@ -1967,7 +1971,7 @@
         </div>
         <span>Hockey · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–21:00, CHS South (training)">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/south-manchester-hockey-club.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
 
@@ -1988,7 +1992,7 @@
         </div>
         <span>Squash · Fallowfield</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:15–20:45, Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD">
-            <strong class="session-title">Squash</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/squash/south-manchester-squash-racketball-club.html#profile-week-title">Squash</a></strong>
 
             <div class="week-session__top"><time>19:15–20:45</time></div>
 
@@ -1996,7 +2000,7 @@
             <span class="week-session__area">Fallowfield</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 20:00–21:30, Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD">
-            <strong class="session-title">Racketball</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/squash/south-manchester-squash-racketball-club.html#profile-week-title">Racketball</a></strong>
 
             <div class="week-session__top"><time>20:00–21:30</time></div>
 
@@ -2056,7 +2060,7 @@
         </div>
         <span>Hockey · Bramhall</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:30–21:00, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Mixed</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Mixed</a></strong>
 
             <div class="week-session__top"><time>19:30–21:00</time></div>
 
@@ -2064,7 +2068,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div><div class="week-session" aria-label="Monday, 19:30–21:15, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Men 3</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Men 3</a></strong>
 
             <div class="week-session__top"><time>19:30–21:15</time></div>
 
@@ -2072,7 +2076,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 19:30–21:15, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Men 1 and 2</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Men 1 and 2</a></strong>
 
             <div class="week-session__top"><time>19:30–21:15</time></div>
 
@@ -2080,7 +2084,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div><div class="week-session" aria-label="Tuesday, 18:00–19:00, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Year 6 and below</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Year 6 and below</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -2088,7 +2092,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div><div class="week-session" aria-label="Tuesday, 18:00–19:30, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Year 7 and above</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Year 7 and above</a></strong>
 
             <div class="week-session__top"><time>18:00–19:30</time></div>
 
@@ -2096,7 +2100,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:30–21:15, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Women</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Women</a></strong>
 
             <div class="week-session__top"><time>19:30–21:15</time></div>
 
@@ -2104,7 +2108,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 10:00–11:00, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Year 6 and below</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Year 6 and below</a></strong>
 
             <div class="week-session__top"><time>10:00–11:00</time></div>
 
@@ -2112,7 +2116,7 @@
             <span class="week-session__area">Bramhall</span>
 
           </div><div class="week-session" aria-label="Sunday, 10:30–12:00, Bramhall High School, Seal Road, Bramhall, SK7 2JT">
-            <strong class="session-title">Year 7 and above</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/hockey/stockport-bramhall-hockey-club.html#profile-week-title">Year 7 and above</a></strong>
 
             <div class="week-session__top"><time>10:30–12:00</time></div>
 
@@ -2159,7 +2163,7 @@
         </div>
         <span>Athletics · Stockport</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:50–20:00, Woodbank Stadium, SK1 4JR">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/stockport-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:50–20:00</time></div>
 
@@ -2167,7 +2171,7 @@
             <span class="week-session__area">Stockport</span>
 
           </div><div class="week-session" aria-label="Monday, 19:00–20:00, Woodbank Community Centre, SK1 4BN">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/stockport-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–20:00</time></div>
 
@@ -2175,7 +2179,7 @@
             <span class="week-session__area">Stockport</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:00–19:00, Woodbank Stadium, SK1 4JR">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/stockport-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -2183,7 +2187,7 @@
             <span class="week-session__area">Stockport</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:00–19:00, Woodbank Stadium, SK1 4JR">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/stockport-harriers.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -2204,7 +2208,7 @@
         </div>
         <span>Athletics · Winton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:30–20:30, Cleavley Athletic Track, Blantyre Street, Winton, Eccles, Manchester, M30 8HY">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/swinton-running-club.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:30–20:30</time></div>
 
@@ -2212,7 +2216,7 @@
             <span class="week-session__area">Winton</span>
 
           </div><div class="week-session" aria-label="Monday, 19:30–20:30, Swinton Football Club, Barton Road, Swinton, Manchester, M27 5LJ">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/swinton-running-club.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:30–20:30</time></div>
 
@@ -2220,7 +2224,7 @@
             <span class="week-session__area">Swinton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 19:30–20:30, Swinton Football Club, Barton Road, Swinton, Manchester, M27 5LJ">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/swinton-running-club.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:30–20:30</time></div>
 
@@ -2254,7 +2258,7 @@
         </div>
         <span>Squash · Fallowfield</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:00–21:00, Palatine Road, Didsbury, Manchester, M20 3YA">
-            <strong class="session-title">Social squash</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/squash/the-northern.html#profile-week-title">Social squash</a></strong>
 
             <div class="week-session__top"><time>18:00–21:00</time></div>
 
@@ -2275,7 +2279,7 @@
         </div>
         <span>Run Club · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 18:15, Manchester">
-            <strong class="session-title">Social run</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/run-club/TinyMoves.html#profile-week-title">Social run</a></strong>
 
             <div class="week-session__top"><time>18:15</time></div>
 
@@ -2296,7 +2300,7 @@
         </div>
         <span>Athletics · Chorlton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 19:00–21:00, Longford Park Stadium, M21 9TA">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/trafford-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
 
@@ -2304,7 +2308,7 @@
             <span class="week-session__area">Chorlton</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 19:00–21:00, Longford Park Stadium, M21 9TA">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/trafford-ac.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>19:00–21:00</time></div>
 
@@ -2325,7 +2329,7 @@
         </div>
         <span>Basketball · Chorlton</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><div class="week-session" aria-label="Monday, 20:00–21:30, The Hough End Centre (Police Sports &amp; Social Club)Hough End, M21 7SX">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/basketball/trafford-giants.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>20:00–21:30</time></div>
 
@@ -2372,7 +2376,7 @@
         </div>
         <span>Football · Bury</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 20:00–21:00, The Barracks Playing Fields, Bexley Drive, Bury, BL8 2XD">
-            <strong class="session-title">Ladies, age 16+</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/football/westbury-sports-club.html#profile-week-title">Ladies, age 16+</a></strong>
 
             <div class="week-session__top"><time>20:00–21:00</time></div>
 
@@ -2432,7 +2436,7 @@
         </div>
         <span>Cycling · Area to confirm</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 18:00, Area to confirm">
-            <strong class="session-title">Cycling</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/wigan-wheelers-and-triathlon-club.html#profile-week-title">Cycling</a></strong>
 
             <div class="week-session__top"><time>18:00</time></div>
 
@@ -2440,7 +2444,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 09:00, Area to confirm">
-            <strong class="session-title">Cycling</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/wigan-wheelers-and-triathlon-club.html#profile-week-title">Cycling</a></strong>
 
             <div class="week-session__top"><time>09:00</time></div>
 
@@ -2448,7 +2452,7 @@
             <span class="week-session__area">Area to confirm</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">SUN</span><div class="week-session" aria-label="Sunday, 08:00, Area to confirm">
-            <strong class="session-title">Cycling</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/wigan-wheelers-and-triathlon-club.html#profile-week-title">Cycling</a></strong>
 
             <div class="week-session__top"><time>08:00</time></div>
 
@@ -2469,7 +2473,7 @@
         </div>
         <span>Athletics · Wythenshawe</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 18:00–19:00, Wythenshawe Park Athletics Track, M23 0AB">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/winston-runners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -2477,7 +2481,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><div class="week-session" aria-label="Thursday, 18:00–19:00, The Winston Club, Hall Lane, M23 1AQ">
-            <strong class="session-title">Training</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/athletics/winston-runners.html#profile-week-title">Training</a></strong>
 
             <div class="week-session__top"><time>18:00–19:00</time></div>
 
@@ -2511,7 +2515,7 @@
         </div>
         <span>Cycling · Wythenshawe</span>
       </div><div class="week-cell" role="cell"><span class="week-day-label">MON</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">TUE</span><div class="week-session" aria-label="Tuesday, 09:30–12:00, Wythenshawe cycling track, M23 0AB">
-            <strong class="session-title">Adapted cycling</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/wythenshawe-wheelers-cycling-club.html#profile-week-title">Adapted cycling</a></strong>
 
             <div class="week-session__top"><time>09:30–12:00</time></div>
 
@@ -2519,7 +2523,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">WED</span><div class="week-session" aria-label="Wednesday, 09:30–12:00, Wythenshawe cycling track, M23 0AB">
-            <strong class="session-title">Adapted cycling</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/wythenshawe-wheelers-cycling-club.html#profile-week-title">Adapted cycling</a></strong>
 
             <div class="week-session__top"><time>09:30–12:00</time></div>
 
@@ -2527,7 +2531,7 @@
             <span class="week-session__area">Wythenshawe</span>
 
           </div></div><div class="week-cell" role="cell"><span class="week-day-label">THU</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">FRI</span><span class="week-empty" aria-hidden="true">—</span></div><div class="week-cell" role="cell"><span class="week-day-label">SAT</span><div class="week-session" aria-label="Saturday, 13:00–15:00, Wythenshawe cycling track, M23 0AB">
-            <strong class="session-title">Adapted cycling</strong>
+            <strong class="session-title"><a class="session-title-link" href="/html/cycling/wythenshawe-wheelers-cycling-club.html#profile-week-title">Adapted cycling</a></strong>
 
             <div class="week-session__top"><time>13:00–15:00</time></div>
 
@@ -2575,6 +2579,6 @@
   </div>
 </footer>
   <button type="button" class="calendar-back-to-top" id="calendar-back-to-top" hidden>↑ Back to top</button>
-  <script type="module" src="../js/calendar.js?v=20261011-session-pricing"></script>
+  <script type="module" src="../js/calendar.js?v=20261012-session-links"></script>
 </body>
 </html>

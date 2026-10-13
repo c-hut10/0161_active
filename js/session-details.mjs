@@ -26,6 +26,11 @@ export function sessionTitle(club, session) {
   return ['Training', session.eligibility?.trim()].filter(Boolean).join(' ');
 }
 
+/* Calendar title links: open the matching club's complete weekly timetable. */
+export function sessionProfileUrl(club) {
+  return `/${club.profilePath}#profile-week-title`;
+}
+
 /* Venues: display the separate postcode once alongside its training address. */
 export function sessionAddress(session) {
   const address = formatPostcodes(session.meetingPoint || '');

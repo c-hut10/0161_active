@@ -3,6 +3,41 @@
 /* Homepage gallery frame: two clipped rows show three moving club panels at a time. */
 .gallery-main { background: #171817; }
 .gallery-main .gallery-pause { background: transparent; }
+
+/* Homepage shortcuts: two prominent links above the gallery stack on smaller displays. */
+.home-quick-actions {
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  box-sizing:border-box;
+  width:100%;
+  padding:18px clamp(18px, 5vw, 72px);
+  background:#111211;
+}
+.home-quick-actions__link {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  box-sizing:border-box;
+  min-height:48px;
+  padding:14px 22px;
+  border:1px solid #dffc3a;
+  color:#111211;
+  background:#dffc3a;
+  font:700 14px/1.4 Arial, Helvetica, sans-serif;
+  letter-spacing:.08em;
+  text-decoration:none;
+  text-transform:uppercase;
+}
+.home-quick-actions__link--calendar { color:#dffc3a; background:transparent; }
+.home-quick-actions__link span { flex-shrink:0; }
+.home-quick-actions__link:hover { color:#111211; background:#faecd2; border-color:#faecd2; }
+.home-quick-actions__link:focus-visible { outline:2px solid #faecd2; outline-offset:4px; }
+@media (max-width:760px) {
+  .home-quick-actions { flex-direction:column; }
+  .home-quick-actions__link { width:100%; }
+}
 .grid-container#club-gallery {
   --gallery-card-width: calc(100vw / 3);
   --gallery-image-height: clamp(150px, 25vw, 330px);

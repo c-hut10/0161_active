@@ -44,7 +44,9 @@ export function renderLocalLeagues(clubs, sport, availableUrls = new Set(), leag
       <p class="league-card__count">${league.clubs.length} ${league.clubs.length === 1 ? 'club' : 'clubs'} · ${league.teams.length} ${league.teams.length === 1 ? 'team' : 'teams'}</p>`;
     // The same numbered team bars serve league pages and animated glossary rosters.
     const teams = renderLeagueTeamRows(league, { animated: true, namesOnly: true });
-    return `<article class="league-card" data-league-url="${escapeHtml(league.url)}">${content}<details class="league-card__teams"><summary>View teams</summary><ol class="sport-club-list" aria-label="Teams in ${escapeHtml(league.name)}">${teams}</ol></details></article>`;
+    // Native open state switches the label, including when JavaScript is unavailable.
+    const teamLabel = `${league.teams.length} ${league.teams.length === 1 ? 'team' : 'teams'}`;
+    return `<article class="league-card" data-league-url="${escapeHtml(league.url)}">${content}<details class="league-card__teams"><summary><span class="league-card__show-teams">View ${teamLabel}</span><span class="league-card__hide-teams">Hide teams</span></summary><ol class="sport-club-list" aria-label="Teams in ${escapeHtml(league.name)}">${teams}</ol></details></article>`;
   }).join('');
   return `<section class="local-leagues" aria-labelledby="local-leagues-title">
     <h2 id="local-leagues-title">Local leagues</h2>

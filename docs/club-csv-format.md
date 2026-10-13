@@ -10,6 +10,8 @@ Leave `id` blank for a new club to generate it from its name. For an existing cl
 
 For a club without a known schedule, supply one club row and leave every `sessions.*` column blank. This creates `sessions: []`.
 
+The flat `clubs` array in `data/clubs.json` is sorted by displayed sport name A–Z, then club name A–Z (case-insensitive, with ID as a tie-breaker). CSV imports retain this ordering. There are no comment or heading records; league-only participants remain in the separate `leagueGuests` array.
+
 ## Questionnaire mapping
 
 | CSV heading | Questionnaire answer | JSON value |
@@ -17,6 +19,7 @@ For a club without a known schedule, supply one club row and leave every `sessio
 | `id` | Owner identifier, not a question | `id` |
 | `name` | Club name | `name` |
 | `sport` | Sport or activity | `sport`, normalised sport identifier |
+| `beginnerFriendly` | Is your club beginner friendly? | `yes` → true, `no` → false, blank → `null`; separate from session experience levels |
 | `genderSpecific` | Is your team/club gender-specific? | `yes` → true, `no` → false, unknown blank → `null` |
 | `genderEligibility` | Who is it for? | User's own wording, required for Yes; otherwise blank/null |
 | `participatesInLeague` | Do you participate in a league? | `yes` → true, `no` → false, unknown blank → `null` |
@@ -47,7 +50,9 @@ Currency defaults to GBP. Paid pricing requires an amount and explicit booking y
 
 ## Optional membership alongside session pricing
 
-The CSV now has 28 columns. Older 26-column files need `genderSpecific` and `genderEligibility`; leave both blank for clubs that have not answered. Replace the former `participatingLeagues` column with `participatesInLeague`, `participatingLeagues.teamName`, `participatingLeagues.name` and `participatingLeagues.coverage`. Older 25-column files also need the team name column; older 22-column files need all four league columns. Older 19-column files also need the three membership columns. Leave unknown cells blank and do not invent eligibility, team names, league coverage or memberships.
+The CSV now has 29 columns. Older 28-column files need `beginnerFriendly`; leave it blank for clubs that have not answered. Older 26-column files also need `genderSpecific` and `genderEligibility`; leave both blank for clubs that have not answered. Replace the former `participatingLeagues` column with `participatesInLeague`, `participatingLeagues.teamName`, `participatingLeagues.name` and `participatingLeagues.coverage`. Older 25-column files also need the team name column; older 22-column files need all four league columns. Older 19-column files also need the three membership columns. Leave unknown cells blank and do not invent beginner friendliness, eligibility, team names, league coverage or memberships.
+
+Beginner friendliness is a required Yes/No question in section 01 of the public form. It appears as BEGINNER FRIENDLY: Yes or No in the profile and live preview; the row is hidden while the answer is unknown. Existing clubs use `beginnerFriendly: null` until they supply an answer. Never infer this club-wide answer from session eligibility or a description mentioning beginners.
 
 Gender eligibility is club-wide. Yes reveals an initially empty, required text box accepting the club's own wording (up to 150 characters). No stores `genderSpecific: false` and `genderEligibility: null`, displayed as All genders. Unknown answers remain null and the profile row stays hidden. Profiles and the registration preview show GENDER ELIGIBILITY immediately below SPORT. These fields do not change session experience levels or assign gender eligibility to individual league teams.
 
