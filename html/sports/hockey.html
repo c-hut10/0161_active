@@ -17,6 +17,8 @@
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
   <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
+  <link rel="stylesheet" href="/css/club-favourites.css">
+  <script type="module" src="/js/club-favourites.js"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/hockey.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -51,6 +53,7 @@
           <a class="site-navbar__link" href="/html/sports/directory.html" aria-current="page">SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <a href="/html/your-clubs.html">YOUR CLUBS →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
@@ -72,6 +75,7 @@
       <a class="site-navbar__drawer-link" href="/html/sports/directory.html" aria-current="page">SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/your-clubs.html">YOUR CLUBS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
     </nav>
   </header></div><!-- /Site navigation -->
@@ -120,6 +124,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/hockey/bowdon-club.html">Bowdon Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="bowdon-club" data-club-name="Bowdon Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Altrincham</p>
@@ -130,6 +135,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/hockey/didsbury-northern-hockey-club.html">Didsbury Northern Hockey Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="didsbury-northern-hockey-club" data-club-name="Didsbury Northern Hockey Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -140,6 +146,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/hockey/oldham-hockey-club.html">Oldham Hockey Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="oldham-hockey-club" data-club-name="Oldham Hockey Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Oldham</p>
@@ -150,6 +157,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/hockey/south-manchester-hockey-club.html">South Manchester Hockey Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="south-manchester-hockey-club" data-club-name="South Manchester Hockey Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 19:00–21:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -160,6 +168,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/hockey/stockport-bramhall-hockey-club.html">Stockport Bramhall Hockey Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="stockport-bramhall-hockey-club" data-club-name="Stockport Bramhall Hockey Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">3+ weekly sessions</span></p>
         <p class="sport-club-row__area">Bramhall</p>
@@ -170,6 +179,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/hockey/wigan-hockey-club.html">Wigan Hockey Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="wigan-hockey-club" data-club-name="Wigan Hockey Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -189,6 +199,7 @@
       <a href="/html/contact.html">Contact us</a>
       <a href="/html/register.html">Register your club</a>
       <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/your-clubs.html">Your clubs</a>
       <a href="/html/privacy.html">Privacy policy</a>
       <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>

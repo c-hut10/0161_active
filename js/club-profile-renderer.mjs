@@ -2,7 +2,8 @@ import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembers
 import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
 import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms, clubSessionPriceLabel } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
-import { normaliseLeagues, leaguePageUrl } from './club-leagues.mjs';
+import { favouriteButton } from './club-favourites-renderer.mjs';
+import { normaliseLeagues, leaguePageUrl, leagueProfileLabel } from './club-leagues.mjs';
 
 /* Profile league links: list each league once, using internal pages or national organiser URLs. */
 function renderProfileLeagues(club) {
@@ -13,8 +14,8 @@ function renderProfileLeagues(club) {
   });
   return [...leagues.values()].map(league => {
     const national = league.coverage === 'national';
-    const href = national ? league.leagueUrl : club.sport ? leaguePageUrl(club.sport, league.name) : null;
-    const label = escapeHtml(league.name);
+    const href = league.coverage === 'internal' ? null : national ? league.leagueUrl : club.sport ? leaguePageUrl(club.sport, league.name) : null;
+    const label = escapeHtml(leagueProfileLabel(league));
     return href ? `<a class="profile-league-link" href="${escapeHtml(href)}"${national ? ' target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab"' : ''}>${label}</a>` : label;
   }).join(' · ');
 }
@@ -165,7 +166,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         <h1 id="profile-title">${escapeHtml(club.name)}${clubVerificationBadge(club)}</h1>
         <p class="profile-information-date">${informationDate}</p>
       </div>
-      ${actions ? `<div class="profile-actions" aria-label="Club actions">${actions}</div>` : ''}
+      <div class="profile-actions" aria-label="Club actions">${actions}${favouriteButton(club)}</div>
     </section>
     ${renderTrainingSummary(club)}
     <section class="profile-overview" aria-label="${escapeHtml(club.name)} photo and details">

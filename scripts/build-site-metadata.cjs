@@ -120,7 +120,7 @@ const titles = {
   'html/contact.html': 'Contact us | 0161 Active',
   'html/sports/glossary.html': 'Find sports clubs | 0161 Active'
 };
-const excluded = new Set(['404.html', 'html/privacy.html', 'html/sports/glossary.html']);
+const excluded = new Set(['html/your-clubs.html', '404.html', 'html/privacy.html', 'html/sports/glossary.html']);
 
 /* Sport pages: generate complete listings and metadata using the same rows as browser filters. */
 const glossaryTemplate = fs.readFileSync(path.join(root, 'templates/sport-glossary.inc'), 'utf8');
@@ -272,6 +272,8 @@ for (const file of htmlFiles(root)) {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
   const sharedAssets = [
+    ['href="/css/club-favourites.css"', '<link rel="stylesheet" href="/css/club-favourites.css">'],
+    ['src="/js/club-favourites.js"', '<script type="module" src="/js/club-favourites.js"></script>'],
     ['href="/css/site-footer.css"', '<link rel="stylesheet" href="/css/site-footer.css">'],
     ['href="/css/cookie-settings.css"', '<link rel="stylesheet" href="/css/cookie-settings.css">'],
     ['src="/js/cookie-settings.js"', '<script defer src="/js/cookie-settings.js"></script>'],

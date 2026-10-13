@@ -17,6 +17,8 @@
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
   <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
+  <link rel="stylesheet" href="/css/club-favourites.css">
+  <script type="module" src="/js/club-favourites.js"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/athletics.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -51,6 +53,7 @@
           <a class="site-navbar__link" href="/html/sports/directory.html" aria-current="page">SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <a href="/html/your-clubs.html">YOUR CLUBS →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
@@ -72,6 +75,7 @@
       <a class="site-navbar__drawer-link" href="/html/sports/directory.html" aria-current="page">SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/your-clubs.html">YOUR CLUBS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
     </nav>
   </header></div><!-- /Site navigation -->
@@ -120,6 +124,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/altrincham-ac.html">Altrincham AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="altrincham-ac" data-club-name="Altrincham AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 19:00–20:00</span><span class="sport-club-row__day">Thursday · 19:00–20:00</span></p>
         <p class="sport-club-row__area">Altrincham</p>
@@ -130,6 +135,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/belle-vue-racers.html">Belle Vue Racers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="belle-vue-racers" data-club-name="Belle Vue Racers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 19:00–20:00</span></p>
         <p class="sport-club-row__area">Beswick</p>
@@ -140,6 +146,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/blackley-north-mcr-ac.html">Blackley + North MCR AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="blackley-north-mcr-ac" data-club-name="Blackley + North MCR AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:00–20:45</span><span class="sport-club-row__day">Thursday · 19:00–20:45</span></p>
         <p class="sport-club-row__area">Charlestown</p>
@@ -150,6 +157,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/bolton-united-harriers-athletics-club.html">Bolton United Harriers &amp; Athletics Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="bolton-united-harriers-athletics-club" data-club-name="Bolton United Harriers &amp; Athletics Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Bolton</p>
@@ -160,6 +168,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/bury-athletic-club.html">Bury Athletic Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="bury-athletic-club" data-club-name="Bury Athletic Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 19:00–20:00</span><span class="sport-club-row__day">Thursday · 19:00–20:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -170,6 +179,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/chorlton-runners.html">Chorlton Runners</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="chorlton-runners" data-club-name="Chorlton Runners" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 19:00–21:00</span><span class="sport-club-row__day">Friday · 18:30–20:00</span><span class="sport-club-row__day">Sunday · 9:00–11:00</span></p>
         <p class="sport-club-row__area">Chorlton</p>
@@ -180,6 +190,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/mcr-harriers.html">Manchester Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="mcr-harriers" data-club-name="Manchester Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:00–19:00</span><span class="sport-club-row__day">Thursday · 18:00–19:00</span></p>
         <p class="sport-club-row__area">Wythenshawe</p>
@@ -190,6 +201,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/mcr-ymca-harriers.html">MCR YMCA Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="mcr-ymca-harriers" data-club-name="MCR YMCA Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:30–20:00</span><span class="sport-club-row__day">Thursday · 18:30–20:00</span></p>
         <p class="sport-club-row__area">City Centre · Beswick</p>
@@ -200,6 +212,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/oldham-and-royton-harriers.html">Oldham &amp; Royton Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="oldham-and-royton-harriers" data-club-name="Oldham &amp; Royton Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:45–20:30</span><span class="sport-club-row__day">Thursday · 18:45–20:30</span></p>
         <p class="sport-club-row__area">Oldham</p>
@@ -210,6 +223,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/prestwich-ac.html">Prestwich AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="prestwich-ac" data-club-name="Prestwich AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:00–20:00</span><span class="sport-club-row__day">Thursday · 18:30–19:30</span><span class="sport-club-row__day">Wednesday · 19:00–20:00</span></p>
         <p class="sport-club-row__area">Prestwich · Bury</p>
@@ -220,6 +234,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/radcliffe-ac.html">Radcliffe AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="radcliffe-ac" data-club-name="Radcliffe AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:00–20:30</span><span class="sport-club-row__day">Wednesday · 19:00–20:00</span></p>
         <p class="sport-club-row__area">Radcliffe · Bury</p>
@@ -230,6 +245,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/rochdale-harriers-ac.html">Rochdale Harriers &amp; AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="rochdale-harriers-ac" data-club-name="Rochdale Harriers &amp; AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Rochdale</p>
@@ -240,6 +256,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/sale-dragons.html">Sale Dragons</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="sale-dragons" data-club-name="Sale Dragons" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:15–19:00</span><span class="sport-club-row__day">Tuesday · 18:30–20:00</span><span class="sport-club-row__day">Thursday · 18:30–20:00</span></p>
         <p class="sport-club-row__area">Sale · Altrincham</p>
@@ -250,6 +267,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/sale-harriers.html">Sale Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="sale-harriers" data-club-name="Sale Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">3+ weekly sessions</span></p>
         <p class="sport-club-row__area">Sale · Wythenshawe</p>
@@ -260,6 +278,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/salford-harriers.html">Salford Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="salford-harriers" data-club-name="Salford Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:30–20:00</span><span class="sport-club-row__day">Thursday · 18:30–20:00</span><span class="sport-club-row__day">Saturday · 9:30–11:00</span></p>
         <p class="sport-club-row__area">Beswick · Moston · Prestwich</p>
@@ -270,6 +289,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/salford-met-ac.html">Salford Met AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="salford-met-ac" data-club-name="Salford Met AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:30–20:30</span><span class="sport-club-row__day">Tuesday · 19:30–20:30</span><span class="sport-club-row__day">Thursday · 19:30–20:30</span></p>
         <p class="sport-club-row__area">Winton</p>
@@ -280,6 +300,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/stockport-harriers.html">Stockport Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="stockport-harriers" data-club-name="Stockport Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">3+ weekly sessions</span></p>
         <p class="sport-club-row__area">Stockport</p>
@@ -290,6 +311,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/swinton-running-club.html">Swinton Running Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="swinton-running-club" data-club-name="Swinton Running Club" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:30–20:30</span><span class="sport-club-row__day">Monday · 19:30–20:30</span><span class="sport-club-row__day">Wednesday · 19:30–20:30</span></p>
         <p class="sport-club-row__area">Winton · Swinton</p>
@@ -300,6 +322,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/trafford-ac.html">Trafford AC</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="trafford-ac" data-club-name="Trafford AC" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:00–21:00</span><span class="sport-club-row__day">Thursday · 19:00–21:00</span></p>
         <p class="sport-club-row__area">Chorlton</p>
@@ -310,6 +333,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/wigan-harriers.html">Wigan Harriers</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="wigan-harriers" data-club-name="Wigan Harriers" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -320,6 +344,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/winston-runners.html">Winston Runners</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="winston-runners" data-club-name="Winston Runners" aria-pressed="false" title="Saved clubs are stored only in this browser" hidden>Save club</button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:00–19:00</span><span class="sport-club-row__day">Thursday · 18:00–19:00</span></p>
         <p class="sport-club-row__area">Wythenshawe</p>
@@ -339,6 +364,7 @@
       <a href="/html/contact.html">Contact us</a>
       <a href="/html/register.html">Register your club</a>
       <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/your-clubs.html">Your clubs</a>
       <a href="/html/privacy.html">Privacy policy</a>
       <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>

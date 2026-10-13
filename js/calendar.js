@@ -12,6 +12,7 @@ import { clubTrainingAreas } from './club-areas.mjs';
 const sportFilter = document.querySelector('#filter-sport');
 const priceFilter = document.querySelector('#filter-price');
 const areaFilter = document.querySelector('#filter-area');
+const timeFilter = document.querySelector('#filter-time');
 const activeFilters = document.querySelector('#calendar-active-filters');
 const resultCount = document.querySelector('#result-count');
 const calendarMessage = document.querySelector('#calendar-message');
@@ -82,6 +83,15 @@ function areaMatches(club, session) {
   return selectedAreas.size === 0 || selectedAreas.has(canonicalArea(session.area));
 }
 
+/* Time of day: derive categories from valid start times; unknown times match All times only. */
+function timeMatches(session) {
+  if (timeFilter.value === 'all') return true;
+  if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(session.startTime || '')) return false;
+  const hour = Number(session.startTime.slice(0, 2));
+  const period = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  return period === timeFilter.value;
+}
+
 function matchesFilters(club) {
   return (!selectedSports.size || selectedSports.has(club.sport))
     && (!selectedAreas.size || clubTrainingAreas(club).some(area => selectedAreas.has(area)))
@@ -98,7 +108,7 @@ function getVisibleClubs() {
 function prepareCalendarEntries() {
   return getVisibleClubs().map(club => {
     const sessions = (club.sessions || []).filter(session => areaMatches(club, session)
-      && matchesSessionPrice(club, session, priceFilter.value));
+      && matchesSessionPrice(club, session, priceFilter.value) && timeMatches(session));
     const sessionsByDay = new Map();
     sessions.forEach(session => {
       const day = Number(session.dayOfWeek);
@@ -106,7 +116,7 @@ function prepareCalendarEntries() {
       sessionsByDay.get(day).push(session);
     });
     return { club, sessions, sessionsByDay };
-  }).filter(entry => entry.sessions.length || !(entry.club.sessions || []).length);
+  }).filter(entry => entry.sessions.length || (timeFilter.value === 'all' && !(entry.club.sessions || []).length));
 }
 
 function setView(viewName) {
@@ -184,6 +194,7 @@ function renderActiveFilters() {
   const choices = [
     ...[...selectedSports].map(value => ({ type: 'sport', value, label: displaySportName(value) })),
     ...(priceFilter.value === 'all' ? [] : [{ type: 'price', value: priceFilter.value, label: priceFilter.selectedOptions[0].textContent }]),
+    ...(timeFilter.value === 'all' ? [] : [{ type: 'time', value: timeFilter.value, label: timeFilter.selectedOptions[0].textContent }]),
     ...[...selectedAreas].map(value => ({ type: 'area', value, label: value })),
     ...DAYS.filter(day => selectedDays.has(day.number)).map(day => ({ type: 'day', value: String(day.number), label: day.name }))
   ];
@@ -219,6 +230,7 @@ activeFilters.addEventListener('click', event => {
     if (type === 'sport') { selectedSports.delete(value); focusTarget = sportFilter; }
     else if (type === 'area') { selectedAreas.delete(value); focusTarget = areaFilter; }
     else if (type === 'price') { priceFilter.value = 'all'; focusTarget = priceFilter; }
+    else if (type === 'time') { timeFilter.value = 'all'; focusTarget = timeFilter; }
     else return;
     renderCalendar();
   }
@@ -232,9 +244,9 @@ function renderCalendar() {
   /* Selection help: explain that every selected day must match and expose one reset action. */
   selectionHelp.textContent = selectedDays.size
     ? 'Showing clubs that train on every selected day.'
-    : 'Select one or more days. Clubs must have a session on every day you select.';
+    : 'Select one or more days. Visible clubs will have a session on every day you select.';
   clearFilters.disabled = selectedDays.size === 0
-    && selectedSports.size === 0 && selectedAreas.size === 0 && priceFilter.value === 'all';
+    && selectedSports.size === 0 && selectedAreas.size === 0 && priceFilter.value === 'all' && timeFilter.value === 'all';
   const entries = prepareCalendarEntries();
   /* Weekly eyebrow: show the chosen sport and count clubs matching every active filter. */
   const sportLabel = selectedSports.size ? [...selectedSports].map(sport => displaySportName(sport)).join(' + ') : 'All sports';
@@ -312,19 +324,21 @@ weekGrid.addEventListener('click', async event => {
   });
 });
 priceFilter.addEventListener('change', renderCalendar);
+timeFilter.addEventListener('change', renderCalendar);
 
 /* Clear filters: reset every filter and weekday selection through the existing week-view switch. */
 clearFilters.addEventListener('click', () => {
   selectedSports.clear();
   selectedAreas.clear();
   priceFilter.value = 'all';
+  timeFilter.value = 'all';
   setView('week');
 });
 
 /* Startup: load the compact static directory and gracefully report a missing or invalid file. */
 async function loadCalendarData() {
   const finishLoading = beginControlLoading(
-    [sportFilter, priceFilter, areaFilter, ...dayNavigation.querySelectorAll('button'),
+    [sportFilter, priceFilter, areaFilter, timeFilter, ...dayNavigation.querySelectorAll('button'),
       ...weekGrid.querySelectorAll('button')], calendarMessage
   );
   try {

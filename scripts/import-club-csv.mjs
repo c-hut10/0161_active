@@ -100,7 +100,7 @@ for (const [id, group] of groups) {
   leagues.forEach((league, index) => {
     if (!league.teamName || league.teamName.length > 150) errors.push(`${id}: league ${index + 1} requires a team name of up to 150 characters.`);
     if (!league.name || league.name.length > 150) errors.push(`${id}: league ${index + 1} requires a name of up to 150 characters.`);
-    if (!Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) errors.push(`${id}: league ${index + 1} coverage must be local_county, regional or national.`);
+    if (!Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) errors.push(`${id}: league ${index + 1} coverage must be internal, local_county, regional or national.`);
     const key = league.name.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-GB');
     if (scopes.has(key) && scopes.get(key) !== league.coverage) errors.push(`${id}: conflicting coverage for ${league.name}.`);
     scopes.set(key, league.coverage);

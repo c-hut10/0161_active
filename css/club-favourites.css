@@ -1,0 +1,36 @@
+/* Favourites: compact controls retain the site's warm text and neon-green accent. */
+/* Saved-clubs introduction: keep the storage explanation smaller on this page only. */
+#your-clubs .info-lede { font-size:13px; }
+.club-favourite { min-height:44px; padding:10px 14px; margin-top:10px; border:1px solid #dffc3a; border-radius:0; background:#111211; color:#dffc3a; font:700 13px Arial, sans-serif; cursor:pointer; }
+.club-favourite[hidden] { display:none; }
+.club-favourite[aria-pressed="true"] { background:#dffc3a; color:#111211; }
+.club-favourite:hover, .club-favourite:focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
+.club-favourites-status { position:fixed; bottom:20px; left:20px; right:20px; width:fit-content; max-width:calc(100% - 40px); padding:14px; background:#111211; color:#faecd2; border:1px solid #dffc3a; z-index:1200; font:14px/1.5 Arial, sans-serif; }
+#saved-clubs-list { padding:0; list-style:none; counter-reset:club-entry; }
+#saved-clubs-list > li { counter-increment:club-entry; }
+
+/* Profile actions: match the adjacent Contact and Website buttons without the list's top margin. */
+.profile-actions .club-favourite { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:44px; min-height:44px; margin:0; padding:0 15px; letter-spacing:.08em; white-space:nowrap; }
+.profile-actions .club-favourite[hidden] { display:none; }
+@media (max-width:560px) { .profile-actions .club-favourite { flex:1; } }
+/* Storage explanation: a dismissible footer popup appears only after the first successful save. */
+.club-favourites-storage-notice { position:fixed; bottom:20px; left:20px; right:20px; max-width:760px; display:flex; align-items:center; gap:18px; padding:18px; border:1px solid #dffc3a; background:#111211; color:#faecd2; z-index:1200; box-sizing:border-box; font:14px/1.6 Arial,sans-serif; }
+.club-favourites-storage-notice[hidden] { display:none; }
+.club-favourites-storage-notice p { margin:0; }
+.club-favourites-storage-notice a { color:#dffc3a; text-decoration:underline; }
+.club-favourites-storage-notice button { flex-shrink:0; min-height:44px; padding:8px 14px; background:#dffc3a; color:#111211; border:0; font:700 13px Arial,sans-serif; cursor:pointer; }
+.club-favourites-storage-notice :focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
+@media (max-width:560px) { .club-favourites-storage-notice { flex-direction:column; align-items:flex-start; bottom:12px; left:12px; right:12px; max-height:50vh; overflow:auto; } }
+
+/* Your clubs: keep the bin alongside the profile arrow at the end of each responsive row. */
+.saved-row-actions { display:flex; align-items:center; gap:12px; }
+.saved-club-bin { display:inline-flex; align-items:center; justify-content:center; width:44px; min-height:44px; padding:8px; border:1px solid #454945; background:#111211; color:#faecd2; cursor:pointer; }
+.saved-club-bin:hover, .saved-club-bin:focus-visible { color:#dffc3a; border-color:#dffc3a; outline:2px solid #dffc3a; outline-offset:3px; }
+@media (max-width:760px) { .saved-row-actions { grid-column:3; grid-row:1; } }
+.saved-removal-dialog { width:min(480px,calc(100% - 32px)); box-sizing:border-box; padding:24px; background:#111211; color:#faecd2; border:1px solid #dffc3a; font:16px/1.6 Arial,sans-serif; }
+.saved-removal-dialog::backdrop { background:rgba(0,0,0,.7); }
+.saved-removal-dialog h2 { margin:0 0 12px; font-size:24px; }
+.saved-removal-dialog > div { display:flex; flex-wrap:wrap; gap:12px; }
+.saved-removal-dialog button { min-height:44px; padding:10px 18px; background:#111211; color:#faecd2; border:1px solid #faecd2; font:700 14px Arial,sans-serif; cursor:pointer; }
+.saved-removal-dialog [data-confirm-removal] { background:#dffc3a; color:#111211; border-color:#dffc3a; }
+.saved-removal-dialog button:focus-visible { outline:2px solid #faecd2; outline-offset:3px; }

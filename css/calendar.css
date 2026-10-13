@@ -62,7 +62,6 @@
 /* Active filter labels: wrap on narrow screens and provide a clear individual reset action. */
 .calendar-active-filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
 .calendar-active-filters[hidden] { display:none; }
-.calendar-page .calendar-multi-filter-help { margin:0 0 14px; }
 .calendar-filter-label { display:inline-flex; align-items:center; justify-content:space-between; gap:14px; min-height:44px; max-width:100%; padding:8px 12px; box-sizing:border-box; border:1px solid var(--cal-lime); background:var(--cal-panel); color:var(--cal-lime); font:700 13px/1.4 Arial, Helvetica, sans-serif; text-align:left; overflow-wrap:anywhere; cursor:pointer; }
 .calendar-filter-label:hover { background:var(--cal-lime); color:var(--cal-black); }
 .calendar-filter-label:focus-visible { outline:2px solid var(--cal-paper); outline-offset:3px; }

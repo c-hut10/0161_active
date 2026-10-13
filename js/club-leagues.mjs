@@ -1,6 +1,6 @@
 import { sportSlug } from './club-formatting.mjs';
 
-export const LEAGUE_COVERAGES = { local_county: 'Local/County league', regional: 'Regional', national: 'National' };
+export const LEAGUE_COVERAGES = { internal: 'Internal', local_county: 'Local/County league', regional: 'Regional', national: 'National' };
 
 /* Pair names and coverage in CSV cells without multiplying the club's session rows. */
 export function leagueAnswers(values) {
@@ -13,7 +13,7 @@ export function leagueAnswers(values) {
   }));
 }
 
-/* Retain valid national participation as well as local/county and regional records. */
+/* Retain every supported coverage, including a club's own members-only league. */
 export function normaliseLeagues(value) {
   const unique = new Map();
   (Array.isArray(value) ? value : []).forEach(league => {
@@ -33,9 +33,14 @@ export function normaliseLeagues(value) {
   return [...unique.values()];
 }
 
-/* National league names are profile-only and do not create glossary cards or counts. */
+/* Discovery includes local/county and regional leagues only; internal and national stay profile-only. */
 export function discoverableLeagues(club) {
-  return normaliseLeagues(club.participatingLeagues).filter(league => league.coverage !== 'national');
+  return normaliseLeagues(club.participatingLeagues).filter(league => ['local_county', 'regional'].includes(league.coverage));
+}
+
+/* Profile and registration preview share the internal-league label. */
+export function leagueProfileLabel(league) {
+  return league.coverage === 'internal' ? `${league.name} · Internal` : league.name;
 }
 
 /* Profile labels: show each league once; team identities belong in league rosters. */
@@ -43,7 +48,7 @@ export function leagueNamesLabel(leagues) {
   const names = new Map();
   normaliseLeagues(leagues).forEach(league => {
     const key = league.name.toLocaleLowerCase('en-GB');
-    if (!names.has(key)) names.set(key, league.name);
+    if (!names.has(key)) names.set(key, leagueProfileLabel(league));
   });
   return [...names.values()].join(' · ');
 }

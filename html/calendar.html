@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="/css/accessibility.css">
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
+  <link rel="stylesheet" href="/css/club-favourites.css">
+  <script type="module" src="/js/club-favourites.js"></script>
   <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="canonical" href="https://0161active.co.uk/html/calendar.html">
   <!-- Social preview -->
@@ -50,6 +52,7 @@
           <a class="site-navbar__link" href="/html/sports/directory.html">SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <a href="/html/your-clubs.html">YOUR CLUBS →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
@@ -71,6 +74,7 @@
       <a class="site-navbar__drawer-link" href="/html/sports/directory.html">SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/calendar.html" aria-current="page">CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/your-clubs.html">YOUR CLUBS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
     </nav>
   </header></div><!-- /Site navigation -->
@@ -89,18 +93,26 @@
     <!-- Filters apply to both views and remain selected while switching between week and day. -->
     <section class="calendar-filters" aria-label="Filter club sessions">
       <label>SPORT
-        <select id="filter-sport" name="sport" aria-describedby="calendar-multi-filter-help"><option value="">All sports</option><option value="all">All sports (clear selections)</option></select>
+        <select id="filter-sport" name="sport"><option value="">All sports</option><option value="all">All sports (clear selections)</option></select>
       </label>
       <label>PRICE
         <select id="filter-price" name="price"><option value="all">Any price</option></select>
       </label>
       <label>AREA
-        <select id="filter-area" name="area" aria-describedby="calendar-multi-filter-help"><option value="">All areas</option><option value="all">All areas (clear selections)</option></select>
+        <select id="filter-area" name="area"><option value="">All areas</option><option value="all">All areas (clear selections)</option></select>
+      </label>
+      <!-- Time filter: classify sessions by their start time without storing another data field. -->
+      <label>TIME OF DAY
+        <select id="filter-time" name="time">
+          <option value="all">All times</option>
+          <option value="morning">Morning</option>
+          <option value="afternoon">Afternoon</option>
+          <option value="evening">Evening</option>
+        </select>
       </label>
       <p class="calendar-result-count" id="result-count" aria-live="polite">112 clubs · 120 sessions</p>
     </section>
 
-    <p class="calendar-selection-help calendar-multi-filter-help" id="calendar-multi-filter-help">Choose one or more sports and areas. Select a choice again or use its × label to remove it.</p>
     <!-- Active filters: each sport, area and day has its own removable label. -->
     <div class="calendar-active-filters" id="calendar-active-filters" role="group" aria-label="Active calendar filters" hidden></div>
 
@@ -120,7 +132,7 @@
 
     <!-- Selection help and reset: explain the combined day filter directly below its controls. -->
     <div class="calendar-selection-tools">
-      <p class="calendar-selection-help" id="calendar-selection-help">Select one or more days. Clubs must have a session on every day you select.</p>
+      <p class="calendar-selection-help" id="calendar-selection-help">Select one or more days. Visible clubs will have a session on every day you select.</p>
       <button type="button" class="calendar-clear-filters" id="calendar-clear-filters" disabled>Clear filters</button>
     </div>
 
@@ -2572,6 +2584,7 @@
       <a href="/html/contact.html">Contact us</a>
       <a href="/html/register.html">Register your club</a>
       <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/your-clubs.html">Your clubs</a>
       <a href="/html/privacy.html">Privacy policy</a>
       <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>
@@ -2579,6 +2592,6 @@
   </div>
 </footer>
   <button type="button" class="calendar-back-to-top" id="calendar-back-to-top" hidden>↑ Back to top</button>
-  <script type="module" src="../js/calendar.js?v=20261012-session-links"></script>
+  <script type="module" src="../js/calendar.js?v=20261013-time-filter"></script>
 </body>
 </html>
