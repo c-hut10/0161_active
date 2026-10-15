@@ -19,7 +19,7 @@ export function normaliseLeagues(value) {
   (Array.isArray(value) ? value : []).forEach(league => {
     const name = typeof league?.name === 'string' ? league.name.trim().replace(/\s+/g, ' ') : '';
     const teamName = typeof league?.teamName === 'string' ? league.teamName.trim().replace(/\s+/g, ' ') : '';
-    if (!name || !teamName || !Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) return;
+    if (!name || (!teamName && league.coverage !== 'internal') || !Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) return;
     const key = JSON.stringify([name.toLocaleLowerCase('en-GB'), league.coverage, teamName.toLocaleLowerCase('en-GB')]);
     if (!unique.has(key)) {
       const entry = { teamName, name, leagueUrl: null, coverage: league.coverage };
@@ -61,7 +61,15 @@ export function leaguePageUrl(sport, name) {
 /* Local league cards count each visible participating club once. */
 export function leagueRecords(clubs, sport) {
   const records = new Map();
-  clubs.filter(club => sportSlug(club.sport) === sportSlug(sport) && club.hiddenFromSportList !== true).forEach(club => {
+  /* Local roster placeholders link only when their real profile exists; never use a website fallback. */
+  const profiles = clubs.filter(club => club.profilePath && club.profilePending !== true);
+  const rosterClubs = clubs.map(club => {
+    if (club.profilePending !== true) return club;
+    const profile = profiles.find(candidate => sportSlug(candidate.sport) === sportSlug(club.sport)
+      && (candidate.id === club.profileClubId || sportSlug(candidate.name) === sportSlug(club.name)));
+    return profile ? { ...profile, participatingLeagues: club.participatingLeagues } : club;
+  });
+  rosterClubs.filter(club => sportSlug(club.sport) === sportSlug(sport) && club.hiddenFromSportList !== true).forEach(club => {
     discoverableLeagues(club).forEach(league => {
       const key = league.name.toLocaleLowerCase('en-GB');
       if (!records.has(key)) records.set(key, { name: league.name, coverage: league.coverage,

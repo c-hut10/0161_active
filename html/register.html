@@ -51,11 +51,11 @@
           <a class="site-navbar__link" href="/html/sports/directory.html">SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
-            <a href="/html/your-clubs.html">YOUR CLUBS →</a>
+            <a href="/html/your-clubs.html">Your Clubs →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
-            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/korfball.html">Korfball</a><a href="/html/sports/racketball.html">Racketball</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
           </div>
         </div>
         <a class="site-navbar__link" href="/html/calendar.html">CALENDAR</a>
@@ -89,6 +89,7 @@
         <li class="step-current" data-registration-step aria-current="step"><span aria-hidden="true">1</span><b>The basics</b></li>
         <li data-registration-step><span aria-hidden="true">2</span><b>Training sessions</b></li>
         <li data-registration-step><span aria-hidden="true">3</span><b>Contact details</b></li>
+        <li data-registration-step><span aria-hidden="true">4</span><b>Review and send</b></li>
       </ol>
     </section>
 
@@ -171,6 +172,7 @@
           <p class="session-status" id="session-status" aria-live="polite"></p>
           <!-- Static named fields let Netlify capture all repeatable sessions in one application. -->
           <input type="hidden" name="registrationCsv">
+          <input type="hidden" name="submissionSummary">
           <input type="hidden" name="sessions">
         </section>
 
@@ -178,11 +180,19 @@
           <p class="section-number">03 / CONTACT DETAILS</p>
           <h2 id="contact-heading" tabindex="-1">How can people reach you?</h2>
           <div class="field-grid">
-            <label class="field"><span class="field-title">Contact email <span class="required">*</span></span><input name="contact" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email" aria-describedby="contact-email-note"><small id="contact-email-note">Our team will get in touch via this email if we have any more questions.</small></label>
+            <label class="field"><span class="field-title">Contact email <span class="required">*</span></span><input name="contact" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email" aria-describedby="contact-email-note"><small id="contact-email-note">This email will appear on your club profile. Our team will also use it for questions about your application.</small></label>
             <label class="field">Website or social link<input name="onlineProfile.url" type="url" maxlength="200" placeholder="https://"></label>
             <!-- Additional details: this answer is public content in the club profile. -->
             <label class="field field-wide"><span class="field-title">Additional information</span><textarea name="additionalInformation" maxlength="2000" rows="4" placeholder="Anything else you would like us to know?"></textarea><small>This information may appear publicly on your club profile.</small></label>
           </div>
+        </section>
+
+        <section class="form-section" data-form-step aria-labelledby="review-heading">
+          <p class="section-number">04 / REVIEW AND SEND</p>
+          <h2 id="review-heading" tabindex="-1">Check your club details.</h2>
+          <p class="session-help">Review your answers below and check the live club page preview. Use Edit to make any changes before sending.</p>
+          <div id="submission-review"></div>
+          <button type="button" class="session-add" id="download-registration">Download a copy of your answers (CSV)</button>
         </section>
 
         <!-- Step controls: move between sections while retaining every entered answer. -->
@@ -228,7 +238,7 @@
                 <div><dt>SPORT</dt><dd id="preview-sport">Your sport</dd></div>
                 <div id="preview-gender-row" hidden><dt>GENDER ELIGIBILITY</dt><dd id="preview-gender"></dd></div>
                 <div id="preview-beginner-row" hidden><dt>BEGINNER FRIENDLY</dt><dd id="preview-beginner"></dd></div>
-                <div id="preview-leagues-row" hidden><dt>LEAGUE</dt><dd id="preview-leagues"></dd></div>
+                <div id="preview-leagues-row" hidden><dt>LEAGUE(S)</dt><dd id="preview-leagues"></dd></div>
                 <div><dt>AREA</dt><dd id="preview-area">Your area</dd></div>
                 <div><dt>COST</dt><dd id="preview-cost">Unknown</dd></div>
                 <div id="preview-membership-row" hidden><dt>OPTIONAL MEMBERSHIP</dt><dd id="preview-membership"></dd></div>
@@ -240,8 +250,8 @@
           <section class="preview-about" aria-labelledby="preview-about-title">
             <h3 id="preview-about-title">ABOUT THE CLUB</h3>
             <p id="preview-description">Your club description will appear here.</p>
+            <p id="preview-additional" hidden></p>
           </section>
-          <section class="preview-about" id="preview-additional-section" hidden><h3>ADDITIONAL INFORMATION</h3><p id="preview-additional"></p></section>
           <section class="preview-week" aria-labelledby="preview-week-title">
             <div class="preview-week__heading"><h3 id="preview-week-title">Week at a glance</h3><span>WEEKLY SCHEDULE</span></div>
             <div class="preview-week__grid" aria-label="Weekly schedule preview">
@@ -294,6 +304,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script type="module" src="../js/register.js?v=20261012-beginner-friendly"></script>
+  <script type="module" src="../js/register.js?v=20261015-internal-league"></script>
 </body>
 </html>

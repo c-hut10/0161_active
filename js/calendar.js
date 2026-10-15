@@ -1,5 +1,5 @@
 import { renderWeekGrid, frequencyToggle, eligibilityMarkup } from './calendar-week-renderer.mjs';
-import { canonicalArea, WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml } from './club-formatting.mjs';
+import { canonicalArea, WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml, clubSports, sessionSport } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory } from './site-data.mjs';
 import { beginControlLoading } from './control-loading.mjs';
@@ -67,7 +67,7 @@ backToTop.addEventListener('click', () => {
 /* Session notes: explain group restrictions and special schedules without guessing times. */
 /* Filter controls are populated from the dataset so future sports and areas need no UI rewrite. */
 function populateFilters() {
-  const sports = [...new Set(clubs.map(club => club.sport).filter(Boolean))].sort();
+  const sports = [...new Set(clubs.flatMap(clubSports))].sort();
   const areas = [...new Set(clubs.flatMap(clubTrainingAreas))].sort();
 
   sportFilter.replaceChildren(new Option('All sports', ''), new Option('All sports (clear selections)', 'all'));
@@ -93,7 +93,7 @@ function timeMatches(session) {
 }
 
 function matchesFilters(club) {
-  return (!selectedSports.size || selectedSports.has(club.sport))
+  return (!selectedSports.size || clubSports(club).some(sport => selectedSports.has(sport)))
     && (!selectedAreas.size || clubTrainingAreas(club).some(area => selectedAreas.has(area)))
     && ((club.sessions || []).length
       ? club.sessions.some(session => matchesSessionPrice(club, session, priceFilter.value))
@@ -108,7 +108,8 @@ function getVisibleClubs() {
 function prepareCalendarEntries() {
   return getVisibleClubs().map(club => {
     const sessions = (club.sessions || []).filter(session => areaMatches(club, session)
-      && matchesSessionPrice(club, session, priceFilter.value) && timeMatches(session));
+      && matchesSessionPrice(club, session, priceFilter.value) && timeMatches(session)
+      && (!selectedSports.size || selectedSports.has(sessionSport(club, session))));
     const sessionsByDay = new Map();
     sessions.forEach(session => {
       const day = Number(session.dayOfWeek);
@@ -161,7 +162,7 @@ function renderSelectedDays(events, sportLabel, days, clubCount) {
   const eyebrow = `${dayLabel} · ${calendarEyebrow(sportLabel, clubCount)}`;
   const cards = events.map(({ club, session, day }) => {
     /* Day-card eyebrow: identify the sport instead of showing provisional-data status. */
-    const sportLabel = displaySportName(club.sport);
+    const sportLabel = displaySportName(sessionSport(club, session));
     return `<article class="agenda-event">
       <div class="agenda-time"><span class="agenda-day">${escapeHtml(day.name)}</span><time>${escapeHtml(formatTime(session))}</time><span class="agenda-sport">${escapeHtml(sportLabel)}</span></div>
       <a class="agenda-club" href="${escapeHtml(`/${club.profilePath}`)}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>

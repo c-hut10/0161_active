@@ -200,11 +200,26 @@
   }
   #club-gallery .gallery-caption h2::before,
   #club-gallery .gallery-caption h2::after { transform: scaleX(1); transition: none; }
+  /* Mobile captions: show only the club title, centred along the bottom of each photo. */
+  #club-gallery .gallery-caption { top:auto; bottom:18px; right:18px; width:auto; text-align:center; }
+  /* Mobile title labels: neon-green text on a solid grey box replaces the decorative rails. */
+  #club-gallery .gallery-caption h2 {
+    box-sizing:border-box;
+    margin-inline:auto;
+    padding:4px 6px;
+    color:#dffc3a;
+    background:#303030;
+    text-shadow:none;
+    font-size:clamp(10px, calc(1.8vw - 4px), 17px);
+  }
+  #club-gallery .gallery-caption h2::before,
+  #club-gallery .gallery-caption h2::after { display:none; }
+  #club-gallery .gallery-caption__details { display:none; }
 }
 
 /* Compact phone sizing remains separate from the mobile colour and interaction rules. */
 @media (max-width: 600px) {
   .grid-container#club-gallery { --gallery-image-height: clamp(125px, 36vw, 210px); }
-  #club-gallery .gallery-caption { left: 10px; bottom: 10px; max-width: calc(100% - 20px); }
-  #club-gallery .gallery-caption h2 { font-size: 13px; }
+  #club-gallery .gallery-caption { left: 10px; right:10px; top:auto; bottom:10px; max-width: calc(100% - 20px); }
+  #club-gallery .gallery-caption h2 { font-size: 9px; }
 }

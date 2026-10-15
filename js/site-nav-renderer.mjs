@@ -14,7 +14,7 @@ export function renderSiteNav(sports, active = '') {
           <a class="site-navbar__link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="${siteUrl('html/sports/directory.html')}">BROWSE ALL SPORTS →</a>
-            <a href="/html/your-clubs.html">YOUR CLUBS →</a>
+            <a href="/html/your-clubs.html">Your Clubs →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid">${accessibleSportItems}</div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>

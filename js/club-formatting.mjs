@@ -62,6 +62,17 @@ export function sportSlug(value) {
   return slug === 'running' ? 'run-club' : slug;
 }
 
+/* Multi-sport clubs keep one profile; sessions can specify their own sport for filtering. */
+export function clubSports(club) {
+  return [...new Set([club.sport, ...(Array.isArray(club.additionalSports) ? club.additionalSports : [])].map(sportSlug).filter(Boolean))];
+}
+export function sessionSport(club, session) {
+  return sportSlug(session?.sport || club.sport);
+}
+export function clubForSport(club, sport) {
+  return { ...club, sessions: (club.sessions || []).filter(session => sessionSport(club, session) === sportSlug(sport)) };
+}
+
 export function displaySportName(value, { titleCase = false, fallback = '' } = {}) {
   const name = String(value || fallback);
   if (sportSlug(name) === 'run-club') return 'Run Club';
@@ -137,7 +148,8 @@ export function formatPrice(club, {
   if (price.type === 'free') return free;
   if (Number.isFinite(price.amount)) {
     const amount = new Intl.NumberFormat('en-GB', {
-      style: 'currency', currency: price.currency || 'GBP', minimumFractionDigits,
+      style: 'currency', currency: price.currency || 'GBP',
+      minimumFractionDigits: Number.isInteger(price.amount) ? 0 : minimumFractionDigits,
       maximumFractionDigits: 2
     }).format(price.amount);
     const period = PRICE_PERIODS[price.type]?.[compact ? 'compact' : 'full'] || price.period;

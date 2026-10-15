@@ -4,7 +4,7 @@ import { clubTrainingAreas } from './club-areas.mjs';
 
 /* Team links: local teams open their club profile; guests use their supplied website. */
 export function leagueTeamUrl(team) {
-  if (team.club.teamOnly === true) return '';
+  if (team.club.teamOnly === true || team.club.profilePending === true) return '';
   const href = team.club.profilePath ? `/${team.club.profilePath}` : team.url;
   if (!href) return '';
   try { return ['http:', 'https:'].includes(new URL(href, 'https://0161active.co.uk').protocol) ? href : ''; }

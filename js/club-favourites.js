@@ -28,7 +28,7 @@ const storageNotice = document.createElement('section');
 storageNotice.className = 'club-favourites-storage-notice';
 storageNotice.setAttribute('aria-label', 'Saved clubs and browser storage');
 storageNotice.hidden = true;
-storageNotice.innerHTML = `<p role="status">Club saved. Your saved clubs are stored only in this browser. You can remove them at any time. <a href="/html/your-clubs.html">Your clubs</a> · <a href="/html/privacy.html#cookies">About storage</a></p><button type="button" aria-label="Dismiss saved clubs notice">Got it</button>`;
+storageNotice.innerHTML = `<p role="status">Club saved. Your saved clubs are stored only in this browser. You can remove them at any time. <a href="/html/your-clubs.html">Your Clubs</a> · <a href="/html/privacy.html#cookies">About storage</a></p><button type="button" aria-label="Dismiss saved clubs notice">Got it</button>`;
 document.body.append(storageNotice);
 storageNotice.querySelector('button').addEventListener('click', () => {
   storageNotice.hidden = true;
@@ -45,12 +45,22 @@ function showFirstSaveNotice() {
   storageNotice.hidden = false;
 }
 
-function announce(message) {
+function announce(message, linkToClubs = false) {
   clearTimeout(noticeTimer);
   storageNotice.hidden = true;
   announcement.textContent = message;
+  /* Save confirmations provide a direct route to the collection without inserting club data as HTML. */
+  if (linkToClubs) {
+    const link = document.createElement('a');
+    link.href = '/html/your-clubs.html';
+    link.textContent = 'Your Clubs';
+    announcement.append(' ', link);
+  }
   announcement.hidden = false;
-  noticeTimer = setTimeout(() => { announcement.hidden = true; }, 7000);
+  noticeTimer = setTimeout(() => {
+    // Keep a keyboard-focused link available until the visitor leaves or acts again.
+    if (!announcement.contains(document.activeElement)) announcement.hidden = true;
+  }, 7000);
 }
 
 /* Controls remain hidden without JavaScript; reapply state after glossary filters redraw rows. */
@@ -59,7 +69,8 @@ function enhance() {
     const selected = ids.has(button.dataset.favouriteId);
     const label = selected ? 'Unsave club' : 'Save club';
     button.hidden = false;
-    if (button.textContent !== label) button.textContent = label;
+    // Retain the icon; pressed state controls its fill while labels explain the action.
+    button.title = label;
     button.setAttribute('aria-pressed', String(selected));
     button.setAttribute('aria-label', `${label}: ${button.dataset.clubName}`);
 
@@ -94,7 +105,7 @@ function renderSavedPage() {
   list.innerHTML = renderSportClubRows(selected);
   status.textContent = selected.length
     ? (ids.size > selected.length ? 'Some saved clubs are no longer in the directory.' : '')
-    : 'No saved clubs yet. Choose “Save club” on a club profile or listing to start your collection.';
+    : 'No saved clubs yet. Select the star on a club profile or listing to start your collection.';
   /* Saved-list rows: retain the profile link and place an accessible bin at the far right. */
   list.querySelectorAll('[data-favourite-id]').forEach(button => {
     const row = button.closest('.sport-club-row');
@@ -191,7 +202,7 @@ document.addEventListener('click', event => {
   if (removing) next.delete(id);
   else next.add(id);
   if (!persist(next)) return;
-  announce(removing ? 'Club removed from Your clubs.' : 'Club saved in this browser. Find it in Your clubs.');
+  announce(removing ? 'Club removed from Your Clubs.' : 'Club saved in this browser.', !removing);
   if (savedPage && clubs) {
     renderSavedPage();
     // Removing a row must not leave keyboard focus on a detached button.

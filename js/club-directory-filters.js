@@ -1,4 +1,4 @@
-import { canonicalArea, displaySportName, formatPrice, formatMembership } from './club-formatting.mjs';
+import { canonicalArea, displaySportName, formatPrice, formatMembership, clubSports, sportSlug } from './club-formatting.mjs';
 export { PRICE_TYPE_LABELS, PRICE_TYPE_ORDER, priceType } from './club-formatting.mjs';
 import { priceType } from './club-formatting.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
@@ -20,10 +20,10 @@ export function matchesSessionPrice(club, session, price = 'all') {
 
 /* Existing consumers share the same sport labels and canonical area comparisons. */
 export function sportName(value) {
-  return displaySportName(value, { titleCase: true, fallback: 'Sport' });
+  return displaySportName(String(value || '').replaceAll('-', ' '), { titleCase: true, fallback: 'Sport' });
 }
 export function matchesClubFilters(club, { sport = 'all', price = 'all', area = 'all' }) {
-  return (sport === 'all' || club.sport === sport)
+  return (sport === 'all' || clubSports(club).includes(sportSlug(sport)))
     && ((club.sessions || []).length
       ? club.sessions.some(session => matchesSessionPrice(club, session, price))
       : matchesSessionPrice(club, null, price))

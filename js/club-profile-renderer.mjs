@@ -1,4 +1,4 @@
-import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel } from './club-formatting.mjs';
+import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports } from './club-formatting.mjs';
 import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
 import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms, clubSessionPriceLabel } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
@@ -21,10 +21,9 @@ function renderProfileLeagues(club) {
 }
 
 /* Missing About details: inform visitors and give the club a direct route to supply an update. */
-function renderEmptyAbout(club) {
-  const href = `mailto:contact.0161active@gmail.com?subject=${encodeURIComponent(`Update club details: ${club.name}`)}`;
+function renderEmptyAbout() {
   return `<p>More about this club coming soon.</p>
-        <p><a class="profile-about-update" href="${escapeHtml(href)}">Update your club details</a></p>`;
+        <p><a class="profile-about-update" href="/html/contact.html">Update your club details</a></p>`;
 }
 
 export function renderClubProfile(club, notice = '', pageUrl = 'https://0161active.co.uk/') {
@@ -115,10 +114,10 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
   const photo = photoPath
     ? `<img class="profile-photo" src="${escapeHtml(photoPath)}" alt="${escapeHtml(`${club.name} club photo`)}">`
     : '<div class="profile-photo profile-photo--missing">Club photo not available</div>';
-  const sportLabel = displaySportName(club.sport, { titleCase: true });
+  const profileSports = clubSports(club);
   const areas = clubTrainingAreas(club);
   const sportArea = [
-    sportLabel ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport))}">${escapeHtml(sportLabel)}</a>` : '',
+    ...profileSports.map(sport => `<a href="${escapeHtml(profileGlossaryUrl(sport))}">${escapeHtml(displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true }))}</a>`),
     ...areas.map(area => club.sport ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport, area))}">${escapeHtml(area)}</a>` : escapeHtml(area))
   ].filter(Boolean).join(' · ') || 'MANCHESTER CLUB';
   const detailRow = (label, value) => `<div class="profile-detail-row"><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`;
@@ -131,11 +130,11 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     ? `<a class="profile-booking-link" href="${escapeHtml(onlineAction.href)}" target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab">contact</a>`
     : 'contact';
   const details = [
-    detailRow('SPORT', club.sport ? displaySportName(club.sport, { titleCase: true }) : 'To confirm'),
+    detailRow('SPORT', profileSports.map(sport => displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true })).join(' · ') || 'To confirm'),
     // Show confirmed eligibility without assigning a gender answer to existing records.
     genderLabel ? detailRow('GENDER ELIGIBILITY', genderLabel) : '',
     beginnerFriendlyLabel(club) ? detailRow('BEGINNER FRIENDLY', beginnerFriendlyLabel(club)) : '',
-    leagueLinks ? `<div class="profile-detail-row"><dt>LEAGUE</dt><dd>${leagueLinks}</dd></div>` : '',
+    leagueLinks ? `<div class="profile-detail-row"><dt>LEAGUE(S)</dt><dd>${leagueLinks}</dd></div>` : '',
     detailRow('AREA', areas.join(' · ') || 'Area to confirm'),
     // Training locations: jump to the weekly timetable containing each session's venue.
     '<div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div>',
@@ -179,9 +178,9 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
       <h2 id="profile-about-title">About the club</h2>
       ${club.description?.trim()
         ? `<p>${escapeHtml(club.description)}</p>`
-        : renderEmptyAbout(club)}
+        : club.additionalInformation?.trim() ? '' : renderEmptyAbout()}
+      ${club.additionalInformation?.trim() ? `<p>${escapeHtml(club.additionalInformation)}</p>` : ''}
     </section>
-    ${club.additionalInformation?.trim() ? `<section class="profile-about" aria-labelledby="profile-additional-title"><h2 id="profile-additional-title">Additional information</h2><p>${escapeHtml(club.additionalInformation)}</p></section>` : ''}
     ${renderWeek(club, notice)}`;
   return { html, title: `${club.name} | 0161 Active` };
 }

@@ -3,9 +3,16 @@
 #your-clubs .info-lede { font-size:13px; }
 .club-favourite { min-height:44px; padding:10px 14px; margin-top:10px; border:1px solid #dffc3a; border-radius:0; background:#111211; color:#dffc3a; font:700 13px Arial, sans-serif; cursor:pointer; }
 .club-favourite[hidden] { display:none; }
-.club-favourite[aria-pressed="true"] { background:#dffc3a; color:#111211; }
+/* Favourite stars: retain the dark background and fill only the star when saved. */
+.club-favourite[data-favourite-id] { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:44px; height:44px; padding:9px; }
+.club-favourite[data-favourite-id][hidden] { display:none; }
+.club-favourite-star { display:block; flex-shrink:0; pointer-events:none; }
+.club-favourite[aria-pressed="true"] .club-favourite-star { fill:currentColor; }
 .club-favourite:hover, .club-favourite:focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
 .club-favourites-status { position:fixed; bottom:20px; left:20px; right:20px; width:fit-content; max-width:calc(100% - 40px); padding:14px; background:#111211; color:#faecd2; border:1px solid #dffc3a; z-index:1200; font:14px/1.5 Arial, sans-serif; }
+/* Save-confirmation link: keep the shortcut visible and usable by keyboard and touch. */
+.club-favourites-status a { display:inline-flex; align-items:center; min-height:44px; color:#dffc3a; text-decoration:underline; }
+.club-favourites-status a:focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
 #saved-clubs-list { padding:0; list-style:none; counter-reset:club-entry; }
 #saved-clubs-list > li { counter-increment:club-entry; }
 
@@ -13,6 +20,7 @@
 .profile-actions .club-favourite { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:44px; min-height:44px; margin:0; padding:0 15px; letter-spacing:.08em; white-space:nowrap; }
 .profile-actions .club-favourite[hidden] { display:none; }
 @media (max-width:560px) { .profile-actions .club-favourite { flex:1; } }
+.profile-actions .club-favourite[data-favourite-id] { flex:0 0 44px; padding:9px; }
 /* Storage explanation: a dismissible footer popup appears only after the first successful save. */
 .club-favourites-storage-notice { position:fixed; bottom:20px; left:20px; right:20px; max-width:760px; display:flex; align-items:center; gap:18px; padding:18px; border:1px solid #dffc3a; background:#111211; color:#faecd2; z-index:1200; box-sizing:border-box; font:14px/1.6 Arial,sans-serif; }
 .club-favourites-storage-notice[hidden] { display:none; }

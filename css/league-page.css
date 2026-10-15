@@ -1,0 +1,40 @@
+/* Standalone leagues: reduce heading and roster sizes without changing sport glossary lists. */
+.league-page .sport-glossary-intro h1 {
+  font-size:clamp(30px, 4.5vw, 56px);
+  line-height:1.05;
+  overflow-wrap:anywhere;
+}
+.league-page > .sport-glossary-intro { margin-bottom:22px; }
+.league-page .league-back-link { margin-bottom:10px; font-size:13px; }
+.league-page .league-team-row {
+  box-sizing:border-box;
+  grid-template-columns:32px minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, .6fr) 44px;
+  min-height:72px;
+  padding:8px 0;
+  gap:12px;
+}
+/* Explicit cells and a fixed arrow column keep parent clubs aligned across linked and unlinked rows. */
+.league-page .sport-club-row__number { grid-column:1; grid-row:1; font-size:10px; }
+.league-page .sport-club-row__details { grid-column:2; grid-row:1; }
+.league-page .sport-club-row__details h3 { font-size:clamp(14px, 1.5vw, 17px); line-height:1.25; overflow-wrap:anywhere; }
+.league-page .league-team-club {
+  grid-column:3;
+  grid-row:1;
+  align-items:flex-start;
+  justify-content:center;
+  gap:2px;
+  min-width:0;
+  font-size:12px;
+  text-align:left;
+}
+.league-page .league-team-club > span { font-size:9px; }
+.league-page .sport-club-row__area { grid-column:4; grid-row:1; min-width:0; font-size:12px; overflow-wrap:anywhere; }
+.league-page .sport-club-link { grid-column:5; grid-row:1; font-size:18px; }
+
+/* Mobile roster: preserve aligned stacked details and 44px profile-link targets. */
+@media (max-width:760px) {
+  .league-page .league-team-row { grid-template-columns:24px minmax(0, 1fr) 44px; gap:5px 10px; }
+  .league-page .league-team-club { grid-column:2; grid-row:2; }
+  .league-page .sport-club-row__area { grid-column:2; grid-row:3; text-align:left; }
+  .league-page .sport-club-link { grid-column:3; grid-row:1 / span 3; }
+}

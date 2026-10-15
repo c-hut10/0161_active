@@ -13,7 +13,10 @@ function readCsv(source) {
   let row = [], cell = '', quoted = false, closed = false;
   function finishCell() {
     // Undo only the spreadsheet-formula protection applied by our CSV writer.
-    row.push(cell.replace(/^'(?=[=+@-])/, '').trim());
+    const value = cell.replace(/^'(?=[=+@-])/, '');
+    // Preserve empty team-name lines paired with Internal leagues in multiline answers.
+    const teamNames = rows[0]?.[row.length] === 'participatingLeagues.teamName';
+    row.push(teamNames ? value.replace(/^[ \t]+|[ \t]+$/g, '') : value.trim());
     cell = ''; closed = false;
   }
   const text = source.replace(/^\uFEFF/, '');
@@ -98,7 +101,7 @@ for (const [id, group] of groups) {
   if (participation !== 'yes' && leagues.length) errors.push(`${id}: league details require participatesInLeague yes.`);
   const scopes = new Map();
   leagues.forEach((league, index) => {
-    if (!league.teamName || league.teamName.length > 150) errors.push(`${id}: league ${index + 1} requires a team name of up to 150 characters.`);
+    if ((!league.teamName && league.coverage !== 'internal') || league.teamName.length > 150) errors.push(`${id}: league ${index + 1} requires a team name of up to 150 characters.`);
     if (!league.name || league.name.length > 150) errors.push(`${id}: league ${index + 1} requires a name of up to 150 characters.`);
     if (!Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) errors.push(`${id}: league ${index + 1} coverage must be internal, local_county, regional or national.`);
     const key = league.name.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-GB');

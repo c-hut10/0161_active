@@ -48,12 +48,12 @@ writeGeneratedFile(path.join(root, 'js/postcode-areas.mjs'),
 const { resolveClubAreas, clubTrainingAreas } = await import(pathToFileURL(path.join(root, 'js/club-areas.mjs')).href);
 data.clubs = data.clubs.map(resolveClubAreas);
 const { renderClubProfile } = await import(pathToFileURL(path.join(root, 'js/club-profile-renderer.mjs')).href);
-const { visibleSportRecords } = await import(pathToFileURL(path.join(root, 'js/sport-catalog.mjs')).href);
+const { visibleSportRecords, visibleClubCount } = await import(pathToFileURL(path.join(root, 'js/sport-catalog.mjs')).href);
 const { renderSiteNav } = await import(pathToFileURL(path.join(root, 'js/site-nav-renderer.mjs')).href);
 const { renderSportClubRows } = await import(pathToFileURL(path.join(root, 'js/sport-glossary-renderer.mjs')).href);
 const { renderSportsDirectory } = await import(pathToFileURL(path.join(root, 'js/sports-directory-renderer.mjs')).href);
 const { renderWeekGrid } = await import(pathToFileURL(path.join(root, 'js/calendar-week-renderer.mjs')).href);
-const { sportSlug } = await import(pathToFileURL(path.join(root, 'js/club-formatting.mjs')).href);
+const { sportSlug, clubSports, clubForSport } = await import(pathToFileURL(path.join(root, 'js/club-formatting.mjs')).href);
 const { clubDescriptionText } = await import(pathToFileURL(path.join(root, 'js/club-description.mjs')).href);
 const { siteStructuredData } = await import(pathToFileURL(path.join(root, 'js/site-structured-data.mjs')).href);
 const { renderHomeGallery } = await import(pathToFileURL(path.join(root, 'js/home-gallery-renderer.mjs')).href);
@@ -161,7 +161,7 @@ for (const sport of sports) {
   if (['directory', 'glossary', 'index'].includes(sport.slug)) throw new Error(`Reserved sport page name: ${sport.slug}`);
   sportPages.add(relative);
   const name = displaySportName(sport.name);
-  const clubs = data.clubs.filter(club => sportSlug(club.sport) === sport.slug && club.hiddenFromSportList !== true)
+  const clubs = data.clubs.filter(club => clubSports(club).includes(sport.slug) && club.hiddenFromSportList !== true).map(club => clubForSport(club, sport.slug))
     .sort((a, b) => a.name.localeCompare(b.name));
   const areas = [...new Set(clubs.flatMap(clubTrainingAreas))]
     .sort((a, b) => a.localeCompare(b));
@@ -242,7 +242,7 @@ for (const file of htmlFiles(root)) {
     source = source.replace(/(<div class="sports-directory-groups" id="sports-groups">)[\s\S]*?(<\/div>\s*<\/main>)/,
       (_, opening, closing) => `${opening}${renderSportsDirectory(sports)}${closing}`);
     source = source.replace(/(<p[^>]*id="sports-count"[^>]*>)[\s\S]*?<\/p>/,
-      `$1${sports.length} SPORTS · ${sports.reduce((sum, sport) => sum + sport.clubCount, 0)} CLUBS ON RECORD</p>`);
+      `$1${sports.length} SPORTS · ${visibleClubCount(sports, data.clubs)} CLUBS ON RECORD</p>`);
   }
   if (relative === 'html/calendar.html') {
     const entries = [...data.clubs].sort((a, b) => a.name.localeCompare(b.name)).map(club => {
@@ -303,7 +303,7 @@ for (const file of htmlFiles(root)) {
   const sport = sports.find(record => relative === `html/sports/${record.slug}.html`);
   const league = leaguePages.get(relative);
   const listedClubs = relative === 'html/calendar.html' ? [...data.clubs]
-    : sport ? data.clubs.filter(record => sportSlug(record.sport) === sport.slug && record.hiddenFromSportList !== true) : [];
+    : sport ? data.clubs.filter(record => clubSports(record).includes(sport.slug) && record.hiddenFromSportList !== true) : [];
   listedClubs.sort((a, b) => a.name.localeCompare(b.name));
   const structured = siteStructuredData({
     origin: base, relative, club, clubs: listedClubs,

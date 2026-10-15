@@ -149,7 +149,7 @@
 /* Separate About paragraphs so the club prompts are easy to read. */
 .profile-about p + p { margin-top: 14px; }
 /* Empty About action: a visible email link with space for touch and keyboard interaction. */
-.profile-about-update { display:inline-flex; align-items:center; min-height:44px; color:var(--profile-paper); text-decoration:underline; text-underline-offset:3px; }
+.profile-about-update { display:inline-flex; align-items:center; min-height:44px; color:var(--profile-lime); font-size:12px; text-decoration:none; }
 .profile-about-update:hover { color:var(--profile-lime); }
 .profile-about-update:focus-visible { outline:2px solid var(--profile-lime); outline-offset:3px; }
 

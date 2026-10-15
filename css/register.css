@@ -78,6 +78,7 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 .preview-about { width:100%; padding:14px 0 16px; border-bottom:1px solid #454945; }
 .preview-about h3 { margin:0 0 7px; color:var(--reg-lime); font-size:10px; font-weight:800; letter-spacing:.1em; }
 .preview-about p { width:100%; margin:0; color:#a5aaa2; font-size:9px; line-height:1.55; overflow-wrap:anywhere; }
+.preview-about p + p { margin-top:10px; }
 .preview-photo { display:flex; min-height:260px; flex-direction:column; align-items:center; justify-content:space-between; padding:14px 8px; border:1px solid #454945; color:#a5aaa2; background:linear-gradient(135deg, transparent 49.7%, rgba(255,255,255,.06) 50%, transparent 50.3%), #202220; font-size:8px; font-weight:800; letter-spacing:.1em; text-align:center; }
 .preview-photo > span:first-child { margin:auto; color:var(--reg-lime); font-size:clamp(44px, 8vw, 78px); font-weight:400; }
 .register-page .preview-club-card .preview-copy { display:flex; min-width:0; flex-direction:column; justify-content:center; align-self:stretch; padding:12px 10px; border:1px solid #454945; background:#202220; }
@@ -181,3 +182,11 @@ body.application-success-open { overflow:hidden; }
 .registration-captcha a { color: #faecd2; text-underline-offset: 3px; }
 .registration-captcha .captcha-privacy { font-size: 11px; }
 .registration-captcha > div { max-width: 100%; overflow-x: auto; }
+
+/* Final review keeps each set of related answers together. */
+.steps li:nth-child(4) { margin-left:108px; }
+.review-group { display:grid; grid-template-columns:1fr auto; gap:12px; padding:20px 0; border-bottom:1px solid #484b44; }
+.review-group h3 { margin:0; align-self:center; color:var(--reg-lime); font-size:17px; }
+.review-group p { grid-column:1/-1; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; color:var(--reg-paper); font-size:14px; line-height:1.65; }
+#download-registration { margin:22px 0 0; }
+@media(max-width:560px) { .steps li:nth-child(4) { margin-left:84px; } }

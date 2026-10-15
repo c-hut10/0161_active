@@ -133,3 +133,31 @@ The CSV writer quotes commas and multiline answers. Text starting with a spreads
 ## Existing records needing attention
 
 See `docs/club-data-review.md` for missing/unmapped postcode details and addresses preserved from the migration. These records do not gain an invented postcode or confirmation date. Some clubs have no sessions and therefore no derived area yet.
+
+
+## Readable master CSV (adopted 15 October 2026)
+
+The owner's master sheet uses readable question headings, rather than JSON paths. Each upload is reviewed and translated into the canonical importer format before use; the command-line importer does not directly accept these readable headings. Column order may vary. The canonical form export remains supported unchanged.
+
+- Repeat Club name on every meaningful row. Club ID may be blank: match existing names/websites carefully before generating a new ID. History Log is owner bookkeeping, not automatically a confirmation date. The agreed import date sets Last Confirmed for approved club responses.
+- A row can provide a session, a pricing option, a league, or a combination. Empty session fields on pricing/league rows do not create fictitious sessions. Exact repeated sessions are merged after review; flag coinciding but different sessions for confirmation.
+- Pricing type uses Free, Unknown, Per session, Membership - Monthly, or Membership - Annual. Standard price (£) is the amount for that row's option. A separate membership row can accompany a per-session row. Member session price (£) must explicitly be 0 when included; blank means not supplied and must be clarified, not assumed free. Retain one optional membership period in the present schema; multiple alternative memberships need review.
+- The existing Optional membership, Membership price (£) and Member session price (£) columns can still provide a supplementary membership on a pay-per-session row. If providing separate pricing rows, avoid conflicting amounts in those columns.
+- Repeat the club name on league rows; different team/league combinations are collected together. Internal coverage does not require a team name. Other coverages do.
+- Session days are 1 (Monday) through 7 (Sunday), times HH:MM, and postcodes complete. Add Experience level for Beginner, Intermediate, Advanced or All Abilities; beginner friendliness does not imply a session experience level.
+- Remove unnamed spacer columns and ignore rows containing only an unchecked same-location checkbox. A checked same-location box must refer to an actual preceding session for that club, not a pricing-only row.
+- Blank club fields are reviewed against existing records before replacement, especially contact details. Never erase known information silently. The supplied session list replaces the previous schedule after removals are flagged, including removal of historical invented sessions.
+- A multi-sport club keeps one profile, primary sport in `sport`, extra memberships in `additionalSports`, and optional session `sport` overrides. Both sports list the same profile; their glossary and calendar filters show the corresponding sessions. This additional owner-maintained information is not a new form question or canonical CSV column. Preserve/review it on future imports.
+
+For the 15 October batch, South Manchester's £7/session plus £16/month with included sessions and NQ Rebels' £5/session plus £15/month with included sessions were explicitly confirmed by the owner. Manchester Korfball's four league rows describe one shared Thursday training session. The incomplete Spartans row retains the existing touch@villagespartans.co.uk email and known undated venue. The uploaded CSV is not published as a website asset.
+
+## League-roster sheets
+
+League mastersheets describe membership only: they never generate club profiles, replace training sessions, change pricing, or update confirmation dates. Rows inherit the preceding league heading. Team names remain exactly as supplied; in future master sheets the literal shorthand `""` expands to that row's club name, with any suffix retained (for example `"" 1`). Review ambiguous parent-club names before import.
+
+- “No club profile” TRUE: retain the supplied HTTP(S) website, use a league-only guest record, and open its roster link in a new tab.
+- FALSE: remove its website cell from the reviewed CSV and do not store a team website fallback. An existing profile is linked directly. Otherwise retain one league-only parent record with `profilePending: true`, `profileClubId` for the intended parent, and no website URL. Teams display as plain text until a matching real profile exists.
+- `leagueRecords` resolves pending parents on each build by matching the intended club ID or the parent name within the sport, so the next build after a profile is added activates its team links. These placeholders never appear in the club directory/calendar or create profiles.
+- Keep multiple teams under one parent. Match existing clubs before changing membership names; preserve unrelated leagues, schedules and contact data. Reimporting an approved complete roster replaces that roster's memberships rather than appending duplicate teams.
+
+The October 2026 Korfball roster has 37 teams: Northern Regional League (9), North West Korfball League 1 (9), League 2 (9), and League 3 (10). Manchester KC maps to the existing Manchester Korfball profile. Manchester Hawks, Manchester Warriors and University of Manchester await profiles. The 20 local team rows have no website links; the 17 external team rows retain their supplied links. Existing league coverage values are retained.

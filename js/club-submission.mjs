@@ -1,6 +1,6 @@
-import { formatPostcodes, sportSlug } from './club-formatting.mjs';
+import { formatPostcodes, sportSlug, displaySportName, formatPrice, formatMembership, genderEligibilityLabel, DAY_NAMES } from './club-formatting.mjs';
 import { sessionTitle } from './session-details.mjs';
-import { normaliseLeagues, leagueAnswers } from './club-leagues.mjs';
+import { normaliseLeagues, leagueAnswers, LEAGUE_COVERAGES } from './club-leagues.mjs';
 
 /* Questionnaire contract: CSV headings mirror JSON paths, with one session per row. */
 export const CLUB_ANSWER_FIELDS = ['name', 'sport', 'beginnerFriendly', 'genderSpecific', 'genderEligibility', 'participatesInLeague', 'participatingLeagues.teamName', 'participatingLeagues.name', 'participatingLeagues.coverage', 'description', 'contact', 'onlineProfile.url',
@@ -63,4 +63,48 @@ export function submissionCsv(values, sessions, id = '') {
     return csvCell(value);
   }).join(','));
   return [CSV_COLUMNS.join(','), ...rows].join('\r\n') + '\r\n';
+}
+
+/* One readable representation for the final review and Netlify notification summary. */
+export function submissionReview(values, sessions) {
+  const club = clubAnswers(values, sessions);
+  const supplied = value => text(value) || 'Not supplied';
+  const yesNo = value => value === true ? 'Yes' : value === false ? 'No' : 'Not supplied';
+  const sections = [
+    { title: 'Club', step: 0, lines: [
+      `Name: ${supplied(club.name)}`, `Sport: ${supplied(displaySportName(club.sport))}`,
+      `Beginners welcome: ${yesNo(club.beginnerFriendly)}`,
+      `Gender eligibility: ${supplied(genderEligibilityLabel(club))}`,
+      `Description: ${supplied(club.description)}`
+    ] },
+    { title: 'Cost', step: 0, lines: [
+      `Price: ${formatPrice(club, { compact: true, minimumFractionDigits: 0, unknown: 'Not confirmed' })}`,
+      ...(club.membership ? [`Optional membership: ${formatMembership(club, { minimumFractionDigits: 0 })}`] : []),
+      ...(PAID_PRICE_TYPES.includes(club.price.type) ? [
+        `Taster sessions: ${club.tasterSessionCount ?? 'Not supplied'}`,
+        `Booking required: ${yesNo(club.bookingRequired)}`
+      ] : [])
+    ] },
+    { title: 'Leagues', step: 0, lines: [
+      `Participates in leagues: ${yesNo(club.participatesInLeague)}`,
+      ...club.participatingLeagues.map(league => [league.teamName, league.name, LEAGUE_COVERAGES[league.coverage]].filter(Boolean).join(' — '))
+    ] },
+    { title: 'Training', step: 1, lines: club.sessions.flatMap((session, index) => [
+      `${index + 1}. ${session.title}`,
+      `${DAY_NAMES[session.dayOfWeek] || 'Day not supplied'} · ${[session.startTime, session.endTime].filter(Boolean).join('–') || 'Time not supplied'}`,
+      `Location: ${supplied([session.meetingPoint, session.postcode].filter(Boolean).join(', '))}`,
+      `Eligibility: ${supplied(session.eligibility)}`,
+      ...(session.specialConsiderations ? [`Special considerations: ${session.specialConsiderations}`] : [])
+    ]) },
+    { title: 'Contact', step: 2, lines: [
+      `Public contact email: ${supplied(club.contact)}`,
+      ...(club.onlineProfile ? [`Website or social link: ${club.onlineProfile.url}`] : []),
+      ...(club.additionalInformation ? [`Additional information: ${club.additionalInformation}`] : [])
+    ] }
+  ];
+  return sections;
+}
+
+export function submissionSummary(values, sessions) {
+  return submissionReview(values, sessions).map(section => `${section.title.toUpperCase()}\n${section.lines.join('\n')}`).join('\n\n');
 }

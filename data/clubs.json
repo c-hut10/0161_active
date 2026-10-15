@@ -3159,7 +3159,7 @@
           "dayOfWeek": 1,
           "startTime": "20:00",
           "endTime": "21:30",
-          "meetingPoint": "The Hough End Centre (Police Sports & Social Club)Hough End",
+          "meetingPoint": "The Hough End Centre (Police Sports & Social Club), Hough End",
           "postcode": "M21 7SX",
           "eligibility": null,
           "specialConsiderations": null
@@ -3388,19 +3388,10 @@
       },
       "sessions": [
         {
-          "dayOfWeek": 3,
-          "startTime": "18:30",
-          "endTime": null,
-          "meetingPoint": "Woodstock, Didsbury (Sat urday social ride)",
-          "dataStatus": "public-source",
-          "title": "Club ride",
-          "postcode": null
-        },
-        {
           "dayOfWeek": 6,
           "startTime": "09:00",
           "endTime": null,
-          "meetingPoint": "Woodstock, Didsbury (Sat urday social ride)",
+          "meetingPoint": "Woodstock, Didsbury (Saturday social ride)",
           "dataStatus": "public-source",
           "title": "Social ride",
           "postcode": null
@@ -3409,7 +3400,7 @@
           "dayOfWeek": 7,
           "startTime": "08:15",
           "endTime": null,
-          "meetingPoint": "Woodstock, Didsbury (Sat urday social ride)",
+          "meetingPoint": "Woodstock, Didsbury (Saturday social ride)",
           "dataStatus": "public-source",
           "title": "Club ride",
           "postcode": null
@@ -3462,7 +3453,7 @@
           "dayOfWeek": 3,
           "startTime": "18:30",
           "endTime": null,
-          "meetingPoint": "The Gateway pub, Didsbury (Wed nesday ride meeting point)",
+          "meetingPoint": "The Gateway pub, Didsbury (Wednesday ride meeting point)",
           "dataStatus": "public-source",
           "title": "Social ride; approximately two hours",
           "postcode": null
@@ -4780,6 +4771,80 @@
       "participatesInLeague": null
     },
     {
+      "name": "Manchester Korfball",
+      "sport": "korfball",
+      "description": "Manchester Korfball Club are a friendly and sociable club. Korfball draws comparisons to netball and basketball, with it being played in mixed teams of 4 men and 4 women. We are always looking for new members, whether you have played before or never picked up a ball! Find more about Korfball and our club on our social media @manckorfball",
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester KC 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester KC 2",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester KC Bengals",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester KC 4",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        }
+      ],
+      "contact": "manckorfclub@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.manchesterkorfball.co.uk/"
+      },
+      "price": {
+        "type": "monthly_fee",
+        "amount": 18,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": 2,
+      "bookingRequired": false,
+      "additionalInformation": "Find more about Korfball and our club on our social media @manckorfball",
+      "sessions": [
+        {
+          "title": "Weekly Training",
+          "dayOfWeek": 4,
+          "startTime": "19:30",
+          "endTime": "21:30",
+          "meetingPoint": "Sale Leisure Centre, Broad Road",
+          "postcode": "M33 2AL",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "id": "manchester-korfball",
+      "imagePath": "img/korfball/korfball-Manchester Korfball.avif",
+      "profilePath": "html/korfball/manchester-korfball.html",
+      "coordinates": null,
+      "sources": [],
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-15"
+      }
+    },
+    {
       "id": "ancoats-run-club",
       "name": "Ancoats Run Club",
       "sport": "run-club",
@@ -4896,7 +4961,7 @@
       "sessions": [],
       "pricingNotes": null,
       "bookingNotes": "Not required for social runs; other trials arrange with secretary",
-      "tasterNotes": "Three tryouts for most sessions; Sun day runs open to nonmembers",
+      "tasterNotes": "Three tryouts for most sessions; Sunday runs open to nonmembers",
       "verification": {
         "status": "unverified",
         "lastConfirmed": null
@@ -4926,7 +4991,7 @@
       "name": "Didsbury Runners",
       "sport": "run-club",
       "beginnerFriendly": null,
-      "description": "Volunteer-run club with 5 km/10 km Mon day groups 8–12 min/mile",
+      "description": "Volunteer-run club with 5 km/10 km Monday groups 8–12 min/mile",
       "imagePath": "img/run-club/DidsburyRunners.jpg",
       "profilePath": "html/run-club/DidsburyRunners.html",
       "coordinates": null,
@@ -5079,7 +5144,7 @@
       ],
       "pricingNotes": null,
       "bookingNotes": null,
-      "tasterNotes": "Thu rsday/Sat urday tasters offered; count unspecified",
+      "tasterNotes": "Thursday/Saturday tasters offered; count unspecified",
       "bookingRequired": null,
       "verification": {
         "status": "unverified",
@@ -5176,15 +5241,6 @@
       },
       "sessions": [
         {
-          "dayOfWeek": 3,
-          "startTime": "18:30",
-          "endTime": "19:30",
-          "meetingPoint": "Co-op Food, Burton Road, West Didsbury",
-          "dataStatus": "existing-profile-unverified",
-          "title": "Training",
-          "postcode": null
-        },
-        {
           "dayOfWeek": 4,
           "startTime": "19:00",
           "endTime": "20:30",
@@ -5215,8 +5271,8 @@
       "id": "redacted-run-club",
       "name": "Redacted Run Club",
       "sport": "run-club",
-      "beginnerFriendly": null,
-      "description": null,
+      "beginnerFriendly": true,
+      "description": "STRIDES & VIBES ⚡️",
       "imagePath": "img/run-club/RedactedRunClub.jpeg",
       "profilePath": "html/run-club/RedactedRunClub.html",
       "coordinates": null,
@@ -5226,36 +5282,39 @@
         "currency": "GBP"
       },
       "contact": null,
-      "onlineProfile": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/redactedrunclub/?hl=en-gb"
+      },
       "sessions": [
         {
-          "dayOfWeek": 2,
+          "title": "Social Run",
+          "dayOfWeek": 3,
           "startTime": "18:30",
-          "endTime": "19:30",
-          "meetingPoint": "Piccadilly Gardens, Manchester",
-          "dataStatus": "placeholder",
-          "title": "Training",
-          "postcode": null
-        },
-        {
-          "dayOfWeek": 6,
-          "startTime": "09:30",
-          "endTime": "10:30",
-          "meetingPoint": "Heaton Park, Manchester",
-          "dataStatus": "placeholder",
-          "title": "Training",
-          "postcode": null
+          "endTime": null,
+          "meetingPoint": "Ancoats Marina",
+          "postcode": "M4 6BX",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
         }
       ],
       "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
+        "status": "verified",
+        "lastConfirmed": "2026-10-15"
       },
       "additionalInformation": null,
       "sources": [],
       "membership": null,
       "participatingLeagues": [],
-      "participatesInLeague": null
+      "participatesInLeague": false,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": []
     },
     {
       "id": "royton-road-runners",
@@ -5565,48 +5624,54 @@
       "id": "south-manchester-squash-racketball-club",
       "name": "South Manchester Squash & Racketball Club",
       "sport": "squash",
-      "beginnerFriendly": null,
-      "description": "Adult 18+ community club; equipment provided",
+      "beginnerFriendly": true,
+      "description": "We are a community run Squash and a Racketball club based in Manchester (UK). We offer sessions for Squash and Racketball at Hough End Leisure Centre, on a membership as well as pay-per-play basis. We welcome players (18 years upwards) at all levels for both sports, from beginners to advanced, all genders and abilities. Equipment is provided by the club.",
       "imagePath": null,
       "profilePath": "html/squash/south-manchester-squash-racketball-club.html",
       "coordinates": null,
       "price": {
-        "type": "unknown",
-        "amount": null,
+        "type": "per_session",
+        "amount": 7,
         "currency": "GBP"
       },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
+      "tasterSessionCount": 0,
+      "bookingRequired": false,
       "contact": "info@smsrc.co.uk",
       "onlineProfile": {
-        "url": "https://smsrc.co.uk/"
+        "url": "https://smsrc.co.uk"
       },
       "sessions": [
         {
+          "title": "Squash Session",
           "dayOfWeek": 2,
           "startTime": "19:15",
           "endTime": "20:45",
-          "meetingPoint": "Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD",
-          "dataStatus": "public-source",
-          "title": "Squash",
-          "postcode": "M20 1HD"
+          "meetingPoint": "Hough End Leisure Centre",
+          "postcode": "M20 1HD",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted",
+          "sport": "squash"
         },
         {
+          "title": "Racketball Session",
           "dayOfWeek": 4,
           "startTime": "20:00",
           "endTime": "21:30",
-          "meetingPoint": "Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD",
-          "dataStatus": "public-source",
-          "title": "Racketball",
-          "postcode": "M20 1HD"
+          "meetingPoint": "Hough End Leisure Centre",
+          "postcode": "M20 1HD",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted",
+          "sport": "racketball"
         }
       ],
       "pricingNotes": null,
-      "bookingNotes": "Register interest for nonmember group coaching",
+      "bookingNotes": null,
       "tasterNotes": null,
       "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
+        "status": "verified",
+        "lastConfirmed": "2026-10-15"
       },
       "additionalInformation": null,
       "sources": [
@@ -5619,9 +5684,26 @@
           ]
         }
       ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
+      "membership": {
+        "period": "monthly",
+        "amount": 16,
+        "sessionAmount": 0
+      },
+      "participatingLeagues": [
+        {
+          "teamName": "",
+          "name": "South Manchester Squash",
+          "leagueUrl": null,
+          "coverage": "internal"
+        }
+      ],
+      "participatesInLeague": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "trainingVenues": [],
+      "additionalSports": [
+        "racketball"
+      ]
     },
     {
       "id": "the-northern",
@@ -5852,7 +5934,7 @@
       "name": "Marple Sports Club Table Tennis",
       "sport": "table tennis",
       "beginnerFriendly": null,
-      "description": "Fri endly social table tennis for all ages; equipment available",
+      "description": "Friendly social table tennis for all ages; equipment available",
       "imagePath": null,
       "profilePath": "html/table-tennis/marple-sports-club-table-tennis.html",
       "coordinates": null,
@@ -6014,8 +6096,8 @@
     },
     {
       "id": "manchester-village-spartans-touch",
-      "name": "Manchester Village Spartans Touch",
-      "sport": "touch rugby",
+      "name": "Manchester Village Spartans Touch Rugby",
+      "sport": "touch-rugby",
       "beginnerFriendly": null,
       "description": null,
       "imagePath": null,
@@ -6027,18 +6109,18 @@
         "currency": "GBP"
       },
       "tasterSessionCount": null,
-      "bookingRequired": null,
+      "bookingRequired": false,
       "contact": "touch@villagespartans.co.uk",
       "onlineProfile": {
         "url": "https://villagespartans.co.uk/touch/"
       },
       "sessions": [],
       "pricingNotes": null,
-      "bookingNotes": "Register and contact volunteers before first training",
-      "tasterNotes": "Up to 8 sessions in first 4 weeks, adult 18+, subject to availability",
+      "bookingNotes": null,
+      "tasterNotes": null,
       "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
+        "status": "verified",
+        "lastConfirmed": "2026-10-15"
       },
       "additionalInformation": null,
       "sources": [
@@ -6064,7 +6146,69 @@
           "meetingPoint": "Sale Sports Club, Dane Road / Clarendon Crescent, Sale",
           "postcode": "M33 2DE"
         }
-      ]
+      ],
+      "genderSpecific": null,
+      "genderEligibility": null
+    },
+    {
+      "name": "NQ Rebels",
+      "sport": "touch-rugby",
+      "description": null,
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "NQ Rebels",
+          "name": "National Touch Series",
+          "leagueUrl": null,
+          "coverage": "national"
+        }
+      ],
+      "contact": "nqrebels@gmail.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/nq_rebels/"
+      },
+      "price": {
+        "type": "per_session",
+        "amount": 5,
+        "currency": "GBP"
+      },
+      "membership": {
+        "period": "monthly",
+        "amount": 15,
+        "sessionAmount": 0
+      },
+      "tasterSessionCount": 1,
+      "bookingRequired": false,
+      "additionalInformation": null,
+      "sessions": [
+        {
+          "title": "Training",
+          "dayOfWeek": 1,
+          "startTime": "19:30",
+          "endTime": "21:00",
+          "meetingPoint": "St Paul's Catholic High School, Firbank Road",
+          "postcode": "M23 2YS",
+          "eligibility": null,
+          "specialConsiderations": "Drills/Skills for the first half hour, with fun social games involved later in the session",
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "id": "nq-rebels",
+      "imagePath": null,
+      "profilePath": "html/touch-rugby/nq-rebels.html",
+      "coordinates": null,
+      "sources": [],
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-15"
+      }
     },
     {
       "id": "black-sheep-ultimate",
@@ -6562,6 +6706,342 @@
           "name": "Manchester Autumn League",
           "leagueUrl": null,
           "coverage": "regional"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-leeds-hurricanes",
+      "name": "Leeds Hurricanes",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/leedshurricaneskorfball/?hl=en"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Leeds Hurricanes 2",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional",
+          "url": "https://www.instagram.com/leedshurricaneskorfball/?hl=en"
+        },
+        {
+          "teamName": "Leeds Hurricanes 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional",
+          "url": "https://www.instagram.com/leedshurricaneskorfball/?hl=en"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-leeds-city",
+      "name": "Leeds City",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://leedscitykorfball.wordpress.com"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Leeds City 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional",
+          "url": "https://leedscitykorfball.wordpress.com"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-manchester-hawks",
+      "name": "Manchester Hawks",
+      "sport": "korfball",
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Hawks 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester Hawks 2",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester Hawks 3",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Hawks Vibes",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Hawks 4",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Hawks 5",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        }
+      ],
+      "profilePending": true,
+      "profileClubId": "manchester-hawks"
+    },
+    {
+      "id": "korfball-roster-sheffield-city",
+      "name": "Sheffield City",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/sheffieldcitykorf/"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Sheffield City 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional",
+          "url": "https://www.instagram.com/sheffieldcitykorf/"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-manchester-warriors",
+      "name": "Manchester Warriors",
+      "sport": "korfball",
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Warriors 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester Warriors 2",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Warriors Barbarians",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Warriors 3",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Warriors 4",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        }
+      ],
+      "profilePending": true,
+      "profileClubId": "manchester-warriors"
+    },
+    {
+      "id": "korfball-roster-university-of-manchester",
+      "name": "University of Manchester",
+      "sport": "korfball",
+      "onlineProfile": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "University of Manchester 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "University of Manchester 2",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "University of Manchester 3",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "University of Manchester 4",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "University of Manchester Bees",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        }
+      ],
+      "profilePending": true,
+      "profileClubId": "university-of-manchester"
+    },
+    {
+      "id": "korfball-roster-liver-birds",
+      "name": "Liver Birds",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/liverbirdskorfball/"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Liver Birds 1",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/liverbirdskorfball/"
+        },
+        {
+          "teamName": "Liver Birds 2",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/liverbirdskorfball/"
+        },
+        {
+          "teamName": "Liver Birds 3",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/liverbirdskorfball/"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-lancaster-university",
+      "name": "Lancaster University",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/lancsunikorfball/"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Lancaster University 1",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/lancsunikorfball/"
+        },
+        {
+          "teamName": "Lancaster University 2",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/lancsunikorfball/"
+        },
+        {
+          "teamName": "Lancaster University 3",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/lancsunikorfball/"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-university-of-liverpool",
+      "name": "University of Liverpool",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/liverpoolkorf/"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "University of Liverpool 1",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/liverpoolkorf/"
+        },
+        {
+          "teamName": "University of Liverpool 2",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/liverpoolkorf/"
+        },
+        {
+          "teamName": "University of Liverpool 3",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/liverpoolkorf/"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-lancaster-phoenix",
+      "name": "Lancaster Phoenix",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/lancasterphoenixkorfball/"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Lancaster Phoenix 1",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/lancasterphoenixkorfball/"
+        },
+        {
+          "teamName": "Lancaster Phoenix 2",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/lancasterphoenixkorfball/"
+        },
+        {
+          "teamName": "Lancaster Phoenix 3",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/lancasterphoenixkorfball/"
+        }
+      ]
+    },
+    {
+      "id": "korfball-roster-crewe-and-nantwich",
+      "name": "Crewe & Nantwich",
+      "sport": "korfball",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/cankorf/"
+      },
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Crewe & Nantwich 1",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county",
+          "url": "https://www.instagram.com/cankorf/"
         }
       ]
     }
