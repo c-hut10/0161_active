@@ -1,18 +1,30 @@
-import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatPrice, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel } from './club-formatting.mjs';
+import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports } from './club-formatting.mjs';
 import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
-import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms, clubSessionPriceLabel } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
-import { leagueNamesLabel } from './club-leagues.mjs';
+import { favouriteButton } from './club-favourites-renderer.mjs';
+import { normaliseLeagues, leaguePageUrl, leagueProfileLabel } from './club-leagues.mjs';
 
-/* About section: invite club details whenever no description has been supplied. */
-const ABOUT_CLUB_PARAGRAPHS = [
-  'Tell us some more about your club!',
-  'How long have you been up and running?',
-  'Do you enter into any cool competitions we should know about?',
-  'Are you/any of your athletes award winning?',
-  'How many people show up to your sessions?',
-  'Any and all extra details are welcomed!'
-];
+/* Profile league links: list each league once, using internal pages or national organiser URLs. */
+function renderProfileLeagues(club) {
+  const leagues = new Map();
+  normaliseLeagues(club.participatingLeagues).forEach(league => {
+    const key = league.name.toLocaleLowerCase('en-GB');
+    if (!leagues.has(key) || (!leagues.get(key).leagueUrl && league.leagueUrl)) leagues.set(key, league);
+  });
+  return [...leagues.values()].map(league => {
+    const national = league.coverage === 'national';
+    const href = league.coverage === 'internal' ? null : national ? league.leagueUrl : club.sport ? leaguePageUrl(club.sport, league.name) : null;
+    const label = escapeHtml(leagueProfileLabel(league));
+    return href ? `<a class="profile-league-link" href="${escapeHtml(href)}"${national ? ' target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab"' : ''}>${label}</a>` : label;
+  }).join(' · ');
+}
+
+/* Missing About details: inform visitors and give the club a direct route to supply an update. */
+function renderEmptyAbout() {
+  return `<p>More about this club coming soon.</p>
+        <p><a class="profile-about-update" href="/html/contact.html">Update your club details</a></p>`;
+}
 
 export function renderClubProfile(club, notice = '', pageUrl = 'https://0161active.co.uk/') {
   /* Club data: build each sports profile from its matching shared JSON record. */
@@ -31,7 +43,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     return `<a class="${className}" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(label)}</a>`;
   }
 
-  /* Training summary: show stored days, times and booking notes before the club photo. */
+  /* Training summary: show stored days and times across the full width before the club photo. */
   function renderTrainingSummary(club) {
     const sessions = Array.isArray(club.sessions) ? [...club.sessions] : [];
     const dayOrder = session => profileDays.find(day => day.number === Number(session.dayOfWeek))?.number ?? 8;
@@ -50,21 +62,14 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         ${note ? `<span>${escapeHtml(note)}</span>` : ''}
       </li>`);
     });
-    const bookingNote = club.bookingNotes?.trim();
-    const booking = club.bookingRequired === true || bookingNote
-      ? `<div class="profile-training-summary__booking"><h3>Booking</h3>
-          ${club.bookingRequired === true ? '<p>Booking required</p>' : ''}
-          ${bookingNote ? `<p>${escapeHtml(bookingNote)}</p>` : ''}
-        </div>` : '';
     return `<section class="profile-training-summary" aria-labelledby="profile-training-summary-title">
       <div class="profile-training-summary__heading">
         <h2 id="profile-training-summary-title">Training Summary</h2>
         <a href="#profile-week-title">Full timetable <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="profile-training-summary__body${booking ? ' profile-training-summary__body--booking' : ''}">
+      <div class="profile-training-summary__body">
         ${summaries.size ? `<ul class="profile-training-summary__sessions">${[...summaries.values()].join('')}</ul>`
           : '<p class="profile-training-summary__empty">Training days and times are not listed yet.</p>'}
-        ${booking}
       </div>
     </section>`;
   }
@@ -79,8 +84,10 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
             <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <time>${escapeHtml(sessionTime(session))}</time>
+            ${sessionTerms(club, session).map(term => `<span>${escapeHtml(term)}</span>`).join('')}
             ${sessionAudience(session) ? `<span>${escapeHtml(sessionAudience(session))}</span>` : ''}
             <span>${escapeHtml(sessionAddress(session) || session.area || 'Location to confirm')}</span>
+            ${sessionAddress(session) ? `<button type="button" class="profile-copy-address" data-copy-address="${escapeHtml(sessionAddress(session))}" aria-label="Copy address for ${escapeHtml(sessionTitle(club, session))} on ${escapeHtml(day.name)}" hidden>Copy address</button><span class="profile-copy-address-status" role="status" hidden></span>` : ''}
             ${sessionVenueNote(club, session) ? `<span>${sessionVenueNoteHtml(club, session)}</span>` : ''}
             ${sessionScheduleNote(session) ? `<span>${escapeHtml(sessionScheduleNote(session))}</span>` : ''}
           </article>`).join('')
@@ -107,25 +114,31 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
   const photo = photoPath
     ? `<img class="profile-photo" src="${escapeHtml(photoPath)}" alt="${escapeHtml(`${club.name} club photo`)}">`
     : '<div class="profile-photo profile-photo--missing">Club photo not available</div>';
-  const sportLabel = displaySportName(club.sport, { titleCase: true });
+  const profileSports = clubSports(club);
   const areas = clubTrainingAreas(club);
   const sportArea = [
-    sportLabel ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport))}">${escapeHtml(sportLabel)}</a>` : '',
+    ...profileSports.map(sport => `<a href="${escapeHtml(profileGlossaryUrl(sport))}">${escapeHtml(displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true }))}</a>`),
     ...areas.map(area => club.sport ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport, area))}">${escapeHtml(area)}</a>` : escapeHtml(area))
   ].filter(Boolean).join(' · ') || 'MANCHESTER CLUB';
   const detailRow = (label, value) => `<div class="profile-detail-row"><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`;
   const isPaidClub = ['monthly_fee', 'annual_fee', 'per_session', 'paid'].includes(club.price?.type);
-  const leagueLabel = leagueNamesLabel(club.participatingLeagues);
+  const leagueLinks = renderProfileLeagues(club);
   const genderLabel = genderEligibilityLabel(club);
+  /* Booking guidance: reuse the validated club URL, with plain text when no link is supplied. */
+  const onlineAction = onlineProfileAction(club.onlineProfile?.url, pageUrl);
+  const bookingContact = onlineAction
+    ? `<a class="profile-booking-link" href="${escapeHtml(onlineAction.href)}" target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab">contact</a>`
+    : 'contact';
   const details = [
-    detailRow('SPORT', club.sport ? displaySportName(club.sport, { titleCase: true }) : 'To confirm'),
+    detailRow('SPORT', profileSports.map(sport => displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true })).join(' · ') || 'To confirm'),
     // Show confirmed eligibility without assigning a gender answer to existing records.
     genderLabel ? detailRow('GENDER ELIGIBILITY', genderLabel) : '',
-    leagueLabel ? detailRow('LEAGUE', leagueLabel) : '',
+    beginnerFriendlyLabel(club) ? detailRow('BEGINNER FRIENDLY', beginnerFriendlyLabel(club)) : '',
+    leagueLinks ? `<div class="profile-detail-row"><dt>LEAGUE(S)</dt><dd>${leagueLinks}</dd></div>` : '',
     detailRow('AREA', areas.join(' · ') || 'Area to confirm'),
     // Training locations: jump to the weekly timetable containing each session's venue.
     '<div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div>',
-    detailRow('COST', formatPrice(club, { compact: true, unknown: 'Not listed', free: 'free', missingAmount: 'amount to confirm' })),
+    detailRow('COST', clubSessionPriceLabel(club, { compact: true, unknown: 'Not listed', free: 'free', missingAmount: 'amount to confirm' })),
     formatMembership(club) ? detailRow('OPTIONAL MEMBERSHIP', formatMembership(club)) : '',
     club.pricingNotes ? detailRow('PRICING DETAILS', club.pricingNotes) : '',
     club.tasterNotes ? detailRow('TASTER DETAILS', club.tasterNotes) : '',
@@ -133,16 +146,17 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     isPaidClub && Number.isInteger(club.tasterSessionCount) && club.tasterSessionCount > 0
       ? detailRow('TASTER SESSION(S)', String(club.tasterSessionCount))
       : '',
-    isPaidClub && club.bookingRequired === true ? detailRow('BOOKING', 'Required') : ''
+    isPaidClub && club.bookingRequired === true
+      ? `<div class="profile-detail-row"><dt>BOOKING</dt><dd>Please ${bookingContact} the club for booking information</dd></div>`
+      : ''
   ].join('');
-  const onlineUrl = club.onlineProfile?.url;
   const confirmation = clubConfirmation(club);
   const informationDate = confirmation
     ? `Last Confirmed: <time datetime="${confirmation.date}">${confirmation.label}</time>`
     : 'Unverified · Last Confirmed: not yet recorded';
   const actions = [
     renderAction(contactUrl(club.contact), true),
-    renderAction(onlineProfileAction(onlineUrl, pageUrl))
+    renderAction(onlineAction)
   ].filter(Boolean).join('');
 
   const html = `<section class="profile-heading" aria-labelledby="profile-title">
@@ -151,7 +165,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         <h1 id="profile-title">${escapeHtml(club.name)}${clubVerificationBadge(club)}</h1>
         <p class="profile-information-date">${informationDate}</p>
       </div>
-      ${actions ? `<div class="profile-actions" aria-label="Club actions">${actions}</div>` : ''}
+      <div class="profile-actions" aria-label="Club actions">${actions}${favouriteButton(club)}</div>
     </section>
     ${renderTrainingSummary(club)}
     <section class="profile-overview" aria-label="${escapeHtml(club.name)} photo and details">
@@ -164,9 +178,9 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
       <h2 id="profile-about-title">About the club</h2>
       ${club.description?.trim()
         ? `<p>${escapeHtml(club.description)}</p>`
-        : ABOUT_CLUB_PARAGRAPHS.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join('\n        ')}
+        : club.additionalInformation?.trim() ? '' : renderEmptyAbout()}
+      ${club.additionalInformation?.trim() ? `<p>${escapeHtml(club.additionalInformation)}</p>` : ''}
     </section>
-    ${club.additionalInformation?.trim() ? `<section class="profile-about" aria-labelledby="profile-additional-title"><h2 id="profile-additional-title">Additional information</h2><p>${escapeHtml(club.additionalInformation)}</p></section>` : ''}
     ${renderWeek(club, notice)}`;
   return { html, title: `${club.name} | 0161 Active` };
 }

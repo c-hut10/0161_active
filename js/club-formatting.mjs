@@ -11,7 +11,20 @@ export const WEEK_DAYS = [
 export const DAY_NAMES = ['', ...WEEK_DAYS.map(day => day.name)];
 export const DAY_NUMBERS = Object.fromEntries(WEEK_DAYS.map(day => [day.short.toLowerCase(), day.number]));
 
+/* Directory maintenance: keep the flat JSON list grouped by sport, then alphabetised by club name. */
+export function compareClubsBySportAndName(left, right) {
+  const compare = (a, b) => String(a || '').localeCompare(String(b || ''), 'en-GB', { sensitivity: 'base' });
+  return compare(displaySportName(left.sport), displaySportName(right.sport))
+    || compare(left.name, right.name)
+    || compare(left.id, right.id);
+}
+
 /* Gender display: shorten Men/Women combinations without changing the stored answer. */
+/* Beginner friendliness is a club-wide answer; missing information never implies Yes or No. */
+export function beginnerFriendlyLabel(club) {
+  return club.beginnerFriendly === true ? 'Yes' : club.beginnerFriendly === false ? 'No' : '';
+}
+
 export function genderEligibilityLabel(club) {
   if (club.genderSpecific === false) return 'All genders';
   if (club.genderSpecific !== true) return '';
@@ -47,6 +60,17 @@ export function sportSlug(value) {
     .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   // Previously shared links can still use the old sport identifier.
   return slug === 'running' ? 'run-club' : slug;
+}
+
+/* Multi-sport clubs keep one profile; sessions can specify their own sport for filtering. */
+export function clubSports(club) {
+  return [...new Set([club.sport, ...(Array.isArray(club.additionalSports) ? club.additionalSports : [])].map(sportSlug).filter(Boolean))];
+}
+export function sessionSport(club, session) {
+  return sportSlug(session?.sport || club.sport);
+}
+export function clubForSport(club, sport) {
+  return { ...club, sessions: (club.sessions || []).filter(session => sessionSport(club, session) === sportSlug(sport)) };
 }
 
 export function displaySportName(value, { titleCase = false, fallback = '' } = {}) {
@@ -124,7 +148,8 @@ export function formatPrice(club, {
   if (price.type === 'free') return free;
   if (Number.isFinite(price.amount)) {
     const amount = new Intl.NumberFormat('en-GB', {
-      style: 'currency', currency: price.currency || 'GBP', minimumFractionDigits,
+      style: 'currency', currency: price.currency || 'GBP',
+      minimumFractionDigits: Number.isInteger(price.amount) ? 0 : minimumFractionDigits,
       maximumFractionDigits: 2
     }).format(price.amount);
     const period = PRICE_PERIODS[price.type]?.[compact ? 'compact' : 'full'] || price.period;

@@ -1,5 +1,6 @@
 import { canonicalArea, DAY_NAMES as dayNames, sessionTime, escapeHtml } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
+import { favouriteButton } from './club-favourites-renderer.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
 
 /* Club rows: one HTML renderer keeps generated pages and live filters consistent. */
@@ -23,6 +24,7 @@ export function renderSportClubRows(clubs, selectedArea = 'all') {
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="${escapeHtml(`/${club.profilePath}`)}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a></h3>
+          ${favouriteButton(club)}
         </div>
         <p class="sport-club-row__sessions">${schedule}</p>
         <p class="sport-club-row__area">${escapeHtml(area)}</p>

@@ -1,6 +1,6 @@
 import { displaySportName } from './club-formatting.mjs';
 import { renderSportsDirectory } from './sports-directory-renderer.mjs';
-import { visibleSportRecords } from './sport-catalog.mjs';
+import { visibleSportRecords, visibleClubCount } from './sport-catalog.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
 import { beginControlLoading } from './control-loading.mjs';
 
@@ -10,6 +10,7 @@ const sportsCount = document.querySelector('#sports-count');
 const sportsGroups = document.querySelector('#sports-groups');
 const sportsMessage = document.querySelector('#sports-message');
 let sportRecords = [];
+let directoryClubs = [];
 
 function renderSports() {
   const query = sportsSearch.value.trim().toLocaleLowerCase();
@@ -17,7 +18,7 @@ function renderSports() {
     displaySportName(sport.name).toLocaleLowerCase().includes(query)
       || sport.name.toLocaleLowerCase().includes(query)
   );
-  const clubTotal = filtered.reduce((sum, sport) => sum + sport.clubCount, 0);
+  const clubTotal = visibleClubCount(filtered, directoryClubs);
   sportsCount.textContent = `${filtered.length} SPORTS · ${clubTotal} CLUBS ON RECORD`;
 
   if (!filtered.length) {
@@ -36,7 +37,8 @@ async function loadSportsDirectory() {
   const finishLoading = beginControlLoading([sportsSearch], sportsMessage);
   try {
     const [sportsData, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
-    sportRecords = visibleSportRecords(sportsData, clubsData.clubs);
+    directoryClubs = clubsData.clubs;
+    sportRecords = visibleSportRecords(sportsData, directoryClubs);
     finishLoading();
     renderSports();
   } catch (error) {

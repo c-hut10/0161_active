@@ -1,4 +1,4 @@
-import { sportSlug, displaySportName, canonicalArea, sportGlossaryUrl } from './club-formatting.mjs';
+import { sportSlug, displaySportName, canonicalArea, sportGlossaryUrl, clubSports, clubForSport } from './club-formatting.mjs';
 import { visibleSportRecords } from './sport-catalog.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
 import { renderSportClubRows } from './sport-glossary-renderer.mjs';
@@ -96,8 +96,8 @@ async function loadGlossary() {
     document.querySelector('.sport-club-directory').setAttribute('aria-label', `${sportName} listings`);
     document.querySelector('.sport-glossary-filters').setAttribute('aria-label', `Filter ${sportName} listings`);
     const clubs = clubsData.clubs;
-    const matchingClubs = clubs.filter(club => sportSlug(club.sport || '') === requestedSlug
-      && club.hiddenFromSportList !== true);
+    const matchingClubs = clubs.filter(club => clubSports(club).includes(requestedSlug)
+      && club.hiddenFromSportList !== true).map(club => clubForSport(club, requestedSlug));
     /* Direct glossary URLs follow the same availability rules as the menus and directory. */
     sportIsVisible = visibleSportRecords(sportsData, clubs).some(sport => sport.slug === requestedSlug);
     sportClubs = sportIsVisible ? matchingClubs : [];

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CSV_COLUMNS, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, MEMBERSHIP_PERIODS, clubAnswers } from '../js/club-submission.mjs';
-import { sportSlug, WEEK_DAYS } from '../js/club-formatting.mjs';
+import { sportSlug, WEEK_DAYS, compareClubsBySportAndName } from '../js/club-formatting.mjs';
 import { areaFromPostcode } from '../js/club-areas.mjs';
 import { verificationDate } from '../js/club-verification.mjs';
 import { leagueAnswers, LEAGUE_COVERAGES } from '../js/club-leagues.mjs';
@@ -13,7 +13,10 @@ function readCsv(source) {
   let row = [], cell = '', quoted = false, closed = false;
   function finishCell() {
     // Undo only the spreadsheet-formula protection applied by our CSV writer.
-    row.push(cell.replace(/^'(?=[=+@-])/, '').trim());
+    const value = cell.replace(/^'(?=[=+@-])/, '');
+    // Preserve empty team-name lines paired with Internal leagues in multiline answers.
+    const teamNames = rows[0]?.[row.length] === 'participatingLeagues.teamName';
+    row.push(teamNames ? value.replace(/^[ \t]+|[ \t]+$/g, '') : value.trim());
     cell = ''; closed = false;
   }
   const text = source.replace(/^\uFEFF/, '');
@@ -82,6 +85,7 @@ const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
 const updates = [];
 for (const [id, group] of groups) {
   const answers = clubAnswers(group.values, group.rows.map(row => row.session));
+  if (!['', 'yes', 'no'].includes(group.values.beginnerFriendly)) errors.push(`${id}: beginnerFriendly must be yes, no or blank when unknown.`);
   /* Preserve the club's wording and reject contradictory gender eligibility answers. */
   const genderSpecific = group.values.genderSpecific || '';
   const genderEligibility = group.values.genderEligibility || '';
@@ -97,9 +101,9 @@ for (const [id, group] of groups) {
   if (participation !== 'yes' && leagues.length) errors.push(`${id}: league details require participatesInLeague yes.`);
   const scopes = new Map();
   leagues.forEach((league, index) => {
-    if (!league.teamName || league.teamName.length > 150) errors.push(`${id}: league ${index + 1} requires a team name of up to 150 characters.`);
+    if ((!league.teamName && league.coverage !== 'internal') || league.teamName.length > 150) errors.push(`${id}: league ${index + 1} requires a team name of up to 150 characters.`);
     if (!league.name || league.name.length > 150) errors.push(`${id}: league ${index + 1} requires a name of up to 150 characters.`);
-    if (!Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) errors.push(`${id}: league ${index + 1} coverage must be local_county, regional or national.`);
+    if (!Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) errors.push(`${id}: league ${index + 1} coverage must be internal, local_county, regional or national.`);
     const key = league.name.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-GB');
     if (scopes.has(key) && scopes.get(key) !== league.coverage) errors.push(`${id}: conflicting coverage for ${league.name}.`);
     scopes.set(key, league.coverage);
@@ -168,7 +172,8 @@ if (args.includes('--write')) {
     const index = data.clubs.findIndex(club => club.id === update.id);
     if (index < 0) data.clubs.push(update); else data.clubs[index] = update;
   }
-  // One final write after every record has passed import validation.
+  // Keep new and updated clubs in sport/name order before the one final validated write.
+  data.clubs.sort(compareClubsBySportAndName);
   const temporary = `${dataFile}.tmp`;
   fs.writeFileSync(temporary, JSON.stringify(data, null, 2) + '\n');
   fs.renameSync(temporary, dataFile);

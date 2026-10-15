@@ -59,6 +59,14 @@
 .calendar-day-nav button:focus-visible { outline: 2px solid var(--cal-lime); outline-offset: 2px; }
 .calendar-result-count { margin: 0 0 12px auto; color: var(--cal-grey); font-size: 13px; }
 
+/* Active filter labels: wrap on narrow screens and provide a clear individual reset action. */
+.calendar-active-filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+.calendar-active-filters[hidden] { display:none; }
+.calendar-filter-label { display:inline-flex; align-items:center; justify-content:space-between; gap:14px; min-height:44px; max-width:100%; padding:8px 12px; box-sizing:border-box; border:1px solid var(--cal-lime); background:var(--cal-panel); color:var(--cal-lime); font:700 13px/1.4 Arial, Helvetica, sans-serif; text-align:left; overflow-wrap:anywhere; cursor:pointer; }
+.calendar-filter-label:hover { background:var(--cal-lime); color:var(--cal-black); }
+.calendar-filter-label:focus-visible { outline:2px solid var(--cal-paper); outline-offset:3px; }
+.calendar-filter-label__remove { flex-shrink:0; font-size:20px; line-height:1; }
+
 /* Day navigation: select Full Week or toggle individual weekday agendas. */
 .calendar-day-nav {
   position: sticky;
@@ -178,6 +186,10 @@
 .week-session__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px; }
 /* Session details stay readable at every breakpoint; narrow time ranges can wrap. */
 .session-title { display: block; margin-bottom: 5px; color: var(--cal-paper); font-size: 14px; line-height: 1.4; white-space: normal; overflow-wrap: anywhere; }
+/* Session titles: link to the profile timetable while retaining the calendar's text styling. */
+.session-title-link { display:inline-flex; align-items:center; min-height:44px; color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.session-title-link:hover { color:var(--cal-lime); }
+.session-title-link:focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
 .session-audience { display: block; margin-top: 4px; color: var(--cal-grey); font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
 /* Optional session subtitle: show distances and other short details below the title. */
 .session-subtitle { display: block; margin: 0 0 5px; color: var(--cal-grey); font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }

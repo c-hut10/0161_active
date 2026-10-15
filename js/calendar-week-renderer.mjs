@@ -1,7 +1,7 @@
 import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
 import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL } from './club-calendar.mjs';
-import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { sessionTitle, sessionProfileUrl, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
 import { sportName as displaySportName } from './club-directory-filters.js';
 
 /* Weekly calendar HTML: render the same schedule at build time and after filtering. */
@@ -36,10 +36,11 @@ export function renderWeekGrid(entries) {
       const sessions = sessionsByDay.get(day.number) || [];
       const content = sessions.length
         ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}${session.everyOtherWeek ? ', every other week' : ''}">
-            <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
+            <strong class="session-title"><a class="session-title-link" href="${escapeHtml(sessionProfileUrl(club))}">${escapeHtml(sessionTitle(club, session))}</a></strong>
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <div class="week-session__top"><time>${escapeHtml(formatTime(session))}</time>${frequencyToggle(session)}</div>
             ${eligibilityMarkup(session)}
+            ${sessionTerms(club, session).map(term => `<span class="session-subtitle">${escapeHtml(term)}</span>`).join('')}
             <span class="week-session__area">${escapeHtml(session.area || 'Area to confirm')}</span>
             ${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}
           </div>`).join('')

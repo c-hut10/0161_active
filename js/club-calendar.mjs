@@ -1,4 +1,4 @@
-import { sessionTitle, sessionAddress, sessionAudience, sessionVenueNote } from './session-details.mjs';
+import { sessionTitle, sessionAddress, sessionAudience, sessionVenueNote, sessionTerms } from './session-details.mjs';
 export const CALENDAR_DOWNLOAD_LABEL = 'Download this week’s schedule';
 export const CALENDAR_FILE_LABEL = '(Downloadable .ics file)';
 const validTime = time => /^([01]\d|2[0-3]):[0-5]\d$/.test(time || '');
@@ -76,7 +76,7 @@ export function createClubCalendar(club, profileUrl, now = new Date()) {
       }
       event.push(`SUMMARY:${escapeText(`${club.name} · ${sessionTitle(club, session)}`)}`,
         `LOCATION:${escapeText(sessionAddress(session) || session.area || '')}`,
-        `DESCRIPTION:${escapeText([session.subtitle, sessionVenueNote(club, session), sessionAudience(session), session.specialConsiderations, !validTime(session.endTime) ? 'End time not supplied.' : '', 'One-week copy. Check with the club for changes.', profileUrl].filter(Boolean).join('\n'))}`,
+        `DESCRIPTION:${escapeText([session.subtitle, sessionVenueNote(club, session), sessionAudience(session), ...sessionTerms(club, session), session.specialConsiderations, !validTime(session.endTime) ? 'End time not supplied.' : '', 'One-week copy. Check with the club for changes.', profileUrl].filter(Boolean).join('\n'))}`,
         `URL:${profileUrl}`, 'END:VEVENT');
       lines.push(...event);
       count++;

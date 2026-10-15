@@ -1,6 +1,6 @@
 import { sportSlug } from './club-formatting.mjs';
 
-export const LEAGUE_COVERAGES = { local_county: 'Local/County league', regional: 'Regional', national: 'National' };
+export const LEAGUE_COVERAGES = { internal: 'Internal', local_county: 'Local/County league', regional: 'Regional', national: 'National' };
 
 /* Pair names and coverage in CSV cells without multiplying the club's session rows. */
 export function leagueAnswers(values) {
@@ -13,13 +13,13 @@ export function leagueAnswers(values) {
   }));
 }
 
-/* Retain valid national participation as well as local/county and regional records. */
+/* Retain every supported coverage, including a club's own members-only league. */
 export function normaliseLeagues(value) {
   const unique = new Map();
   (Array.isArray(value) ? value : []).forEach(league => {
     const name = typeof league?.name === 'string' ? league.name.trim().replace(/\s+/g, ' ') : '';
     const teamName = typeof league?.teamName === 'string' ? league.teamName.trim().replace(/\s+/g, ' ') : '';
-    if (!name || !teamName || !Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) return;
+    if (!name || (!teamName && league.coverage !== 'internal') || !Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) return;
     const key = JSON.stringify([name.toLocaleLowerCase('en-GB'), league.coverage, teamName.toLocaleLowerCase('en-GB')]);
     if (!unique.has(key)) {
       const entry = { teamName, name, leagueUrl: null, coverage: league.coverage };
@@ -33,9 +33,14 @@ export function normaliseLeagues(value) {
   return [...unique.values()];
 }
 
-/* National league names are profile-only and do not create glossary cards or counts. */
+/* Discovery includes local/county and regional leagues only; internal and national stay profile-only. */
 export function discoverableLeagues(club) {
-  return normaliseLeagues(club.participatingLeagues).filter(league => league.coverage !== 'national');
+  return normaliseLeagues(club.participatingLeagues).filter(league => ['local_county', 'regional'].includes(league.coverage));
+}
+
+/* Profile and registration preview share the internal-league label. */
+export function leagueProfileLabel(league) {
+  return league.coverage === 'internal' ? `${league.name} · Internal` : league.name;
 }
 
 /* Profile labels: show each league once; team identities belong in league rosters. */
@@ -43,7 +48,7 @@ export function leagueNamesLabel(leagues) {
   const names = new Map();
   normaliseLeagues(leagues).forEach(league => {
     const key = league.name.toLocaleLowerCase('en-GB');
-    if (!names.has(key)) names.set(key, league.name);
+    if (!names.has(key)) names.set(key, leagueProfileLabel(league));
   });
   return [...names.values()].join(' · ');
 }
@@ -56,7 +61,15 @@ export function leaguePageUrl(sport, name) {
 /* Local league cards count each visible participating club once. */
 export function leagueRecords(clubs, sport) {
   const records = new Map();
-  clubs.filter(club => sportSlug(club.sport) === sportSlug(sport) && club.hiddenFromSportList !== true).forEach(club => {
+  /* Local roster placeholders link only when their real profile exists; never use a website fallback. */
+  const profiles = clubs.filter(club => club.profilePath && club.profilePending !== true);
+  const rosterClubs = clubs.map(club => {
+    if (club.profilePending !== true) return club;
+    const profile = profiles.find(candidate => sportSlug(candidate.sport) === sportSlug(club.sport)
+      && (candidate.id === club.profileClubId || sportSlug(candidate.name) === sportSlug(club.name)));
+    return profile ? { ...profile, participatingLeagues: club.participatingLeagues } : club;
+  });
+  rosterClubs.filter(club => sportSlug(club.sport) === sportSlug(sport) && club.hiddenFromSportList !== true).forEach(club => {
     discoverableLeagues(club).forEach(league => {
       const key = league.name.toLocaleLowerCase('en-GB');
       if (!records.has(key)) records.set(key, { name: league.name, coverage: league.coverage,
@@ -68,7 +81,8 @@ export function leagueRecords(clubs, sport) {
         }
         record.leagueUrl = league.leagueUrl;
       }
-      records.get(key).clubs.set(club.id, club);
+      // Unassigned league teams have no known parent club and must not inflate club counts.
+      if (club.teamOnly !== true) records.get(key).clubs.set(club.id, club);
       records.get(key).teams.set(JSON.stringify([club.id, league.teamName.toLocaleLowerCase('en-GB')]), { teamName: league.teamName, url: league.url || club.onlineProfile?.url, club });
     });
   });

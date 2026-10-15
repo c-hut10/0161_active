@@ -2,6 +2,43 @@ import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL, downloadClubCalendar } fr
 import { loadClubDirectory } from './site-data.mjs';
 const profileRoot = document.querySelector('#club-profile-root');
 const clubId = profileRoot?.dataset.clubId;
+
+/* Profile addresses: copy the rendered venue and postcode without requesting club data again. */
+profileRoot?.querySelectorAll('[data-copy-address]').forEach(button => { button.hidden = false; });
+profileRoot?.addEventListener('click', async event => {
+  const button = event.target.closest('[data-copy-address]');
+  if (!button || button.disabled) return;
+  const session = button.closest('.profile-session');
+  const status = session.querySelector('.profile-copy-address-status');
+  const address = button.dataset.copyAddress;
+  button.disabled = true;
+  button.textContent = 'Copying…';
+  status.hidden = true;
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(address);
+    status.textContent = 'Address copied';
+  } catch {
+    status.textContent = 'Could not copy automatically. Copy the selected address below.';
+    // Provide an editable-browser selection when clipboard permission or support is unavailable.
+    let manual = session.querySelector('.profile-address-manual');
+    if (!manual) {
+      manual = document.createElement('textarea');
+      manual.className = 'profile-address-manual';
+      manual.readOnly = true;
+      manual.rows = 3;
+      manual.setAttribute('aria-label', 'Training address for manual copying');
+      session.append(manual);
+    }
+    manual.value = address;
+    manual.focus({ preventScroll: true });
+    manual.select();
+  } finally {
+    status.hidden = false;
+    button.disabled = false;
+    button.textContent = 'Copy address';
+  }
+});
 /* Static profile enhancement: load club data only when the user downloads its calendar. */
 function addCalendarDownload() {
   if (!profileRoot?.querySelector('#profile-title')) return;

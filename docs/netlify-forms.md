@@ -44,3 +44,11 @@ The required genderSpecific Yes/No question appears near the start of The basics
 ## League participation
 
 participatesInLeague captures Yes/No. Yes reveals repeatable team name, league name and coverage questions. The named fields participatingLeagues.teamName, participatingLeagues.name and participatingLeagues.coverage preserve each combination in matching lines; registrationCsv contains the same answers. Users enter each team name directly. No stores an empty list. Deploy the revised form before checking detection of all four fields in Netlify. National names appear only on club profiles, while Local/County and Regional records feed glossary discovery with separate club and team counts.
+
+## Readable submission review
+
+The fourth form step groups Club, Cost, Leagues, Training and Contact answers, with Edit buttons returning to the corresponding step. Each training venue stays alongside its schedule, and league team/name/coverage stay on one line. Missing answers are labelled explicitly. The same readable text is sent in the named `submissionSummary` field. Deploy to let Netlify detect this additional field.
+
+Clubs can download their answers as a CSV before sending. The existing `registrationCsv`, `sessions` and canonical named answers remain available for import and compatibility. Netlify's standard email still includes these raw fields; this change adds a readable summary rather than replacing its notification template. A summary-only custom notification requires a separate server-side notification integration. No external email service or credentials have been configured.
+
+After deployment, verify a multi-session submission, all four league/team pairs, the summary in the notification and the downloaded CSV. The current CSV has 29 columns, including `beginnerFriendly`.

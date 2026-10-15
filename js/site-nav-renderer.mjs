@@ -14,6 +14,7 @@ export function renderSiteNav(sports, active = '') {
           <a class="site-navbar__link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="${siteUrl('html/sports/directory.html')}">BROWSE ALL SPORTS →</a>
+            <a href="/html/your-clubs.html">Your Clubs →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid">${accessibleSportItems}</div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
@@ -35,6 +36,7 @@ export function renderSiteNav(sports, active = '') {
       <a class="site-navbar__drawer-link" href="${siteUrl('html/sports/directory.html')}"${active === 'sports' ? ' aria-current="page"' : ''}>SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/calendar.html')}"${active === 'calendar' ? ' aria-current="page"' : ''}>CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/register.html')}"${active === 'register' ? ' aria-current="page"' : ''}>REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/your-clubs.html">YOUR CLUBS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="${siteUrl('html/contact.html')}"${active === 'contact' ? ' aria-current="page"' : ''}>CONTACT US <span aria-hidden="true">↗</span></a>
     </nav>
   </header>`;

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/0161_Page.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/sport-glossary.css?v=20261010-league-website">
+  <link rel="stylesheet" href="/css/league-page.css?v=20261015-compact-rows">
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <link rel="stylesheet" href="/css/accessibility.css">
@@ -23,7 +24,7 @@
 <!-- Generated league page: edit templates/league-page.inc and rebuild. -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <div data-site-nav></div>
-  <main class="sport-glossary-page" id="main-content" tabindex="-1">
+  <main class="sport-glossary-page league-page" id="main-content" tabindex="-1">
     <!-- League identity: one coverage eyebrow and the league's primary heading. -->
     <header class="sport-glossary-intro">
       <!-- Back navigation: return to this league's sport glossary. -->

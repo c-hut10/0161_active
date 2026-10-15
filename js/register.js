@@ -1,6 +1,6 @@
-import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlineProfileAction, genderEligibilityLabel, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
+import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { areaFromPostcode, clubTrainingAreas } from './club-areas.mjs';
-import { PAID_PRICE_TYPES, clubAnswers, sessionAnswers, submissionCsv } from './club-submission.mjs';
+import { PAID_PRICE_TYPES, clubAnswers, sessionAnswers, submissionCsv, submissionReview, submissionSummary } from './club-submission.mjs';
 import { leagueNamesLabel } from './club-leagues.mjs';
 
 (() => {
@@ -200,6 +200,10 @@ import { leagueNamesLabel } from './club-leagues.mjs';
         field.required = participates;
       });
       const team = block.querySelector('[data-league-field="teamName"]');
+      // Internal leagues describe members' competition, so no team name is needed.
+      const internal = block.querySelector('[data-league-field="coverage"]').value === 'internal';
+      team.required = participates && !internal;
+      team.closest('label').querySelector('.required').hidden = internal;
       return { teamName: team.value.trim(), name: block.querySelector('[data-league-field="name"]').value.trim(),
         coverage: block.querySelector('[data-league-field="coverage"]').value };
     });
@@ -252,16 +256,37 @@ import { leagueNamesLabel } from './club-leagues.mjs';
     put('#preview-sport', displaySportName(data.sport), 'Your sport');
     document.querySelector('#preview-gender-row').hidden = previewClub.genderSpecific === null;
     put('#preview-gender', genderEligibilityLabel(previewClub), '');
+    const beginnerLabel = beginnerFriendlyLabel(previewClub);
+    document.querySelector('#preview-beginner-row').hidden = !beginnerLabel;
+    put('#preview-beginner', beginnerLabel, '');
     const leagues = previewClub.participatingLeagues;
     document.querySelector('#preview-leagues-row').hidden = !leagues.length;
     put('#preview-leagues', leagueNamesLabel(leagues), '');
     put('#preview-description', data.description, 'Your club description will appear here.');
     put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Add your meeting times');
     put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
-    document.querySelector('#preview-additional-section').hidden = !data.additionalInformation.trim();
+    document.querySelector('#preview-additional').hidden = !data.additionalInformation.trim();
     put('#preview-additional', data.additionalInformation, '');
     // Capture spreadsheet rows alongside the structured JSON without submitting stored areas.
     form.elements.namedItem('registrationCsv').value = submissionCsv(data, sessions);
+    form.elements.namedItem('submissionSummary').value = submissionSummary(data, sessions);
+    const review = document.querySelector('#submission-review');
+    review.replaceChildren(...submissionReview(data, sessions).map(section => {
+      const group = document.createElement('section');
+      group.className = 'review-group';
+      const heading = document.createElement('h3');
+      heading.textContent = section.title;
+      const edit = document.createElement('button');
+      edit.type = 'button';
+      edit.className = 'session-add';
+      edit.textContent = 'Edit';
+      edit.setAttribute('aria-label', `Edit ${section.title.toLowerCase()}`);
+      edit.addEventListener('click', () => { if (!submitting) showStep(section.step); });
+      const answers = document.createElement('p');
+      answers.textContent = section.lines.join('\n');
+      group.append(heading, edit, answers);
+      return group;
+    }));
 
     const contactAction = document.querySelector('#preview-contact-action');
     const hasContact = Boolean(data.contact.trim());
@@ -412,6 +437,15 @@ import { leagueNamesLabel } from './club-leagues.mjs';
     showStep(currentStep - 1);
   });
   nextStep.addEventListener('click', advanceStep);
+  document.querySelector('#download-registration').addEventListener('click', () => {
+    updatePreview();
+    const url = URL.createObjectURL(new Blob([form.elements.namedItem('registrationCsv').value], { type: 'text/csv;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'club-registration.csv';
+    link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
   updatePreview();
   // Validate visible steps ourselves so hidden required fields never block navigation.
   form.noValidate = true;

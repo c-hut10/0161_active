@@ -38,6 +38,9 @@
 /* Clip the roster only during expansion; normal layout keeps link focus outlines visible. */
 .league-card__teams.is-animating { overflow:hidden; }
 .league-card__teams summary { cursor:pointer; color:var(--glossary-lime); padding:8px 0; }
+/* Roster toggle: show its team count when closed and the collapse action when open. */
+.league-card__hide-teams, .league-card__teams[open] .league-card__show-teams { display:none; }
+.league-card__teams[open] .league-card__hide-teams { display:inline; }
 .league-card__teams a:focus-visible, .league-card__teams summary:focus-visible { outline:2px solid var(--glossary-lime); outline-offset:4px; }
 
 /* Intro: place the sport name and its short explanation on the same left-aligned frame as calendar. */
