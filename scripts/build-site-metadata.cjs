@@ -229,7 +229,7 @@ for (const file of htmlFiles(root)) {
     /* Gallery selection: a rebuild rotates the set; browser visits reorder the same photos. */
     const photos = data.clubs.filter(club => typeof club.imagePath === 'string'
       && club.imagePath.startsWith('img/') && fs.existsSync(path.join(root, club.imagePath)));
-    source = source.replace(/(<div class="grid-container" id="club-gallery"[^>]*>)[\s\S]*?(<\/div>\s*<button class="gallery-pause")/,
+    source = source.replace(/(<div class="grid-container" id="club-gallery"[^>]*>)[\s\S]*?(<\/div><!-- \/Homepage gallery -->)/,
       (_, opening, closing) => `${opening}${renderHomeGallery(photos)}${closing}`);
   }
   /* Static navigation: browser JavaScript binds controls to this already-readable markup. */

@@ -45,7 +45,7 @@ export function renderWeekGrid(entries) {
             ${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}
           </div>`).join('')
         : '<span class="week-empty" aria-hidden="true">—</span>';
-      return `<div class="week-cell" role="cell"><span class="week-day-label">${day.short}</span>${content}</div>`;
+      return `<div class="week-cell${sessions.length ? '' : ' week-cell--empty'}" role="cell"><span class="week-day-label">${day.short}</span>${content}</div>`;
     }).join('');
 
     return `<div class="week-row" role="row">
@@ -59,8 +59,8 @@ export function renderWeekGrid(entries) {
             <span class="club-calendar-tooltip" id="calendar-tooltip-${escapeHtml(club.id)}" role="tooltip">${escapeHtml(CALENDAR_DOWNLOAD_LABEL.toUpperCase())}<small>${escapeHtml(CALENDAR_FILE_LABEL)}</small></span>
           </div>
         </div>
-        <span>${escapeHtml(`${sportLabel} · ${club.area || 'Area to confirm'}`)}</span>
-      </div>${cells}
+        <span class="week-club__meta">${escapeHtml(`${sportLabel} · ${club.area || 'Area to confirm'}`)}</span>
+      </div>${cells}${sessionsByDay.size ? '' : '<p class="week-empty-summary">Training schedule to confirm.</p>'}
     </div>`;
   }).join('');
 

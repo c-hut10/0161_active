@@ -2,6 +2,7 @@ import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlin
 import { areaFromPostcode, clubTrainingAreas } from './club-areas.mjs';
 import { PAID_PRICE_TYPES, clubAnswers, sessionAnswers, submissionCsv, submissionReview, submissionSummary } from './club-submission.mjs';
 import { leagueNamesLabel } from './club-leagues.mjs';
+import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
 (() => {
   const form = document.querySelector('#club-form');
@@ -84,7 +85,8 @@ import { leagueNamesLabel } from './club-leagues.mjs';
     const invalid = invalidFields[0];
     if (!invalid) return true;
     if (currentStep !== index) showStep(index, false);
-    invalid.focus();
+    syncFilterPickers();
+    focusFilterControl(invalid);
     return false;
   }
 
@@ -306,7 +308,10 @@ import { leagueNamesLabel } from './club-leagues.mjs';
       day.querySelector('b').textContent = hasSession ? `${count} ${count === 1 ? 'SESSION' : 'SESSIONS'}` : '—';
     });
     // Clear corrected errors, including paid fields that have become disabled.
-    form.querySelectorAll('[aria-invalid="true"]').forEach(field => validateField(field));
+    form.querySelectorAll('input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"]').forEach(field => validateField(field));
+    // Enhance new session/league rows after the original native templates have been cloned.
+    enhanceFilterPickers('#club-form select');
+    syncFilterPickers();
   }
 
   /* Success state: expand the confirmation screen from the submitted button. */
@@ -400,7 +405,7 @@ import { leagueNamesLabel } from './club-leagues.mjs';
     const block = leagueTemplate.cloneNode(true);
     leagueList.append(block);
     updatePreview();
-    block.querySelector('select').focus();
+    focusFilterControl(block.querySelector('select'));
   });
   leagueList.addEventListener('click', event => {
     const remove = event.target.closest('[data-remove-league]');
@@ -413,7 +418,7 @@ import { leagueNamesLabel } from './club-leagues.mjs';
     const block = sessionTemplate.cloneNode(true);
     sessionList.append(block);
     updatePreview();
-    block.querySelector('select').focus();
+    focusFilterControl(block.querySelector('select'));
   });
   sessionList.addEventListener('click', event => {
     const removeButton = event.target.closest('[data-remove-session]');

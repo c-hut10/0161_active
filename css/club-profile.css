@@ -159,6 +159,7 @@
 .profile-week__heading h2 { margin-bottom: 0; }
 .profile-week__heading p { margin: 0; color: var(--profile-grey); font-size: 13px; }
 .profile-week__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--profile-line); border-left: 1px solid var(--profile-line); }
+.profile-week__empty-summary { display:none; }
 .profile-day { min-width: 0; min-height: 102px; padding: 10px 8px; border-right: 1px solid var(--profile-line); border-bottom: 1px solid var(--profile-line); }
 .profile-main .profile-day { border-bottom: 1px solid var(--profile-line); }
 .profile-day__name { margin: 0 0 10px; color: var(--profile-grey); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
@@ -180,7 +181,16 @@
 /* Let larger timetable text reflow into fewer columns on tablets and phones. */
 .profile-mobile-actions { display: none; }
 @media (max-width: 1040px) {
-  .profile-week__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* Mobile profiles: place the club photo above the full-width details table. */
+  .profile-overview { grid-template-columns: 1fr; gap: 18px; }
+  .profile-photo { height: clamp(220px, 40vw, 420px); min-height: 220px; }
+  /* Mobile timetables: omit empty days and let the recorded sessions fill the available width. */
+  .profile-week__grid { grid-template-columns:repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .profile-week .profile-day--empty { display:none; }
+  /* Each profile supplies its own measured minimum; all text stays visible without scrolling. */
+  .profile-week .profile-session { box-sizing:border-box; min-height:var(--profile-session-height, 0px); }
+  .profile-week__grid--measuring .profile-session { min-height:0; }
+  .profile-week__empty-summary { display:block; grid-column:1 / -1; margin:0; padding:14px; border-right:1px solid var(--profile-line); border-bottom:1px solid var(--profile-line); color:var(--profile-grey); font-size:14px; }
   /* Reserve space beneath the footer and keep links clear of phone safe areas. */
   .profile-has-mobile-actions { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
   .profile-mobile-actions:not([hidden]) {
@@ -204,8 +214,6 @@
 
 @media (max-width: 760px) {
   .profile-main { width: 92vw; }
-  .profile-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .profile-photo { min-height: 360px; }
   .profile-detail-row { grid-template-columns: minmax(82px, .4fr) minmax(0, 1fr); gap: 10px; }
 }
 
@@ -217,5 +225,5 @@
   .profile-overview { grid-template-columns: 1fr; gap: 18px; }
   .profile-photo { width: 100%; height: 220px; min-height: 220px; }
   .profile-week__heading { align-items: flex-start; flex-direction: column; }
-  .profile-week__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-week__grid { grid-template-columns:minmax(0, 1fr); }
 }

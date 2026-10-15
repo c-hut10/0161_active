@@ -77,6 +77,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
   /* Weekly calendar: place each listed session beneath its day and show meeting points. */
   function renderWeek(club, notice) {
     const sessions = Array.isArray(club.sessions) ? club.sessions : [];
+    const hasScheduledDays = sessions.some(session => profileDays.some(day => day.number === Number(session.dayOfWeek)));
     const dayCells = profileDays.map(day => {
       const daySessions = sessions.filter(session => Number(session.dayOfWeek) === day.number);
       const sessionMarkup = daySessions.length
@@ -92,7 +93,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
             ${sessionScheduleNote(session) ? `<span>${escapeHtml(sessionScheduleNote(session))}</span>` : ''}
           </article>`).join('')
         : '<span class="profile-empty">—</span>';
-      return `<div class="profile-day">
+      return `<div class="profile-day${daySessions.length ? '' : ' profile-day--empty'}">
         <p class="profile-day__name">${day.short}</p>
         ${sessionMarkup}
       </div>`;
@@ -101,9 +102,8 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     return `<section class="profile-week" aria-labelledby="profile-week-title">
       <div class="profile-week__heading">
         <div><h2 id="profile-week-title">Week at a glance</h2></div>
-      <p>${sessions.length} ${sessions.length === 1 ? 'session' : 'sessions'}</p>
       </div>
-      <div class="profile-week__grid" role="group" aria-label="${escapeHtml(club.name)} weekly sessions">${dayCells}</div>
+      <div class="profile-week__grid" role="group" aria-label="${escapeHtml(club.name)} weekly sessions">${dayCells}${hasScheduledDays ? '' : '<p class="profile-week__empty-summary">Training schedule to confirm.</p>'}</div>
       ${notice ? `<p class="profile-week__notice">${escapeHtml(notice)}</p>` : ''}
     </section>`;
   }

@@ -1,0 +1,43 @@
+/* Filter menus: shared black rows, green labels and selected checks replace browser-owned popups. */
+.filter-native[hidden] { display:none !important; }
+.calendar-filters .filter-field { display:grid; gap:6px; min-width:150px; color:#a5aaa2; font:700 11px Arial,sans-serif; letter-spacing:.13em; }
+.sport-glossary-filters .filter-field { display:grid; flex:1 1 170px; gap:6px; min-width:0; max-width:310px; color:#a5aaa2; font:700 9px Arial,sans-serif; letter-spacing:.13em; }
+.filter-picker { position:relative; min-width:0; }
+.filter-field--open { position:relative; z-index:100; }
+.filter-picker .filter-picker__trigger {
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  box-sizing:border-box; width:100%; min-height:44px; margin:0; padding:10px 12px;
+  border:1px solid #454945; border-radius:0; background:#111211; color:#dffc3a;
+  font:700 13px/1.4 Arial,Helvetica,sans-serif; letter-spacing:.03em; text-align:left; cursor:pointer;
+}
+.filter-picker__trigger > span:first-child { min-width:0; overflow-wrap:anywhere; }
+.filter-picker__arrow { flex-shrink:0; font-size:20px; line-height:1; }
+.filter-picker .filter-picker__trigger:disabled { opacity:.55; cursor:wait; }
+.filter-picker .filter-picker__trigger:hover:not(:disabled),
+.filter-picker .filter-picker__trigger[aria-expanded="true"] { border-color:#dffc3a; }
+.filter-picker .filter-picker__trigger:focus-visible { outline:2px solid #dffc3a; outline-offset:3px; }
+/* Registration answers retain the existing field dimensions, notes and validation messages. */
+#club-form .filter-field { min-width:0; }
+#club-form .filter-picker__trigger { min-height:48px; padding:12px 13px; }
+.filter-picker .filter-picker__trigger[aria-invalid="true"] { border-color:#ff9c87; outline:1px solid #ff9c87; }
+.filter-picker .filter-picker__options {
+  position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:1;
+  box-sizing:border-box; max-height:320px; overflow-y:auto; overscroll-behavior:contain;
+  border:1px solid #dffc3a; background:#111211; color:#dffc3a; box-shadow:0 12px 24px #0008;
+}
+.filter-picker .filter-picker__options[hidden] { display:none; }
+.filter-picker--above .filter-picker__options { top:auto; bottom:calc(100% + 4px); }
+.filter-picker .filter-picker__option {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  box-sizing:border-box; min-height:44px; padding:10px 12px; border-bottom:1px solid #454945;
+  background:#111211; color:#dffc3a; font:700 13px/1.4 Arial,Helvetica,sans-serif;
+  letter-spacing:.02em; cursor:pointer; overflow-wrap:anywhere;
+}
+.filter-picker__option > span:last-child { flex-shrink:0; }
+.filter-picker .filter-picker__option:hover,
+.filter-picker .filter-picker__option.is-active { background:#202220; box-shadow:inset 3px 0 #dffc3a; }
+.filter-picker .filter-picker__option[aria-selected="true"] { color:#dffc3a; }
+@media (max-width:620px) { .calendar-filters .filter-field { flex:1 1 135px; min-width:0; } }
+@media (forced-colors:active) {
+  .filter-picker .filter-picker__option.is-active { outline:2px solid Highlight; outline-offset:-3px; }
+}

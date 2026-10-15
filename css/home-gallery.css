@@ -2,9 +2,35 @@
 
 /* Homepage gallery frame: two clipped rows show three moving club panels at a time. */
 .gallery-main { background: #171817; }
-.gallery-main .gallery-pause { background: transparent; }
+/* Gallery control: remain fixed over the photos while paused images can scroll underneath. */
+.gallery-frame { position:relative; }
+.gallery-main .gallery-pause {
+  position:absolute;
+  bottom:12px;
+  left:12px;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  width:44px;
+  height:44px;
+  margin:0;
+  padding:10px;
+  border:1px solid #111211;
+  border-radius:0;
+  color:#000;
+  background:#faecd2;
+  cursor:pointer;
+}
+.gallery-main .gallery-pause[hidden] { display:none; }
+.gallery-pause svg { display:block; width:24px; height:24px; pointer-events:none; }
+.gallery-pause .gallery-play-icon,
+.gallery-pause[data-paused="true"] .gallery-pause-icon { display:none; }
+.gallery-pause[data-paused="true"] .gallery-play-icon { display:block; }
+.gallery-main .gallery-pause:focus-visible { outline:3px solid #000; outline-offset:2px; box-shadow:0 0 0 6px #faecd2; }
 
-/* Homepage shortcuts: two prominent links above the gallery stack on smaller displays. */
+/* Homepage shortcuts: match the grey mission-panel frame on desktop and mobile. */
 .home-quick-actions {
   display:flex;
   justify-content:center;
@@ -12,7 +38,7 @@
   box-sizing:border-box;
   width:100%;
   padding:18px clamp(18px, 5vw, 72px);
-  background:#111211;
+  background:#171817;
 }
 .home-quick-actions__link {
   display:flex;
@@ -23,16 +49,16 @@
   min-height:48px;
   padding:14px 22px;
   border:1px solid #dffc3a;
-  color:#111211;
-  background:#dffc3a;
+  color:#dffc3a;
+  background:#171817;
   font:700 14px/1.4 Arial, Helvetica, sans-serif;
   letter-spacing:.08em;
   text-decoration:none;
   text-transform:uppercase;
 }
 .home-quick-actions__link--calendar { color:#dffc3a; background:transparent; }
-.home-quick-actions__link span { flex-shrink:0; }
-.home-quick-actions__link:hover { color:#111211; background:#faecd2; border-color:#faecd2; }
+.home-quick-actions__link span[aria-hidden] { flex-shrink:0; }
+/* Homepage shortcut titles use the shared navbar underline animation. */
 .home-quick-actions__link:focus-visible { outline:2px solid #faecd2; outline-offset:4px; }
 @media (max-width:760px) {
   .home-quick-actions { flex-direction:column; }

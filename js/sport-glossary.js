@@ -4,6 +4,7 @@ import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
 import { renderSportClubRows } from './sport-glossary-renderer.mjs';
 import { beginControlLoading } from './control-loading.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
+import { enhanceFilterPickers, syncFilterPickers } from './filter-picker.mjs';
 /* Sport glossary: filter clubs from the same JSON records used by profiles and calendar. */
 const clubList = document.querySelector('#club-list');
 const clubCount = document.querySelector('#club-count');
@@ -56,6 +57,7 @@ function matchingClubs() {
 }
 
 function renderDirectory() {
+  syncFilterPickers();
   const filteredClubs = matchingClubs();
   clubCount.textContent = `${String(filteredClubs.length).padStart(2, '0')} CLUBS SHOWN`;
 
@@ -159,4 +161,5 @@ document.querySelectorAll('.league-card__teams').forEach(details => {
     };
   });
 });
+enhanceFilterPickers('.sport-glossary-filters select');
 loadGlossary();

@@ -7,6 +7,7 @@ import { downloadClubCalendar } from './club-calendar.mjs';
 import { sessionTitle, sessionProfileUrl, sessionAddress, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
 import { priceLabel, sportName as displaySportName, matchesSessionPrice } from './club-directory-filters.js';
 import { clubTrainingAreas } from './club-areas.mjs';
+import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
 /* Calendar data: read the shared JSON directory used to build both weekly and daily views. */
 const sportFilter = document.querySelector('#filter-sport');
@@ -33,6 +34,41 @@ const calendarPage = document.querySelector('.calendar-page');
 const mainContent = document.querySelector('#main-content');
 const weekHeadingPosition = document.querySelector('#week-heading-position');
 const dayHeadingPosition = document.querySelector('#day-heading-position');
+
+/* Mobile weeks: size entries to each club's tallest session, including after filters or text changes. */
+const mobileWeek = window.matchMedia('(max-width: 1040px)');
+let sessionSizingFrame = 0;
+function sizeWeeklySessions() {
+  if (sessionSizingFrame) return;
+  sessionSizingFrame = requestAnimationFrame(() => {
+    sessionSizingFrame = 0;
+    const rows = [...weekGrid.querySelectorAll('.week-row')];
+    rows.forEach(row => row.style.removeProperty('--week-session-height'));
+    if (!mobileWeek.matches || weekView.hidden) return;
+    // Read natural heights together before applying any row minimums.
+    weekGrid.classList.add('week-grid--measuring');
+    const heights = rows.map(row => Math.ceil(Math.max(0,
+      ...[...row.querySelectorAll('.week-session')].map(session => session.getBoundingClientRect().height)
+    )));
+    rows.forEach((row, index) => row.style.setProperty('--week-session-height', `${heights[index]}px`));
+    weekGrid.classList.remove('week-grid--measuring');
+  });
+}
+let weekWidth = 0;
+new ResizeObserver(([entry]) => {
+  if (entry.contentRect.width === weekWidth) return;
+  weekWidth = entry.contentRect.width;
+  sizeWeeklySessions();
+}).observe(weekGrid);
+weekGrid.addEventListener('toggle', sizeWeeklySessions, true);
+mobileWeek.addEventListener('change', sizeWeeklySessions);
+window.addEventListener('resize', sizeWeeklySessions);
+new MutationObserver(sizeWeeklySessions).observe(document.documentElement, {
+  attributes: true, attributeFilter: ['class']
+});
+document.fonts?.ready.then(sizeWeeklySessions);
+document.fonts?.addEventListener('loadingdone', sizeWeeklySessions);
+sizeWeeklySessions();
 
 /* Keep weekday columns below the sticky view selector, including when it wraps. */
 const navigationResizeObserver = new ResizeObserver(() => {
@@ -236,12 +272,13 @@ activeFilters.addEventListener('click', event => {
     renderCalendar();
   }
   // The removed label no longer exists; keep keyboard focus on the corresponding control.
-  focusTarget?.focus({ preventScroll: true });
+  focusFilterControl(focusTarget);
 });
 
 /* Shared renderer: update the selected view and counts after navigation or any filter change. */
 function renderCalendar() {
   renderActiveFilters();
+  syncFilterPickers();
   /* Selection help: explain that every selected day must match and expose one reset action. */
   selectionHelp.textContent = selectedDays.size
     ? 'Showing clubs that train on every selected day.'
@@ -258,6 +295,7 @@ function renderCalendar() {
     sessionCount = entries.reduce((total, entry) => total + entry.sessions.length, 0);
     weekOverline.textContent = calendarEyebrow(sportLabel, clubCount);
     weekGrid.innerHTML = renderWeekGrid(entries);
+    sizeWeeklySessions();
   } else {
     const days = DAYS.filter(day => selectedDays.has(day.number));
     /* Combined day filter: each club needs an area-matching session on every selected day. */
@@ -356,4 +394,5 @@ async function loadCalendarData() {
   }
 }
 
+enhanceFilterPickers('.calendar-filters select');
 loadCalendarData();

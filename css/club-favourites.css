@@ -1,6 +1,8 @@
 /* Favourites: compact controls retain the site's warm text and neon-green accent. */
 /* Saved-clubs introduction: keep the storage explanation smaller on this page only. */
 #your-clubs .info-lede { font-size:13px; }
+/* The directory shortcut uses the shared navbar hover underline. */
+#your-clubs .saved-find-club { text-decoration:none; }
 .club-favourite { min-height:44px; padding:10px 14px; margin-top:10px; border:1px solid #dffc3a; border-radius:0; background:#111211; color:#dffc3a; font:700 13px Arial, sans-serif; cursor:pointer; }
 .club-favourite[hidden] { display:none; }
 /* Favourite stars: retain the dark background and fill only the star when saved. */

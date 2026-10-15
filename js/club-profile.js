@@ -105,3 +105,57 @@ function addMobileActions() {
 }
 
 addMobileActions();
+
+/* Mobile session sizing: match this profile's tallest entry, without clipping or internal scrolling. */
+function equaliseMobileSessions() {
+  const grid = profileRoot?.querySelector('.profile-week__grid');
+  const sessions = [...(grid?.querySelectorAll('.profile-session') || [])];
+  if (!sessions.length) return;
+  const mobile = window.matchMedia('(max-width: 1040px)');
+  let frame = 0;
+  let height = 0;
+  const widths = new WeakMap();
+  function schedule() {
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      if (!mobile.matches) {
+        height = 0;
+        grid.style.removeProperty('--profile-session-height');
+        return;
+      }
+      // Measure natural heights in one frame so the previous minimum cannot prevent shrinking.
+      grid.classList.add('profile-week__grid--measuring');
+      height = Math.ceil(Math.max(...sessions.map(session => session.getBoundingClientRect().height)));
+      grid.style.setProperty('--profile-session-height', `${height}px`);
+      grid.classList.remove('profile-week__grid--measuring');
+    });
+  }
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(entries => {
+      if (!mobile.matches) return;
+      const changed = entries.some(entry => {
+        const size = entry.target.getBoundingClientRect();
+        const previousWidth = widths.get(entry.target);
+        widths.set(entry.target, size.width);
+        // Ignore height changes caused by equalising; react to new wrapping or growing content.
+        return size.width !== previousWidth || Math.abs(size.height - height) > .5;
+      });
+      if (changed) schedule();
+    });
+    sessions.forEach(session => observer.observe(session));
+  }
+  const contentObserver = new MutationObserver(schedule);
+  sessions.forEach(session => contentObserver.observe(session, {
+    childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['hidden']
+  }));
+  // Larger-text preferences and completed font loading can change natural text height too.
+  new MutationObserver(schedule).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  document.fonts?.ready.then(schedule);
+  document.fonts?.addEventListener('loadingdone', schedule);
+  mobile.addEventListener('change', schedule);
+  window.addEventListener('resize', schedule);
+  schedule();
+}
+
+equaliseMobileSessions();
