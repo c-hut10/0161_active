@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore Squash clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.">
-  <title>Squash | 0161 Active</title>
+  <title>Find Squash clubs in Manchester | 0161 Active</title>
   <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
-  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261010-smooth-leagues">
+  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261012-team-toggle">
   <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
-  <script type="module" src="../../js/sport-glossary.js?v=20261010-smooth-leagues"></script>
+  <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
+  <script type="module" src="../../js/sport-glossary.js?v=20261015-row-menus"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -17,16 +18,20 @@
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
   <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
+  <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
+  <script src="/js/page-transitions.js?v=20261020"></script>
+  <link rel="stylesheet" href="/css/club-favourites.css">
+  <script type="module" src="/js/club-favourites.js"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/squash.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="0161 Active">
   <meta property="og:locale" content="en_GB">
-  <meta property="og:title" content="Squash | 0161 Active">
+  <meta property="og:title" content="Find Squash clubs in Manchester | 0161 Active">
   <meta property="og:description" content="Explore Squash clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.">
   <meta property="og:url" content="https://0161active.co.uk/html/sports/squash.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Squash | 0161 Active">
+  <meta name="twitter:title" content="Find Squash clubs in Manchester | 0161 Active">
   <meta name="twitter:description" content="Explore Squash clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.">
   <meta property="og:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
   <meta property="og:image:type" content="image/png">
@@ -37,7 +42,7 @@
   <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
   <!-- Structured data -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/squash.html#page","url":"https://0161active.co.uk/html/sports/squash.html","name":"Squash | 0161 Active","description":"Explore Squash clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/squash.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/squash.html#list","numberOfItems":6,"itemListElement":[{"@type":"ListItem","position":1,"name":"Bowdon Club","url":"https://0161active.co.uk/html/squash/bowdon-club-squash.html"},{"@type":"ListItem","position":2,"name":"Cheetham Hill Squash","url":"https://0161active.co.uk/html/squash/cheetham-hill-squash.html"},{"@type":"ListItem","position":3,"name":"Manchester Tennis & Racquet Club","url":"https://0161active.co.uk/html/squash/manchester-tennis-racquet-club.html"},{"@type":"ListItem","position":4,"name":"Markland Hill Racquets Club","url":"https://0161active.co.uk/html/squash/markland-hill-racquets-club.html"},{"@type":"ListItem","position":5,"name":"South Manchester Squash & Racketball Club","url":"https://0161active.co.uk/html/squash/south-manchester-squash-racketball-club.html"},{"@type":"ListItem","position":6,"name":"The Northern","url":"https://0161active.co.uk/html/squash/the-northern.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/squash.html#page","url":"https://0161active.co.uk/html/sports/squash.html","name":"Find Squash clubs in Manchester | 0161 Active","description":"Explore Squash clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/squash.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/squash.html#list","numberOfItems":6,"itemListElement":[{"@type":"ListItem","position":1,"name":"Bowdon Club","url":"https://0161active.co.uk/html/squash/bowdon-club-squash.html"},{"@type":"ListItem","position":2,"name":"Cheetham Hill Squash","url":"https://0161active.co.uk/html/squash/cheetham-hill-squash.html"},{"@type":"ListItem","position":3,"name":"Manchester Tennis & Racquet Club","url":"https://0161active.co.uk/html/squash/manchester-tennis-racquet-club.html"},{"@type":"ListItem","position":4,"name":"Markland Hill Racquets Club","url":"https://0161active.co.uk/html/squash/markland-hill-racquets-club.html"},{"@type":"ListItem","position":5,"name":"South Manchester Squash & Racketball Club","url":"https://0161active.co.uk/html/squash/south-manchester-squash-racketball-club.html"},{"@type":"ListItem","position":6,"name":"The Northern","url":"https://0161active.co.uk/html/squash/the-northern.html"}]}]}</script>
   <!-- /Structured data -->
 </head>
 <body class="sport-glossary-body" data-sport="squash">
@@ -51,10 +56,11 @@
           <a class="site-navbar__link" href="/html/sports/directory.html" aria-current="page">SPORTS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
+            <a href="/html/your-clubs.html">Your Clubs →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
-            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/korfball.html">Korfball</a><a href="/html/sports/racketball.html">Racketball</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
           </div>
         </div>
         <a class="site-navbar__link" href="/html/calendar.html">CALENDAR</a>
@@ -72,6 +78,7 @@
       <a class="site-navbar__drawer-link" href="/html/sports/directory.html" aria-current="page">SPORTS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/your-clubs.html">YOUR CLUBS <span aria-hidden="true">↗</span></a>
       <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
     </nav>
   </header></div><!-- /Site navigation -->
@@ -94,7 +101,7 @@
         <input id="club-search" type="search" placeholder="Club name" autocomplete="off">
       </label>
       <label>AREA
-        <select id="area-filter"><option value="all">All areas</option><option value="Fallowfield">Fallowfield</option></select>
+        <select id="area-filter"><option value="all">All areas</option><option value="Altrincham">Altrincham</option><option value="Bolton">Bolton</option><option value="Crumpsall">Crumpsall</option><option value="Fallowfield">Fallowfield</option><option value="Salford">Salford</option></select>
       </label>
       <label>DAY
         <select id="day-filter">
@@ -120,9 +127,10 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/squash/bowdon-club-squash.html">Bowdon Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="bowdon-club-squash" data-club-name="Bowdon Club" aria-pressed="false" aria-label="Save club: Bowdon Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
+        <p class="sport-club-row__area">Altrincham</p>
         <a class="sport-club-link" href="/html/squash/bowdon-club-squash.html" aria-label="Open Bowdon Club profile">↗</a>
       </article>
     </li><li>
@@ -130,9 +138,10 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/squash/cheetham-hill-squash.html">Cheetham Hill Squash</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="cheetham-hill-squash" data-club-name="Cheetham Hill Squash" aria-pressed="false" aria-label="Save club: Cheetham Hill Squash" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
+        <p class="sport-club-row__area">Crumpsall</p>
         <a class="sport-club-link" href="/html/squash/cheetham-hill-squash.html" aria-label="Open Cheetham Hill Squash profile">↗</a>
       </article>
     </li><li>
@@ -140,9 +149,10 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/squash/manchester-tennis-racquet-club.html">Manchester Tennis &amp; Racquet Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="manchester-tennis-racquet-club" data-club-name="Manchester Tennis &amp; Racquet Club" aria-pressed="false" aria-label="Save club: Manchester Tennis &amp; Racquet Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
+        <p class="sport-club-row__area">Salford</p>
         <a class="sport-club-link" href="/html/squash/manchester-tennis-racquet-club.html" aria-label="Open Manchester Tennis &amp; Racquet Club profile">↗</a>
       </article>
     </li><li>
@@ -150,18 +160,20 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/squash/markland-hill-racquets-club.html">Markland Hill Racquets Club</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="markland-hill-racquets-club" data-club-name="Markland Hill Racquets Club" aria-pressed="false" aria-label="Save club: Markland Hill Racquets Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
+        <p class="sport-club-row__area">Bolton</p>
         <a class="sport-club-link" href="/html/squash/markland-hill-racquets-club.html" aria-label="Open Markland Hill Racquets Club profile">↗</a>
       </article>
     </li><li>
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/squash/south-manchester-squash-racketball-club.html">South Manchester Squash &amp; Racketball Club</a></h3>
+          <h3><a class="sport-club-name" href="/html/squash/south-manchester-squash-racketball-club.html">South Manchester Squash &amp; Racketball Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 15 October 2026" title="Club verified · Last Confirmed: 15 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="south-manchester-squash-racketball-club" data-club-name="South Manchester Squash &amp; Racketball Club" aria-pressed="false" aria-label="Save club: South Manchester Squash &amp; Racketball Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 19:15–20:45</span><span class="sport-club-row__day">Thursday · 20:00–21:30</span></p>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 19:15–20:45</span></p>
         <p class="sport-club-row__area">Fallowfield</p>
         <a class="sport-club-link" href="/html/squash/south-manchester-squash-racketball-club.html" aria-label="Open South Manchester Squash &amp; Racketball Club profile">↗</a>
       </article>
@@ -170,6 +182,7 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/squash/the-northern.html">The Northern</a></h3>
+          <button type="button" class="club-favourite" data-favourite-id="the-northern" data-club-name="The Northern" aria-pressed="false" aria-label="Save club: The Northern" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:00–21:00</span></p>
         <p class="sport-club-row__area">Fallowfield</p>
@@ -189,6 +202,7 @@
       <a href="/html/contact.html">Contact us</a>
       <a href="/html/register.html">Register your club</a>
       <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/your-clubs.html">Your clubs</a>
       <a href="/html/privacy.html">Privacy policy</a>
       <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>

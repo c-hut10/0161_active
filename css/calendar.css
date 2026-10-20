@@ -59,6 +59,19 @@
 .calendar-day-nav button:focus-visible { outline: 2px solid var(--cal-lime); outline-offset: 2px; }
 .calendar-result-count { margin: 0 0 12px auto; color: var(--cal-grey); font-size: 13px; }
 
+/* Preferred starting time: match the neighbouring black-and-green filter controls. */
+.calendar-time-filter { text-transform:uppercase; }
+.calendar-time-filter input { box-sizing:border-box; width:100%; min-width:0; min-height:44px; padding:9px 12px; border:1px solid var(--cal-line); border-radius:0; background:#111211; color:var(--cal-lime); color-scheme:dark; font:700 13px/1.4 Arial,sans-serif; }
+.calendar-time-filter input:focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
+
+/* Active filter labels: wrap on narrow screens and provide a clear individual reset action. */
+.calendar-active-filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+.calendar-active-filters[hidden] { display:none; }
+.calendar-filter-label { display:inline-flex; align-items:center; justify-content:space-between; gap:14px; min-height:44px; max-width:100%; padding:8px 12px; box-sizing:border-box; border:1px solid var(--cal-lime); background:var(--cal-panel); color:var(--cal-lime); font:700 13px/1.4 Arial, Helvetica, sans-serif; text-align:left; overflow-wrap:anywhere; cursor:pointer; }
+.calendar-filter-label:hover { background:var(--cal-lime); color:var(--cal-black); }
+.calendar-filter-label:focus-visible { outline:2px solid var(--cal-paper); outline-offset:3px; }
+.calendar-filter-label__remove { flex-shrink:0; font-size:20px; line-height:1; }
+
 /* Day navigation: select Full Week or toggle individual weekday agendas. */
 .calendar-day-nav {
   position: sticky;
@@ -178,6 +191,10 @@
 .week-session__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px; }
 /* Session details stay readable at every breakpoint; narrow time ranges can wrap. */
 .session-title { display: block; margin-bottom: 5px; color: var(--cal-paper); font-size: 14px; line-height: 1.4; white-space: normal; overflow-wrap: anywhere; }
+/* Session titles: link to the profile timetable while retaining the calendar's text styling. */
+.session-title-link { display:inline-flex; align-items:center; min-height:44px; color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.session-title-link:hover { color:var(--cal-lime); }
+.session-title-link:focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
 .session-audience { display: block; margin-top: 4px; color: var(--cal-grey); font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
 /* Optional session subtitle: show distances and other short details below the title. */
 .session-subtitle { display: block; margin: 0 0 5px; color: var(--cal-grey); font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
@@ -227,15 +244,41 @@
 }
 .calendar-back-to-top:hover { background: var(--cal-paper); }
 
-@media (max-width: 820px) {
+.week-empty-summary { display: none; }
+
+@media (max-width: 1040px) {
   /* Reflow the week into club cards instead of shrinking seven columns of session text. */
   /* Keep download tooltips inside the viewport throughout the compact calendar layout. */
   .week-club .club-calendar-tooltip { left: auto; right: 0; transform: none; max-width: calc(100vw - 40px); box-sizing: border-box; }
   .week-head { display: none; }
-  .week-row { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 14px 0; }
+  /* Mobile schedules use standalone session boxes without table grid borders. */
+  .calendar-page .week-grid,
+  .calendar-page .week-row { border: 0; }
+  /* Remove space above club headings while retaining separation below each schedule. */
+  .week-row { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 0 14px; }
   .week-club { grid-column: 1 / -1; padding: 0 0 12px; }
-  .week-cell { min-height: 52px; padding: 8px; border: 1px solid var(--cal-line); }
+  /* Keep mobile sport and area labels beside the download icon at the right edge. */
+  .week-club { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr) 44px; align-items: center; }
+  .week-club__title { display: contents; }
+  .week-club__title > a { grid-column: 1; grid-row: 1; display: flex; align-items: center; padding: 0; }
+  .week-club__title > .club-calendar-control { grid-column: 3; grid-row: 1; }
+  .week-club .week-club__meta { grid-column: 2; grid-row: 1; text-align: right; white-space: normal; overflow-wrap: anywhere; }
+  /* Mobile weekly club names are larger; daily entries retain their compact title size. */
+  .week-club a { font-size: 20.8px; }
+  /* Mobile weekly links: underline club names while day-view titles retain their original style. */
+  /* Let mobile session links follow their text height instead of reserving a 44px row. */
+  .session-title-link { min-height: 0; text-decoration: none; }
+  .week-club__title > a { text-decoration: underline; text-underline-offset: 3px; }
+  .week-cell { min-height: 52px; padding: 8px; border: 0; }
+  /* Compact weeks show scheduled days only; entry heights match within each club. */
+  .week-cell--empty { display: none; }
+  .week-session { box-sizing: border-box; min-height: var(--week-session-height, 0px); }
+  .week-grid--measuring .week-session { min-height: 0; }
+  .week-empty-summary { display: block; grid-column: 1 / -1; margin: 0; padding: 8px; color: var(--cal-grey); font-size: 14px; }
   .week-day-label { display: block; margin-bottom: 5px; color: var(--cal-grey); font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+}
+
+@media (max-width: 820px) {
   .agenda-event { grid-template-columns: 104px minmax(150px, 1fr) minmax(130px, .9fr); gap: 14px; }
   .agenda-time { grid-column: 1; grid-row: 1 / 3; }
   .agenda-club { grid-column: 2; grid-row: 1; }

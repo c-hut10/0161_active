@@ -78,17 +78,12 @@
 .profile-training-summary__heading a { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; color: var(--profile-lime); font-size: 14px; text-decoration: none; }
 .profile-training-summary__heading a:hover,
 .profile-training-summary__heading a:focus-visible { color: var(--profile-paper); text-decoration: underline; text-underline-offset: 4px; }
-.profile-training-summary__body--booking { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .4fr); align-items: start; gap: 20px; }
 .profile-training-summary__sessions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
 .profile-training-summary__session { min-width: 0; padding: 10px 12px; border-left: 2px solid var(--profile-lime); background: var(--profile-panel); }
 .profile-training-summary__session strong { display: block; margin-bottom: 4px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
 .profile-training-summary__session time { color: var(--profile-paper); font-size: 14px; font-weight: 700; }
 .profile-training-summary__session span { display: block; margin-top: 5px; color: var(--profile-grey); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
-.profile-training-summary__booking { padding-left: 16px; border-left: 1px solid var(--profile-line); }
-.profile-training-summary__booking h3 { margin: 0 0 6px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
-.profile-training-summary__booking p,
 .profile-training-summary__empty { margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
-.profile-training-summary__booking p + p { margin-top: 6px; color: var(--profile-grey); }
 
 /* Overview: pair a compact club photo with the editable facts and introduction. */
 .profile-overview {
@@ -142,12 +137,21 @@
   text-underline-offset: 3px;
 }
 
+/* Detail links: retain the text colour while making league and booking destinations recognisable. */
+.profile-league-link, .profile-booking-link { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.profile-league-link:hover, .profile-booking-link:hover { color:var(--profile-lime); }
+.profile-league-link:focus-visible, .profile-booking-link:focus-visible { outline:2px solid var(--profile-lime); outline-offset:3px; }
+
 /* Club introduction: span the full profile width between the overview and weekly calendar. */
 .profile-about { width: 100%; padding: 26px 0 30px; border-bottom: 1px solid var(--profile-line); }
 .profile-about h2 { margin: 0 0 12px; color: var(--profile-lime); font-size: 25px; letter-spacing: -.04em; text-transform: uppercase; }
 .profile-about p { width: 100%; margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.7; }
 /* Separate About paragraphs so the club prompts are easy to read. */
 .profile-about p + p { margin-top: 14px; }
+/* Empty About action: a visible email link with space for touch and keyboard interaction. */
+.profile-about-update { display:inline-flex; align-items:center; min-height:44px; color:var(--profile-lime); font-size:12px; text-decoration:none; }
+.profile-about-update:hover { color:var(--profile-lime); }
+.profile-about-update:focus-visible { outline:2px solid var(--profile-lime); outline-offset:3px; }
 
 /* Weekly calendar: show all seven days with session times and meeting points. */
 .profile-week { padding-top: 27px; }
@@ -155,11 +159,18 @@
 .profile-week__heading h2 { margin-bottom: 0; }
 .profile-week__heading p { margin: 0; color: var(--profile-grey); font-size: 13px; }
 .profile-week__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--profile-line); border-left: 1px solid var(--profile-line); }
+.profile-week__empty-summary { display:none; }
 .profile-day { min-width: 0; min-height: 102px; padding: 10px 8px; border-right: 1px solid var(--profile-line); border-bottom: 1px solid var(--profile-line); }
 .profile-main .profile-day { border-bottom: 1px solid var(--profile-line); }
 .profile-day__name { margin: 0 0 10px; color: var(--profile-grey); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
 .profile-session { margin: 0 0 8px; padding: 7px 6px; border-left: 2px solid var(--profile-lime); background: var(--profile-panel); }
 .profile-session .session-title { display: block; margin-bottom: 5px; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+/* Session address tools: keep copy actions compact, readable and reachable by keyboard. */
+.profile-copy-address { display:inline-flex; align-items:center; min-height:44px; max-width:100%; margin-top:8px; padding:6px 10px; border:1px solid var(--profile-line); background:var(--profile-black); color:var(--profile-paper); font:700 12px/1.3 Arial, Helvetica, sans-serif; cursor:pointer; }
+.profile-copy-address:hover { color:var(--profile-lime); border-color:var(--profile-lime); }
+.profile-copy-address:disabled { opacity:.6; cursor:wait; }
+.profile-copy-address:focus-visible, .profile-address-manual:focus-visible { outline:2px solid var(--profile-lime); outline-offset:2px; }
+.profile-address-manual { display:block; box-sizing:border-box; width:100%; min-width:0; margin-top:8px; padding:8px; border:1px solid var(--profile-line); background:var(--profile-black); color:var(--profile-paper); font:12px/1.4 Arial, Helvetica, sans-serif; resize:vertical; }
 .profile-session time { display: block; color: var(--profile-lime); font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
 .profile-session span { display: block; margin-top: 4px; color: var(--profile-grey); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
 /* Keep the venue charge inline and highlight only the amount. */
@@ -170,7 +181,16 @@
 /* Let larger timetable text reflow into fewer columns on tablets and phones. */
 .profile-mobile-actions { display: none; }
 @media (max-width: 1040px) {
-  .profile-week__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* Mobile profiles: place the club photo above the full-width details table. */
+  .profile-overview { grid-template-columns: 1fr; gap: 18px; }
+  .profile-photo { height: clamp(220px, 40vw, 420px); min-height: 220px; }
+  /* Mobile timetables: omit empty days and let the recorded sessions fill the available width. */
+  .profile-week__grid { grid-template-columns:repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .profile-week .profile-day--empty { display:none; }
+  /* Each profile supplies its own measured minimum; all text stays visible without scrolling. */
+  .profile-week .profile-session { box-sizing:border-box; min-height:var(--profile-session-height, 0px); }
+  .profile-week__grid--measuring .profile-session { min-height:0; }
+  .profile-week__empty-summary { display:block; grid-column:1 / -1; margin:0; padding:14px; border-right:1px solid var(--profile-line); border-bottom:1px solid var(--profile-line); color:var(--profile-grey); font-size:14px; }
   /* Reserve space beneath the footer and keep links clear of phone safe areas. */
   .profile-has-mobile-actions { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
   .profile-mobile-actions:not([hidden]) {
@@ -194,11 +214,7 @@
 
 @media (max-width: 760px) {
   .profile-main { width: 92vw; }
-  .profile-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .profile-photo { min-height: 360px; }
   .profile-detail-row { grid-template-columns: minmax(82px, .4fr) minmax(0, 1fr); gap: 10px; }
-  .profile-training-summary__body--booking { grid-template-columns: 1fr; }
-  .profile-training-summary__booking { padding-left: 0; border-left: 0; }
 }
 
 @media (max-width: 560px) {
@@ -209,5 +225,5 @@
   .profile-overview { grid-template-columns: 1fr; gap: 18px; }
   .profile-photo { width: 100%; height: 220px; min-height: 220px; }
   .profile-week__heading { align-items: flex-start; flex-direction: column; }
-  .profile-week__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .profile-week__grid { grid-template-columns:minmax(0, 1fr); }
 }

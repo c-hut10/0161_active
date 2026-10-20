@@ -1,5 +1,5 @@
 import { POSTCODE_AREAS } from './postcode-areas.mjs';
-import { canonicalArea, formatPostcodes } from './club-formatting.mjs';
+import { canonicalArea, formatPostcodes, compareSessionStartTimes } from './club-formatting.mjs';
 
 /* Address data: retain venue wording while standardising embedded and separate postcodes. */
 function formatLocationFields(record) {
@@ -53,7 +53,7 @@ export function clubTrainingAreas(club) {
     return day >= 1 && day <= 7 ? day : 8;
   };
   sessions.sort((left, right) => dayOrder(left) - dayOrder(right)
-    || (left.startTime || '99:99').localeCompare(right.startTime || '99:99'));
+    || compareSessionStartTimes(left, right));
   // Undated venues support area discovery but never create calendar sessions.
   const venues = (club.trainingVenues || []).map(venue => areaFromPostcode(venue.postcode, venue.meetingPoint));
   return [...new Set([...sessions.map(session => canonicalArea(session.area)), ...venues].filter(Boolean))];

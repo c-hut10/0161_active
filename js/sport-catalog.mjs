@@ -1,4 +1,4 @@
-import { sportSlug } from './club-formatting.mjs';
+import { sportSlug, clubSports } from './club-formatting.mjs';
 import { discoverableLeagues } from './club-leagues.mjs';
 
 /* Catalog visibility: menus, directories and direct glossary links share these rules. */
@@ -10,8 +10,7 @@ export function visibleSportRecords(catalog, clubs) {
   const counts = new Map();
   const leagues = new Map();
   list(clubs).filter(club => club.hiddenFromSportList !== true).forEach(club => {
-    const slug = sportSlug(club.sport);
-    if (slug) {
+    for (const slug of clubSports(club)) {
       counts.set(slug, (counts.get(slug) || 0) + 1);
       if (!leagues.has(slug)) leagues.set(slug, new Set());
       discoverableLeagues(club).forEach(league => leagues.get(slug).add(league.name.toLocaleLowerCase('en-GB')));
@@ -24,4 +23,10 @@ export function visibleSportRecords(catalog, clubs) {
   })).filter(sport => sport.slug && !hidden.has(sport.slug)
     && (sport.clubCount > 0 || placeholders.has(sport.slug)))
     .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/* A multi-sport club counts once in the overall directory total, even when it has two listings. */
+export function visibleClubCount(sports, clubs) {
+  const slugs = new Set(sports.map(sport => sport.slug));
+  return clubs.filter(club => club.hiddenFromSportList !== true && clubSports(club).some(sport => slugs.has(sport))).length;
 }

@@ -1,7 +1,7 @@
-import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml } from './club-formatting.mjs';
+import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml, compareSessionStartTimes } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
 import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL } from './club-calendar.mjs';
-import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml } from './session-details.mjs';
+import { sessionTitle, sessionProfileUrl, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
 import { sportName as displaySportName } from './club-directory-filters.js';
 
 /* Weekly calendar HTML: render the same schedule at build time and after filtering. */
@@ -33,18 +33,19 @@ export function renderWeekGrid(entries) {
     /* Full-week sublabel: display the stored sport key in title case. */
     const sportLabel = displaySportName(club.sport);
     const cells = DAYS.map(day => {
-      const sessions = sessionsByDay.get(day.number) || [];
+      const sessions = [...(sessionsByDay.get(day.number) || [])].sort(compareSessionStartTimes);
       const content = sessions.length
         ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}${session.everyOtherWeek ? ', every other week' : ''}">
-            <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
+            <strong class="session-title"><a class="session-title-link" href="${escapeHtml(sessionProfileUrl(club))}">${escapeHtml(sessionTitle(club, session))}</a></strong>
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <div class="week-session__top"><time>${escapeHtml(formatTime(session))}</time>${frequencyToggle(session)}</div>
             ${eligibilityMarkup(session)}
+            ${sessionTerms(club, session).map(term => `<span class="session-subtitle">${escapeHtml(term)}</span>`).join('')}
             <span class="week-session__area">${escapeHtml(session.area || 'Area to confirm')}</span>
             ${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}
           </div>`).join('')
         : '<span class="week-empty" aria-hidden="true">—</span>';
-      return `<div class="week-cell" role="cell"><span class="week-day-label">${day.short}</span>${content}</div>`;
+      return `<div class="week-cell${sessions.length ? '' : ' week-cell--empty'}" role="cell"><span class="week-day-label">${day.short}</span>${content}</div>`;
     }).join('');
 
     return `<div class="week-row" role="row">
@@ -58,8 +59,8 @@ export function renderWeekGrid(entries) {
             <span class="club-calendar-tooltip" id="calendar-tooltip-${escapeHtml(club.id)}" role="tooltip">${escapeHtml(CALENDAR_DOWNLOAD_LABEL.toUpperCase())}<small>${escapeHtml(CALENDAR_FILE_LABEL)}</small></span>
           </div>
         </div>
-        <span>${escapeHtml(`${sportLabel} · ${club.area || 'Area to confirm'}`)}</span>
-      </div>${cells}
+        <span class="week-club__meta">${escapeHtml(`${sportLabel} · ${club.area || 'Area to confirm'}`)}</span>
+      </div>${cells}${sessionsByDay.size ? '' : '<p class="week-empty-summary">Training schedule to confirm.</p>'}
     </div>`;
   }).join('');
 

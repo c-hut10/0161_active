@@ -48,12 +48,12 @@ writeGeneratedFile(path.join(root, 'js/postcode-areas.mjs'),
 const { resolveClubAreas, clubTrainingAreas } = await import(pathToFileURL(path.join(root, 'js/club-areas.mjs')).href);
 data.clubs = data.clubs.map(resolveClubAreas);
 const { renderClubProfile } = await import(pathToFileURL(path.join(root, 'js/club-profile-renderer.mjs')).href);
-const { visibleSportRecords } = await import(pathToFileURL(path.join(root, 'js/sport-catalog.mjs')).href);
+const { visibleSportRecords, visibleClubCount } = await import(pathToFileURL(path.join(root, 'js/sport-catalog.mjs')).href);
 const { renderSiteNav } = await import(pathToFileURL(path.join(root, 'js/site-nav-renderer.mjs')).href);
 const { renderSportClubRows } = await import(pathToFileURL(path.join(root, 'js/sport-glossary-renderer.mjs')).href);
 const { renderSportsDirectory } = await import(pathToFileURL(path.join(root, 'js/sports-directory-renderer.mjs')).href);
 const { renderWeekGrid } = await import(pathToFileURL(path.join(root, 'js/calendar-week-renderer.mjs')).href);
-const { sportSlug } = await import(pathToFileURL(path.join(root, 'js/club-formatting.mjs')).href);
+const { sportSlug, clubSports, clubForSport } = await import(pathToFileURL(path.join(root, 'js/club-formatting.mjs')).href);
 const { clubDescriptionText } = await import(pathToFileURL(path.join(root, 'js/club-description.mjs')).href);
 const { siteStructuredData } = await import(pathToFileURL(path.join(root, 'js/site-structured-data.mjs')).href);
 const { renderHomeGallery } = await import(pathToFileURL(path.join(root, 'js/home-gallery-renderer.mjs')).href);
@@ -120,7 +120,7 @@ const titles = {
   'html/contact.html': 'Contact us | 0161 Active',
   'html/sports/glossary.html': 'Find sports clubs | 0161 Active'
 };
-const excluded = new Set(['404.html', 'html/privacy.html', 'html/sports/glossary.html']);
+const excluded = new Set(['html/your-clubs.html', '404.html', 'html/privacy.html', 'html/sports/glossary.html']);
 
 /* Sport pages: generate complete listings and metadata using the same rows as browser filters. */
 const glossaryTemplate = fs.readFileSync(path.join(root, 'templates/sport-glossary.inc'), 'utf8');
@@ -161,12 +161,13 @@ for (const sport of sports) {
   if (['directory', 'glossary', 'index'].includes(sport.slug)) throw new Error(`Reserved sport page name: ${sport.slug}`);
   sportPages.add(relative);
   const name = displaySportName(sport.name);
-  const clubs = data.clubs.filter(club => sportSlug(club.sport) === sport.slug && club.hiddenFromSportList !== true)
+  const clubs = data.clubs.filter(club => clubSports(club).includes(sport.slug) && club.hiddenFromSportList !== true).map(club => clubForSport(club, sport.slug))
     .sort((a, b) => a.name.localeCompare(b.name));
   const areas = [...new Set(clubs.flatMap(clubTrainingAreas))]
     .sort((a, b) => a.localeCompare(b));
   const values = {
-    sportSlug: escape(sport.slug), sportName: escape(name), title: escape(`${name} | 0161 Active`),
+    // Search titles describe the sport and location while visible headings keep the sport name.
+    sportSlug: escape(sport.slug), sportName: escape(name), title: escape(`Find ${name} clubs in Manchester | 0161 Active`),
     description: escape(`Explore ${name} clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.`),
     areaOptions: '<option value="all">All areas</option>' + areas.map(area => `<option value="${escape(area)}">${escape(area)}</option>`).join(''),
     clubCount: String(clubs.length).padStart(2, '0'), clubRows: renderSportClubRows(clubs),
@@ -229,7 +230,7 @@ for (const file of htmlFiles(root)) {
     /* Gallery selection: a rebuild rotates the set; browser visits reorder the same photos. */
     const photos = data.clubs.filter(club => typeof club.imagePath === 'string'
       && club.imagePath.startsWith('img/') && fs.existsSync(path.join(root, club.imagePath)));
-    source = source.replace(/(<div class="grid-container" id="club-gallery"[^>]*>)[\s\S]*?(<\/div>\s*<button class="gallery-pause")/,
+    source = source.replace(/(<div class="grid-container" id="club-gallery"[^>]*>)[\s\S]*?(<\/div><!-- \/Homepage gallery -->)/,
       (_, opening, closing) => `${opening}${renderHomeGallery(photos)}${closing}`);
   }
   /* Static navigation: browser JavaScript binds controls to this already-readable markup. */
@@ -242,7 +243,7 @@ for (const file of htmlFiles(root)) {
     source = source.replace(/(<div class="sports-directory-groups" id="sports-groups">)[\s\S]*?(<\/div>\s*<\/main>)/,
       (_, opening, closing) => `${opening}${renderSportsDirectory(sports)}${closing}`);
     source = source.replace(/(<p[^>]*id="sports-count"[^>]*>)[\s\S]*?<\/p>/,
-      `$1${sports.length} SPORTS · ${sports.reduce((sum, sport) => sum + sport.clubCount, 0)} CLUBS ON RECORD</p>`);
+      `$1${sports.length} SPORTS · ${visibleClubCount(sports, data.clubs)} CLUBS ON RECORD</p>`);
   }
   if (relative === 'html/calendar.html') {
     const entries = [...data.clubs].sort((a, b) => a.name.localeCompare(b.name)).map(club => {
@@ -272,6 +273,11 @@ for (const file of htmlFiles(root)) {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
   const sharedAssets = [
+    // Shared navigation motion is included on current pages and every future generated template.
+    ['href="/css/page-transitions.css?v=20261020"', '<link rel="stylesheet" href="/css/page-transitions.css?v=20261020">'],
+    ['src="/js/page-transitions.js?v=20261020"', '<script src="/js/page-transitions.js?v=20261020"></script>'],
+    ['href="/css/club-favourites.css"', '<link rel="stylesheet" href="/css/club-favourites.css">'],
+    ['src="/js/club-favourites.js"', '<script type="module" src="/js/club-favourites.js"></script>'],
     ['href="/css/site-footer.css"', '<link rel="stylesheet" href="/css/site-footer.css">'],
     ['href="/css/cookie-settings.css"', '<link rel="stylesheet" href="/css/cookie-settings.css">'],
     ['src="/js/cookie-settings.js"', '<script defer src="/js/cookie-settings.js"></script>'],
@@ -301,7 +307,7 @@ for (const file of htmlFiles(root)) {
   const sport = sports.find(record => relative === `html/sports/${record.slug}.html`);
   const league = leaguePages.get(relative);
   const listedClubs = relative === 'html/calendar.html' ? [...data.clubs]
-    : sport ? data.clubs.filter(record => sportSlug(record.sport) === sport.slug && record.hiddenFromSportList !== true) : [];
+    : sport ? data.clubs.filter(record => clubSports(record).includes(sport.slug) && record.hiddenFromSportList !== true) : [];
   listedClubs.sort((a, b) => a.name.localeCompare(b.name));
   const structured = siteStructuredData({
     origin: base, relative, club, clubs: listedClubs,
