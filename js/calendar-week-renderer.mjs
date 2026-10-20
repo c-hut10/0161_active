@@ -1,4 +1,4 @@
-import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml } from './club-formatting.mjs';
+import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml, compareSessionStartTimes } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
 import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL } from './club-calendar.mjs';
 import { sessionTitle, sessionProfileUrl, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
@@ -33,7 +33,7 @@ export function renderWeekGrid(entries) {
     /* Full-week sublabel: display the stored sport key in title case. */
     const sportLabel = displaySportName(club.sport);
     const cells = DAYS.map(day => {
-      const sessions = sessionsByDay.get(day.number) || [];
+      const sessions = [...(sessionsByDay.get(day.number) || [])].sort(compareSessionStartTimes);
       const content = sessions.length
         ? sessions.map(session => `<div class="week-session" aria-label="${escapeHtml(day.name)}, ${escapeHtml(formatTime(session))}, ${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}${session.everyOtherWeek ? ', every other week' : ''}">
             <strong class="session-title"><a class="session-title-link" href="${escapeHtml(sessionProfileUrl(club))}">${escapeHtml(sessionTitle(club, session))}</a></strong>

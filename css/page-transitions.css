@@ -1,0 +1,30 @@
+/* Native page navigation: the incoming page rises over a stationary outgoing page. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .site-navbar { view-transition-name: site-navigation; }
+  ::view-transition-group(root),
+  ::view-transition-group(site-navigation) { animation: none; }
+  ::view-transition-image-pair(root) { isolation: isolate; }
+  ::view-transition-old(root) { animation: none; mix-blend-mode: normal; z-index: 0; }
+  ::view-transition-new(root) {
+    animation: page-rise 460ms cubic-bezier(.16, 1, .3, 1) both;
+    mix-blend-mode: normal;
+    z-index: 1;
+  }
+  /* Keep the shared header steady while the page beneath it changes. */
+  ::view-transition-group(site-navigation) { z-index: 2; }
+  ::view-transition-old(site-navigation) { animation: none; opacity: 0; }
+  ::view-transition-new(site-navigation) { animation: none; }
+}
+@keyframes page-rise {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(0); }
+}
+
+/* Explicit pseudo-element rules also cover the site's saved reduced-motion preference. */
+.a11y-reduce-motion::view-transition-group(*),
+.a11y-reduce-motion::view-transition-old(*),
+.a11y-reduce-motion::view-transition-new(*) { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}

@@ -59,6 +59,11 @@
 .calendar-day-nav button:focus-visible { outline: 2px solid var(--cal-lime); outline-offset: 2px; }
 .calendar-result-count { margin: 0 0 12px auto; color: var(--cal-grey); font-size: 13px; }
 
+/* Preferred starting time: match the neighbouring black-and-green filter controls. */
+.calendar-time-filter { text-transform:uppercase; }
+.calendar-time-filter input { box-sizing:border-box; width:100%; min-width:0; min-height:44px; padding:9px 12px; border:1px solid var(--cal-line); border-radius:0; background:#111211; color:var(--cal-lime); color-scheme:dark; font:700 13px/1.4 Arial,sans-serif; }
+.calendar-time-filter input:focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
+
 /* Active filter labels: wrap on narrow screens and provide a clear individual reset action. */
 .calendar-active-filters { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
 .calendar-active-filters[hidden] { display:none; }

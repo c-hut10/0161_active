@@ -41,9 +41,20 @@ export function escapeHtml(value = '') {
   })[character]);
 }
 
+/* Time values: accept either hour width, compare actual minutes and display consistent HH:MM. */
+export function timeMinutes(value) {
+  const match = String(value || '').trim().match(/^(\d{1,2}):([0-5]\d)$/);
+  return match && Number(match[1]) < 24 ? Number(match[1]) * 60 + Number(match[2]) : null;
+}
+export function compareSessionStartTimes(left, right) {
+  return (timeMinutes(left.startTime) ?? 1440) - (timeMinutes(right.startTime) ?? 1440);
+}
+export function formatTimeValue(value) {
+  return timeMinutes(value) === null ? value : String(value).trim().padStart(5, '0');
+}
 export function sessionTime(session) {
   if (!session.startTime) return 'Time TBC';
-  return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
+  return session.endTime ? `${formatTimeValue(session.startTime)}–${formatTimeValue(session.endTime)}` : formatTimeValue(session.startTime);
 }
 
 /* Postcodes: uppercase full UK codes and put one space before their final three characters. */

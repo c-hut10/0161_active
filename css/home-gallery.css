@@ -44,22 +44,36 @@
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:24px;
+  gap:16px;
   box-sizing:border-box;
-  min-height:48px;
-  padding:14px 22px;
-  border:1px solid #dffc3a;
-  color:#dffc3a;
-  background:#171817;
+  min-height:60px;
+  padding:8px 18px 8px 8px;
+  border:1px solid #454945;
+  border-radius:6px;
+  color:#faecd2;
+  background:#111211;
   font:700 14px/1.4 Arial, Helvetica, sans-serif;
   letter-spacing:.08em;
   text-decoration:none;
   text-transform:uppercase;
+  transition:transform .18s ease, border-color .18s ease;
 }
-.home-quick-actions__link--calendar { color:#dffc3a; background:transparent; }
-.home-quick-actions__link span[aria-hidden] { flex-shrink:0; }
-/* Homepage shortcut titles use the shared navbar underline animation. */
+/* Editorial shortcuts: a separate green arrow tile leads the label. */
+.home-quick-actions__icon { display:grid; flex:0 0 44px; width:44px; height:44px; place-items:center; border-radius:3px; color:#111211; background:#dffc3a; }
+.home-quick-actions__icon svg { width:20px; height:20px; transition:transform .25s cubic-bezier(.16, 1, .3, 1); }
+.home-quick-actions__title { flex:1; min-width:0; }
+.home-quick-actions__link:hover,
+.home-quick-actions__link:focus-visible { border-color:#dffc3a; }
+.home-quick-actions__link:hover .home-quick-actions__icon svg,
+.home-quick-actions__link:focus-visible .home-quick-actions__icon svg { transform:translateX(2px); }
+.home-quick-actions__link:active { transform:scale(.98); }
 .home-quick-actions__link:focus-visible { outline:2px solid #faecd2; outline-offset:4px; }
+@media (prefers-reduced-motion:reduce) {
+  .home-quick-actions__link,
+  .home-quick-actions__icon svg { transition:none; transform:none !important; }
+}
+.a11y-reduce-motion .home-quick-actions__link,
+.a11y-reduce-motion .home-quick-actions__icon svg { transform:none !important; }
 @media (max-width:760px) {
   .home-quick-actions { flex-direction:column; }
   .home-quick-actions__link { width:100%; }

@@ -881,7 +881,7 @@
         },
         {
           "dayOfWeek": 7,
-          "startTime": "9:00",
+          "startTime": "09:00",
           "endTime": "11:00",
           "meetingPoint": "Bowling Green Pub, M21 9ES",
           "dataStatus": "user-submitted",
@@ -1412,7 +1412,7 @@
         },
         {
           "dayOfWeek": 7,
-          "startTime": "9:30",
+          "startTime": "09:30",
           "endTime": "11:30",
           "meetingPoint": "Wythenshawe Park, Manchester, M23 0AB",
           "dataStatus": "user-submitted",
@@ -1479,7 +1479,7 @@
         },
         {
           "dayOfWeek": 6,
-          "startTime": "9:30",
+          "startTime": "09:30",
           "endTime": "11:00",
           "meetingPoint": "Heaton Park Golf Course Carpark, M25 2SW",
           "dataStatus": "user-submitted",
@@ -3368,7 +3368,7 @@
     },
     {
       "id": "chorlton-velo",
-      "name": "Chorlton Velo",
+      "name": "Chorlton Velo Cycling Club",
       "sport": "cycling",
       "beginnerFriendly": null,
       "description": null,

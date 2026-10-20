@@ -1,4 +1,4 @@
-import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports } from './club-formatting.mjs';
+import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports, compareSessionStartTimes } from './club-formatting.mjs';
 import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
 import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms, clubSessionPriceLabel } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
@@ -48,7 +48,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     const sessions = Array.isArray(club.sessions) ? [...club.sessions] : [];
     const dayOrder = session => profileDays.find(day => day.number === Number(session.dayOfWeek))?.number ?? 8;
     sessions.sort((left, right) => dayOrder(left) - dayOrder(right)
-      || (left.startTime || '99:99').localeCompare(right.startTime || '99:99'));
+      || compareSessionStartTimes(left, right));
     const summaries = new Map();
     sessions.forEach(session => {
       const day = profileDays.find(day => day.number === Number(session.dayOfWeek));
@@ -79,7 +79,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     const sessions = Array.isArray(club.sessions) ? club.sessions : [];
     const hasScheduledDays = sessions.some(session => profileDays.some(day => day.number === Number(session.dayOfWeek)));
     const dayCells = profileDays.map(day => {
-      const daySessions = sessions.filter(session => Number(session.dayOfWeek) === day.number);
+      const daySessions = sessions.filter(session => Number(session.dayOfWeek) === day.number).sort(compareSessionStartTimes);
       const sessionMarkup = daySessions.length
         ? daySessions.map(session => `<article class="profile-session">
             <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>

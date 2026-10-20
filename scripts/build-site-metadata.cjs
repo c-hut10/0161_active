@@ -166,7 +166,8 @@ for (const sport of sports) {
   const areas = [...new Set(clubs.flatMap(clubTrainingAreas))]
     .sort((a, b) => a.localeCompare(b));
   const values = {
-    sportSlug: escape(sport.slug), sportName: escape(name), title: escape(`${name} | 0161 Active`),
+    // Search titles describe the sport and location while visible headings keep the sport name.
+    sportSlug: escape(sport.slug), sportName: escape(name), title: escape(`Find ${name} clubs in Manchester | 0161 Active`),
     description: escape(`Explore ${name} clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.`),
     areaOptions: '<option value="all">All areas</option>' + areas.map(area => `<option value="${escape(area)}">${escape(area)}</option>`).join(''),
     clubCount: String(clubs.length).padStart(2, '0'), clubRows: renderSportClubRows(clubs),
@@ -272,6 +273,9 @@ for (const file of htmlFiles(root)) {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
   const sharedAssets = [
+    // Shared navigation motion is included on current pages and every future generated template.
+    ['href="/css/page-transitions.css?v=20261020"', '<link rel="stylesheet" href="/css/page-transitions.css?v=20261020">'],
+    ['src="/js/page-transitions.js?v=20261020"', '<script src="/js/page-transitions.js?v=20261020"></script>'],
     ['href="/css/club-favourites.css"', '<link rel="stylesheet" href="/css/club-favourites.css">'],
     ['src="/js/club-favourites.js"', '<script type="module" src="/js/club-favourites.js"></script>'],
     ['href="/css/site-footer.css"', '<link rel="stylesheet" href="/css/site-footer.css">'],
