@@ -247,7 +247,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     put('#preview-name', data.name, 'Your club name');
     put('#preview-eyebrow', [data.sport, areaLabel].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
     put('#preview-description', data.description, 'Your club description will appear here.');
-    put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Add your meeting times');
+    put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Training to be confirmed');
     put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
     document.querySelector('#preview-additional').hidden = !data.additionalInformation.trim();
     put('#preview-additional', data.additionalInformation, '');

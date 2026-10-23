@@ -967,63 +967,6 @@
       "participatesInLeague": null
     },
     {
-      "id": "mcr-ymca-harriers",
-      "name": "MCR YMCA Harriers",
-      "sport": "athletics",
-      "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
-      "profilePath": "html/athletics/mcr-ymca-harriers.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": false,
-      "contact": null,
-      "onlineProfile": {
-        "url": "https://www.manyharrier.co.uk/"
-      },
-      "sessions": [
-        {
-          "dayOfWeek": 2,
-          "startTime": "18:30",
-          "endTime": "20:00",
-          "meetingPoint": "The Y Club, Liverpool Road, M3 4JR",
-          "dataStatus": "user-submitted",
-          "title": "Training",
-          "postcode": "M3 4JR"
-        },
-        {
-          "dayOfWeek": 4,
-          "startTime": "18:30",
-          "endTime": "20:00",
-          "meetingPoint": "Manchester Regional Arena, M11 3FF",
-          "dataStatus": "user-submitted",
-          "title": "Training",
-          "postcode": "M11 3FF"
-        }
-      ],
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://www.manyharrier.co.uk/",
-          "supports": [
-            "onlineProfile"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
-    },
-    {
       "id": "oldham-and-royton-harriers",
       "name": "Oldham & Royton Harriers",
       "sport": "athletics",
@@ -2980,8 +2923,8 @@
       "profilePath": "html/basketball/salford-basketball-club.html",
       "coordinates": null,
       "price": {
-        "type": "per_session",
-        "amount": 6,
+        "type": "unknown",
+        "amount": null,
         "currency": "GBP"
       },
       "tasterSessionCount": 0,
@@ -2992,19 +2935,41 @@
       },
       "sessions": [
         {
-          "title": "Open Scrim",
-          "dayOfWeek": 5,
-          "startTime": "19:00",
-          "endTime": "21:00",
-          "meetingPoint": "The Crescent Sports Centre",
-          "postcode": "M5 4WT",
-          "eligibility": "All Abilities",
-          "specialConsiderations": null
+          "title": "Training",
+          "dayOfWeek": 1,
+          "startTime": "19:30",
+          "endTime": "21:30",
+          "meetingPoint": "All Hallows RC High School",
+          "postcode": "M6 8AA",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted",
+          "price": {
+            "type": "unknown",
+            "amount": null,
+            "currency": "GBP"
+          }
+        },
+        {
+          "title": "Training",
+          "dayOfWeek": 6,
+          "startTime": "16:00",
+          "endTime": "18:00",
+          "meetingPoint": "All Hallows RC High School",
+          "postcode": "M6 8AA",
+          "eligibility": null,
+          "specialConsiderations": "Starting November",
+          "dataStatus": "user-submitted",
+          "price": {
+            "type": "per_session",
+            "amount": 6.0,
+            "currency": "GBP"
+          }
         }
       ],
       "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
       },
       "additionalInformation": null,
       "sources": [],
@@ -3805,6 +3770,97 @@
       "membership": null,
       "participatingLeagues": [],
       "participatesInLeague": null
+    },
+    {
+      "name": "Manchester Bees",
+      "sport": "dodgeball",
+      "description": "We are a mixed gender club in Manchester set up by ex-University students with years of coaching experience and international playing experience in the fastest-growing and most exciting sport in the UK. Our club is welcoming, social and a great place to learn a new team sport; come along and give it a go!",
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "participatesInLeague": null,
+      "participatingLeagues": [],
+      "contact": "committee@manchesterbees.co.uk",
+      "onlineProfile": {
+        "url": "https://manchesterbees.co.uk"
+      },
+      "price": {
+        "type": "per_session",
+        "amount": 5.5,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": true,
+      "additionalInformation": null,
+      "sessions": [],
+      "id": "manchester-bees",
+      "imagePath": null,
+      "profilePath": "html/dodgeball/manchester-bees.html",
+      "coordinates": null,
+      "sources": [],
+      "pricingNotes": null,
+      "bookingNotes": "Bookings required under Spond",
+      "tasterNotes": null,
+      "trainingVenues": [
+        {
+          "meetingPoint": "Moss Side Leisure Centre",
+          "postcode": "M15 5NN"
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
+    },
+    {
+      "id": "manchester-crows",
+      "name": "Manchester Crows",
+      "sport": "flag-football",
+      "imagePath": "img/flag-football/flag-football - Manchester Crows.avif",
+      "coordinates": null,
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": "manchester@crowsfootball.com",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/manchestercrows/"
+      },
+      "description": "If you're looking for a fun and inclusive sport that combines strategy, athleticism, and teamwork, join us for a session this week!",
+      "additionalInformation": null,
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "profilePath": "html/flag-football/manchester-crows.html",
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "sessions": [
+        {
+          "title": "Weekly Training",
+          "dayOfWeek": 7,
+          "startTime": "12:00",
+          "endTime": "14:00",
+          "meetingPoint": "David Lewis Sports Ground",
+          "postcode": "M6 6AL",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
     },
     {
       "id": "beswick-community-football-club-pd-coaching",
@@ -4903,6 +4959,92 @@
       "participatesInLeague": null
     },
     {
+      "name": "Manchester Hawks",
+      "sport": "korfball",
+      "description": "Friendly & sociable korfball club in south Manchester, 🤩 New players of any level always welcome!",
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Hawks 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester Hawks 2",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester Hawks 3",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Hawks Vibes",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Hawks 4",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Hawks 5",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        }
+      ],
+      "contact": "manchesterhawks@hotmail.co.uk",
+      "onlineProfile": {
+        "url": "https://manchesterhawks.co.uk/"
+      },
+      "price": {
+        "type": "per_session",
+        "amount": 6.0,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": 4,
+      "bookingRequired": false,
+      "additionalInformation": null,
+      "sessions": [
+        {
+          "title": "Weekly Training",
+          "dayOfWeek": 3,
+          "startTime": "19:00",
+          "endTime": "21:00",
+          "meetingPoint": "Parrs Wood High School Sports Centre",
+          "postcode": "M20 5PG",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "id": "manchester-hawks",
+      "imagePath": "img/korfball/korfball-Manchester Hawks.avif",
+      "profilePath": "html/korfball/manchester-hawks.html",
+      "coordinates": null,
+      "sources": [],
+      "pricingNotes": "Membership: £25–£38/month",
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
+    },
+    {
       "name": "Manchester Korfball",
       "sport": "korfball",
       "description": "Manchester Korfball Club are a friendly and sociable club. Korfball draws comparisons to netball and basketball, with it being played in mixed teams of 4 men and 4 women. We are always looking for new members, whether you have played before or never picked up a ball! Find more about Korfball and our club on our social media @manckorfball",
@@ -4942,7 +5084,7 @@
       },
       "price": {
         "type": "monthly_fee",
-        "amount": 18,
+        "amount": 15.0,
         "currency": "GBP"
       },
       "membership": null,
@@ -4973,7 +5115,87 @@
       "trainingVenues": [],
       "verification": {
         "status": "verified",
-        "lastConfirmed": "2026-10-15"
+        "lastConfirmed": "2026-10-23"
+      }
+    },
+    {
+      "name": "Manchester Warriors",
+      "sport": "korfball",
+      "description": "We're a fun and friendly club, always open to new members, whether you've been playing for years or have never heard of Korfball before! We train as a whole club on Tuesday evenings, and also host regular socials. We have 5 teams of different abilities, so players at all levels have the opportunity to play matches.",
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "participatesInLeague": true,
+      "participatingLeagues": [
+        {
+          "teamName": "Manchester Warriors 1",
+          "name": "Northern Regional League",
+          "leagueUrl": null,
+          "coverage": "regional"
+        },
+        {
+          "teamName": "Manchester Warriors 2",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Warriors Barbarians",
+          "name": "North West Korfball League 1",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Warriors 3",
+          "name": "North West Korfball League 2",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        },
+        {
+          "teamName": "Manchester Warriors 4",
+          "name": "North West Korfball League 3",
+          "leagueUrl": null,
+          "coverage": "local_county"
+        }
+      ],
+      "contact": "info@manchesterwarriors.co.uk",
+      "onlineProfile": {
+        "url": "https://www.instagram.com/warriorskorf"
+      },
+      "price": {
+        "type": "monthly_fee",
+        "amount": 25,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": 4,
+      "bookingRequired": true,
+      "additionalInformation": null,
+      "sessions": [
+        {
+          "title": "Whole Club Tuesday Training",
+          "dayOfWeek": 2,
+          "startTime": "19:00",
+          "endTime": "21:30",
+          "meetingPoint": "Didsbury High School, 4 The Avenue, Didsbury",
+          "postcode": "M20 2ET",
+          "eligibility": "All Abilities",
+          "specialConsiderations": "There is plenty of parking and it is across the road from Withington tram stop.",
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "id": "manchester-warriors",
+      "imagePath": "img/korfball/korfball-Manchester Warriors.avif",
+      "profilePath": "html/korfball/manchester-warriors.html",
+      "coordinates": null,
+      "sources": [],
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
       }
     },
     {
@@ -5228,6 +5450,53 @@
       "participatesInLeague": null
     },
     {
+      "id": "manchester-deaf-run-club",
+      "name": "Manchester Deaf Run Club",
+      "sport": "run-club",
+      "imagePath": null,
+      "coordinates": null,
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": null,
+      "onlineProfile": null,
+      "description": null,
+      "additionalInformation": null,
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "beginnerFriendly": null,
+      "genderSpecific": null,
+      "genderEligibility": null,
+      "profilePath": "html/run-club/manchester-deaf-run-club.html",
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "sessions": [
+        {
+          "title": "5K Social Run",
+          "dayOfWeek": 6,
+          "startTime": "11:00",
+          "endTime": null,
+          "meetingPoint": "Media City Tram Stop",
+          "postcode": "M50 2EQ",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
+    },
+    {
       "id": "manchester-frontrunners",
       "name": "Manchester Frontrunners",
       "sport": "run-club",
@@ -5306,6 +5575,69 @@
       "membership": null,
       "participatingLeagues": [],
       "participatesInLeague": null
+    },
+    {
+      "id": "mcr-ymca-harriers",
+      "name": "MCR YMCA Harriers",
+      "sport": "run-club",
+      "beginnerFriendly": true,
+      "description": "Est. 1882, A proud running heritage built on friendship, community and miles. Based at The Y Club, Castlefield.",
+      "imagePath": null,
+      "profilePath": "html/athletics/mcr-ymca-harriers.html",
+      "coordinates": null,
+      "price": {
+        "type": "annual_fee",
+        "amount": 20.0,
+        "currency": "GBP"
+      },
+      "tasterSessionCount": 2,
+      "bookingRequired": false,
+      "contact": "kearneydavidj@hotmail.com",
+      "onlineProfile": {
+        "url": "https://www.manyharrier.co.uk/"
+      },
+      "sessions": [
+        {
+          "title": "Group Run",
+          "dayOfWeek": 4,
+          "startTime": "18:30",
+          "endTime": "20:00",
+          "meetingPoint": "The Y Club, Liverpool Road",
+          "postcode": "M3 4JR",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "Speedwork Session",
+          "dayOfWeek": 2,
+          "startTime": "18:30",
+          "endTime": "20:00",
+          "meetingPoint": "Manchester Regional Arena",
+          "postcode": "M11 3FF",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      },
+      "additionalInformation": null,
+      "sources": [
+        {
+          "url": "https://www.manyharrier.co.uk/",
+          "supports": [
+            "onlineProfile"
+          ]
+        }
+      ],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null,
+      "genderSpecific": false,
+      "pricingNotes": "Social membership · Competition membership: £40/year"
     },
     {
       "id": "mile-shy-club",
@@ -5490,6 +5822,77 @@
       "membership": null,
       "participatingLeagues": [],
       "participatesInLeague": null
+    },
+    {
+      "id": "stretford-run-club",
+      "name": "Stretford Run Club",
+      "sport": "run-club",
+      "imagePath": null,
+      "coordinates": null,
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/stretfordrunclub/"
+      },
+      "description": null,
+      "additionalInformation": null,
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "profilePath": "html/run-club/stretford-run-club.html",
+      "price": {
+        "type": "free",
+        "amount": 0,
+        "currency": "GBP"
+      },
+      "sessions": [
+        {
+          "title": "5K Casual Run",
+          "dayOfWeek": 1,
+          "startTime": "19:00",
+          "endTime": null,
+          "meetingPoint": "Longford Tap, King Street Mall",
+          "postcode": "M32 9BA",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "Parkrun Meetup",
+          "dayOfWeek": 6,
+          "startTime": "09:00",
+          "endTime": null,
+          "meetingPoint": "Stretford Parkrun, 220 Ryebank Rd",
+          "postcode": "M21 9LU",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "10KM Monthly Run",
+          "dayOfWeek": 7,
+          "startTime": "09:00",
+          "endTime": null,
+          "meetingPoint": "Swig Coffee, 41 Edge Lane",
+          "postcode": "M32 8HN",
+          "eligibility": null,
+          "specialConsiderations": "Last Sunday of the month",
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
     },
     {
       "id": "tiny-moves",
@@ -5751,6 +6154,88 @@
           "postcode": "BL1 5AN"
         }
       ]
+    },
+    {
+      "id": "northern-rebound",
+      "name": "Northern Rebound",
+      "sport": "squash",
+      "imagePath": null,
+      "coordinates": null,
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null,
+      "tasterSessionCount": null,
+      "bookingRequired": false,
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.instagram.com/northernrebound_squash/"
+      },
+      "description": null,
+      "additionalInformation": "Manchester’s LGBTQ+ friendly squash club! Follow us to find out how you can get involved.",
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "profilePath": "html/squash/northern-rebound.html",
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "sessions": [
+        {
+          "title": "Evening Session",
+          "dayOfWeek": 3,
+          "startTime": "19:00",
+          "endTime": "21:15",
+          "meetingPoint": "Sugden Sports Centre",
+          "postcode": "M1 7HL",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "Evening Session",
+          "dayOfWeek": 5,
+          "startTime": "19:00",
+          "endTime": "20:30",
+          "meetingPoint": "Sugden Sports Centre",
+          "postcode": "M1 7HL",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "Afternoon Session",
+          "dayOfWeek": 6,
+          "startTime": "12:00",
+          "endTime": "13:30",
+          "meetingPoint": "Sugden Sports Centre",
+          "postcode": "M1 7HL",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "Afternoon Session",
+          "dayOfWeek": 7,
+          "startTime": "13:00",
+          "endTime": "14:30",
+          "meetingPoint": "Sugden Sports Centre",
+          "postcode": "M1 7HL",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
     },
     {
       "id": "south-manchester-squash-racketball-club",
@@ -6120,12 +6605,83 @@
       "participatesInLeague": null
     },
     {
+      "name": "Try Tag Rugby Salford",
+      "sport": "tag-rugby",
+      "description": "Try Tag Rugby Salford offers fun, inclusive and social mixed-gender tag rugby leagues for adults aged 18+ across Salford and East Manchester. The game is suitable for beginner or experienced players and everyone is welcome! Our friendly leagues are a great way to get active, meet new people and enjoy being part of a community. We offer free taster sessions so you can give tag rugby a go before committing. No experience necessary, just come along and give it a try!",
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "participatesInLeague": false,
+      "participatingLeagues": [],
+      "contact": "salford@trytagrugby.com",
+      "onlineProfile": {
+        "url": "https://www.trytagrugby.com/play/join-a-league/?location=Manchester"
+      },
+      "price": {
+        "type": "unknown",
+        "amount": null,
+        "currency": "GBP"
+      },
+      "membership": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "additionalInformation": "All welcome. Come down and give it a try!\n\nTaster sessions are FREE. Contact the club for regular pricing. The cost to join a league can be found on our website and varies between each league.",
+      "sessions": [
+        {
+          "title": "East Manchester League",
+          "dayOfWeek": 1,
+          "startTime": "19:00",
+          "endTime": "21:00",
+          "meetingPoint": "East Manchester Academy, 60 Grey Mare Lane",
+          "postcode": "M11 3DS",
+          "eligibility": "All Abilities",
+          "specialConsiderations": "Every Monday, with league games taking place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 7pm, 7:40pm or 8:20pm, and your team will be allocated one of these slots each week.",
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "East Manchester League",
+          "dayOfWeek": 2,
+          "startTime": "19:00",
+          "endTime": "21:00",
+          "meetingPoint": "East Manchester Academy, 60 Grey Mare Lane",
+          "postcode": "M11 3DS",
+          "eligibility": "All Abilities",
+          "specialConsiderations": "Every Tuesday, with league games taking place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 7pm, 7:40pm or 8:20pm, and your team will be allocated one of these slots each week.",
+          "dataStatus": "user-submitted"
+        },
+        {
+          "title": "Salford Thursday League",
+          "dayOfWeek": 4,
+          "startTime": "20:00",
+          "endTime": "22:00",
+          "meetingPoint": "Parrenthorn High School, Heywood Road",
+          "postcode": "M25 2BW",
+          "eligibility": "All Abilities",
+          "specialConsiderations": "Every Thursday, with league games taking place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 8pm, 8:40pm, 9pm or 9:20pm, and your team will be allocated one of these slots each week.",
+          "dataStatus": "user-submitted"
+        }
+      ],
+      "id": "try-tag-rugby-salford",
+      "imagePath": "img/tag-rugby/tag rugby-Salford Tag Rugby.jpeg",
+      "profilePath": "html/tag-rugby/try-tag-rugby-salford.html",
+      "coordinates": null,
+      "sources": [],
+      "pricingNotes": "Contact club",
+      "bookingNotes": null,
+      "tasterNotes": "Free taster sessions available.",
+      "trainingVenues": [],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
+    },
+    {
       "id": "manchester-foxes",
       "name": "Manchester Foxes",
       "sport": "touch rugby",
       "beginnerFriendly": null,
-      "description": "Adult 18+ mixed touch rugby; ask about younger players",
-      "imagePath": null,
+      "description": "Manchester Touch Rugby Club 🏉\nDiv 1 Mixed, Men's & Women's 🦊",
+      "imagePath": "img/touch-rugby/touch rugby-Manchester Foxes.avif",
       "profilePath": "html/touch-rugby/manchester-foxes.html",
       "coordinates": null,
       "price": {
@@ -6154,8 +6710,8 @@
       "bookingNotes": "Not required; message first recommended",
       "tasterNotes": null,
       "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
       },
       "additionalInformation": null,
       "sources": [
@@ -6580,6 +7136,76 @@
           "coverage": "regional"
         }
       ]
+    },
+    {
+      "id": "manchester-sharks-water-polo",
+      "name": "Manchester Sharks Water Polo",
+      "sport": "water-polo",
+      "imagePath": null,
+      "coordinates": null,
+      "sources": [],
+      "membership": null,
+      "participatingLeagues": [],
+      "participatesInLeague": null,
+      "tasterSessionCount": null,
+      "bookingRequired": null,
+      "contact": null,
+      "onlineProfile": {
+        "url": "https://www.manchester-sharks.co.uk"
+      },
+      "description": "Welcome to the UKs largest dedicated LGBTQ+ water polo club. We are a friendly and inclusive club that welcomes players of all abilities.",
+      "additionalInformation": null,
+      "pricingNotes": null,
+      "bookingNotes": null,
+      "tasterNotes": null,
+      "trainingVenues": [],
+      "beginnerFriendly": true,
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "profilePath": "html/water-polo/manchester-sharks-water-polo.html",
+      "price": {
+        "type": "per_session",
+        "amount": 7.0,
+        "currency": "GBP"
+      },
+      "sessions": [
+        {
+          "title": "Weekly Training",
+          "dayOfWeek": 4,
+          "startTime": "20:30",
+          "endTime": "22:00",
+          "meetingPoint": "East Manchester Leisure Centre",
+          "postcode": "M11 3ND",
+          "eligibility": null,
+          "specialConsiderations": "Followed by social drinks",
+          "dataStatus": "user-submitted",
+          "price": {
+            "type": "per_session",
+            "amount": 7.0,
+            "currency": "GBP"
+          }
+        },
+        {
+          "title": "Training",
+          "dayOfWeek": 7,
+          "startTime": "17:30",
+          "endTime": "19:00",
+          "meetingPoint": "East Manchester Leisure Centre",
+          "postcode": "M11 3ND",
+          "eligibility": null,
+          "specialConsiderations": null,
+          "dataStatus": "user-submitted",
+          "price": {
+            "type": "per_session",
+            "amount": 6.0,
+            "currency": "GBP"
+          }
+        }
+      ],
+      "verification": {
+        "status": "verified",
+        "lastConfirmed": "2026-10-23"
+      }
     },
     {
       "id": "bolton-bulls",

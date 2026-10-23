@@ -1,12 +1,8 @@
 /* Only the homepage loads this script; direct links to other pages stay untouched. */
 (() => {
   const root = document.documentElement;
-  const key = '0161active-home-entered';
-  // Show the welcome once per tab session; refreshes and return visits skip it.
-  const showOnEveryVisit = false;
   const showGridAxes = true; // Temporary A/B/C and 1/2/3 labels for scene placement.
   if (!['/', '/index', '/index.html'].includes(location.pathname)) return;
-  root.classList.add('home-entry-page');
 
   /* Visual prototype only: these sample figures never read or change club records. */
   const demoRegions = [
@@ -125,14 +121,14 @@
       overviewAnimation = animateText(overview);
     };
     const engage = () => {
-      if (detailView || detailLoading || dialog.classList.contains('is-opening')) return;
+      if (detailView || detailLoading) return;
       selectRegion(hovered || focused || tapped);
       scheduleRotation();
     };
     /* Desktop loads internal shapes on activation; mobile keeps the borough overview. */
     const openRegion = async id => {
       if (mobileMap.matches) return;
-      if (detailView || detailLoading || dialog.classList.contains('is-opening')) return;
+      if (detailView || detailLoading) return;
       const region = demoRegions.find(item => item.id === id);
       detailLoading = true;
       clearTimeout(rotationTimer);
@@ -140,8 +136,8 @@
       statAnimation?.cancel();
       count.textContent = 'Loading area map';
       try {
-        const { mountRegionDetail } = await import('./home-region-detail.mjs?v=20261023-entry-handover');
-        if (listeners.signal.aborted || mobileMap.matches || dialog.classList.contains('is-opening')) return;
+        const { mountRegionDetail } = await import('./home-region-detail.mjs?v=20261023-inline-first-panel');
+        if (listeners.signal.aborted || mobileMap.matches) return;
         detailView = mountRegionDetail(map, region, {
           reducedMotion,
           selectArea(area) {
@@ -260,53 +256,10 @@
     };
   }
 
-  function showWelcome() {
-  if (root.matches('.home-entry-pending, .home-entry-active')) return;
-  if (!showOnEveryVisit) try {
-    if (sessionStorage.getItem(key) === 'entered') return;
-    // Check writes before gating the page: unavailable storage falls back to the normal home.
-    sessionStorage.setItem(key, 'pending');
-  } catch { return; }
-
-  root.classList.add('home-entry-pending');
-  let dialog;
-  let cleanDialog;
-  let finished = false;
-  let cleanup = () => window.removeEventListener('pagereveal', skipIncomingTransition);
-  let completionTimer;
-  let revealTimer;
-  const finish = (focusHome = false) => {
-    if (finished) return;
-    finished = true;
-    clearTimeout(startupTimer);
-    clearTimeout(completionTimer);
-    clearTimeout(revealTimer);
-    cleanup();
-    if (dialog?.open) dialog.close();
-    // Keep clean, closed markup in preview mode so browser Back can replay without a reload.
-    if (showOnEveryVisit && cleanDialog) dialog?.replaceWith(cleanDialog.cloneNode(true));
-    else dialog?.remove();
-    root.classList.remove('home-entry-pending', 'home-entry-active', 'home-entry-revealing');
-    window.dispatchEvent(new Event('home-entry:complete'));
-    if (focusHome) document.getElementById('main-content')?.focus({ preventScroll: true });
-  };
-  // A failed stylesheet or interrupted setup must never leave visitors behind a blank gate.
-  const startupTimer = setTimeout(() => finish(), 4000);
-  const skipIncomingTransition = event => event.viewTransition?.skipTransition();
-  window.addEventListener('pagereveal', skipIncomingTransition);
-
-  const initialise = () => {
-    if (finished) return;
-    try {
-      dialog = document.getElementById('home-entry');
-      const enter = dialog?.querySelector('[data-home-enter]');
-      const pause = dialog?.querySelector('[data-entry-pause]');
-      if (!dialog || !enter || !pause || typeof dialog.showModal !== 'function'
-        || getComputedStyle(dialog).getPropertyValue('--home-entry-ready').trim() !== '1') {
-        finish();
-        return;
-      }
-      cleanDialog = dialog.cloneNode(true);
+  // The map is a normal homepage section: never hide or gate the content below it.
+  function initialiseHomePanel() {
+    const dialog = document.getElementById('home-entry');
+    if (!dialog) return;
       const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
       const universe = dialog.querySelector('.home-entry__universe');
       const items = [...dialog.querySelectorAll('[data-cell]')];
@@ -362,79 +315,40 @@
         axes.replaceChildren(labels);
       };
       const sizeObserver = 'ResizeObserver' in window ? new ResizeObserver(positionGrid) : null;
-      let userPaused = false;
-      let opening = false;
-      const reducedMotion = () => preference.matches || root.classList.contains('a11y-reduce-motion');
-      const regionMap = initialiseRegionMap(dialog, reducedMotion);
-      const updateMotion = () => {
-        const reduced = reducedMotion();
-        if (reduced && opening) { finish(true); return; }
-        const stopped = reduced || userPaused || document.hidden || opening;
-        dialog.classList.toggle('is-still', stopped);
-        dialog.classList.toggle('is-reduced-motion', reduced);
-        regionMap.setPaused(stopped);
-        pause.hidden = reduced;
-        pause.textContent = userPaused ? 'Resume effects' : 'Pause effects';
-        pause.setAttribute('aria-pressed', String(userPaused));
-      };
-      const observer = new MutationObserver(updateMotion);
-      cleanup = () => {
-        document.removeEventListener('visibilitychange', updateMotion);
-        preference.removeEventListener?.('change', updateMotion);
-        window.removeEventListener('pagereveal', skipIncomingTransition);
-        observer.disconnect();
-        regionMap.destroy();
-        sizeObserver?.disconnect();
-        window.removeEventListener('resize', positionGrid);
-      };
-      document.addEventListener('visibilitychange', updateMotion);
-      preference.addEventListener?.('change', updateMotion);
-      observer.observe(root, { attributes: true, attributeFilter: ['class'] });
-      pause.addEventListener('click', () => { userPaused = !userPaused; updateMotion(); });
-      // Enter is required; native modal focus keeps hidden homepage controls out of tab order.
-      dialog.addEventListener('cancel', event => event.preventDefault());
-      dialog.addEventListener('animationend', event => {
-        if (event.animationName === 'entry-curtain-up' && opening
-          && event.target.classList.contains('home-entry__wash')) finish(true);
-      });
-      enter.addEventListener('click', () => {
-        if (opening) return;
-        opening = true;
-        if (!showOnEveryVisit) try { sessionStorage.setItem(key, 'entered'); } catch { /* Enter still works if storage becomes unavailable. */ }
-        enter.disabled = true;
-        pause.disabled = true;
-        if (reducedMotion()) { finish(true); return; }
+    let inView = true;
+    const reducedMotion = () => preference.matches || root.classList.contains('a11y-reduce-motion');
+    // Keep the native anchor fallback; enhance this link with a smooth homepage handover.
+    dialog.querySelector('.home-entry__enter')?.addEventListener('click', event => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const destination = document.getElementById('home-content');
+      if (!destination) return;
+      event.preventDefault();
+      document.getElementById('main-content')?.focus({ preventScroll:true });
+      destination.scrollIntoView({ behavior:reducedMotion() ? 'instant' : 'smooth', block:'start' });
+    });
+    const regionMap = initialiseRegionMap(dialog, reducedMotion);
+    const updateMotion = () => {
+      const reduced = reducedMotion();
+      const stopped = reduced || document.hidden || !inView;
+      dialog.classList.toggle('is-still', stopped);
+      dialog.classList.toggle('is-reduced-motion', reduced);
+      regionMap.setPaused(stopped);
+    };
+    document.addEventListener('visibilitychange', updateMotion);
+    preference.addEventListener('change', updateMotion);
+    new MutationObserver(updateMotion).observe(root, { attributes:true, attributeFilter:['class'] });
+    // Stop the idle tour and glow animation when the first panel scrolls out of view.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        inView = entries[0].isIntersecting;
         updateMotion();
-        dialog.querySelectorAll('[data-region]').forEach(target => {
-          target.setAttribute('tabindex', '-1');
-          target.setAttribute('aria-disabled', 'true');
-        });
-        dialog.classList.add('is-opening');
-        // First reach solid green; only then bring the page and its temporary reveal edge in.
-        revealTimer = setTimeout(() => {
-          if (finished) return;
-          dialog.classList.add('is-transitioning');
-          root.classList.add('home-entry-revealing');
-        }, 900);
-        // The timer also completes the transition when animations are disabled or interrupted.
-        completionTimer = setTimeout(() => finish(true), 3100);
-      });
-      updateMotion();
-      dialog.showModal();
-      positionGrid();
-      if (sizeObserver && universe) sizeObserver.observe(universe);
-      else window.addEventListener('resize', positionGrid);
-      root.classList.replace('home-entry-pending', 'home-entry-active');
-      enter.focus({ preventScroll: true });
-      clearTimeout(startupTimer);
-    } catch { finish(); }
-  };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialise, { once: true });
-  else initialise();
+      }).observe(dialog);
+    }
+    updateMotion();
+    positionGrid();
+    if (sizeObserver && universe) sizeObserver.observe(universe);
+    else window.addEventListener('resize', positionGrid);
   }
-
-  showWelcome();
-  if (showOnEveryVisit) window.addEventListener('pageshow', event => {
-    if (event.persisted) showWelcome();
-  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialiseHomePanel, { once:true });
+  else initialiseHomePanel();
 })();

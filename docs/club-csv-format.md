@@ -161,3 +161,15 @@ League mastersheets describe membership only: they never generate club profiles,
 - Keep multiple teams under one parent. Match existing clubs before changing membership names; preserve unrelated leagues, schedules and contact data. Reimporting an approved complete roster replaces that roster's memberships rather than appending duplicate teams.
 
 The October 2026 Korfball roster has 37 teams: Northern Regional League (9), North West Korfball League 1 (9), League 2 (9), and League 3 (10). Manchester KC maps to the existing Manchester Korfball profile. Manchester Hawks, Manchester Warriors and University of Manchester await profiles. The 20 local team rows have no website links; the 17 external team rows retain their supplied links. Existing league coverage values are retained.
+
+Booking display: bookingRequired yes explicitly enables public booking guidance and any stored booking notes, regardless of price. No or an unspecified value does not show booking details. Paid rows still require an explicit yes/no answer during import.
+
+Taster counts are independent of regular pricing: tasterSessionCount can be supplied and displayed even when price.type is unknown. A positive count appears on the profile; blank or zero does not.
+
+### Missing training information
+
+Week at a glance displays “Training to be confirmed” when no session has both a valid weekday and a start time. Do not invent missing times. Store supplied venues without a usable schedule in `trainingVenues`, separate from calendar sessions. This also applies to future imports.
+
+### 23 October 2026: v1.2 spreadsheet review
+
+Imported ten clubs from `0161_ACTIVE - v1.2.csv` after review. Row 60's Saturday session and £6 price belong to Salford Basketball; its description belongs to Manchester Sharks Water Polo. Sharks' Sunday venue is the same as Thursday's. These allocations were confirmed by the owner. Manchester Bees has a Wednesday venue but no time, so no calendar session was created. Existing korfball league rosters and contact details absent from the spreadsheet were retained. MCR YMCA Harriers' supplied Tuesday/Thursday venues replace the previous schedule; social and competition annual prices remain distinct. Stretford's last-Sunday condition remains explicit descriptive text, not a weekly attendance claim.

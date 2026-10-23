@@ -68,6 +68,8 @@
   <url><loc>https://0161active.co.uk/html/cycling/stockport-community-cycling-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/cycling/wigan-wheelers-and-triathlon-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/cycling/wythenshawe-wheelers-cycling-club.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/dodgeball/manchester-bees.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/flag-football/manchester-crows.html</loc></url>
   <url><loc>https://0161active.co.uk/html/football/beswick-community-football-club-pd-coaching.html</loc></url>
   <url><loc>https://0161active.co.uk/html/football/bury-amateurs-afc.html</loc></url>
   <url><loc>https://0161active.co.uk/html/football/bury-football-club.html</loc></url>
@@ -86,7 +88,9 @@
   <url><loc>https://0161active.co.uk/html/hockey/south-manchester-hockey-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/hockey/stockport-bramhall-hockey-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/hockey/wigan-hockey-club.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/korfball/manchester-hawks.html</loc></url>
   <url><loc>https://0161active.co.uk/html/korfball/manchester-korfball.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/korfball/manchester-warriors.html</loc></url>
   <url><loc>https://0161active.co.uk/html/leagues/basketball/mabl-men-s-championship-division.html</loc></url>
   <url><loc>https://0161active.co.uk/html/leagues/basketball/mabl-men-s-div-1-division.html</loc></url>
   <url><loc>https://0161active.co.uk/html/leagues/basketball/mabl-men-s-premier-division.html</loc></url>
@@ -107,7 +111,9 @@
   <url><loc>https://0161active.co.uk/html/run-club/TinyMoves.html</loc></url>
   <url><loc>https://0161active.co.uk/html/run-club/belle-vue-racers-running.html</loc></url>
   <url><loc>https://0161active.co.uk/html/run-club/chorlton-runners-running.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/manchester-deaf-run-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/run-club/royton-road-runners.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/run-club/stretford-run-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/american-football.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/archery.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/athletics.html</loc></url>
@@ -115,6 +121,8 @@
   <url><loc>https://0161active.co.uk/html/sports/basketball.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/cycling.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/directory.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/sports/dodgeball.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/sports/flag-football.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/football.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/health-and-wellbeing.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/hockey.html</loc></url>
@@ -123,19 +131,23 @@
   <url><loc>https://0161active.co.uk/html/sports/run-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/squash.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/table-tennis.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/sports/tag-rugby.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/touch-rugby.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/ultimate-frisbee.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/sports/water-polo.html</loc></url>
   <url><loc>https://0161active.co.uk/html/sports/wheelchair-basketball.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/bowdon-club-squash.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/cheetham-hill-squash.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/manchester-tennis-racquet-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/markland-hill-racquets-club.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/squash/northern-rebound.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/south-manchester-squash-racketball-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/squash/the-northern.html</loc></url>
   <url><loc>https://0161active.co.uk/html/table-tennis/affinity-table-tennis-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/table-tennis/flixton-table-tennis-flixton-cricket-and-sports-club.html</loc></url>
   <url><loc>https://0161active.co.uk/html/table-tennis/markland-hill-racquets-club-table-tennis.html</loc></url>
   <url><loc>https://0161active.co.uk/html/table-tennis/marple-sports-club-table-tennis.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/tag-rugby/try-tag-rugby-salford.html</loc></url>
   <url><loc>https://0161active.co.uk/html/touch-rugby/manchester-foxes.html</loc></url>
   <url><loc>https://0161active.co.uk/html/touch-rugby/manchester-social-touch-rugby.html</loc></url>
   <url><loc>https://0161active.co.uk/html/touch-rugby/manchester-village-spartans-touch.html</loc></url>
@@ -143,6 +155,7 @@
   <url><loc>https://0161active.co.uk/html/ultimate-frisbee/black-sheep-ultimate.html</loc></url>
   <url><loc>https://0161active.co.uk/html/ultimate-frisbee/duffa.html</loc></url>
   <url><loc>https://0161active.co.uk/html/ultimate-frisbee/manchester-ultimate.html</loc></url>
+  <url><loc>https://0161active.co.uk/html/water-polo/manchester-sharks-water-polo.html</loc></url>
   <url><loc>https://0161active.co.uk/html/wheelchair-basketball/bolton-bulls.html</loc></url>
   <url><loc>https://0161active.co.uk/html/wheelchair-basketball/manchester-revolution.html</loc></url>
 </urlset>

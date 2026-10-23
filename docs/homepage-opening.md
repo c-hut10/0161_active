@@ -121,3 +121,16 @@ The overview-only restriction now requires a viewport at most 640px wide plus a 
 showOnEveryVisit is false again. The existing sessionStorage entered flag skips the welcome on refresh and later homepage visits in the same tab session. New tab sessions can show it again; direct club links still bypass the welcome.
 
 The reveal transforms only gallery-main, not the whole home-content wrapper containing the fixed navigation. Navigation fades in at its final viewport position during the same reveal. The homepage reserves scrollbar space to reduce width changes when the scroll lock ends. Temporary compositing hints are limited to the opening phase. Reduced-motion preferences still bypass the animation. The smoothness of the handover has not yet been verified visually in a browser.
+
+
+## Current behaviour: inline first homepage panel
+
+This supersedes the previous modal and session-gate behaviour. The former welcome is a normal section at the top of the homepage. It remains present on each visit, and all homepage content is available below it without pressing Enter or running JavaScript. Enter 0161_Active is a real fragment link to #home-content. The navigation follows this first panel and becomes sticky when reached. Other pages retain their fixed navigation.
+
+The modal, sessionStorage gate, automatic focus capture, hidden homepage rules and door/curtain entry animation are removed. The interactive borough map, desktop ward detail, static grid, glow decoration and pause control remain. Map rotation and decorative animation pause when the first panel is offscreen or the document is hidden. The three full-height mission panels remain below the gallery and introduction.
+
+Enter now enhances its native fragment link with smooth scrolling to the homepage navigation and gallery. Keyboard focus moves to the main content without jumping the scroll position. Reduced-motion users move directly to the destination; without JavaScript the normal anchor remains usable.
+
+The first-panel logo and Pause effects button have been removed. Navbar branding and gallery pause controls remain. Automatic stopping for reduced motion, hidden tabs and an offscreen first panel remains active. Detail fitting no longer reserves room for the removed logo.
+
+Navigation is solid black again, with no grid or title cutouts. The landing grid ends above it. Duplicate green door-edge borders and the inner vertical frame edges beside the centre slit are removed; the main green slit remains. Side edges retain a faint boundary.

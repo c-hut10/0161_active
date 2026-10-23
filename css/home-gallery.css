@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
 /* Homepage gallery frame: two clipped rows show three moving club panels at a time. */
-.gallery-main { background: #171817; }
+.gallery-main { background: var(--home-black, #111211); }
 /* Gallery control: remain fixed over the photos while paused images can scroll underneath. */
 .gallery-frame { position:relative; }
 .gallery-main .gallery-pause {

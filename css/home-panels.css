@@ -18,11 +18,11 @@
 
 /* Introduction keeps its natural height above the three full-screen panels. */
 .mission-panels {
-  --panel-ink: #171817;
+  --panel-ink: var(--home-black, #111211);
   --panel-paper: var(--green);
   color: var(--panel-paper);
-  /* The static glow remains behind the introduction above the full-width photos. */
-  background: #171817 url('../img/movement-glow.webp') center / cover no-repeat;
+  /* Plain dark background behind the introduction and its buttons. */
+  background: var(--home-black, #111211);
   font-family: Arial, Helvetica, sans-serif;
   padding: 0;
   display: flex;

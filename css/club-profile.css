@@ -71,20 +71,6 @@
   background: var(--profile-lime);
 }
 
-/* Training summary: put days, times and booking requirements ahead of the photo and introduction. */
-.profile-training-summary { padding: 18px 0 22px; border-bottom: 1px solid var(--profile-line); }
-.profile-training-summary__heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; margin-bottom: 12px; }
-.profile-training-summary h2 { margin: 0; color: var(--profile-paper); font-size: 21px; letter-spacing: -.035em; }
-.profile-training-summary__heading a { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; color: var(--profile-lime); font-size: 14px; text-decoration: none; }
-.profile-training-summary__heading a:hover,
-.profile-training-summary__heading a:focus-visible { color: var(--profile-paper); text-decoration: underline; text-underline-offset: 4px; }
-.profile-training-summary__sessions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
-.profile-training-summary__session { min-width: 0; padding: 10px 12px; border-left: 2px solid var(--profile-lime); background: var(--profile-panel); }
-.profile-training-summary__session strong { display: block; margin-bottom: 4px; color: var(--profile-lime); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
-.profile-training-summary__session time { color: var(--profile-paper); font-size: 14px; font-weight: 700; }
-.profile-training-summary__session span { display: block; margin-top: 5px; color: var(--profile-grey); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
-.profile-training-summary__empty { margin: 0; color: var(--profile-paper); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
-
 /* Overview: pair a compact club photo with the editable facts and introduction. */
 .profile-overview {
   display: grid;

@@ -1,0 +1,3 @@
+id,name,sport,beginnerFriendly,genderSpecific,genderEligibility,participatesInLeague,participatingLeagues.teamName,participatingLeagues.name,participatingLeagues.coverage,description,contact,onlineProfile.url,price.type,price.amount,membership.period,membership.amount,membership.sessionAmount,tasterSessionCount,bookingRequired,additionalInformation,sessions.title,sessions.dayOfWeek,sessions.startTime,sessions.endTime,sessions.meetingPoint,sessions.postcode,sessions.eligibility,sessions.specialConsiderations
+manchester-foxes,Manchester Foxes,touch rugby,,,,,,,,"Manchester Touch Rugby Club 🏉
+Div 1 Mixed, Men's & Women's 🦊",,https://manchesterfoxes.com/,unknown,,,,,1,no,,Touch rugby,1,18:00,20:00,"Hough End Leisure Centre, 480 Princess Road, Manchester, M20 1HD",M20 1HD,,

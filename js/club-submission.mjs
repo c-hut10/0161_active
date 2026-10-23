@@ -45,8 +45,9 @@ export function clubAnswers(values, sessions) {
       amount: text(values['membership.amount']) ? Number(values['membership.amount']) : null,
       sessionAmount: text(values['membership.sessionAmount']) ? Number(values['membership.sessionAmount']) : null
     } : null,
-    tasterSessionCount: paid && text(values.tasterSessionCount) ? Number(values.tasterSessionCount) : null,
-    bookingRequired: paid ? text(values.bookingRequired) === 'yes' ? true : text(values.bookingRequired) === 'no' ? false : null : false,
+    tasterSessionCount: text(values.tasterSessionCount) ? Number(values.tasterSessionCount) : null,
+    // Explicit CSV answers apply at any price; unspecified booking is hidden by default.
+    bookingRequired: text(values.bookingRequired) === 'yes' ? true : text(values.bookingRequired) === 'no' ? false : paid ? null : false,
     additionalInformation: optional(values.additionalInformation), sessions: sessions.map(sessionAnswers)
   };
 }
@@ -77,7 +78,7 @@ export function submissionReview(club) {
       `Description: ${supplied(club.description)}`
     ] },
     { title: 'Cost', step: 0, lines: [
-      `Price: ${formatPrice(club, { compact: true, minimumFractionDigits: 0, unknown: 'Not confirmed' })}`,
+      `Price: ${formatPrice(club, { compact: true, minimumFractionDigits: 0 })}`,
       ...(club.membership ? [`Optional membership: ${formatMembership(club, { minimumFractionDigits: 0 })}`] : []),
       ...(PAID_PRICE_TYPES.includes(club.price.type) ? [
         `Taster sessions: ${club.tasterSessionCount ?? 'Not supplied'}`,

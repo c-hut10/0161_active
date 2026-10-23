@@ -1,4 +1,4 @@
-import { formatPrice, formatPostcodes, escapeHtml } from './club-formatting.mjs';
+import { formatPrice, formatMembership, formatPostcodes, escapeHtml } from './club-formatting.mjs';
 
 /* Session costs: optional overrides inherit the club price when no session price is supplied. */
 export function sessionPricingClub(club, session) {
@@ -7,8 +7,11 @@ export function sessionPricingClub(club, session) {
 
 /* Profile cost summary: show distinct session prices rather than implying every session costs the same. */
 export function clubSessionPriceLabel(club, options = {}) {
-  if (!(club.sessions || []).some(session => session.price)) return formatPrice(club, options);
-  return [...new Set(club.sessions.map(session => formatPrice(sessionPricingClub(club, session), options)))].join(' · ');
+  const prices = (club.sessions || []).some(session => session.price)
+    ? club.sessions.map(session => formatPrice(sessionPricingClub(club, session), options))
+    : [formatPrice(club, options)];
+  // Alternatives share one cost row; a member session surcharge remains joined with a plus.
+  return [...new Set([...prices, formatMembership(club, options)].filter(Boolean))].join(' · ');
 }
 
 /* Explicit session terms appear in every timetable and calendar download. */

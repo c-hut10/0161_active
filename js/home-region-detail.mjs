@@ -34,11 +34,10 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
     map.style.clipPath = `inset(${door.top+25-frame.top}px ${frame.right-door.right+25}px ${frame.bottom-door.bottom+25}px ${door.left+25-frame.left}px)`;
     const scene = map.closest('.home-entry');
     const copy = scene.querySelector('.home-entry__title').getBoundingClientRect();
-    const brand = scene.querySelector('.home-entry__brand').getBoundingClientRect();
     const centreX = door.left + door.width / 2;
     const centreY = door.top + door.height / 2;
     const halfWidth = Math.max(1, door.width / 2 - 37);
-    const top = Math.max(door.top + 37, brand.bottom + 16);
+    const top = door.top + 37;
     const bottom = Math.min(door.bottom - 37, copy.top - 24);
     const halfHeight = Math.max(1, Math.min(centreY - top, bottom - centreY));
     const inverse = map.getScreenCTM().inverse();

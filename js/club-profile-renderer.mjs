@@ -21,40 +21,12 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     return `<a class="${className}" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${escapeHtml(label)}</a>`;
   }
 
-  /* Training summary: show stored days and times across the full width before the club photo. */
-  function renderTrainingSummary(club) {
-    const sessions = Array.isArray(club.sessions) ? [...club.sessions] : [];
-    const dayOrder = session => profileDays.find(day => day.number === Number(session.dayOfWeek))?.number ?? 8;
-    sessions.sort((left, right) => dayOrder(left) - dayOrder(right)
-      || compareSessionStartTimes(left, right));
-    const summaries = new Map();
-    sessions.forEach(session => {
-      const day = profileDays.find(day => day.number === Number(session.dayOfWeek));
-      const dayName = day?.name || 'Day to confirm';
-      const time = sessionTime(session);
-      const note = sessionScheduleNote(session);
-      // Teams sharing a time appear once here; the full timetable retains each team's details.
-      const key = JSON.stringify([dayName, time, note]);
-      if (!summaries.has(key)) summaries.set(key, `<li class="profile-training-summary__session">
-        <strong>${escapeHtml(dayName)}</strong><time>${escapeHtml(time)}</time>
-        ${note ? `<span>${escapeHtml(note)}</span>` : ''}
-      </li>`);
-    });
-    return `<section class="profile-training-summary" aria-labelledby="profile-training-summary-title">
-      <div class="profile-training-summary__heading">
-        <h2 id="profile-training-summary-title">Training Summary</h2>
-        <a href="#profile-week-title">Full timetable <span aria-hidden="true">↗</span></a>
-      </div>
-      <div class="profile-training-summary__body">
-        ${summaries.size ? `<ul class="profile-training-summary__sessions">${[...summaries.values()].join('')}</ul>`
-          : '<p class="profile-training-summary__empty">Training days and times are not listed yet.</p>'}
-      </div>
-    </section>`;
-  }
-
   /* Weekly calendar: place each listed session beneath its day and show meeting points. */
   function renderWeek(club, notice) {
-    const sessions = Array.isArray(club.sessions) ? club.sessions : [];
+    /* Partial venue details must not appear as a confirmed calendar session. */
+    const sessions = (Array.isArray(club.sessions) ? club.sessions : []).filter(session =>
+      profileDays.some(day => day.number === Number(session.dayOfWeek))
+      && /^([01]?\d|2[0-3]):[0-5]\d$/.test(session.startTime || ''));
     const hasScheduledDays = sessions.some(session => profileDays.some(day => day.number === Number(session.dayOfWeek)));
     const dayCells = profileDays.map(day => {
       const daySessions = sessions.filter(session => Number(session.dayOfWeek) === day.number).sort(compareSessionStartTimes);
@@ -81,7 +53,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
       <div class="profile-week__heading">
         <div><h2 id="profile-week-title">Week at a glance</h2></div>
       </div>
-      <div class="profile-week__grid" role="group" aria-label="${escapeHtml(club.name)} weekly sessions">${dayCells}${hasScheduledDays ? '' : '<p class="profile-week__empty-summary">Training schedule to confirm.</p>'}</div>
+      <div class="profile-week__grid" role="group" aria-label="${escapeHtml(club.name)} weekly sessions">${dayCells}${hasScheduledDays ? '' : '<p class="profile-week__empty-summary">Training to be confirmed</p>'}</div>
       ${notice ? `<p class="profile-week__notice">${escapeHtml(notice)}</p>` : ''}
     </section>`;
   }
@@ -117,7 +89,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
       </div>
       <div class="profile-actions" aria-label="Club actions">${actions}${favouriteButton(club)}</div>
     </section>
-    ${renderTrainingSummary(club)}
+    ${renderWeek(club, notice)}
     <section class="profile-overview" aria-label="${escapeHtml(club.name)} photo and details">
       ${photo}
       <div class="profile-copy">
@@ -130,7 +102,6 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         ? `<p>${escapeHtml(club.description)}</p>`
         : club.additionalInformation?.trim() ? '' : renderEmptyAbout()}
       ${club.additionalInformation?.trim() ? `<p>${escapeHtml(club.additionalInformation)}</p>` : ''}
-    </section>
-    ${renderWeek(club, notice)}`;
+    </section>`;
   return { html, title: `${club.name} | 0161 Active` };
 }

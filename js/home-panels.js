@@ -44,9 +44,5 @@ function startMissionWords() {
   }
 }
 
-/* Wait for Enter rather than playing the headline unseen behind the opening. */
-if (document.documentElement.matches('.home-entry-pending, .home-entry-active')) {
-  window.addEventListener('home-entry:complete', startMissionWords, { once: true });
-} else {
-  startMissionWords();
-}
+/* The first panel is inline, so normal viewport entry controls the word animation. */
+startMissionWords();

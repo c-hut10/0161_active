@@ -94,6 +94,7 @@ for (const [id, group] of groups) {
   if (genderEligibility.length > 150) errors.push(`${id}: genderEligibility must be up to 150 characters.`);
   if (genderSpecific !== 'yes' && genderEligibility) errors.push(`${id}: genderEligibility requires genderSpecific yes.`);
   /* Validate every submitted league before normalisation can drop incomplete answers. */
+  if (!['', 'yes', 'no'].includes(group.values.bookingRequired || '')) errors.push(`${id}: bookingRequired must be yes, no or blank.`);
   const participation = group.values.participatesInLeague;
   const leagues = leagueAnswers(group.values);
   if (!['', 'yes', 'no'].includes(participation)) errors.push(`${id}: participatesInLeague must be yes, no or blank when unknown.`);
@@ -130,7 +131,7 @@ for (const [id, group] of groups) {
   if (PAID_PRICE_TYPES.includes(answers.price.type)) {
     if (!Number.isFinite(answers.price.amount) || answers.price.amount <= 0) errors.push(`${id}: paid clubs require a positive price.amount.`);
     if (answers.bookingRequired === null) errors.push(`${id}: paid clubs require bookingRequired yes or no.`);
-  } else if (group.values['price.amount'] || group.values.tasterSessionCount || group.values.bookingRequired) {
+  } else if (group.values['price.amount']) {
     warnings.push(`${id}: paid-only fields are ignored for free/unknown pricing.`);
   }
   if (answers.tasterSessionCount !== null && (!Number.isInteger(answers.tasterSessionCount) || answers.tasterSessionCount < 0)) errors.push(`${id}: tasterSessionCount must be a non-negative whole number.`);

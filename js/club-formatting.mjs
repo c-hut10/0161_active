@@ -124,7 +124,7 @@ export function onlineProfileAction(value, base) {
 /* Pricing: share membership labels and currency formatting while keeping stored types compatible. */
 export const PRICE_TYPE_LABELS = {
   free: 'Free', monthly_fee: 'Monthly membership', annual_fee: 'Annual membership',
-  per_session: 'Pay-per-session', paid: 'Paid', unknown: 'Price not confirmed'
+  per_session: 'Pay-per-session', paid: 'Paid', unknown: 'Contact club'
 };
 export const PRICE_TYPE_ORDER = ['free', 'monthly_fee', 'annual_fee', 'per_session', 'paid', 'unknown'];
 const PRICE_PERIODS = {
@@ -147,15 +147,15 @@ export function formatMembership(club, options = {}) {
     type: membership.period === 'monthly' ? 'monthly_fee' : 'annual_fee', amount: membership.amount, currency
   } }, { ...options, compact: true });
   const session = formatPrice({ price: { type: 'per_session', amount: membership.sessionAmount, currency } }, { ...options, compact: true });
-  return `${recurring} + ${session}`;
+  return membership.sessionAmount === 0 ? recurring : `${recurring} + ${session}`;
 }
 
 export function formatPrice(club, {
-  compact = false, unknown = 'Price not confirmed', free = 'Free',
-  missingAmount = 'amount not listed', minimumFractionDigits = 2
+  compact = false, unknown = 'Contact club', free = 'Free',
+  missingAmount = 'Contact club', minimumFractionDigits = 2
 } = {}) {
   const price = club.price;
-  if (!price || price.type === 'unknown') return unknown;
+  if (!price?.type || price.type === 'unknown') return unknown;
   if (price.type === 'free') return free;
   if (Number.isFinite(price.amount)) {
     const amount = new Intl.NumberFormat('en-GB', {
@@ -166,5 +166,5 @@ export function formatPrice(club, {
     const period = PRICE_PERIODS[price.type]?.[compact ? 'compact' : 'full'] || price.period;
     return period ? `${amount}${compact ? '' : ' '}${period}` : amount;
   }
-  return `${PRICE_TYPE_LABELS[price.type] || 'Paid'} · ${missingAmount}`;
+  return missingAmount;
 }
