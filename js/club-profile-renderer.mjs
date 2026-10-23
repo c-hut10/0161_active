@@ -1,24 +1,9 @@
-import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, formatMembership, WEEK_DAYS as profileDays, sessionTime, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports, compareSessionStartTimes } from './club-formatting.mjs';
+import { displaySportName, sportGlossaryUrl as profileGlossaryUrl, WEEK_DAYS as profileDays, sessionTime, escapeHtml, clubSports, compareSessionStartTimes } from './club-formatting.mjs';
 import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs';
-import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms, clubSessionPriceLabel } from './session-details.mjs';
+import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
 import { favouriteButton } from './club-favourites-renderer.mjs';
-import { normaliseLeagues, leaguePageUrl, leagueProfileLabel } from './club-leagues.mjs';
-
-/* Profile league links: list each league once, using internal pages or national organiser URLs. */
-function renderProfileLeagues(club) {
-  const leagues = new Map();
-  normaliseLeagues(club.participatingLeagues).forEach(league => {
-    const key = league.name.toLocaleLowerCase('en-GB');
-    if (!leagues.has(key) || (!leagues.get(key).leagueUrl && league.leagueUrl)) leagues.set(key, league);
-  });
-  return [...leagues.values()].map(league => {
-    const national = league.coverage === 'national';
-    const href = league.coverage === 'internal' ? null : national ? league.leagueUrl : club.sport ? leaguePageUrl(club.sport, league.name) : null;
-    const label = escapeHtml(leagueProfileLabel(league));
-    return href ? `<a class="profile-league-link" href="${escapeHtml(href)}"${national ? ' target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab"' : ''}>${label}</a>` : label;
-  }).join(' · ');
-}
+import { clubProfileActions, renderProfileDetails } from './club-profile-details.mjs';
 
 /* Missing About details: inform visitors and give the club a direct route to supply an update. */
 function renderEmptyAbout() {
@@ -28,13 +13,6 @@ function renderEmptyAbout() {
 
 export function renderClubProfile(club, notice = '', pageUrl = 'https://0161active.co.uk/') {
   /* Club data: build each sports profile from its matching shared JSON record. */
-  /* Contact action: email is the sole source of the Contact button. */
-  function contactUrl(contact) {
-    const email = contact?.trim() || '';
-    if (!email || !email.includes('@') || /^[a-z]+:/i.test(email)) return null;
-    return { label: 'CONTACT', href: new URL(`mailto:${email}`).href };
-  }
-
   function renderAction(action, secondary = false) {
     if (!action) return '';
     const { href, label } = action;
@@ -120,43 +98,15 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     ...profileSports.map(sport => `<a href="${escapeHtml(profileGlossaryUrl(sport))}">${escapeHtml(displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true }))}</a>`),
     ...areas.map(area => club.sport ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport, area))}">${escapeHtml(area)}</a>` : escapeHtml(area))
   ].filter(Boolean).join(' · ') || 'MANCHESTER CLUB';
-  const detailRow = (label, value) => `<div class="profile-detail-row"><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`;
-  const isPaidClub = ['monthly_fee', 'annual_fee', 'per_session', 'paid'].includes(club.price?.type);
-  const leagueLinks = renderProfileLeagues(club);
-  const genderLabel = genderEligibilityLabel(club);
-  /* Booking guidance: reuse the validated club URL, with plain text when no link is supplied. */
-  const onlineAction = onlineProfileAction(club.onlineProfile?.url, pageUrl);
-  const bookingContact = onlineAction
-    ? `<a class="profile-booking-link" href="${escapeHtml(onlineAction.href)}" target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab">contact</a>`
-    : 'contact';
-  const details = [
-    detailRow('SPORT', profileSports.map(sport => displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true })).join(' · ') || 'To confirm'),
-    // Show confirmed eligibility without assigning a gender answer to existing records.
-    genderLabel ? detailRow('GENDER ELIGIBILITY', genderLabel) : '',
-    beginnerFriendlyLabel(club) ? detailRow('BEGINNER FRIENDLY', beginnerFriendlyLabel(club)) : '',
-    leagueLinks ? `<div class="profile-detail-row"><dt>LEAGUE(S)</dt><dd>${leagueLinks}</dd></div>` : '',
-    detailRow('AREA', areas.join(' · ') || 'Area to confirm'),
-    // Training locations: jump to the weekly timetable containing each session's venue.
-    '<div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#profile-week-title">View Calendar</a></dd></div>',
-    detailRow('COST', clubSessionPriceLabel(club, { compact: true, unknown: 'Not listed', free: 'free', missingAmount: 'amount to confirm' })),
-    formatMembership(club) ? detailRow('OPTIONAL MEMBERSHIP', formatMembership(club)) : '',
-    club.pricingNotes ? detailRow('PRICING DETAILS', club.pricingNotes) : '',
-    club.tasterNotes ? detailRow('TASTER DETAILS', club.tasterNotes) : '',
-    club.bookingNotes ? detailRow('BOOKING DETAILS', club.bookingNotes) : '',
-    isPaidClub && Number.isInteger(club.tasterSessionCount) && club.tasterSessionCount > 0
-      ? detailRow('TASTER SESSION(S)', String(club.tasterSessionCount))
-      : '',
-    isPaidClub && club.bookingRequired === true
-      ? `<div class="profile-detail-row"><dt>BOOKING</dt><dd>Please ${bookingContact} the club for booking information</dd></div>`
-      : ''
-  ].join('');
+  const { contact, online } = clubProfileActions(club, pageUrl);
+  const details = renderProfileDetails(club, { onlineAction: online });
   const confirmation = clubConfirmation(club);
   const informationDate = confirmation
     ? `Last Confirmed: <time datetime="${confirmation.date}">${confirmation.label}</time>`
     : 'Unverified · Last Confirmed: not yet recorded';
   const actions = [
-    renderAction(contactUrl(club.contact), true),
-    renderAction(onlineAction)
+    renderAction(contact, true),
+    renderAction(online)
   ].filter(Boolean).join('');
 
   const html = `<section class="profile-heading" aria-labelledby="profile-title">

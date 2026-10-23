@@ -66,8 +66,7 @@ export function submissionCsv(values, sessions, id = '') {
 }
 
 /* One readable representation for the final review and Netlify notification summary. */
-export function submissionReview(values, sessions) {
-  const club = clubAnswers(values, sessions);
+export function submissionReview(club) {
   const supplied = value => text(value) || 'Not supplied';
   const yesNo = value => value === true ? 'Yes' : value === false ? 'No' : 'Not supplied';
   const sections = [
@@ -105,6 +104,6 @@ export function submissionReview(values, sessions) {
   return sections;
 }
 
-export function submissionSummary(values, sessions) {
-  return submissionReview(values, sessions).map(section => `${section.title.toUpperCase()}\n${section.lines.join('\n')}`).join('\n\n');
+export function submissionSummary(sections) {
+  return sections.map(section => `${section.title.toUpperCase()}\n${section.lines.join('\n')}`).join('\n\n');
 }

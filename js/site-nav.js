@@ -1,9 +1,7 @@
 (async () => {
 /* Shared navigation: render the same sport directory, destinations and mobile drawer site-wide. */
 const siteNavMount = document.querySelector('[data-site-nav]');
-const { renderSiteNav } = await import('./site-nav-renderer.mjs');
-const { visibleSportRecords } = await import('./sport-catalog.mjs');
-const { loadClubDirectory, loadSportCatalog } = await import('./site-data.mjs');
+if (!siteNavMount) return;
 function currentPage() {
   const pathname = decodeURI(window.location.pathname).toLowerCase();
   if (pathname.endsWith('/calendar.html')) return 'calendar';
@@ -13,11 +11,7 @@ function currentPage() {
   return '';
 }
 
-function buildSiteNav(sports) {
-  if (!siteNavMount) return;
-  const active = currentPage();
-  if (!siteNavMount.querySelector('.site-navbar')) siteNavMount.innerHTML = renderSiteNav(sports, active);
-
+function bindSiteNav() {
   const menuButton = siteNavMount.querySelector('.site-navbar__menu-button');
   const drawer = siteNavMount.querySelector('.site-navbar__drawer');
   const overlay = siteNavMount.querySelector('.site-navbar__overlay');
@@ -80,6 +74,10 @@ function buildSiteNav(sports) {
 
 /* Catalog loading: the desktop flyout and mobile drawer share the complete sport list. */
 async function loadSportsForNavigation() {
+  // Only an unbuilt page needs the renderer, catalog helpers and directory loader.
+  const [{ renderSiteNav }, { visibleSportRecords }, { loadClubDirectory, loadSportCatalog }] = await Promise.all([
+    import('./site-nav-renderer.mjs'), import('./sport-catalog.mjs'), import('./site-data.mjs')
+  ]);
   let sports = [{ name: 'Run Club', slug: 'run-club', accessible: false }];
   try {
     const [data, clubsData] = await Promise.all([loadSportCatalog(), loadClubDirectory()]);
@@ -87,10 +85,11 @@ async function loadSportsForNavigation() {
   } catch (error) {
     // Keep the navigation usable if the optional full sport list cannot be loaded.
   }
-  buildSiteNav(sports);
+  siteNavMount.innerHTML = renderSiteNav(sports, currentPage());
+  bindSiteNav();
 }
 
 // Generated navigation is ready immediately; fetch only for an unbuilt page.
-if (siteNavMount?.querySelector('.site-navbar')) buildSiteNav([]);
+if (siteNavMount.querySelector('.site-navbar')) bindSiteNav();
 else loadSportsForNavigation();
 })();

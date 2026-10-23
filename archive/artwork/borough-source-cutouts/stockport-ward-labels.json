@@ -1,0 +1,90 @@
+{
+  "reference": "stockport-ward-reference.pdf",
+  "note": "Matched to owner-supplied ward reference on 23 October 2026. Stockport and Trafford use replacement internal partitions from these references. Postcode allocations and club counts are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Marple North"
+    },
+    "2": {
+      "number": null,
+      "name": "Marple South"
+    },
+    "3": {
+      "number": null,
+      "name": "Bredbury Green & Romiley"
+    },
+    "4": {
+      "number": null,
+      "name": "Bredbury & Woodley"
+    },
+    "5": {
+      "number": null,
+      "name": "Offerton"
+    },
+    "6": {
+      "number": null,
+      "name": "Hazel Grove"
+    },
+    "7": {
+      "number": null,
+      "name": "Manor"
+    },
+    "8": {
+      "number": null,
+      "name": "Brinnington & Stockport Central"
+    },
+    "9": {
+      "number": null,
+      "name": "Davenport & Cale Green"
+    },
+    "10": {
+      "number": null,
+      "name": "Bramhall North"
+    },
+    "11": {
+      "number": null,
+      "name": "Norbury & Woodsmoor"
+    },
+    "12": {
+      "number": null,
+      "name": "Edgeley"
+    },
+    "13": {
+      "number": null,
+      "name": "Bramhall South & Woodford"
+    },
+    "14": {
+      "number": null,
+      "name": "Reddish North"
+    },
+    "15": {
+      "number": null,
+      "name": "Reddish South"
+    },
+    "16": {
+      "number": null,
+      "name": "Heatons South"
+    },
+    "17": {
+      "number": null,
+      "name": "Heatons North"
+    },
+    "18": {
+      "number": null,
+      "name": "Cheadle East & Cheadle Hulme North"
+    },
+    "19": {
+      "number": null,
+      "name": "Cheadle Hulme South"
+    },
+    "20": {
+      "number": null,
+      "name": "Heald Green"
+    },
+    "21": {
+      "number": null,
+      "name": "Cheadle West & Gatley"
+    }
+  }
+}

@@ -71,9 +71,8 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 .preview-profile-heading__row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .preview-profile-heading__row h2 { min-width:0; margin:0; color:var(--reg-paper); font-size:clamp(20px, 2.6vw, 30px); line-height:1; letter-spacing:-.055em; overflow-wrap:anywhere; }
 .preview-profile-actions { display:flex; flex:0 0 auto; flex-wrap:wrap; gap:5px; }
-.preview-action { display:inline-flex; min-height:30px; align-items:center; justify-content:center; padding:0 8px; color:#171817; background:var(--reg-lime); font-size:8px; font-weight:800; letter-spacing:.06em; white-space:nowrap; opacity:.42; }
+.preview-action { display:inline-flex; min-height:30px; align-items:center; justify-content:center; padding:0 8px; color:#171817; background:var(--reg-lime); font-size:8px; font-weight:800; letter-spacing:.06em; white-space:nowrap; }
 .preview-action--secondary { color:var(--reg-paper); background:transparent; box-shadow:inset 0 0 0 1px #454945; }
-.preview-action.is-available { opacity:1; }
 .preview-overview { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); align-items:stretch; gap:10px; padding:14px 0 16px; border-bottom:1px solid #454945; }
 .preview-about { width:100%; padding:14px 0 16px; border-bottom:1px solid #454945; }
 .preview-about h3 { margin:0 0 7px; color:var(--reg-lime); font-size:10px; font-weight:800; letter-spacing:.1em; }
@@ -86,6 +85,7 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 .register-page .preview-club-card .preview-details div { display:grid; grid-template-columns:minmax(70px, .7fr) minmax(0, 1fr); align-items:start; gap:7px; padding:9px 0; border-bottom:1px solid #454945; }
 .preview-details dt { color:var(--reg-lime); font-size:7px; font-weight:800; letter-spacing:.08em; line-height:1.4; }
 .preview-details dd { min-width:0; margin:0; color:var(--reg-paper); font-size:9px; line-height:1.4; overflow-wrap:anywhere; }
+.preview-details a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
 .preview-week { padding-top:14px; }
 .preview-week__heading { display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:9px; }
 .preview-week__heading h3 { margin:0; color:var(--reg-paper); font-size:15px; letter-spacing:-.035em; }
@@ -161,8 +161,8 @@ body.application-success-open { overflow:hidden; }
 
 /* Pricing controls match the form fields; optional rows stay hidden until needed. */
 .field select { width:100%; min-height:46px; box-sizing:border-box; padding:12px 13px; border:1px solid #484b44; border-radius:2px; background:#20221f; color:white; font:400 14px Arial,sans-serif; }
-/* Hidden optional details must outrank the preview's scoped grid-row styles. */
-.field[hidden],.register-page .preview-club-card .preview-details > div[hidden] { display:none; }
+/* Conditional questions stay out of the layout until the answer requires them. */
+.field[hidden] { display:none; }
 .pricing-booking select { height:48px; min-height:48px; }
 /* Shared meeting points: keep the checkbox compact and the inherited address readable. */
 .session-same-location { display:flex; align-items:center; gap:10px; color:#fff; font-size:14px; }

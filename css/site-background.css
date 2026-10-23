@@ -1,0 +1,25 @@
+/* Shared page texture: static 48px squares over each page's existing dark colour. */
+:root {
+  --site-grid-size: 48px;
+  --site-grid-line: rgba(255, 255, 255, .05);
+  --site-grid-pattern:
+    linear-gradient(to right, var(--site-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--site-grid-line) 1px, transparent 1px);
+}
+
+/* Paint page surfaces only; photos, cards, navigation and the welcome scene keep their own backgrounds. */
+body.site-grid,
+body.site-grid main:not(.gallery-main),
+body.site-grid footer.site-footer {
+  background-image: var(--site-grid-pattern);
+  background-size: var(--site-grid-size) var(--site-grid-size);
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+/* Printed pages do not need decorative backgrounds. */
+@media print {
+  body.site-grid,
+  body.site-grid main:not(.gallery-main),
+  body.site-grid footer.site-footer { background-image: none; }
+}

@@ -1,0 +1,134 @@
+{
+  "reference": "manchester-ward-reference.png",
+  "note": "Shape component IDs matched by position to the owner-supplied numbered ward map. These label map geometry only; postcode allocations are unchanged.",
+  "areas": {
+    "1": {
+      "number": 1,
+      "name": "Higher Blackley"
+    },
+    "2": {
+      "number": 3,
+      "name": "Charlestown"
+    },
+    "3": {
+      "number": 2,
+      "name": "Crumpsall"
+    },
+    "4": {
+      "number": 5,
+      "name": "Harpurhey"
+    },
+    "5": {
+      "number": 6,
+      "name": "Moston"
+    },
+    "6": {
+      "number": 4,
+      "name": "Cheetham"
+    },
+    "7": {
+      "number": 7,
+      "name": "Miles Platting and Newton Heath"
+    },
+    "8": {
+      "number": 11,
+      "name": "Clayton & Openshaw"
+    },
+    "9": {
+      "number": 9,
+      "name": "Piccadilly"
+    },
+    "10": {
+      "number": 10,
+      "name": "Ancoats & Beswick"
+    },
+    "11": {
+      "number": 8,
+      "name": "Deansgate"
+    },
+    "12": {
+      "number": 13,
+      "name": "Ardwick"
+    },
+    "13": {
+      "number": 12,
+      "name": "Hulme"
+    },
+    "14": {
+      "number": 15,
+      "name": "Gorton & Abbey Hey"
+    },
+    "15": {
+      "number": 16,
+      "name": "Longsight"
+    },
+    "16": {
+      "number": 14,
+      "name": "Moss Side"
+    },
+    "17": {
+      "number": 19,
+      "name": "Rusholme"
+    },
+    "18": {
+      "number": 17,
+      "name": "Whalley Range"
+    },
+    "19": {
+      "number": 20,
+      "name": "Levenshulme"
+    },
+    "20": {
+      "number": 18,
+      "name": "Fallowfield"
+    },
+    "21": {
+      "number": 21,
+      "name": "Chorlton"
+    },
+    "22": {
+      "number": 22,
+      "name": "Chorlton Park"
+    },
+    "23": {
+      "number": 25,
+      "name": "Burnage"
+    },
+    "24": {
+      "number": 23,
+      "name": "Old Moat"
+    },
+    "25": {
+      "number": 24,
+      "name": "Withington"
+    },
+    "26": {
+      "number": 26,
+      "name": "Didsbury West"
+    },
+    "27": {
+      "number": 27,
+      "name": "Didsbury East"
+    },
+    "28": {
+      "number": 28,
+      "name": "Northenden"
+    },
+    "29": {
+      "number": 29,
+      "name": "Brooklands"
+    },
+    "30": {
+      "number": 30,
+      "name": "Baguley"
+    },
+    "31": {
+      "number": 31,
+      "name": "Sharston"
+    },
+    "32": {
+      "number": 32,
+      "name": "Woodhouse Park"
+    }
+  }
+}

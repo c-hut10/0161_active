@@ -1,0 +1,86 @@
+{
+  "reference": "salford-ward-reference.png",
+  "note": "Shape components matched by position to the owner-supplied map. Reference has no ward numbering; postcode allocations are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Little Hulton"
+    },
+    "2": {
+      "number": null,
+      "name": "Walkden North"
+    },
+    "3": {
+      "number": null,
+      "name": "Pendlebury & Clifton"
+    },
+    "4": {
+      "number": null,
+      "name": "Walkden South"
+    },
+    "5": {
+      "number": null,
+      "name": "Swinton & Wardley"
+    },
+    "6": {
+      "number": null,
+      "name": "Kersal & Broughton Park"
+    },
+    "7": {
+      "number": null,
+      "name": "Swinton Park"
+    },
+    "8": {
+      "number": null,
+      "name": "Boothstown & Ellenbrook"
+    },
+    "9": {
+      "number": null,
+      "name": "Worsley & Westwood Park"
+    },
+    "10": {
+      "number": null,
+      "name": "Pendleton & Charlestown"
+    },
+    "11": {
+      "number": null,
+      "name": "Broughton"
+    },
+    "12": {
+      "number": null,
+      "name": "Claremont"
+    },
+    "13": {
+      "number": null,
+      "name": "Eccles"
+    },
+    "14": {
+      "number": null,
+      "name": "Weaste & Seedley"
+    },
+    "15": {
+      "number": null,
+      "name": "Barton & Winton"
+    },
+    "16": {
+      "number": null,
+      "name": "Blackfriars & Trinity"
+    },
+    "17": {
+      "number": null,
+      "name": "Higher Irlam & Peel Green"
+    },
+    "18": {
+      "number": null,
+      "name": "Ordsall"
+    },
+    "19": {
+      "number": null,
+      "name": "Quays"
+    },
+    "20": {
+      "number": null,
+      "name": "Cadishead & Lower Irlam"
+    }
+  }
+}

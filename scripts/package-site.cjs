@@ -33,6 +33,7 @@ function copyPublicTree(directory, extensions) {
 copyPublicTree('html', ['.html']);
 copyPublicTree('css', ['.css']);
 copyPublicTree('js', ['.js', '.mjs']);
+// img contains live assets only; source artwork and retired drafts stay in archive/artwork.
 copyPublicTree('img', ['.avif', '.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2']);
 
 /* Browser data is explicitly public; caches and raw exports are not deployment assets. */

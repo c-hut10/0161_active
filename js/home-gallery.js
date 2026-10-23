@@ -3,7 +3,8 @@ import { shuffleGalleryItems } from './home-gallery-renderer.mjs';
 /* Gallery enhancement: shuffle the prerendered photos without fetching another set. */
 function renderRandomClubs() {
   const gallery = document.querySelector('#club-gallery');
-  if (!gallery) return;
+  if (!gallery || gallery.dataset.initialised === 'true') return;
+  gallery.dataset.initialised = 'true';
   const pause = document.querySelector('[data-gallery-pause]');
   // Reveal a working native button; its icon is decorative and its label names the next action.
   if (pause) pause.hidden = false;
@@ -65,4 +66,9 @@ function renderRandomClubs() {
   });
 }
 
-renderRandomClubs();
+/* Reveal one final arrangement even if enhancement fails; image decoding never delays the page. */
+try {
+  renderRandomClubs();
+} finally {
+  document.documentElement.classList.remove('gallery-initialising');
+}

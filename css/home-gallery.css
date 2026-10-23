@@ -30,7 +30,7 @@
 .gallery-pause[data-paused="true"] .gallery-play-icon { display:block; }
 .gallery-main .gallery-pause:focus-visible { outline:3px solid #000; outline-offset:2px; box-shadow:0 0 0 6px #faecd2; }
 
-/* Homepage shortcuts: match the grey mission-panel frame on desktop and mobile. */
+/* Homepage shortcuts: let the shared mission background show around the buttons. */
 .home-quick-actions {
   display:flex;
   justify-content:center;
@@ -38,7 +38,7 @@
   box-sizing:border-box;
   width:100%;
   padding:18px clamp(18px, 5vw, 72px);
-  background:#171817;
+  background:transparent;
 }
 .home-quick-actions__link {
   display:flex;
@@ -91,6 +91,11 @@
 }
 
 /* Both rows share one roll direction and duration; row two starts half a card later. */
+/* First paint: hide only the gallery during its shuffle and hold motion through page navigation. */
+.gallery-initialising #club-gallery,
+.gallery-initialising .gallery-pause { visibility:hidden; }
+.gallery-initialising #club-gallery .gallery-track,
+.gallery-navigating #club-gallery .gallery-track { animation-play-state:paused; }
 #club-gallery .gallery-row {
   width: 100%;
   overflow: hidden;
@@ -229,17 +234,13 @@
   #club-gallery .gallery-card a:hover img,
   #club-gallery .gallery-card a:focus-visible img { opacity: 1; transition: none; }
   #club-gallery .gallery-caption,
-  #club-gallery .gallery-caption__details,
-  #club-gallery .gallery-card--unavailable .gallery-caption,
-  #club-gallery .gallery-card--unavailable .gallery-caption__details {
+  #club-gallery .gallery-card--unavailable .gallery-caption {
     color: #dffc3a;
     opacity: 1;
     transform: none;
     transition: none;
     text-shadow: 0 1px 2px #111211, 0 0 6px rgba(17, 18, 17, .9);
   }
-  #club-gallery .gallery-caption h2::before,
-  #club-gallery .gallery-caption h2::after { transform: scaleX(1); transition: none; }
   /* Mobile captions: show only the club title, centred along the bottom of each photo. */
   #club-gallery .gallery-caption { top:auto; bottom:18px; right:18px; width:auto; text-align:center; }
   /* Mobile title labels: neon-green text on a solid grey box replaces the decorative rails. */

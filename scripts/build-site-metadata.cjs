@@ -217,7 +217,7 @@ function htmlFiles(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     // Deployment copies and private response folders are not source pages or sitemap entries.
     if (entry.name.startsWith('.') || entry.name === 'node_modules'
-      || (dir === root && ['dist', 'private-imports'].includes(entry.name))) return [];
+      || (dir === root && ['dist', 'private-imports', 'archive'].includes(entry.name))) return [];
     const full = path.join(dir, entry.name);
     return entry.isDirectory() ? htmlFiles(full) : entry.name.endsWith('.html') ? [full] : [];
   });
@@ -265,19 +265,26 @@ for (const file of htmlFiles(root)) {
   /* Browser tab icon: replace page-specific paths with one global logo reference. */
   source = source.replace(/\s*<link\b[^>]*rel="(?:shortcut )?icon"[^>]*>/g, '');
   source = source.replace('</head>', '  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">\n</head>');
-  source = source.replace(/src="(?:\.\.\/|\/)?(?:\.\.\/)?js\/site-nav\.js(?:\?[^"]*)?"/g, 'src="/js/site-nav.js?v=20261009-static-navigation"');
+  source = source.replace(/src="(?:\.\.\/|\/)?(?:\.\.\/)?js\/site-nav\.js(?:\?[^"]*)?"/g, 'src="/js/site-nav.js?v=20261022-cleanup"');
   source = source.replace(/href="(?:\.\.\/|\/)?(?:\.\.\/)?css\/site-nav\.css(?:\?[^"]*)?"/g, 'href="/css/site-nav.css?v=20261009-breakpoints"');
   if (/<footer\b/.test(source)) {
     source = source.replace(/<footer\b[\s\S]*?<\/footer>/, () => footer);
   } else {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
+  /* Favourites belong only on club lists, profiles and Your Clubs, including empty filtered lists. */
+  source = source.replace(/\s*<link\b[^>]*href="\/css\/club-favourites\.css(?:\?[^"]*)?"[^>]*>/g, '')
+    .replace(/\s*<script\b[^>]*src="\/js\/club-favourites\.js(?:\?[^"]*)?"[^>]*>\s*<\/script>/g, '');
+  const needsFavourites = source.includes('data-favourite-id=') || /\bid="(?:your-clubs|club-list)"/.test(source);
   const sharedAssets = [
+    ['href="/css/site-background.css?v=20261023"', '<link rel="stylesheet" href="/css/site-background.css?v=20261023">'],
     // Shared navigation motion is included on current pages and every future generated template.
     ['href="/css/page-transitions.css?v=20261020"', '<link rel="stylesheet" href="/css/page-transitions.css?v=20261020">'],
     ['src="/js/page-transitions.js?v=20261020"', '<script src="/js/page-transitions.js?v=20261020"></script>'],
-    ['href="/css/club-favourites.css"', '<link rel="stylesheet" href="/css/club-favourites.css">'],
-    ['src="/js/club-favourites.js"', '<script type="module" src="/js/club-favourites.js"></script>'],
+    ...(needsFavourites ? [
+      ['href="/css/club-favourites.css"', '<link rel="stylesheet" href="/css/club-favourites.css">'],
+      ['src="/js/club-favourites.js?v=20261022-cleanup"', '<script type="module" src="/js/club-favourites.js?v=20261022-cleanup"></script>']
+    ] : []),
     ['href="/css/site-footer.css"', '<link rel="stylesheet" href="/css/site-footer.css">'],
     ['href="/css/cookie-settings.css"', '<link rel="stylesheet" href="/css/cookie-settings.css">'],
     ['src="/js/cookie-settings.js"', '<script defer src="/js/cookie-settings.js"></script>'],
@@ -288,6 +295,13 @@ for (const file of htmlFiles(root)) {
   for (const [reference, tag] of sharedAssets) {
     if (!source.includes(reference)) source = source.replace('</head>', `  ${tag}\n</head>`);
   }
+  // Every current and future generated page opts into the same background texture.
+  source = source.replace(/<body\b([^>]*)>/, (tag, attributes) => {
+    const classes = attributes.match(/\bclass="([^"]*)"/);
+    if (!classes) return `<body${attributes} class="site-grid">`;
+    if (classes[1].split(/\s+/).includes('site-grid')) return tag;
+    return tag.replace(classes[0], `class="${classes[1]} site-grid"`);
+  });
   const main = source.match(/<main\b[^>]*>/);
   if (main) {
     const existingId = main[0].match(/\bid="([^"]+)"/);

@@ -1,16 +1,50 @@
-/* Mission section frame: the title and controls bookend the three full-height slides. */
+/* Fill the first screen beneath the unchanged fixed navigation. */
+.home-screen {
+  height: calc(100vh - var(--site-nav-height, 100px));
+  height: calc(100svh - var(--site-nav-height, 100px));
+  min-height: 480px;
+  margin-top: var(--site-nav-height, 100px);
+  display:flex;
+  flex-direction:column;
+}
+.home-screen > .gallery-main { flex:1; min-height:140px; margin-top:0; }
+.home-screen > .mission-panels { flex:0 0 auto; }
+.home-screen .gallery-frame { height:100%; }
+.home-screen .grid-container#club-gallery { min-height:0; height:100%; }
+/* Two equal rows follow the remaining gallery height without a fixed viewport percentage. */
+.home-screen #club-gallery .gallery-row { height:50%; flex:0 0 50%; }
+.home-screen #club-gallery .gallery-track,
+.home-screen #club-gallery .gallery-card { height:100%; }
+
+/* Introduction keeps its natural height above the three full-screen panels. */
 .mission-panels {
   --panel-ink: #171817;
   --panel-paper: var(--green);
   color: var(--panel-paper);
-  background: var(--panel-ink);
+  /* The static glow remains behind the introduction above the full-width photos. */
+  background: #171817 url('../img/movement-glow.webp') center / cover no-repeat;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 24px 0 32px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
 }
 
+/* The introduction shares the section background rather than painting a separate image. */
+/* Equal outer rows balance the button area below the text with blank space above it. */
+.mission-panels__intro {
+  flex: 0 0 auto;
+  display:grid;
+  grid-template-rows:1fr auto 1fr;
+}
+.mission-panels__intro::before { content:''; grid-row:1; }
+.mission-panels__intro > .mission-panels__heading { grid-row:2; }
+.mission-panels__intro > .home-quick-actions { grid-row:3; align-self:start; }
+
 .mission-panels__heading {
-  padding: 0 clamp(22px, 6vw, 92px) 28px;
-  --panel-paper: var(--white)
+  padding: 16px clamp(22px, 6vw, 92px);
+  --panel-paper: var(--white);
 }
 
 .mission-panels__eyebrow,
@@ -26,41 +60,45 @@
 
 .mission-panels__heading h1 {
   max-width: 850px;
-  margin: 12px 0 0;
+  margin: 8px 0 0;
   color: var(--white);
-  font-size: clamp(38px, 7vw, 92px);
+  font-size: clamp(30px, 4.5vw, 60px);
   line-height: .92;
   letter-spacing: -.065em;
   text-transform: uppercase;
 }
 .mission-panels__period { color: #ff3030; }
 
-/* Vertical story stack: normal page scrolling reveals each full-height panel in order. */
+/* Signup invitation follows the heading and wraps naturally on smaller screens. */
+.mission-panels__signup {
+  margin: 12px 0 0;
+  color: var(--white);
+  font-size: clamp(14px, 1.3vw, 18px);
+  font-weight: 700;
+  letter-spacing: -.065em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+/* The underlined final word is the registration link, with visible keyboard focus. */
+.mission-panels__signup > a { color: inherit; text-decoration: underline; text-underline-offset: .18em; }
+.mission-panels__signup > a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+/* Each static, full-width panel occupies one viewport height. */
 .mission-panels__stack {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
   width: 100%;
 }
 
-/* Each slide uses a full-viewport photo with its own editorial text box. */
 .mission-panel {
   position: relative;
-  flex: 0 0 100vh;
-  width: 100%;
-  height: 100vh;
   min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+  box-sizing: border-box;
   overflow: hidden;
   isolation: isolate;
   background: #30342a;
-}
-
-/* Prefer the small viewport unit where supported, with the standard viewport as fallback. */
-@supports (height: 100svh) {
-  .mission-panel {
-    flex-basis: 100svh;
-    height: 100svh;
-    min-height: 100svh;
-  }
 }
 
 .mission-panel::after {
@@ -104,6 +142,7 @@
   letter-spacing: -.06em;
   text-transform: uppercase;
 }
+.mission-panels__intro .home-quick-actions { padding-block: 10px; }
 
 /* Third-panel headline: hold each phrase on its own line while the center word flips. */
 .mission-panel__stacked-heading > span { display:block; }
@@ -124,14 +163,17 @@
 
 @media (max-width: 640px) {
   .mission-panel__copy {
-    right: 18px;
-    top: 25vh;
-    bottom: auto;
-    left: 18px;
-    width: auto;
-    padding: 24px;
+    right:18px;
+    top:25vh;
+    bottom:auto;
+    left:18px;
+    width:auto;
+    padding:24px;
   }
-  .mission-panel__copy h3 { font-size: clamp(30px, 10vw, 46px); }
+  .mission-panel__copy h3 { font-size:clamp(30px, 10vw, 46px); }
+  .mission-panels__intro .home-quick-actions { gap: 6px; }
+  .mission-panels__intro .home-quick-actions__link { min-height: 44px; padding: 4px 10px 4px 4px; font-size: 11px; }
+  .mission-panels__intro .home-quick-actions__icon { width: 34px; height: 34px; flex-basis: 34px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

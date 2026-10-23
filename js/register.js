@@ -1,7 +1,7 @@
-import { formatPrice, formatMembership, formatPostcodes, displaySportName, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
-import { areaFromPostcode, clubTrainingAreas } from './club-areas.mjs';
-import { PAID_PRICE_TYPES, clubAnswers, sessionAnswers, submissionCsv, submissionReview, submissionSummary } from './club-submission.mjs';
-import { leagueNamesLabel } from './club-leagues.mjs';
+import { formatPostcodes, escapeHtml, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
+import { resolveClubAreas, clubTrainingAreas } from './club-areas.mjs';
+import { CLUB_ANSWER_FIELDS, PAID_PRICE_TYPES, clubAnswers, submissionCsv, submissionReview, submissionSummary } from './club-submission.mjs';
+import { clubProfileActions, renderProfileDetails } from './club-profile-details.mjs';
 import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
 (() => {
@@ -26,6 +26,8 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   const nextStep = document.querySelector('#next-step');
   const submission = document.querySelector('#form-submission');
   let currentStep = 0;
+  let currentApplication;
+  let previewFrame = 0;
 
   function showStep(index, focusHeading = true) {
     currentStep = index;
@@ -39,6 +41,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     previousStep.hidden = index === 0;
     nextStep.hidden = index === sections.length - 1;
     submission.hidden = index !== sections.length - 1;
+    if (index === sections.length - 1) prepareSubmission();
     if (index < sections.length - 1) nextStep.innerHTML = `Next: ${stepLabels[index + 1].querySelector('b').textContent} <span aria-hidden="true">↗</span>`;
     if (focusHeading) sections[index].querySelector('h2').focus();
   }
@@ -129,32 +132,15 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
 
   /* Session data: preserve each entry's title, experience level and special considerations. */
   function readSessions() {
-    return [...sessionList.querySelectorAll('.training-session')].map(block => {
-      const fields = Object.fromEntries([...block.querySelectorAll('[data-session-field]')].map(field => [
-        field.dataset.sessionField, ['postcode', 'meetingPoint'].includes(field.dataset.sessionField)
-          ? formatPostcodes(field.value.trim()) : field.value.trim()
-      ]));
-      return sessionAnswers(fields);
-    });
+    return [...sessionList.querySelectorAll('.training-session')].map(block =>
+      Object.fromEntries([...block.querySelectorAll('[data-session-field]')].map(field => [
+        field.dataset.sessionField, field.value.trim()
+      ])));
   }
 
   function sessionSummary(session) {
     const time = [session.startTime, session.endTime].filter(Boolean).join('–');
     return [session.title, dayNames[session.dayOfWeek], time, session.eligibility, session.specialConsiderations].filter(Boolean).join(' · ');
-  }
-
-  /* Session collection: submit canonical fields while deriving areas only for the preview. */
-  function syncSessions() {
-    syncSessionLocations();
-    // Resolve each venue independently; unknown sectors stay blank for review.
-    const sessions = readSessions();
-    const previewSessions = sessions.map(session => ({
-      ...session,
-      area: areaFromPostcode(session.postcode, session.meetingPoint)
-    }));
-    const areas = clubTrainingAreas({ sessions: previewSessions });
-    form.elements.namedItem('sessions').value = JSON.stringify(sessions);
-    return { sessions, areas };
   }
 
   /* Session headings: reflect typed names and keep numbering correct after adding or removing entries. */
@@ -174,13 +160,18 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     if (status.textContent !== statusText) status.textContent = statusText;
   }
 
-  /* Form state: read answers once so the preview and submission use the same values. */
-  const values = () => Object.fromEntries(new FormData(form).entries());
+  /* Read answer fields only; generated CSV/JSON and the CAPTCHA are not part of the live preview. */
+  const values = () => Object.fromEntries(CLUB_ANSWER_FIELDS.map(name => {
+    const field = form.elements.namedItem(name);
+    return [name, field && !field.disabled ? field.value : ''];
+  }));
   const put = (selector, value, fallback) => {
     document.querySelector(selector).textContent = value.trim() || fallback;
   };
 
   function updatePreview() {
+    if (previewFrame) cancelAnimationFrame(previewFrame);
+    previewFrame = 0;
     numberSessions();
     // Reveal and require the free-text answer only when Yes is selected.
     const genderSpecific = form.elements.namedItem('genderSpecific').value;
@@ -215,8 +206,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     const leagueStatus = document.querySelector('#league-status');
     const leagueStatusText = `${leagueBlocks.length} ${leagueBlocks.length === 1 ? 'league' : 'leagues'} added.`;
     if (leagueStatus.textContent !== leagueStatusText) leagueStatus.textContent = leagueStatusText;
-    const { sessions, areas } = syncSessions();
-    const areaLabel = areas.join(' · ');
+    syncSessionLocations();
     // Keep paid fields out of submissions when Free or Unknown is selected.
     const pricingType = form.elements.namedItem('price.type').value;
     const paid = PAID_PRICE_TYPES.includes(pricingType);
@@ -240,40 +230,48 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
       field.required = hasMembership;
     });
     const data = values();
-    const previewClub = clubAnswers(data, sessions);
-    const amount = data['price.amount'];
-    put('#preview-cost', formatPrice({ price: {
-      type: paid && !amount ? 'unknown' : pricingType,
-      amount: amount ? Number(amount) : null
-    } }, { compact: true, unknown: 'Unknown', minimumFractionDigits: 0 }), 'Unknown');
-    const membershipLabel = formatMembership(previewClub, { minimumFractionDigits: 0 });
-    document.querySelector('#preview-membership-row').hidden = !membershipLabel;
-    put('#preview-membership', membershipLabel, '');
-    document.querySelector('#preview-tasters-row').hidden = !(paid && Number(data.tasterSessionCount) > 0);
-    put('#preview-tasters', data.tasterSessionCount || '', '');
-    document.querySelector('#preview-booking-row').hidden = !(paid && data.bookingRequired === 'yes');
+    const club = clubAnswers(data, readSessions());
+    currentApplication = { data, club };
+    // Derived areas are for display only; submissions retain the canonical session fields.
+    const previewClub = resolveClubAreas(club);
+    const areaLabel = clubTrainingAreas(previewClub).join(' · ');
+    const { sessions } = club;
+    const actions = clubProfileActions(previewClub);
+    document.querySelector('#preview-details').innerHTML = renderProfileDetails(previewClub, {
+      onlineAction: actions.online, timetableId: 'preview-week-title', preview: true
+    });
+    document.querySelector('#preview-actions').innerHTML = [
+      actions.contact ? `<span class="preview-action preview-action--secondary">${escapeHtml(actions.contact.label)}</span>` : '',
+      actions.online ? `<span class="preview-action">${escapeHtml(actions.online.label)}</span>` : ''
+    ].join('');
     put('#preview-name', data.name, 'Your club name');
     put('#preview-eyebrow', [data.sport, areaLabel].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
-    put('#preview-area', areaLabel, 'Area to confirm');
-    put('#preview-sport', displaySportName(data.sport), 'Your sport');
-    document.querySelector('#preview-gender-row').hidden = previewClub.genderSpecific === null;
-    put('#preview-gender', genderEligibilityLabel(previewClub), '');
-    const beginnerLabel = beginnerFriendlyLabel(previewClub);
-    document.querySelector('#preview-beginner-row').hidden = !beginnerLabel;
-    put('#preview-beginner', beginnerLabel, '');
-    const leagues = previewClub.participatingLeagues;
-    document.querySelector('#preview-leagues-row').hidden = !leagues.length;
-    put('#preview-leagues', leagueNamesLabel(leagues), '');
     put('#preview-description', data.description, 'Your club description will appear here.');
     put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Add your meeting times');
     put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
     document.querySelector('#preview-additional').hidden = !data.additionalInformation.trim();
     put('#preview-additional', data.additionalInformation, '');
-    // Capture spreadsheet rows alongside the structured JSON without submitting stored areas.
-    form.elements.namedItem('registrationCsv').value = submissionCsv(data, sessions);
-    form.elements.namedItem('submissionSummary').value = submissionSummary(data, sessions);
-    const review = document.querySelector('#submission-review');
-    review.replaceChildren(...submissionReview(data, sessions).map(section => {
+    document.querySelectorAll('[data-preview-day]').forEach(day => {
+      const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
+      const hasSession = count > 0;
+      day.classList.toggle('has-session', hasSession);
+      day.querySelector('b').textContent = hasSession ? `${count} ${count === 1 ? 'SESSION' : 'SESSIONS'}` : '—';
+    });
+    // Clear corrected errors, including paid fields that have become disabled.
+    form.querySelectorAll('input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"]').forEach(field => validateField(field));
+    // Enhance new session/league rows after the original native templates have been cloned.
+    enhanceFilterPickers('#club-form select');
+    syncFilterPickers();
+  }
+
+  /* Review and exports are built on demand from one normalised answer snapshot. */
+  function prepareSubmission() {
+    const { data, club } = currentApplication;
+    const review = submissionReview(club);
+    form.elements.namedItem('sessions').value = JSON.stringify(club.sessions);
+    form.elements.namedItem('registrationCsv').value = submissionCsv(data, club.sessions);
+    form.elements.namedItem('submissionSummary').value = submissionSummary(review);
+    document.querySelector('#submission-review').replaceChildren(...review.map(section => {
       const group = document.createElement('section');
       group.className = 'review-group';
       const heading = document.createElement('h3');
@@ -289,29 +287,11 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
       group.append(heading, edit, answers);
       return group;
     }));
+  }
 
-    const contactAction = document.querySelector('#preview-contact-action');
-    const hasContact = Boolean(data.contact.trim());
-    contactAction.classList.toggle('is-available', hasContact);
-    contactAction.setAttribute('aria-disabled', String(!hasContact));
-
-    const onlineAction = document.querySelector('#preview-online-action');
-    const onlineProfile = onlineProfileAction(data['onlineProfile.url']);
-    onlineAction.classList.toggle('is-available', Boolean(onlineProfile));
-    onlineAction.setAttribute('aria-disabled', String(!onlineProfile));
-    onlineAction.textContent = onlineProfile?.label || 'WEBSITE';
-
-    document.querySelectorAll('[data-preview-day]').forEach(day => {
-      const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
-      const hasSession = count > 0;
-      day.classList.toggle('has-session', hasSession);
-      day.querySelector('b').textContent = hasSession ? `${count} ${count === 1 ? 'SESSION' : 'SESSIONS'}` : '—';
-    });
-    // Clear corrected errors, including paid fields that have become disabled.
-    form.querySelectorAll('input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"]').forEach(field => validateField(field));
-    // Enhance new session/league rows after the original native templates have been cloned.
-    enhanceFilterPickers('#club-form select');
-    syncFilterPickers();
+  /* Keep typing responsive while combining input events within the same display frame. */
+  function schedulePreview() {
+    if (!previewFrame) previewFrame = requestAnimationFrame(updatePreview);
   }
 
   /* Success state: expand the confirmation screen from the submitted button. */
@@ -348,6 +328,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
       if (!validateStep(index)) return;
     }
     if (!form.reportValidity()) return;
+    prepareSubmission();
 
     /* Local previews cannot receive Netlify Forms submissions. Keep the answers available. */
     if (window.location.protocol === 'file:' || ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)) {
@@ -427,7 +408,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     updatePreview();
     addSessionButton.focus();
   });
-  form.addEventListener('input', updatePreview);
+  form.addEventListener('input', schedulePreview);
   form.addEventListener('change', updatePreview);
   // Format completed venue fields without moving the cursor while the user is typing.
   sessionList.addEventListener('focusout', event => {
@@ -444,6 +425,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   nextStep.addEventListener('click', advanceStep);
   document.querySelector('#download-registration').addEventListener('click', () => {
     updatePreview();
+    prepareSubmission();
     const url = URL.createObjectURL(new Blob([form.elements.namedItem('registrationCsv').value], { type: 'text/csv;charset=utf-8' }));
     const link = document.createElement('a');
     link.href = url;

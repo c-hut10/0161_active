@@ -1,0 +1,74 @@
+{
+  "reference": "Bury Wards.jpeg",
+  "note": "Shape components matched by position to the owner-supplied attached ward map on 23 October 2026. The reference has no ward numbering. Postcode allocations are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Ramsbottom"
+    },
+    "2": {
+      "number": null,
+      "name": "North Manor"
+    },
+    "3": {
+      "number": null,
+      "name": "Tottington"
+    },
+    "4": {
+      "number": null,
+      "name": "Moorside"
+    },
+    "5": {
+      "number": null,
+      "name": "Elton"
+    },
+    "6": {
+      "number": null,
+      "name": "Bury East"
+    },
+    "7": {
+      "number": null,
+      "name": "Bury West"
+    },
+    "8": {
+      "number": null,
+      "name": "Radcliffe North & Ainsworth"
+    },
+    "9": {
+      "number": null,
+      "name": "Redvales"
+    },
+    "10": {
+      "number": null,
+      "name": "Unsworth"
+    },
+    "11": {
+      "number": null,
+      "name": "Radcliffe East"
+    },
+    "12": {
+      "number": null,
+      "name": "Radcliffe West"
+    },
+    "13": {
+      "number": null,
+      "name": "Pilkington Park"
+    },
+    "14": {
+      "number": null,
+      "name": "Holyrood"
+    },
+    "15": {
+      "number": null,
+      "name": "Besses"
+    },
+    "16": {
+      "number": null,
+      "name": "St Mary's"
+    },
+    "17": {
+      "number": null,
+      "name": "Sedgley"
+    }
+  }
+}

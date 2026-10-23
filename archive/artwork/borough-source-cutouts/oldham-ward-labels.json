@@ -1,0 +1,86 @@
+{
+  "reference": "oldham-ward-reference.png",
+  "note": "Shape components matched by position to the owner-supplied map. Reference has no ward numbering; postcode allocations are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Saddleworth North"
+    },
+    "2": {
+      "number": null,
+      "name": "Crompton"
+    },
+    "3": {
+      "number": null,
+      "name": "Shaw"
+    },
+    "4": {
+      "number": null,
+      "name": "Royton North"
+    },
+    "5": {
+      "number": null,
+      "name": "Royton South"
+    },
+    "6": {
+      "number": null,
+      "name": "St James'"
+    },
+    "7": {
+      "number": null,
+      "name": "Chadderton North"
+    },
+    "8": {
+      "number": null,
+      "name": "Waterhead"
+    },
+    "9": {
+      "number": null,
+      "name": "Coldhurst"
+    },
+    "10": {
+      "number": null,
+      "name": "Chadderton Central"
+    },
+    "11": {
+      "number": null,
+      "name": "Saddleworth South"
+    },
+    "12": {
+      "number": null,
+      "name": "St Mary's"
+    },
+    "13": {
+      "number": null,
+      "name": "Saddleworth West & Lees"
+    },
+    "14": {
+      "number": null,
+      "name": "Chadderton South"
+    },
+    "15": {
+      "number": null,
+      "name": "Werneth"
+    },
+    "16": {
+      "number": null,
+      "name": "Alexandra"
+    },
+    "17": {
+      "number": null,
+      "name": "Medlock Vale"
+    },
+    "18": {
+      "number": null,
+      "name": "Hollinwood"
+    },
+    "19": {
+      "number": null,
+      "name": "Failsworth East"
+    },
+    "20": {
+      "number": null,
+      "name": "Failsworth West"
+    }
+  }
+}

@@ -1,0 +1,227 @@
+/* Homepage-only welcome: the normal page remains the no-script and failure fallback. */
+.home-entry-page { scrollbar-gutter:stable; }
+/* Prepare only the layers that animate, then release them after the reveal. */
+.home-entry-active .gallery-main { will-change:transform, opacity; }
+.home-entry-active .site-navbar { will-change:opacity; }
+.home-entry-pending,
+.home-entry-active { overflow: hidden; }
+.home-entry-pending .home-content,
+.home-entry-active .home-content { visibility: hidden; }
+.home-entry-pending #club-gallery .gallery-track,
+.home-entry-active #club-gallery .gallery-track { animation-play-state: paused; }
+
+.home-entry {
+  --home-entry-ready: 1;
+  --entry-green: #dffc3a;
+  --entry-cell: 24px;
+  --entry-stage-height: max(100svh, 680px);
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #fff;
+  background: #111211;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: auto;
+}
+.home-entry:not([open]) { display: none; }
+.home-entry::backdrop { background: transparent; }
+.home-entry__scene { position: absolute; inset: 0 0 auto; height: var(--entry-stage-height); overflow: hidden; pointer-events: none; }
+/* One shared cell size drives the full-screen grid, static cubes and coordinate labels. */
+.home-entry__universe {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(223, 252, 58, .12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(223, 252, 58, .12) 1px, transparent 1px);
+  background-color: #111211;
+  background-size: var(--entry-cell) var(--entry-cell);
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+.home-entry__cube { position: absolute; width: var(--entry-cell); height: var(--entry-cell); box-sizing: border-box; border: 1px solid rgba(223, 252, 58, .12); background: #080b07; }
+.home-entry__cube--olive { background: #26301b; }
+.home-entry__cube--green { background: rgba(223, 252, 58, .07); }
+.home-entry__cube[hidden], .home-entry__dot[hidden] { display: none; }
+/* Temporary design axes sit above the door faces but never intercept clicks. */
+.home-entry__axes { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
+.home-entry__axis-label { position: absolute; display: grid; place-items: center; box-sizing: border-box; min-width: 19px; height: 16px; color: #abb879; background: #111211d9; font: 10px/1 'Courier New', monospace; }
+.home-entry__axis-label--column { top: 3px; transform: translateX(-50%); }
+.home-entry__axis-label--row { left: 3px; transform: translateY(-50%); }
+.home-entry__brand { position: absolute; z-index: 4; top: 22px; left: clamp(22px, 4vw, 64px); width: 170px; height: 62px; object-fit: contain; }
+.home-entry__pause { position: absolute; z-index: 4; top: 28px; right: clamp(22px, 4vw, 64px); min-height: 44px; padding: 8px 12px; border: 1px solid #55594d; border-radius: 3px; color: #faecd2; background: #111211; font: 700 11px/1.4 Arial, sans-serif; cursor: pointer; }
+.home-entry__pause[hidden] { display: none; }
+
+/* Dots occupy a whole grid cell; the cached glow is centred and only its opacity changes. */
+.home-entry__dot { position: absolute; width: var(--entry-cell); height: var(--entry-cell); background: url('../img/home-entry-glow.svg') center / contain no-repeat; opacity: .22; animation: entry-dot var(--duration, 7s) var(--delay, 0s) ease-in-out infinite; }
+@keyframes entry-dot {
+  0%, 100% { opacity: .12; }
+  50% { opacity: .7; }
+}
+.home-entry.is-still .home-entry__dot,
+.home-entry.is-opening .home-entry__dot { animation-play-state: paused; }
+
+/* Full-screen door faces slide apart; a static mask fades their lower edge behind the text. */
+.home-entry__doors { position: absolute; z-index: 1; inset: 0 0 auto; height: var(--entry-stage-height); pointer-events: none; }
+.home-entry__door { --entry-door-inset: 25px; position: absolute; top: 0; bottom: 0; width: 50%; }
+/* A quiet frame marks the 25px safe edge of each door. */
+.home-entry__door::before { content: ''; position: absolute; inset: var(--entry-door-inset); border: 1px solid #6668; pointer-events: none; }
+.home-entry__door--left { left: 0; }
+.home-entry__door--right { right: 0; }
+.home-entry__door::after { content: ''; position: absolute; z-index: 0; inset: 0; box-sizing: border-box; background: linear-gradient(100deg, rgba(20, 23, 19, .82), rgba(32, 39, 26, .82)); -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 80%); mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 80%); pointer-events: none; }
+.home-entry__door--left::after { border-right: 1px solid var(--entry-green); }
+.home-entry__door--right::after { border-left: 1px solid var(--entry-green); background: linear-gradient(100deg, rgba(36, 44, 27, .82), rgba(20, 23, 19, .82)); }
+.home-entry__seam { position: absolute; z-index: 2; left: calc(50% - 2px); top: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--entry-green) 0%, var(--entry-green) 45%, transparent 80%); }
+.home-entry__door-glow { position: absolute; left: 50%; top: 9%; width: min(70vw, 600px); height: 58%; transform: translateX(-50%); opacity: .32; background: url('../img/home-entry-glow.svg') center / 100% 100% no-repeat; }
+/* A flat colour covers the viewport first; it never enlarges the pixel-dot image. */
+.home-entry__wash { position: fixed; z-index: 5; inset: 0; opacity: 0; background: var(--entry-green); }
+
+/* Two quiet door panels frame the map and its information without adding another page. */
+.home-entry__door-content { position: absolute; z-index: 1; top: 50%; left: clamp(24px, 4vw, 76px); right: clamp(24px, 4vw, 76px); transform: translateY(-50%); }
+.home-entry__map { display: block; width: 100%; max-width: 680px; height: clamp(200px, 42svh, 440px); margin: 0 auto; overflow: visible; pointer-events: none; }
+/* Internal-area view: fixed pointer shapes stay in place while decorative copies lift. */
+/* The full left door receives outside taps while zoomed, at every viewport size. */
+.home-entry__door--left.has-region-detail { pointer-events:auto; }
+/* The SVG frame stays unchanged so entering detail cannot resize the overview. */
+.home-entry__door--left.has-region-detail .home-entry__map { overflow:visible; }
+.home-entry.is-opening .home-entry__door--left.has-region-detail { pointer-events:none; }
+.home-entry__area-layer { opacity:0; pointer-events:none; transition:opacity 700ms ease; }
+.home-entry__area-layer.is-visible { opacity:1; }
+.home-entry__area-layer:not(.is-visible) .home-entry__area-target { pointer-events:none; }
+.home-entry__map.is-detail .home-entry__map-base use { opacity:0; }
+.home-entry__map.is-detail .home-entry__map-base .is-zoom-selected { opacity:1; }
+.home-entry__map.is-detail .home-entry__map-lifts { opacity:0; }
+.home-entry__map-lifts { transition:opacity 350ms ease; }
+.home-entry__map.is-detail .home-entry__region-target { visibility:hidden; pointer-events:none; }
+.home-entry__map-back { position:absolute; left:0; bottom:-52px; min-height:44px; padding:8px 12px; border:1px solid #686868; background:#111211; color:#fff; font:700 11px Arial,sans-serif; text-transform:uppercase; cursor:pointer; pointer-events:auto; }
+.home-entry__map-back:focus-visible { outline:2px solid #dffc3a; outline-offset:4px; }
+.home-entry__area-outline { fill:none; stroke:#a0a0a0; stroke-width:.5; stroke-linejoin:miter; pointer-events:none; }
+.home-entry__area-visual { opacity:0; pointer-events:none; transform-box:fill-box; transform-origin:center; transition:opacity 200ms ease,transform 300ms ease; }
+/* A small centred expansion creates a bulge while the pointer target stays fixed. */
+.home-entry__area-visual.is-active { opacity:1; transform:scale(1.025); }
+.home-entry__area-halo { fill:none; stroke:#dffc3a; stroke-width:8; stroke-opacity:.16; stroke-linejoin:round; }
+.home-entry__area-fill { fill:#dffc3a; stroke:#efffa2; stroke-width:1; }
+.home-entry__area-target { fill:transparent; stroke:none; cursor:pointer; pointer-events:fill; touch-action:manipulation; outline:none; }
+.home-entry__area-target:focus-visible { stroke:white; stroke-width:1.5; stroke-dasharray:3 2; }
+@media(max-width:640px) { .home-entry__map-back { bottom:0; min-height:32px; padding:4px 8px; font-size:9px; } }
+@media(prefers-reduced-motion:reduce) { .home-entry__area-visual { transition:none; } .home-entry__area-visual.is-active { transform:none; } }
+.home-entry.is-reduced-motion .home-entry__area-visual { transition:none; }
+.home-entry.is-reduced-motion .home-entry__area-visual.is-active { transform:none; }
+.home-entry.is-reduced-motion .home-entry__area-layer { transition:none; }
+@media(prefers-reduced-motion:reduce) { .home-entry__area-layer { transition:none; } }
+.home-entry__map-base { fill: none; stroke: #a0a0a0; stroke-width: .65; stroke-linejoin: miter; pointer-events: none; }
+.home-entry__map-base use { transition: opacity 350ms ease; }
+.home-entry__map-base .is-selected { opacity: .24; }
+.home-entry__map-lifts { pointer-events: none; }
+.home-entry__region-lift { transform-box: view-box; transition: transform 480ms cubic-bezier(.22, 1, .36, 1); }
+.home-entry__region-glow,
+.home-entry__region-fill { opacity: 0; transition: opacity 320ms ease; pointer-events: none; }
+.home-entry__region-fill { fill: var(--entry-green); stroke: #efffa2; stroke-width: .8; stroke-linejoin: miter; }
+.home-entry__region-visual.is-active .home-entry__region-lift { transform: scale(1.035); }
+.home-entry__region-visual.is-active .home-entry__region-glow,
+.home-entry__region-visual.is-active .home-entry__region-fill { opacity: 1; }
+/* Invisible fixed shapes accept the pointer; the lifted drawings cannot steal hover. */
+.home-entry__region-target { cursor: pointer; outline: none; }
+.home-entry__region-target use { fill: transparent; stroke: none; pointer-events: fill; touch-action: manipulation; }
+.home-entry__region-target:focus-visible use { stroke: #fff; stroke-width: 1.5; stroke-dasharray: 3 2; }
+/* Retain the location scale while keeping the two supporting lines smaller and closer. */
+.home-entry__region-details { --entry-detail-size: clamp(18px, 2.3vw, 32px); max-width: 560px; color: #fff; text-transform: uppercase; }
+.home-entry__region-overview { display: flex; flex-direction: column; gap: clamp(8px, 1svh, 12px); margin: 0; padding: 0; list-style: none; color: inherit; font: 500 var(--entry-detail-size)/1.35 Arial, Helvetica, sans-serif; }
+.home-entry__region-name { margin: 0; color: inherit; font-size: 1.618em; font-weight: 700; line-height: 1.08; letter-spacing: -.045em; }
+.home-entry__region-count,
+.home-entry__stat { min-height: 1.15em; margin: 0; color: inherit; font: inherit; font-size: .85em; line-height: 1.15; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
+.home-entry__stat-number { color: inherit; font: inherit; }
+.home-entry__region-announcement { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Text stays real, selectable HTML; Enter is the single route into the homepage. */
+.home-entry__copy { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; box-sizing: border-box; min-height: var(--entry-stage-height); padding: 0 22px clamp(32px, 7svh, 72px); text-align: center; pointer-events: none; }
+/* Resume the centre seam below the text and Enter button, leaving both readable. */
+.home-entry__copy::after { content: ''; position: absolute; left: calc(50% - 2px); bottom: 0; width: 4px; height: calc(clamp(32px, 7svh, 72px) - 12px); background: linear-gradient(to bottom, transparent, var(--entry-green) 12px); }
+.home-entry__title { max-width: 1100px; margin: 0 0 24px; color: #fff; font-size: clamp(42px, 5.5vw, 84px); font-weight: 700; line-height: .95; letter-spacing: -.065em; text-transform: uppercase; }
+.home-entry__enter { display: inline-flex; align-items: center; gap: 18px; min-height: 58px; padding: 7px 22px 7px 7px; border: 1px solid #67704d; border-radius: 5px; color: #faecd2; background: #111211; font: 700 clamp(14px, 1.4vw, 18px)/1.3 Arial, sans-serif; cursor: pointer; pointer-events: auto; }
+.home-entry__enter-icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; color: #111211; background: var(--entry-green); border-radius: 2px; }
+.home-entry__enter-icon svg { width: 22px; height: 22px; }
+.home-entry__enter:focus-visible,
+.home-entry__pause:focus-visible { outline: 3px solid var(--entry-green); outline-offset: 5px; }
+
+/* Stage one lasts 900ms: open the doors and reach a completely green screen. */
+.home-entry.is-opening { pointer-events: none; }
+.home-entry.is-opening .home-entry__region-target use { pointer-events: none; }
+.home-entry.is-opening .home-entry__door-content { animation: entry-copy-out 300ms ease-out both; }
+.home-entry.is-opening .home-entry__door--left { animation: entry-left 800ms cubic-bezier(.16, 1, .3, 1) both; }
+.home-entry.is-opening .home-entry__door--right { animation: entry-right 800ms cubic-bezier(.16, 1, .3, 1) both; }
+.home-entry.is-opening .home-entry__wash { animation: entry-green-in 800ms ease-in-out both; }
+.home-entry.is-opening .home-entry__copy,
+.home-entry.is-opening .home-entry__seam,
+.home-entry.is-opening .home-entry__door-glow,
+.home-entry.is-opening .home-entry__pause,
+.home-entry.is-opening .home-entry__brand { animation: entry-copy-out 250ms ease-out both; }
+
+/* Stage two moves one prepared gradient offscreen over two seconds, without scrolling. */
+.home-entry.is-transitioning { background: transparent; }
+.home-entry.is-transitioning .home-entry__universe,
+.home-entry.is-transitioning .home-entry__cubes,
+.home-entry.is-transitioning .home-entry__axes,
+.home-entry.is-transitioning .home-entry__dots,
+.home-entry.is-transitioning .home-entry__door { visibility: hidden; }
+.home-entry.is-transitioning .home-entry__wash {
+  bottom: auto;
+  height: 200%;
+  opacity: 1;
+  background: linear-gradient(to bottom, #dffc3a 0%, #dffc3a 50%, #111211 70%, #111211 75%, transparent 100%);
+  animation: entry-curtain-up 2000ms linear both;
+}
+.home-entry-revealing .home-content { visibility:visible; }
+/* Never transform the wrapper of the fixed navbar: it would jump when the transform ends. */
+.home-entry-revealing .gallery-main { animation:entry-home-in 1400ms 600ms cubic-bezier(.25,.1,.25,1) both; }
+.home-entry-revealing .site-navbar { animation:entry-nav-in 1400ms 600ms ease-out both; }
+@keyframes entry-left { to { transform: translateX(-102%); } }
+@keyframes entry-right { to { transform: translateX(102%); } }
+@keyframes entry-green-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes entry-curtain-up { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+@keyframes entry-copy-out { to { opacity: 0; } }
+@keyframes entry-nav-in { from { opacity:0; } to { opacity:1; } }
+@keyframes entry-home-in { from { opacity: 0; transform: translateY(14vh); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 640px) {
+  /* Stack content on narrow screens while the door faces keep their central split. */
+  .home-entry { --entry-stage-height: max(100svh, 740px); --entry-mobile-map-height: clamp(170px, 29svh, 250px); }
+  .home-entry__brand { top: 16px; left: 18px; width: 130px; height: 50px; }
+  .home-entry__pause { top: 20px; right: 18px; }
+  .home-entry__dot:nth-child(n+7) { display: none; }
+  .home-entry__door-content { width: calc(200% - 36px); max-width: none; right: auto; transform: none; }
+  .home-entry__map-content { top: 92px; left: 18px; }
+  .home-entry__map { height: var(--entry-mobile-map-height); }
+  .home-entry__region-details { --entry-detail-size: clamp(18px, 4.8vw, 22px); top: calc(116px + var(--entry-mobile-map-height)); left: calc(-100% + 18px); }
+  /* Clear the centre line through the phone map; it still returns below the Enter button. */
+  .home-entry__seam { background: linear-gradient(to bottom, var(--entry-green) 0 65px, transparent 92px); }
+  .home-entry__door--left::after { border-right-color: transparent; }
+  .home-entry__door--right::after { border-left-color: transparent; }
+  .home-entry__region-overview { gap: 6px; }
+  .home-entry__title { max-width: 340px; font-size: clamp(36px, 10.5vw, 52px); }
+}
+/* Reduced-motion visitors enter immediately; CSS also stops effects if preferences change. */
+@media (prefers-reduced-motion: reduce) {
+  .home-entry__dot { animation: none; }
+  .home-entry.is-opening .home-entry__door,
+  .home-entry.is-opening .home-entry__wash { animation: none; }
+  .home-entry-revealing .gallery-main,
+  .home-entry-revealing .site-navbar { animation:none; }
+}
+.a11y-reduce-motion .home-entry__dot { animation: none; }
+.a11y-reduce-motion .home-entry.is-opening .home-entry__door,
+.a11y-reduce-motion .home-entry.is-opening .home-entry__wash,
+.a11y-reduce-motion.home-entry-revealing .gallery-main,
+.a11y-reduce-motion.home-entry-revealing .site-navbar { animation:none; }
+/* Region selection remains available without lifting or text motion for reduced-motion users. */
+.home-entry.is-reduced-motion .home-entry__region-lift,
+.home-entry.is-reduced-motion .home-entry__region-glow,
+.home-entry.is-reduced-motion .home-entry__region-fill,
+.home-entry.is-reduced-motion .home-entry__map-base use { transition: none; }
+.home-entry.is-reduced-motion .home-entry__region-lift { transform: none !important; }

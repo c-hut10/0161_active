@@ -3,7 +3,7 @@ function missionReducedMotion() {
 }
 
 /* Third-panel headline: flick through the requested sports words, then settle on club. */
-(() => {
+function startMissionWords() {
   const word = document.querySelector('.mission-panel__word[data-words]');
   const panel = word?.closest('.mission-panel');
   if (!word || !panel || missionReducedMotion()) return;
@@ -30,7 +30,7 @@ function missionReducedMotion() {
     else window.setTimeout(() => word.classList.remove('is-flicking'), 660);
   };
 
-  // Play once as the final full-screen mission panel scrolls into view.
+  // Play once when the final mission panel becomes visible.
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       if (entries.some(entry => entry.isIntersecting)) {
@@ -42,4 +42,11 @@ function missionReducedMotion() {
   } else {
     flickNextWord();
   }
-})();
+}
+
+/* Wait for Enter rather than playing the headline unseen behind the opening. */
+if (document.documentElement.matches('.home-entry-pending, .home-entry-active')) {
+  window.addEventListener('home-entry:complete', startMissionWords, { once: true });
+} else {
+  startMissionWords();
+}

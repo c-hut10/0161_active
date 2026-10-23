@@ -7,11 +7,20 @@
     <meta name="description" content="Find sports clubs and weekly sessions across Greater Manchester. Explore local activities by sport, area and day with 0161 Active.">
     <title>0161 Active: Sport Club Database</title>
     <link rel="stylesheet" href="css/0161_Page.css?v=20261009-breakpoints">
-    <link rel="stylesheet" href="css/home-gallery.css?v=20261020-editorial-actions">
-    <link rel="stylesheet" href="css/home-panels.css?v=20261015-actions-below-gallery">
+    <link rel="stylesheet" href="css/home-gallery.css?v=20261022-cleanup">
+    <!-- Prepare the gallery before showing its shuffled rows; failed scripts retain a visible fallback. -->
+    <script>
+      document.documentElement.classList.add('gallery-initialising');
+      window.addEventListener('load', () => document.documentElement.classList.remove('gallery-initialising'), { once: true });
+    </script>
+    <script type="module" src="js/home-gallery.js?v=20261020-gallery-startup"></script>
+    <link rel="stylesheet" href="css/home-panels.css?v=20261023-original-textboxes">
+    <!-- Homepage welcome prepares its tab-scoped state before the normal page is painted. -->
+    <link rel="stylesheet" href="css/home-entry.css?v=20261023-entry-handover">
+    <script src="js/home-entry.js?v=20261023-entry-handover"></script>
 
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
-  <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
+  <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -25,11 +34,10 @@
     #club-gallery .gallery-track { animation: none; }
     .gallery-pause { display: none; }
   </style></noscript>
-  <link rel="stylesheet" href="/css/club-favourites.css">
-  <script type="module" src="/js/club-favourites.js"></script>
-  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
   <script src="/js/page-transitions.js?v=20261020"></script>
+  <link rel="stylesheet" href="/css/site-background.css?v=20261023">
+  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="canonical" href="https://0161active.co.uk/">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -54,7 +62,185 @@
   <!-- /Structured data -->
 </head>
 
-<body>
+<body class="site-grid">
+<!-- Decorative pixels and a native modal create the opening without changing page URLs. -->
+<dialog class="home-entry" id="home-entry" aria-labelledby="home-entry-title">
+  <div class="home-entry__scene" aria-hidden="true">
+    <div class="home-entry__universe"></div>
+    <!-- Cube and glow addresses use column letters and row numbers, starting at A1. -->
+    <div class="home-entry__cubes">
+      <span class="home-entry__cube" data-cell="C3" data-mobile-cell="C3"></span>
+      <span class="home-entry__cube" data-cell="G2" data-mobile-cell="E2"></span>
+      <span class="home-entry__cube" data-cell="M5" data-mobile-cell="E6"></span>
+      <span class="home-entry__cube" data-cell="D9" data-mobile-cell="C8"></span>
+      <span class="home-entry__cube" data-cell="J11" data-mobile-cell="A10"></span>
+      <span class="home-entry__cube" data-cell="O14" data-mobile-cell="E12"></span>
+      <span class="home-entry__cube" data-cell="B15" data-mobile-cell="B14"></span>
+      <span class="home-entry__cube" data-cell="H14" data-mobile-cell="D15"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="E2" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="J5" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="O3" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="C6" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="G9" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="M8" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="E13" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--olive" data-cell="K15" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--green" data-cell="I3" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--green" data-cell="B11" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--green" data-cell="N12" data-mobile-cell="off"></span>
+      <span class="home-entry__cube home-entry__cube--green" data-cell="G16" data-mobile-cell="off"></span>
+    </div>
+    <div class="home-entry__dots">
+      <span class="home-entry__dot" data-cell="D5" data-mobile-cell="B5" style="--duration:7s;--delay:-2s"></span>
+      <span class="home-entry__dot" data-cell="H4" data-mobile-cell="E4" style="--duration:9s;--delay:-6s"></span>
+      <span class="home-entry__dot" data-cell="F9" data-mobile-cell="C9" style="--duration:8s;--delay:-4s"></span>
+      <span class="home-entry__dot" data-cell="T5" data-mobile-cell="F7" style="--duration:8s;--delay:-5s"></span>
+      <span class="home-entry__dot" data-cell="X9" data-mobile-cell="E11" style="--duration:10s;--delay:-1s"></span>
+      <span class="home-entry__dot" data-cell="AB12" data-mobile-cell="F13" style="--duration:7s;--delay:-3s"></span>
+      <span class="home-entry__dot" data-cell="K8" data-mobile-cell="off" style="--duration:9s;--delay:-3s"></span>
+      <span class="home-entry__dot" data-cell="C13" data-mobile-cell="off" style="--duration:10s;--delay:-7s"></span>
+      <span class="home-entry__dot" data-cell="R3" data-mobile-cell="off" style="--duration:8s;--delay:-4s"></span>
+      <span class="home-entry__dot" data-cell="Z8" data-mobile-cell="off" style="--duration:9s;--delay:-8s"></span>
+      <span class="home-entry__dot" data-cell="F14" data-mobile-cell="off" style="--duration:10s;--delay:-5s"></span>
+      <span class="home-entry__dot" data-cell="W15" data-mobile-cell="off" style="--duration:7s;--delay:-6s"></span>
+    </div>
+    <div class="home-entry__door-glow"></div>
+    <div class="home-entry__seam"></div>
+    <div class="home-entry__axes"></div>
+    <div class="home-entry__wash"></div>
+  </div>
+  <!-- Interactive door content stays outside the decorative, aria-hidden scene. -->
+  <div class="home-entry__doors">
+    <section class="home-entry__door home-entry__door--left" aria-label="Explore Greater Manchester">
+      <div class="home-entry__door-content home-entry__map-content">
+        <!-- Fixed hit shapes keep hover stable while a separate visual layer lifts above them. -->
+        <svg class="home-entry__map" viewBox="0 0 400 300" width="400" height="300" role="group" aria-labelledby="entry-map-title" aria-describedby="entry-map-help">
+          <title id="entry-map-title">Explore the ten Greater Manchester boroughs</title>
+          <desc id="entry-map-help">Hover, tap or focus a borough to explore it.</desc>
+          <defs>
+            <path id="entry-shape-bolton" d="M147 48H149V50H151V53H152V54H153V55H154V63H155V64H158V63H164V59H165V58H167V57H171V59H173V60H174V62H172V63H173V64H174V68H175V69H176V70H178V71H179V73H180V80H179V82H178V85H177V86H176V87H175V97H176V103H177V104H179V105H181V106H182V108H183V116H182V115H179V118H181V119H184V120H185V121H188V122H190V126H191V128H192V129H190V128H187V129H185V135H181V134H176V133H174V132H171V131H169V130H168V128H166V127H165V126H163V127H161V126H157V125H151V124H148V126H146V131H145V132H144V133H143V134H139V133H136V132H132V131H127V130H126V129H123V128H120V127H118V129H114V131H115V132H114V134H113V135H111V136H109V138H106V135H105V134H103V132H102V131H101V130H100V129H98V128H96V127H95V126H94V125H95V121H92V118H93V117H94V116H95V113H94V110H95V109H93V108H92V102H91V101H90V100H89V98H87V95H86V94H85V93H84V92H83V91H80V90H74V89H72V88H69V89H66V87H67V85H69V83H70V80H71V78H72V77H73V76H75V75H78V73H81V74H82V75H83V76H84V77H85V78H86V80H87V82H88V84H89V85H90V84H92V83H93V82H95V81H96V78H98V75H101V74H102V73H104V72H105V71H106V70H108V69H109V67H111V66H112V64H114V63H115V62H118V63H121V64H123V65H124V66H127V67H129V68H130V69H133V67H134V66H136V65H137V66H140V64H139V63H140V62H141V61H142V60H143V51H145V50H146V49H147Z" fill-rule="evenodd"/>
+            <path id="entry-shape-bury" d="M177 32H180V33H185V38H188V39H192V40H194V41H195V40H200V41H201V40H202V38H203V37H204V36H205V35H206V34H207V33H208V32H210V33H211V43H210V49H211V53H212V54H213V56H214V58H215V60H216V64H217V66H219V67H221V70H220V71H221V72H222V75H223V76H225V77H226V78H228V77H230V79H231V81H232V82H229V83H228V84H227V85H226V87H223V88H218V89H217V92H216V95H217V96H218V97H222V93H223V92H224V93H226V94H228V97H229V98H230V100H231V101H232V108H231V110H235V113H234V115H235V116H236V126H235V125H233V123H231V122H229V123H226V124H225V125H224V126H223V127H222V131H223V137H226V136H228V135H231V137H229V139H228V140H227V142H222V143H217V144H215V145H214V146H212V144H210V143H207V138H206V137H205V136H204V135H197V134H196V133H195V132H193V131H192V128H191V126H190V122H188V121H185V120H184V119H181V118H179V115H182V116H183V108H182V106H181V105H179V104H177V103H176V97H175V87H176V86H177V85H178V82H179V80H180V73H179V71H178V70H176V69H175V68H174V64H173V63H172V62H174V60H173V59H174V58H175V57H177V56H178V54H177V51H176V50H177V48H179V42H180V38H179V36H178V35H177Z" fill-rule="evenodd"/>
+            <path id="entry-shape-manchester" d="M229 122H231V123H233V125H235V126H237V125H239V124H241V123H245V124H247V126H248V127H249V131H251V132H256V133H257V134H258V133H259V134H264V135H265V137H266V139H267V140H268V139H270V140H271V142H272V143H270V144H269V146H264V147H263V150H262V152H263V153H265V154H266V155H268V156H269V157H268V159H269V161H268V162H267V163H266V169H267V172H269V173H272V174H273V175H274V176H275V181H274V186H273V187H272V188H270V190H267V192H266V193H265V195H264V197H263V204H261V203H259V202H257V203H256V207H255V208H253V209H252V211H251V212H250V213H249V215H246V219H245V221H246V224H244V227H242V228H234V229H233V231H232V237H233V241H234V247H235V250H236V252H235V257H234V259H232V258H227V261H225V263H224V264H223V265H220V266H219V267H217V269H214V271H210V272H208V273H207V272H206V271H207V270H208V267H207V265H205V264H204V262H202V261H201V259H205V258H208V256H209V255H210V250H211V248H212V247H213V246H212V244H211V243H210V242H209V241H208V240H207V239H208V237H207V233H206V232H205V231H204V229H203V228H202V225H201V223H200V222H199V220H201V221H208V220H209V219H210V218H212V217H214V216H216V217H217V215H218V214H219V212H216V211H215V210H214V207H213V206H212V205H208V202H210V200H211V199H212V198H211V196H212V195H213V193H216V192H217V191H220V190H222V188H223V187H225V185H228V183H226V181H225V179H223V178H222V177H223V175H224V174H225V172H226V171H227V170H228V169H229V168H231V167H232V164H231V162H230V160H229V157H228V154H229V153H232V150H231V148H232V144H231V143H229V142H228V141H227V140H228V139H229V137H231V135H228V136H226V137H223V131H222V127H223V126H224V125H225V124H226V123H229Z" fill-rule="evenodd"/>
+            <path id="entry-shape-oldham" d="M327 63H328V68H329V69H335V70H336V72H337V73H338V74H339V75H340V76H341V78H342V79H343V81H344V84H345V85H346V87H347V89H348V90H349V91H350V92H352V93H353V95H355V96H356V97H359V98H360V100H362V101H363V104H364V109H365V110H366V111H368V112H369V113H371V115H372V116H373V115H374V117H375V116H377V117H378V124H379V127H378V128H377V131H375V132H374V135H373V138H372V140H373V141H374V143H375V144H376V145H375V147H374V148H372V149H370V150H368V151H366V150H364V151H362V152H358V151H356V149H355V147H352V146H350V144H347V143H345V142H344V141H343V140H341V138H340V139H339V140H336V141H335V140H332V139H331V135H330V134H328V133H326V132H325V133H324V132H323V133H319V132H314V134H315V135H316V137H315V138H309V139H307V140H298V142H297V144H296V146H295V147H294V148H292V149H290V150H287V154H285V155H284V156H281V158H280V160H279V161H276V160H272V159H268V157H269V156H268V155H266V154H265V153H263V152H262V150H263V147H264V146H269V144H270V143H272V142H271V140H270V139H268V140H267V139H266V137H265V135H264V134H259V133H258V132H259V131H260V129H261V128H262V126H263V123H264V122H265V118H264V112H265V111H266V110H267V108H269V107H272V106H273V101H272V96H271V94H275V93H276V94H280V93H281V92H284V90H285V88H287V87H290V82H293V83H295V84H301V85H310V87H314V86H315V83H316V82H319V81H322V80H323V79H324V77H325V69H326V66H327Z" fill-rule="evenodd"/>
+            <path id="entry-shape-rochdale" d="M280 18H281V19H282V20H284V23H285V26H286V27H287V28H288V29H291V28H298V29H301V28H302V26H303V23H305V24H307V23H309V22H310V21H312V20H318V22H319V23H318V24H317V25H316V29H317V30H318V31H319V32H320V33H322V35H324V42H323V44H322V52H323V53H325V54H327V62H328V63H327V66H326V69H325V77H324V79H323V80H322V81H319V82H316V83H315V86H314V87H310V85H301V84H295V83H293V82H290V87H287V88H285V90H284V92H281V93H280V94H276V93H275V94H271V96H272V101H273V106H272V107H269V108H267V110H266V111H265V112H264V118H265V122H264V123H263V126H262V128H261V129H260V131H259V132H258V134H257V133H256V132H251V131H249V127H248V126H247V124H245V123H241V124H239V125H237V126H236V116H235V115H234V113H235V110H231V108H232V101H231V100H230V98H229V97H228V94H226V93H224V92H223V93H222V97H218V96H217V95H216V92H217V89H218V88H223V87H226V85H227V84H228V83H229V82H232V81H231V79H230V77H228V78H226V77H225V76H223V75H222V72H221V71H220V70H221V69H223V70H224V69H226V67H225V63H224V61H223V53H222V50H221V47H222V44H223V43H224V42H225V41H226V40H228V39H229V37H230V36H231V35H232V33H234V32H236V31H237V30H238V29H242V30H244V31H245V33H247V35H248V36H249V39H250V41H251V42H253V43H254V44H256V45H260V51H261V52H263V51H268V50H269V45H268V44H267V40H268V39H269V37H270V35H271V33H272V29H273V27H274V21H275V20H276V23H278V20H279V19H280Z" fill-rule="evenodd"/>
+            <path id="entry-shape-salford" d="M148 124H151V125H157V126H161V127H163V126H165V127H166V128H168V130H169V131H171V132H174V133H176V134H181V135H185V129H187V128H190V129H192V131H193V132H195V133H196V134H197V135H204V136H205V137H206V138H207V143H210V144H212V146H214V145H215V144H217V143H222V142H227V141H228V142H229V143H231V144H232V148H231V150H232V153H229V154H228V157H229V160H230V162H231V164H232V167H231V168H229V169H228V170H227V171H226V172H225V174H224V175H223V177H221V178H220V179H219V180H218V181H214V179H212V178H210V177H208V176H207V175H205V174H204V173H203V172H202V171H199V170H195V171H192V172H189V173H188V174H185V175H182V176H181V177H179V178H177V179H175V180H174V181H171V182H170V183H169V184H167V185H166V187H165V188H164V190H163V191H162V193H161V196H160V199H159V201H158V205H157V207H156V208H155V209H153V210H152V211H151V212H149V213H147V214H146V215H145V216H142V208H140V206H139V204H138V203H137V201H134V200H133V199H131V197H130V191H129V189H128V188H127V187H126V184H129V183H130V182H142V181H149V171H148V167H149V159H150V157H151V154H152V151H154V150H155V149H156V148H157V146H158V143H157V141H155V140H152V139H150V138H146V137H142V134H143V133H144V132H145V131H146V126H148ZM125 183H126V184H125Z" fill-rule="evenodd"/>
+            <path id="entry-shape-stockport" d="M270 188H271V189H272V191H273V192H274V193H275V194H276V196H277V197H278V200H282V199H284V200H285V199H287V200H289V199H290V200H291V202H292V203H294V204H295V203H296V202H297V201H298V200H300V201H301V202H302V207H303V208H304V209H307V208H309V207H310V206H314V205H318V206H320V207H322V208H324V207H327V206H328V207H329V208H331V213H332V215H334V216H337V217H343V222H342V225H341V228H340V231H339V232H338V239H337V240H334V243H332V245H331V247H329V248H327V250H325V249H321V250H320V251H318V252H317V253H316V254H315V258H314V259H311V260H306V259H303V258H301V256H300V255H298V254H297V253H296V254H295V253H294V254H293V255H287V256H284V255H281V254H280V253H279V261H278V262H277V263H276V265H274V267H275V269H276V272H275V274H274V275H273V281H269V282H268V281H266V280H265V279H262V280H260V278H258V277H257V276H256V274H254V271H256V270H258V269H259V268H258V267H257V263H255V262H248V260H246V261H245V259H242V258H241V259H237V258H235V259H234V257H235V252H236V250H235V247H234V241H233V237H232V231H233V229H234V228H242V227H244V224H246V221H245V219H246V215H249V213H250V212H251V211H252V209H253V208H255V207H256V203H257V202H259V203H261V204H263V197H264V195H265V193H266V192H267V190H270ZM327 247H326V248H327Z" fill-rule="evenodd"/>
+            <path id="entry-shape-tameside" d="M314 132H319V133H323V132H324V133H325V132H326V133H328V134H330V135H331V139H332V140H335V141H336V140H339V139H340V138H341V140H343V141H344V142H345V143H347V144H350V146H352V147H355V149H354V150H353V151H352V162H351V163H350V165H349V166H347V167H346V169H344V174H345V175H344V177H345V178H346V179H347V181H348V182H347V183H346V184H344V185H345V187H346V188H344V189H343V190H342V191H341V195H339V196H338V197H336V198H337V202H335V201H334V199H333V200H331V203H330V204H329V205H328V206H327V207H324V208H322V207H320V206H318V205H314V206H310V207H309V208H307V209H304V208H303V207H302V202H301V201H300V200H298V201H297V202H296V203H295V204H294V203H292V202H291V200H290V199H289V200H287V199H285V200H284V199H282V200H278V197H277V196H276V194H275V193H274V192H273V191H272V189H271V188H272V187H273V186H274V181H275V176H274V175H273V174H272V173H269V172H267V169H266V163H267V162H268V161H269V159H272V160H276V161H279V160H280V158H281V156H284V155H285V154H287V150H290V149H292V148H294V147H295V146H296V144H297V142H298V140H307V139H309V138H315V137H316V135H315V134H314Z" fill-rule="evenodd"/>
+            <path id="entry-shape-trafford" d="M195 170H199V171H202V172H203V173H204V174H205V175H207V176H208V177H210V178H212V179H214V181H218V180H219V179H220V178H221V177H222V178H223V179H225V181H226V183H228V185H225V187H223V188H222V190H220V191H217V192H216V193H213V195H212V196H211V198H212V199H211V200H210V202H208V205H212V206H213V207H214V210H215V211H216V212H219V214H218V215H217V217H216V216H214V217H212V218H210V219H209V220H208V221H201V220H199V222H200V223H201V225H202V228H203V229H204V231H205V232H206V233H207V237H208V239H207V240H208V241H209V242H210V243H211V244H212V246H213V247H212V248H211V250H210V255H209V256H208V258H205V259H197V257H196V258H195V257H194V255H193V254H192V253H185V252H183V253H182V255H180V256H179V255H176V254H174V253H173V252H172V251H171V250H168V249H167V248H166V247H164V245H163V244H161V243H160V240H156V239H155V238H152V237H148V236H146V235H145V234H143V233H134V234H132V233H130V230H133V228H135V227H136V225H137V223H138V222H139V220H140V218H141V217H142V216H145V215H146V214H147V213H149V212H151V211H152V210H153V209H155V208H156V207H157V205H158V201H159V199H160V196H161V193H162V191H163V190H164V188H165V187H166V185H167V184H169V183H170V182H171V181H174V180H175V179H177V178H179V177H181V176H182V175H185V174H188V173H189V172H192V171H195Z" fill-rule="evenodd"/>
+            <path id="entry-shape-wigan" d="M58 75H64V76H65V82H66V83H67V87H66V89H69V88H72V89H74V90H80V91H83V92H84V93H85V94H86V95H87V98H89V100H90V101H91V102H92V108H93V109H95V110H94V113H95V116H94V117H93V118H92V121H95V125H94V126H95V127H96V128H98V129H100V130H101V131H102V132H103V134H105V135H106V138H109V136H111V135H113V134H114V132H115V131H114V129H118V127H120V128H123V129H126V130H127V131H132V132H136V133H139V134H142V137H146V138H150V139H152V140H155V141H157V143H158V146H157V148H156V149H155V150H154V151H152V154H151V157H150V159H149V167H148V171H149V181H142V182H130V183H129V184H126V183H125V182H124V179H125V178H124V175H125V174H126V173H125V172H124V171H123V170H122V171H118V172H115V173H114V174H111V175H108V176H106V177H103V178H101V179H99V181H100V184H97V185H92V186H91V187H90V191H89V194H88V195H87V194H85V193H84V189H83V188H79V187H78V186H77V184H71V182H70V180H69V178H70V177H72V176H73V175H72V172H71V169H61V170H58V169H56V168H55V166H54V165H53V162H52V161H50V159H49V157H48V155H47V156H42V155H41V154H37V153H36V154H34V152H32V151H31V150H30V145H28V147H23V146H22V144H21V140H20V138H21V137H22V136H24V135H25V132H26V127H27V125H26V123H25V122H26V121H27V119H28V118H29V115H30V113H31V108H30V107H29V106H28V104H27V102H26V100H27V99H25V98H26V97H27V94H28V93H29V92H30V91H31V90H33V88H34V87H36V88H37V81H38V78H43V77H48V78H54V77H55V76H58Z" fill-rule="evenodd"/>
+          </defs>
+          <g class="home-entry__map-base" aria-hidden="true">
+            <use href="#entry-shape-bolton" data-region-base="bolton"/>
+            <use href="#entry-shape-bury" data-region-base="bury"/>
+            <use href="#entry-shape-manchester" data-region-base="manchester"/>
+            <use href="#entry-shape-oldham" data-region-base="oldham"/>
+            <use href="#entry-shape-rochdale" data-region-base="rochdale"/>
+            <use href="#entry-shape-salford" data-region-base="salford"/>
+            <use href="#entry-shape-stockport" data-region-base="stockport"/>
+            <use href="#entry-shape-tameside" data-region-base="tameside"/>
+            <use href="#entry-shape-trafford" data-region-base="trafford"/>
+            <use href="#entry-shape-wigan" data-region-base="wigan"/>
+          </g>
+          <g class="home-entry__map-lifts" aria-hidden="true">
+            <g class="home-entry__region-visual" data-region-visual="bolton">
+              <g class="home-entry__region-lift" style="transform-origin:129px 93px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/bolton-glow.webp" x="50" y="32" width="158" height="122"/>
+                <use class="home-entry__region-fill" href="#entry-shape-bolton"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="bury">
+              <g class="home-entry__region-lift" style="transform-origin:204px 89px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/bury-glow.webp" x="156" y="16" width="96" height="146"/>
+                <use class="home-entry__region-fill" href="#entry-shape-bury"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="manchester">
+              <g class="home-entry__region-lift" style="transform-origin:237px 197.5px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/manchester-glow.webp" x="183" y="106" width="108" height="183"/>
+                <use class="home-entry__region-fill" href="#entry-shape-manchester"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="oldham">
+              <g class="home-entry__region-lift" style="transform-origin:318.5px 112px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/oldham-glow.webp" x="242" y="47" width="153" height="130"/>
+                <use class="home-entry__region-fill" href="#entry-shape-oldham"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="rochdale">
+              <g class="home-entry__region-lift" style="transform-origin:272px 76px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/rochdale-glow.webp" x="200" y="2" width="144" height="148"/>
+                <use class="home-entry__region-fill" href="#entry-shape-rochdale"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="salford">
+              <g class="home-entry__region-lift" style="transform-origin:178.5px 170px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/salford-glow.webp" x="109" y="108" width="139" height="124"/>
+                <use class="home-entry__region-fill" href="#entry-shape-salford"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="stockport">
+              <g class="home-entry__region-lift" style="transform-origin:287.5px 235px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/stockport-glow.webp" x="216" y="172" width="143" height="126"/>
+                <use class="home-entry__region-fill" href="#entry-shape-stockport"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="tameside">
+              <g class="home-entry__region-lift" style="transform-origin:310.5px 170.5px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/tameside-glow.webp" x="250" y="116" width="121" height="109"/>
+                <use class="home-entry__region-fill" href="#entry-shape-tameside"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="trafford">
+              <g class="home-entry__region-lift" style="transform-origin:179px 214.5px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/trafford-glow.webp" x="114" y="154" width="130" height="121"/>
+                <use class="home-entry__region-fill" href="#entry-shape-trafford"/>
+              </g>
+            </g>
+            <g class="home-entry__region-visual" data-region-visual="wigan">
+              <g class="home-entry__region-lift" style="transform-origin:89px 135px">
+                <image class="home-entry__region-glow" href="/img/manchester-regions/hover/wigan-glow.webp" x="4" y="59" width="170" height="152"/>
+                <use class="home-entry__region-fill" href="#entry-shape-wigan"/>
+              </g>
+            </g>
+          </g>
+          <g class="home-entry__map-targets">
+            <g class="home-entry__region-target" data-region="bolton" role="button" tabindex="0" aria-label="Explore Bolton" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-bolton"/></g>
+            <g class="home-entry__region-target" data-region="bury" role="button" tabindex="0" aria-label="Explore Bury" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-bury"/></g>
+            <g class="home-entry__region-target" data-region="manchester" role="button" tabindex="0" aria-label="Explore Manchester" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-manchester"/></g>
+            <g class="home-entry__region-target" data-region="oldham" role="button" tabindex="0" aria-label="Explore Oldham" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-oldham"/></g>
+            <g class="home-entry__region-target" data-region="rochdale" role="button" tabindex="0" aria-label="Explore Rochdale" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-rochdale"/></g>
+            <g class="home-entry__region-target" data-region="salford" role="button" tabindex="0" aria-label="Explore Salford" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-salford"/></g>
+            <g class="home-entry__region-target" data-region="stockport" role="button" tabindex="0" aria-label="Explore Stockport" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-stockport"/></g>
+            <g class="home-entry__region-target" data-region="tameside" role="button" tabindex="0" aria-label="Explore Tameside" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-tameside"/></g>
+            <g class="home-entry__region-target" data-region="trafford" role="button" tabindex="0" aria-label="Explore Trafford" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-trafford"/></g>
+            <g class="home-entry__region-target" data-region="wigan" role="button" tabindex="0" aria-label="Explore Wigan" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-wigan"/></g>
+          </g>
+        </svg>
+      </div>
+    </section>
+    <section class="home-entry__door home-entry__door--right" aria-label="Region information">
+      <div class="home-entry__door-content home-entry__region-details" id="entry-region-details">
+        <!-- The location retains its scale; the two supporting lines are smaller and compact. -->
+        <ol class="home-entry__region-overview" role="list" aria-live="off">
+          <li class="home-entry__region-name" data-region-name>Greater Manchester</li>
+          <li class="home-entry__region-count" data-region-count>Select a region</li>
+          <li class="home-entry__stat" data-region-stat hidden></li>
+        </ol>
+        <p class="home-entry__region-announcement" data-region-announcement aria-live="polite" aria-atomic="true"></p>
+      </div>
+    </section>
+  </div>
+  <img class="home-entry__brand" src="/img/0161 Active_Logo_Transparent.png" alt="0161 Active" width="170" height="62">
+  <button class="home-entry__pause" type="button" data-entry-pause aria-pressed="false">Pause effects</button>
+  <div class="home-entry__copy">
+    <h2 class="home-entry__title" id="home-entry-title">Discover your next sport</h2>
+    <button class="home-entry__enter" type="button" data-home-enter>
+      <span class="home-entry__enter-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span>
+      <span>Enter 0161_Active</span>
+    </button>
+  </div>
+</dialog>
+<div class="home-content">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div data-site-nav><header class="site-navbar">
     <div class="site-navbar__bar">
@@ -91,6 +277,8 @@
     </nav>
   </header></div><!-- /Site navigation -->
 
+    <!-- Compact gallery and introduction followed by three full-height mission panels. -->
+    <div class="home-screen">
     <main class="gallery-main" id="main-content" tabindex="-1">
 
     <!-- Gallery control: first in keyboard order, with an icon that switches between pause and resume. -->
@@ -103,117 +291,112 @@
         </button>
         <!-- Homepage gallery: the build supplies photos and links; visits shuffle the existing set. -->
         <div class="grid-container" id="club-gallery" role="region" tabindex="0" aria-label="Featured local sports clubs"><div class="gallery-row" aria-label="Featured clubs row 1">
-      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:0s;"><section class="gallery-card" data-club-id="salford-basketball-club">
-        <a href="/html/basketball/salford-basketball-club.html">
-          <img src="/img/basketball/basketball-Salford Basketball Club.avif" alt="Salford Basketball Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Salford Basketball Club</h2><p class="gallery-caption__details">basketball · Salford</p></div>
+      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:0s;"><section class="gallery-card" data-club-id="salford-harriers">
+        <a href="/html/athletics/salford-harriers.html">
+          <img src="/img/athletics/athletics-Salford Harriers.avif" alt="Salford Harriers club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Salford Harriers</h2><p class="gallery-caption__details">athletics · Beswick</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="just-a-run-club">
-        <a href="/html/run-club/JustARunClub.html">
-          <img src="/img/run-club/JustARunClub.webp" alt="Just A Run Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Just A Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+      </section><section class="gallery-card" data-club-id="manchester-korfball">
+        <a href="/html/korfball/manchester-korfball.html">
+          <img src="/img/korfball/korfball-Manchester Korfball.avif" alt="Manchester Korfball club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Korfball</h2><p class="gallery-caption__details">korfball · Sale</p></div>
         </a>
       </section><section class="gallery-card" data-club-id="assheton-bowmen">
         <a href="/html/archery/assheton-bowmen.html">
           <img src="/img/archery/archery-Assheton Bowmen.avif" alt="Assheton Bowmen club photo" loading="eager" decoding="async">
           <div class="gallery-caption"><h2>Assheton Bowmen</h2><p class="gallery-caption__details">archery · Moston</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="sale-harriers">
-        <a href="/html/athletics/sale-harriers.html">
-          <img src="/img/athletics/athletics-Sale Harriers.avif" alt="Sale Harriers club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Sale Harriers</h2><p class="gallery-caption__details">athletics · Sale</p></div>
+      </section><section class="gallery-card" data-club-id="not-a-running-club">
+        <a href="/html/run-club/NotARunningClub.html">
+          <img src="/img/run-club/NotARunningClub.jpeg" alt="Not A Running Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Not A Running Club</h2><p class="gallery-caption__details">Run Club</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="salford-harriers">
-        <a href="/html/athletics/salford-harriers.html">
-          <img src="/img/athletics/athletics-Salford Harriers.avif" alt="Salford Harriers club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Salford Harriers</h2><p class="gallery-caption__details">athletics · Beswick</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="salford-basketball-club" aria-hidden="true">
-        <a href="/html/basketball/salford-basketball-club.html" tabindex="-1">
-          <img src="/img/basketball/basketball-Salford Basketball Club.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Salford Basketball Club</h2><p class="gallery-caption__details">basketball · Salford</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="just-a-run-club" aria-hidden="true">
-        <a href="/html/run-club/JustARunClub.html" tabindex="-1">
-          <img src="/img/run-club/JustARunClub.webp" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Just A Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="assheton-bowmen" aria-hidden="true">
-        <a href="/html/archery/assheton-bowmen.html" tabindex="-1">
-          <img src="/img/archery/archery-Assheton Bowmen.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Assheton Bowmen</h2><p class="gallery-caption__details">archery · Moston</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="sale-harriers" aria-hidden="true">
-        <a href="/html/athletics/sale-harriers.html" tabindex="-1">
-          <img src="/img/athletics/athletics-Sale Harriers.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Sale Harriers</h2><p class="gallery-caption__details">athletics · Sale</p></div>
+      </section><section class="gallery-card" data-club-id="ghap-badminton">
+        <a href="/html/badminton/ghap-badminton.html">
+          <img src="/img/badminton/badminton-GHAP Badminton.avif" alt="GHAP Badminton club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>GHAP Badminton</h2><p class="gallery-caption__details">badminton · Old Trafford</p></div>
         </a>
       </section><section class="gallery-card" data-club-id="salford-harriers" aria-hidden="true">
         <a href="/html/athletics/salford-harriers.html" tabindex="-1">
           <img src="/img/athletics/athletics-Salford Harriers.avif" alt="" loading="eager" decoding="async">
           <div class="gallery-caption"><h2>Salford Harriers</h2><p class="gallery-caption__details">athletics · Beswick</p></div>
         </a>
+      </section><section class="gallery-card" data-club-id="manchester-korfball" aria-hidden="true">
+        <a href="/html/korfball/manchester-korfball.html" tabindex="-1">
+          <img src="/img/korfball/korfball-Manchester Korfball.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Korfball</h2><p class="gallery-caption__details">korfball · Sale</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="assheton-bowmen" aria-hidden="true">
+        <a href="/html/archery/assheton-bowmen.html" tabindex="-1">
+          <img src="/img/archery/archery-Assheton Bowmen.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Assheton Bowmen</h2><p class="gallery-caption__details">archery · Moston</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="not-a-running-club" aria-hidden="true">
+        <a href="/html/run-club/NotARunningClub.html" tabindex="-1">
+          <img src="/img/run-club/NotARunningClub.jpeg" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Not A Running Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="ghap-badminton" aria-hidden="true">
+        <a href="/html/badminton/ghap-badminton.html" tabindex="-1">
+          <img src="/img/badminton/badminton-GHAP Badminton.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>GHAP Badminton</h2><p class="gallery-caption__details">badminton · Old Trafford</p></div>
+        </a>
       </section></div>
     </div><div class="gallery-row" aria-label="Featured clubs row 2">
-      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:-6.666666666666667s;"><section class="gallery-card" data-club-id="redacted-run-club">
-        <a href="/html/run-club/RedactedRunClub.html">
-          <img src="/img/run-club/RedactedRunClub.jpeg" alt="Redacted Run Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Redacted Run Club</h2><p class="gallery-caption__details">Run Club · Ancoats</p></div>
+      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:-6.666666666666667s;"><section class="gallery-card" data-club-id="rehab-fitness">
+        <a href="/html/health-and-wellbeing/rehab-fitness.html">
+          <img src="/img/health-and-wellbeing/health and wellbeing-Rehab Fitness.avif" alt="Rehab Fitness club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Rehab Fitness</h2><p class="gallery-caption__details">health &amp; wellbeing · Ancoats</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="mile-shy-club">
-        <a href="/html/run-club/MileShyClub.html">
-          <img src="/img/run-club/MileShyClub.webp" alt="Mile Shy Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Mile Shy Club</h2><p class="gallery-caption__details">Run Club</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="eccles-archery-club">
-        <a href="/html/archery/eccles-archery-club.html">
-          <img src="/img/archery/archery-Eccles Archery.avif" alt="Eccles Archery Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Eccles Archery Club</h2><p class="gallery-caption__details">archery · Peel Green</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="ancoats-run-club">
-        <a href="/html/run-club/AncoatRunClub.html">
-          <img src="/img/run-club/AncoatRunClub.avif" alt="Ancoats Run Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+      </section><section class="gallery-card" data-club-id="belle-vue-racers">
+        <a href="/html/athletics/belle-vue-racers.html">
+          <img src="/img/athletics/athletics-Belle Vue Racers.avif" alt="Belle Vue Racers club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Belle Vue Racers</h2><p class="gallery-caption__details">athletics · Beswick</p></div>
         </a>
       </section><section class="gallery-card" data-club-id="manchester-lynx">
         <a href="/html/basketball/manchester-lynx.html">
           <img src="/img/basketball/basketball-Manchester Lynx.avif" alt="Manchester Lynx club photo" loading="eager" decoding="async">
           <div class="gallery-caption"><h2>Manchester Lynx</h2><p class="gallery-caption__details">basketball · Chorlton</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="redacted-run-club" aria-hidden="true">
-        <a href="/html/run-club/RedactedRunClub.html" tabindex="-1">
-          <img src="/img/run-club/RedactedRunClub.jpeg" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Redacted Run Club</h2><p class="gallery-caption__details">Run Club · Ancoats</p></div>
+      </section><section class="gallery-card" data-club-id="mcr-titans-mens">
+        <a href="/html/american-football/mcr-titans-mens.html">
+          <img src="/img/american-football/american football-Manchester TItans (M).avif" alt="Manchester Titans (mens) club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Titans (mens)</h2><p class="gallery-caption__details">american football · Longsight</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="mile-shy-club" aria-hidden="true">
-        <a href="/html/run-club/MileShyClub.html" tabindex="-1">
-          <img src="/img/run-club/MileShyClub.webp" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Mile Shy Club</h2><p class="gallery-caption__details">Run Club</p></div>
+      </section><section class="gallery-card" data-club-id="just-a-run-club">
+        <a href="/html/run-club/JustARunClub.html">
+          <img src="/img/run-club/JustARunClub.webp" alt="Just A Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Just A Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="eccles-archery-club" aria-hidden="true">
-        <a href="/html/archery/eccles-archery-club.html" tabindex="-1">
-          <img src="/img/archery/archery-Eccles Archery.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Eccles Archery Club</h2><p class="gallery-caption__details">archery · Peel Green</p></div>
+      </section><section class="gallery-card" data-club-id="rehab-fitness" aria-hidden="true">
+        <a href="/html/health-and-wellbeing/rehab-fitness.html" tabindex="-1">
+          <img src="/img/health-and-wellbeing/health and wellbeing-Rehab Fitness.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Rehab Fitness</h2><p class="gallery-caption__details">health &amp; wellbeing · Ancoats</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="ancoats-run-club" aria-hidden="true">
-        <a href="/html/run-club/AncoatRunClub.html" tabindex="-1">
-          <img src="/img/run-club/AncoatRunClub.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+      </section><section class="gallery-card" data-club-id="belle-vue-racers" aria-hidden="true">
+        <a href="/html/athletics/belle-vue-racers.html" tabindex="-1">
+          <img src="/img/athletics/athletics-Belle Vue Racers.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Belle Vue Racers</h2><p class="gallery-caption__details">athletics · Beswick</p></div>
         </a>
       </section><section class="gallery-card" data-club-id="manchester-lynx" aria-hidden="true">
         <a href="/html/basketball/manchester-lynx.html" tabindex="-1">
           <img src="/img/basketball/basketball-Manchester Lynx.avif" alt="" loading="eager" decoding="async">
           <div class="gallery-caption"><h2>Manchester Lynx</h2><p class="gallery-caption__details">basketball · Chorlton</p></div>
         </a>
+      </section><section class="gallery-card" data-club-id="mcr-titans-mens" aria-hidden="true">
+        <a href="/html/american-football/mcr-titans-mens.html" tabindex="-1">
+          <img src="/img/american-football/american football-Manchester TItans (M).avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Titans (mens)</h2><p class="gallery-caption__details">american football · Longsight</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="just-a-run-club" aria-hidden="true">
+        <a href="/html/run-club/JustARunClub.html" tabindex="-1">
+          <img src="/img/run-club/JustARunClub.webp" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Just A Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
       </section></div>
     </div></div><!-- /Homepage gallery -->
     </div><!-- /Gallery frame -->
 
-        <!-- Homepage shortcuts: take visitors straight to club discovery or the weekly calendar. -->
-        <nav class="home-quick-actions" aria-label="Find clubs and training sessions">
-            <a class="home-quick-actions__link" href="/html/sports/directory.html"><span class="home-quick-actions__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span><span class="home-quick-actions__title">Find a club</span></a>
-            <a class="home-quick-actions__link" href="/html/calendar.html"><span class="home-quick-actions__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span><span class="home-quick-actions__title">Manchester sport club calendar</span></a>
-        </nav>
     </main>
 
 
@@ -241,14 +424,26 @@
     </section>
     </template>
 
-    <!-- Full-screen mission panels pair each message with a local sports-club photo. -->
+    <!-- Introduction followed by three full-width, full-height mission panels. -->
     <section class="mission-panels" id="mission-panels" aria-label="Our mission">
-        <div class="mission-panels__heading">
-            <p class="mission-panels__eyebrow">Manchester’s sports club database</p>
-            <h1>Movement for everyone<span class="mission-panels__period">.</span></h1>
+        <!-- One shared background joins the discovery shortcuts and mission heading. -->
+        <div class="mission-panels__intro">
+            <div class="mission-panels__heading">
+                <p class="mission-panels__eyebrow">Manchester’s sports club database</p>
+                <h1>Movement for everyone<span class="mission-panels__period">.</span></h1>
+                <p class="mission-panels__signup">Run a sports club? Sign up now - for <a href="/html/register.html">FREE</a></p>
+            </div>
+            <nav class="home-quick-actions" aria-label="Find clubs and training sessions">
+                <a class="home-quick-actions__link" href="/html/sports/directory.html"><span class="home-quick-actions__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span><span class="home-quick-actions__title">Find a club</span></a>
+                <a class="home-quick-actions__link" href="/html/calendar.html"><span class="home-quick-actions__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span><span class="home-quick-actions__title">Manchester sport club calendar</span></a>
+            </nav>
         </div>
 
-        <div class="mission-panels__stack" aria-label="Scroll through our mission">
+    </section>
+    </div><!-- /First viewport: gallery above the introduction -->
+
+    <section class="mission-panels" aria-label="Explore our mission">
+        <div class="mission-panels__stack" aria-label="Explore our mission">
             <article class="mission-panel" aria-label="A community-driven sports organisation">
                 <img src="img/hockey/atul-pandey-TFQxG7quwto-unsplash.avif" alt="" loading="lazy" decoding="async">
                 <div class="mission-panel__copy">
@@ -295,7 +490,7 @@
     </nav>
   </div>
 </footer>
-    <script type="module" src="js/home-gallery.js?v=20261015-pause-icon"></script>
-    <script src="js/home-panels.js"></script>
+</div><!-- /Homepage content revealed by Enter -->
+    <script src="js/home-panels.js?v=20261022-entry-aware"></script>
 </body>
 </html>

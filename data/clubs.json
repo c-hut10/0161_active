@@ -446,7 +446,7 @@
       "name": "Stalybridge Archery Club",
       "sport": "archery",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Stalybridge Archery Club has brought archers together since 1958. Based on Mottram Road, it welcomes junior and senior members, including people new to archery and experienced participants.",
       "imagePath": null,
       "profilePath": "html/archery/stalybridge-archery-club.html",
       "coordinates": null,
@@ -475,7 +475,8 @@
           "url": "https://www.stalybridgearcheryclub.uk/",
           "supports": [
             "onlineProfile",
-            "contact"
+            "contact",
+            "description"
           ]
         },
         {
@@ -501,7 +502,7 @@
       "name": "Wigan & Orrell Archers",
       "sport": "archery",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Wigan & Orrell Archers is a target archery club established in 1987. Its members shoot at outdoor venues in summer and an indoor venue in winter.",
       "imagePath": null,
       "profilePath": "html/archery/wigan-orrell-archers.html",
       "coordinates": null,
@@ -531,7 +532,8 @@
           "supports": [
             "onlineProfile",
             "contact",
-            "training"
+            "training",
+            "description"
           ]
         }
       ],
@@ -722,7 +724,7 @@
       "name": "Bolton United Harriers & Athletics Club",
       "sport": "athletics",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Bolton United Harriers & Athletics Club provides junior and senior athletics membership, with track training based at Leverhulme Park in Bolton.",
       "imagePath": null,
       "profilePath": "html/athletics/bolton-united-harriers-athletics-club.html",
       "coordinates": null,
@@ -757,7 +759,8 @@
         {
           "url": "https://www.boltonunitedharriers.co.uk/membership/",
           "supports": [
-            "contact"
+            "contact",
+            "description"
           ]
         }
       ],
@@ -1206,7 +1209,7 @@
       "name": "Rochdale Harriers & AC",
       "sport": "athletics",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Rochdale Harriers & AC welcomes junior and senior runners for social running and competition. Members take part in road, track, trail, fell and cross-country running.",
       "imagePath": null,
       "profilePath": "html/athletics/rochdale-harriers-ac.html",
       "coordinates": null,
@@ -1247,6 +1250,12 @@
           "url": "https://rochdaleharriers.org.uk/training-schedule/",
           "supports": [
             "training"
+          ]
+        },
+        {
+          "url": "https://rochdaleharriers.org.uk/thinking-of-joining/",
+          "supports": [
+            "description"
           ]
         }
       ],
@@ -2912,11 +2921,18 @@
       "imagePath": null,
       "profilePath": "html/basketball/preston-basketball-club.html",
       "coordinates": null,
-      "sources": [],
+      "sources": [
+        {
+          "url": "https://www.prestonbasketball.com/",
+          "supports": [
+            "description"
+          ]
+        }
+      ],
       "name": "Preston Basketball Club",
       "sport": "basketball",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Preston Basketball Club, presented on its website as City of Preston Basketball, has senior, junior and women’s teams based in Preston.",
       "genderSpecific": true,
       "genderEligibility": "Men",
       "participatesInLeague": true,
@@ -3535,7 +3551,7 @@
       "name": "Stockport Clarion Cycling Club",
       "sport": "cycling",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Stockport Clarion Cycling Club was established in 1899. Its activities include road and track cycling, mountain biking, gravel riding, cyclo-cross and time trials.",
       "imagePath": null,
       "profilePath": "html/cycling/stockport-clarion-cycling-club.html",
       "coordinates": null,
@@ -3563,7 +3579,8 @@
         {
           "url": "https://stockport-clarion.org.uk/",
           "supports": [
-            "onlineProfile"
+            "onlineProfile",
+            "description"
           ]
         },
         {
@@ -3589,7 +3606,7 @@
       "name": "Stockport Community Cycling Club",
       "sport": "cycling",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Stockport Community Cycling Club organises leisurely group rides for a range of ages and cycling abilities. Riders under 18 must be accompanied by a parent or responsible adult.",
       "imagePath": null,
       "profilePath": "html/cycling/stockport-community-cycling-club.html",
       "coordinates": null,
@@ -3624,6 +3641,12 @@
           "url": "https://www.stockport.gov.uk/directories/entry/stockport-community-cycling-club",
           "supports": [
             "contact"
+          ]
+        },
+        {
+          "url": "https://www.sccc.co.uk/",
+          "supports": [
+            "description"
           ]
         }
       ],
@@ -4506,7 +4529,7 @@
       "name": "Bowdon Club",
       "sport": "hockey",
       "beginnerFriendly": null,
-      "description": null,
+      "description": "Bowdon Club is a multi-sport club on South Downs Road in Altrincham. It offers hockey alongside cricket, squash and racketball, with opportunities for both beginners and competitive players.",
       "imagePath": null,
       "profilePath": "html/hockey/bowdon-club.html",
       "coordinates": null,
@@ -4534,7 +4557,8 @@
         {
           "url": "https://bowdonclub.com/",
           "supports": [
-            "onlineProfile"
+            "onlineProfile",
+            "description"
           ]
         },
         {

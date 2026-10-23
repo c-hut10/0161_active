@@ -6,21 +6,20 @@
   <meta name="description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <title>Register your club | 0161 Active</title>
   <link rel="stylesheet" href="../css/site-base.css">
-  <link rel="stylesheet" href="../css/register.css?v=20261009-form-errors">
+  <link rel="stylesheet" href="../css/register.css?v=20261022-cleanup">
   <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
-  <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
+  <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
   <link rel="stylesheet" href="/css/accessibility.css">
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
-  <link rel="stylesheet" href="/css/club-favourites.css">
-  <script type="module" src="/js/club-favourites.js"></script>
-  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
   <script src="/js/page-transitions.js?v=20261020"></script>
+  <link rel="stylesheet" href="/css/site-background.css?v=20261023">
+  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
   <link rel="canonical" href="https://0161active.co.uk/html/register.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -44,7 +43,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://0161active.co.uk/html/register.html#page","url":"https://0161active.co.uk/html/register.html","name":"Register your club | 0161 Active","description":"Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"}}]}</script>
   <!-- /Structured data -->
 </head>
-<body>
+<body class="site-grid">
 <a class="skip-link" href="#main-content">Skip to main content</a>
   <div data-site-nav><header class="site-navbar">
     <div class="site-navbar__bar">
@@ -225,10 +224,7 @@
             <p class="preview-profile-eyebrow" id="preview-eyebrow">YOUR SPORT · YOUR AREA</p>
             <div class="preview-profile-heading__row">
               <h2 id="preview-name">Your club name</h2>
-              <div class="preview-profile-actions" aria-label="Club actions preview">
-                <span class="preview-action preview-action--secondary" id="preview-contact-action" aria-disabled="true">CONTACT</span>
-                <span class="preview-action" id="preview-online-action" aria-disabled="true">WEBSITE</span>
-              </div>
+              <div class="preview-profile-actions" id="preview-actions" aria-label="Club actions preview"></div>
             </div>
           </header>
           <section class="preview-overview" aria-label="Club profile details preview">
@@ -237,17 +233,8 @@
               <span>CLUB PHOTO</span>
             </div>
             <div class="preview-copy">
-              <dl class="preview-details">
-                <div><dt>SPORT</dt><dd id="preview-sport">Your sport</dd></div>
-                <div id="preview-gender-row" hidden><dt>GENDER ELIGIBILITY</dt><dd id="preview-gender"></dd></div>
-                <div id="preview-beginner-row" hidden><dt>BEGINNER FRIENDLY</dt><dd id="preview-beginner"></dd></div>
-                <div id="preview-leagues-row" hidden><dt>LEAGUE(S)</dt><dd id="preview-leagues"></dd></div>
-                <div><dt>AREA</dt><dd id="preview-area">Your area</dd></div>
-                <div><dt>COST</dt><dd id="preview-cost">Unknown</dd></div>
-                <div id="preview-membership-row" hidden><dt>OPTIONAL MEMBERSHIP</dt><dd id="preview-membership"></dd></div>
-                <div id="preview-tasters-row" hidden><dt>TASTER SESSION(S)</dt><dd id="preview-tasters"></dd></div>
-                <div id="preview-booking-row" hidden><dt>BOOKING</dt><dd>Required</dd></div>
-              </dl>
+              <!-- The shared profile renderer supplies optional rows and their public wording. -->
+              <dl class="preview-details" id="preview-details"></dl>
             </div>
           </section>
           <section class="preview-about" aria-labelledby="preview-about-title">
@@ -307,6 +294,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script type="module" src="../js/register.js?v=20261015-row-menus"></script>
+  <script type="module" src="../js/register.js?v=20261022-cleanup"></script>
 </body>
 </html>

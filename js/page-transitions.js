@@ -15,4 +15,11 @@
   // These events run only in supporting browsers; other browsers keep ordinary page loads.
   window.addEventListener('pageswap', respectMotionPreference);
   window.addEventListener('pagereveal', respectMotionPreference);
+  /* Homepage loops start after navigation, avoiding motion both inside and after the page snapshot. */
+  window.addEventListener('pagereveal', event => {
+    if (!event.viewTransition || !document.querySelector('#club-gallery')) return;
+    root.classList.add('gallery-navigating');
+    const resume = () => root.classList.remove('gallery-navigating');
+    event.viewTransition.finished.then(resume, resume);
+  });
 })();

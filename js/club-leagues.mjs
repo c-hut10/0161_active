@@ -43,16 +43,6 @@ export function leagueProfileLabel(league) {
   return league.coverage === 'internal' ? `${league.name} · Internal` : league.name;
 }
 
-/* Profile labels: show each league once; team identities belong in league rosters. */
-export function leagueNamesLabel(leagues) {
-  const names = new Map();
-  normaliseLeagues(leagues).forEach(league => {
-    const key = league.name.toLocaleLowerCase('en-GB');
-    if (!names.has(key)) names.set(key, leagueProfileLabel(league));
-  });
-  return [...names.values()].join(' · ');
-}
-
 /* League routes belong to their sport; no additional index pages are introduced. */
 export function leaguePageUrl(sport, name) {
   return `/html/leagues/${sportSlug(sport)}/${sportSlug(name) || 'league'}.html`;
