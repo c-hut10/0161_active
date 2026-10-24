@@ -1,4 +1,4 @@
-import { canonicalArea, displaySportName, formatPrice, formatMembership, clubSports, sportSlug } from './club-formatting.mjs';
+import { canonicalArea, displaySportName, formatPrice, formatMembership, clubSports, sportSlug, timeMinutes } from './club-formatting.mjs';
 export { PRICE_TYPE_LABELS, PRICE_TYPE_ORDER, priceType } from './club-formatting.mjs';
 import { priceType } from './club-formatting.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
@@ -33,4 +33,13 @@ export function validCoordinates(point) {
   return point && typeof point.lat === 'number' && typeof point.lon === 'number'
     && Number.isFinite(point.lat) && Number.isFinite(point.lon)
     && point.lat >= -90 && point.lat <= 90 && point.lon >= -180 && point.lon <= 180;
+}
+
+/* Clock windows are shared by the calendar and homepage map, including midnight. */
+export function matchesSessionStartTime(session, preferred = '', flexibility = 0) {
+  if (!/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(preferred)) return true;
+  const minutes = timeMinutes(session.startTime);
+  if (minutes === null) return false;
+  const difference = Math.abs(minutes - timeMinutes(preferred));
+  return Math.min(difference, 1440 - difference) <= Number(flexibility);
 }

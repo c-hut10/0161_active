@@ -33,12 +33,14 @@ function copyPublicTree(directory, extensions) {
 copyPublicTree('html', ['.html']);
 copyPublicTree('css', ['.css']);
 copyPublicTree('js', ['.js', '.mjs']);
+// Leaflet is self-hosted with its styles, icons and redistribution notice.
+copyPublicTree('vendor', ['.js', '.css', '.png', '.txt']);
 // img contains live assets only; source artwork and retired drafts stay in archive/artwork.
 copyPublicTree('img', ['.avif', '.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2']);
 
 /* Browser data is explicitly public; caches and raw exports are not deployment assets. */
 fs.mkdirSync(path.join(output, 'data'));
-for (const file of ['clubs.json', 'sports.json']) {
+for (const file of ['clubs.json', 'sports.json', 'postcode-sectors.json', 'map-wards.json']) {
   fs.copyFileSync(path.join(root, 'data', file), path.join(output, 'data', file));
 }
 console.log('Prepared dist: public pages, assets, club data and Netlify routing/security files.');

@@ -5,6 +5,8 @@
 /html/running/* /html/run-club/:splat 301!
 /img/running/* /img/run-club/:splat 301!
 # Retired pages: preserve existing links with redirects to their current destinations.
+/html/your-clubs.html /html/calendar.html 301!
+/html/your-clubs /html/calendar.html 301!
 /html/about.html / 301!
 /html/resources.html /html/sports/directory.html 301!
 /html/sports/running.html /html/sports/run-club.html 301!

@@ -40,6 +40,7 @@ export function renderWeekGrid(entries) {
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <div class="week-session__top"><time>${escapeHtml(formatTime(session))}</time>${frequencyToggle(session)}</div>
             ${eligibilityMarkup(session)}
+            ${session.distanceText ? `<span class="session-distance">${escapeHtml(session.distanceText)}</span>` : ''}
             ${sessionTerms(club, session).map(term => `<span class="session-subtitle">${escapeHtml(term)}</span>`).join('')}
             <span class="week-session__area">${escapeHtml(session.area || 'Area to confirm')}</span>
             ${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}

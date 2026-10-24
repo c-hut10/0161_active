@@ -3,7 +3,7 @@ import { clubVerificationBadge, clubConfirmation } from './club-verification.mjs
 import { sessionTitle, sessionAddress, sessionAudience, sessionScheduleNote, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
 import { favouriteButton } from './club-favourites-renderer.mjs';
-import { clubProfileActions, renderProfileDetails } from './club-profile-details.mjs';
+import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs';
 
 /* Missing About details: inform visitors and give the club a direct route to supply an update. */
 function renderEmptyAbout() {
@@ -102,6 +102,10 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         ? `<p>${escapeHtml(club.description)}</p>`
         : club.additionalInformation?.trim() ? '' : renderEmptyAbout()}
       ${club.additionalInformation?.trim() ? `<p>${escapeHtml(club.additionalInformation)}</p>` : ''}
+    </section>
+    <section class="profile-about profile-cost" aria-labelledby="profile-cost-title">
+      <h2 id="profile-cost-title">${profileCostHeading(club)}</h2>
+      ${renderProfileCost(club)}
     </section>`;
   return { html, title: `${club.name} | 0161 Active` };
 }

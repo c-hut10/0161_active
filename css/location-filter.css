@@ -1,0 +1,96 @@
+/* Local postcode lookup: ordinary controls with the same palette as the existing filters. */
+.calendar-location-filter { display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin:0 0 20px; padding:18px; border:1px solid var(--cal-line); }
+.calendar-location-filter label { display:grid; gap:8px; color:var(--cal-grey); font-size:12px; font-weight:700; }
+.calendar-location-filter input, .calendar-location-filter button { box-sizing:border-box; min-height:44px; padding:10px 12px; border:1px solid var(--cal-line); border-radius:0; background:var(--cal-black); color:var(--cal-paper); font:inherit; }
+.calendar-location-filter input { width:180px; text-transform:uppercase; }
+.calendar-location-filter button { cursor:pointer; }
+.calendar-location-filter [type="submit"] { background:var(--cal-lime); color:var(--cal-black); font-weight:700; }
+.calendar-location-filter button:disabled { opacity:.5; cursor:wait; }
+.calendar-location-filter :focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
+.calendar-location-filter p { flex-basis:100%; margin:0; color:var(--cal-grey); font-size:12px; line-height:1.6; }
+.calendar-location-filter input[aria-invalid="true"] { border-color:#faecd2; outline:2px solid #faecd2; }
+
+/* Leaflet supplies geographic context; filtered sector coverage remains a separate layer. */
+.calendar-sector-map { margin:28px 0 36px; padding:20px; border:1px solid var(--cal-line); }
+.calendar-sector-map h2 { margin:0 0 12px; font-size:25px; }
+.calendar-sector-map > p { color:var(--cal-grey); font-size:13px; line-height:1.6; }
+#calendar-sector-map { display:block; width:100%; height:clamp(280px, 55vh, 480px); background:#202220; border:1px solid var(--cal-line); isolation:isolate; z-index:0; }
+/* Override the legacy page-wide div border rule only for map controls and the frame. */
+.calendar-page #calendar-sector-map { border:1px solid var(--cal-line); }
+#calendar-sector-map .leaflet-control-attribution { color:#333; background:rgba(255,255,255,.94); font-size:11px; }
+#calendar-sector-map .leaflet-control-attribution a { color:#174b66; }
+#calendar-sector-map .leaflet-popup-content { color:#202220; font-size:13px; line-height:1.6; }
+#calendar-sector-map .leaflet-popup-content a { color:#234d00; }
+#calendar-sector-map .leaflet-popup-content ul { padding-left:18px; }
+#calendar-sector-map .leaflet-control-zoom a { color:#202220; background:#fff; }
+#calendar-sector-map .leaflet-interactive:focus-visible { outline:2px solid #111211; }
+/* Fixed ward hit areas stay underneath a noninteractive retro-style bulge. */
+#calendar-sector-map .ward-hover-visual { pointer-events:none; transform-box:fill-box; transform-origin:center; animation:ward-bulge 480ms cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes ward-bulge { from { opacity:0; transform:scale(1); } to { opacity:1; transform:scale(1.035); } }
+@media(prefers-reduced-motion:reduce) {
+  #calendar-sector-map .ward-hover-visual { animation:none; transform:none; }
+}
+.a11y-reduce-motion #calendar-sector-map .ward-hover-visual { animation:none; transform:none; }
+.calendar-map-credit a { color:var(--cal-lime); text-underline-offset:3px; }
+.calendar-sector-map .calendar-map-credit { font-size:11px; }
+@media (max-width:560px) {
+  .calendar-location-filter { padding:14px; }
+  .calendar-location-filter label { flex:1 1 100%; }
+  .calendar-location-filter input { width:100%; }
+  .calendar-location-filter button { flex:1; }
+  .calendar-sector-map { padding:12px; }
+}
+/* Greyscale only the background tiles; matching-club overlays retain their green. */
+#calendar-sector-map .leaflet-tile-pane { filter:grayscale(1); }
+#calendar-sector-map .leaflet-tile { filter:none; float:none; }
+
+/* One-mile radius steps, with a visible current value and native keyboard/touch support. */
+.calendar-location-filter .calendar-radius-control { width:min(100%, 300px); min-width:220px; }
+.calendar-radius-control > span { display:flex; justify-content:space-between; gap:20px; }
+.calendar-radius-control output { color:var(--cal-paper); font-variant-numeric:tabular-nums; }
+.calendar-location-filter input[type="range"] { width:100%; min-height:44px; padding:0; border:0; accent-color:var(--cal-lime); cursor:pointer; }
+.calendar-radius-scale { color:var(--cal-grey); font-size:11px; font-weight:400; }
+
+/* Homepage map follows Movement for everyone in normal document flow. */
+.home-reach-map { --cal-black:#111211; --cal-line:#454945; --cal-grey:#a5aaa2; --cal-paper:#faecd2; --cal-lime:#dffc3a; box-sizing:border-box; width:60vw; margin:28px auto 36px; padding:clamp(18px, 4vw, 40px); color:var(--cal-paper); background:var(--cal-black); font-family:Arial, Helvetica, sans-serif; }
+.home-reach-map #calendar-sector-map { height:50vh; }
+.home-reach-map #calendar-map-heading { color:var(--cal-lime); }
+@media(max-width:768px) { .home-reach-map { width:calc(100% - 36px); } }
+
+/* Filters sit over the map; the compact toggle works without a separate results list. */
+.home-map-frame { position:relative; }
+.home-map-filter-panel { position:absolute; top:12px; left:54px; z-index:2; width:290px; max-width:calc(100% - 72px); max-height:calc(100% - 24px); overflow:auto; border:1px solid var(--cal-line); background:var(--cal-black); box-sizing:border-box; }
+.home-map-filter-panel > .home-map-filter-toggle { display:block; width:100%; min-height:44px; padding:12px 14px; border:0; background:var(--cal-black); color:var(--cal-paper); cursor:pointer; font:700 14px Arial,sans-serif; text-align:left; }
+.home-map-filter-panel .calendar-location-filter { display:grid; padding:14px; margin:0; border:0; gap:14px; }
+.home-map-filter-panel .calendar-location-filter label { min-width:0; width:100%; }
+.home-map-filter-panel .calendar-location-filter input:not([type="range"]), .home-map-filter-fields select { width:100%; min-width:0; }
+.home-map-filter-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.home-map-filter-fields > * { min-width:0; }
+.home-map-location-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:14px; }
+.home-map-location-fields > * { min-width:0; }
+.home-map-location-fields .calendar-radius-control > span { flex-wrap:wrap; gap:6px; }
+.home-map-filter-fields select { min-height:44px; border:1px solid var(--cal-line); background:var(--cal-black); color:var(--cal-paper); font:inherit; }
+.home-map-filter-panel .calendar-radius-control { min-width:0; }
+.home-map-filter-panel .calendar-postcode-help { color:var(--cal-grey); font-size:11px; font-weight:400; line-height:1.5; }
+/* Default values are grey; chosen values, flexibility and distance remain green. */
+.home-map-filter-panel .filter-picker__trigger,
+.home-map-filter-panel .calendar-location-filter input:not([type="range"]) { color:var(--cal-grey); }
+.home-map-filter-panel .is-filter-selected .filter-picker__trigger,
+.home-map-filter-panel .calendar-location-filter input.is-filter-selected,
+.home-map-filter-panel .calendar-radius-control output { color:var(--cal-lime); }
+.home-map-filter-panel:not(.is-open) { width:auto; }
+.home-map-filter-panel [hidden] { display:none!important; }
+@media(max-width:1040px) {
+  /* No outer box: permanent filters follow the full-width map in normal flow. */
+  .calendar-sector-map.home-reach-map { width:100%; max-width:none; margin:28px 0 36px; padding:0; border:0; background:transparent; }
+  .home-reach-map > h2, .home-reach-map > p { margin-left:18px; margin-right:18px; }
+  .home-reach-map .home-map-frame { width:100vw; margin-left:calc(50% - 50vw); }
+  .home-reach-map #calendar-sector-map { box-sizing:border-box; border:0; }
+  .home-map-filter-panel,
+  .home-map-filter-panel:not(.is-open) { position:relative; top:auto; bottom:auto; left:auto; right:auto; width:100%; height:auto; max-width:none; max-height:none; overflow:visible; padding:0; border:0; }
+  .home-map-filter-panel > .home-map-filter-toggle { display:none; }
+  .home-map-filter-panel .calendar-location-filter { position:static; max-height:none; box-sizing:border-box; overflow:visible; background:var(--cal-black); }
+  .home-map-filter-panel .filter-field--open,
+  .home-map-filter-panel .filter-picker { position:static; }
+  .home-map-filter-panel .filter-picker__options { position:static; max-height:50vh; margin-top:4px; }
+}

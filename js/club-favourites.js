@@ -1,19 +1,13 @@
 /* Browser-only favourites: persist club IDs only after an explicit save action. */
-const key = '0161active-saved-clubs';
+import { savedClubsKey as key, readSavedClubs } from './saved-clubs.mjs';
 const noticeKey = '0161active-saved-clubs-notice';
-const savedPage = document.querySelector('#your-clubs');
 let ids = new Set();
 let storageError = false;
-let clubs = null;
-let renderSportClubRows;
 let noticeTimer;
 function readSaved() {
-  try {
-    const value = JSON.parse(localStorage.getItem(key) || '[]');
-    if (!Array.isArray(value) || value.some(id => typeof id !== 'string')) throw new Error('Invalid saved list');
-    ids = new Set(value);
-    storageError = false;
-  } catch { ids = new Set(); storageError = true; }
+  const saved = readSavedClubs();
+  ids = saved.ids;
+  storageError = saved.error;
 }
 readSaved();
 const announcement = document.createElement('p');
@@ -26,7 +20,7 @@ const storageNotice = document.createElement('section');
 storageNotice.className = 'club-favourites-storage-notice';
 storageNotice.setAttribute('aria-label', 'Saved clubs and browser storage');
 storageNotice.hidden = true;
-storageNotice.innerHTML = `<p role="status">Club saved. Your saved clubs are stored only in this browser. You can remove them at any time. <a href="/html/your-clubs.html">Your Clubs</a> · <a href="/html/privacy.html#cookies">About storage</a></p><button type="button" aria-label="Dismiss saved clubs notice">Got it</button>`;
+storageNotice.innerHTML = `<p role="status">Club saved. Your saved clubs are stored only in this browser. You can remove them at any time. <a href="/html/calendar.html">The Calendar</a> · <a href="/html/privacy.html#cookies">About storage</a></p><button type="button" aria-label="Dismiss saved clubs notice">Got it</button>`;
 document.body.append(storageNotice);
 storageNotice.querySelector('button').addEventListener('click', () => {
   storageNotice.hidden = true;
@@ -50,8 +44,8 @@ function announce(message, linkToClubs = false) {
   /* Save confirmations provide a direct route to the collection without inserting club data as HTML. */
   if (linkToClubs) {
     const link = document.createElement('a');
-    link.href = '/html/your-clubs.html';
-    link.textContent = 'Your Clubs';
+    link.href = '/html/calendar.html';
+    link.textContent = 'The Calendar';
     announcement.append(' ', link);
   }
   announcement.hidden = false;
@@ -80,6 +74,7 @@ function persist(next) {
     else localStorage.removeItem(key);
     ids = next;
     storageError = false;
+    window.dispatchEvent(new Event('saved-clubs-changed'));
     return true;
   } catch {
     announce('Your browser could not save this change. Check its site-storage settings and try again.');
@@ -87,111 +82,6 @@ function persist(next) {
   }
 }
 
-/* Personal collection: reuse existing club rows, with loading, empty and retry states. */
-function renderSavedPage() {
-  if (!savedPage) return;
-  const status = savedPage.querySelector('#saved-clubs-status');
-  const list = savedPage.querySelector('#saved-clubs-list');
-  if (storageError) {
-    status.textContent = 'Your saved clubs could not be read. Check browser storage permissions, or clear site data in your browser settings to reset it.';
-    list.replaceChildren();
-    return;
-  }
-  const selected = (clubs || []).filter(club => ids.has(club.id)).sort((a, b) => a.name.localeCompare(b.name, 'en-GB'));
-  savedPage.querySelector('#saved-count').textContent = `${selected.length} SAVED ${selected.length === 1 ? 'CLUB' : 'CLUBS'}`;
-  list.innerHTML = renderSportClubRows(selected);
-  status.textContent = selected.length
-    ? (ids.size > selected.length ? 'Some saved clubs are no longer in the directory.' : '')
-    : 'No saved clubs yet. Select the star on a club profile or listing to start your collection.';
-  /* Saved-list rows: retain the profile link and place an accessible bin at the far right. */
-  list.querySelectorAll('[data-favourite-id]').forEach(button => {
-    const row = button.closest('.sport-club-row');
-    const link = row.querySelector('.sport-club-link');
-    const actions = document.createElement('div');
-    actions.className = 'saved-row-actions';
-    link.replaceWith(actions);
-    actions.append(link);
-    button.dataset.removeFavourite = button.dataset.favouriteId;
-    button.removeAttribute('data-favourite-id');
-    button.removeAttribute('aria-pressed');
-    button.className = 'saved-club-bin';
-    button.hidden = false;
-    button.title = 'Remove from favourites';
-    button.setAttribute('aria-label', `Remove ${button.dataset.clubName} from favourites`);
-    button.setAttribute('aria-haspopup', 'dialog');
-    button.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg>';
-    actions.append(button);
-  });
-}
-async function loadSavedPage() {
-  if (!savedPage) return;
-  try {
-    // Ordinary save buttons need neither the full directory nor its list renderer.
-    const [directory, renderer] = await Promise.all([
-      import('./site-data.mjs').then(module => module.loadClubDirectory()),
-      import('./sport-glossary-renderer.mjs')
-    ]);
-    clubs = directory.clubs;
-    renderSportClubRows = renderer.renderSportClubRows;
-    renderSavedPage();
-  } catch {
-    const status = savedPage.querySelector('#saved-clubs-status');
-    status.textContent = 'The club directory could not be loaded. Your saved selections have been kept. ';
-    const retry = document.createElement('button');
-    retry.type = 'button';
-    retry.className = 'club-favourite';
-    retry.textContent = 'Try again';
-    retry.addEventListener('click', () => {
-      retry.disabled = true;
-      status.textContent = 'Loading your saved clubs…';
-      loadSavedPage();
-    });
-    status.append(retry);
-  }
-}
-/* Your Clubs alone needs the removal dialog and roster interactions. */
-if (savedPage) {
-  let pendingRemoval = null;
-  const removalDialog = document.createElement('dialog');
-  removalDialog.className = 'saved-removal-dialog';
-  removalDialog.setAttribute('aria-labelledby', 'saved-removal-title');
-  removalDialog.setAttribute('aria-describedby', 'saved-removal-text');
-  removalDialog.innerHTML = `<h2 id="saved-removal-title">Remove favourite?</h2><p id="saved-removal-text"></p><p data-removal-error role="status"></p><div><button type="button" data-cancel-removal autofocus>Cancel</button><button type="button" data-confirm-removal>Remove</button></div>`;
-  document.body.append(removalDialog);
-  removalDialog.querySelector('[data-cancel-removal]').addEventListener('click', () => removalDialog.close());
-  removalDialog.addEventListener('close', () => {
-    const button = [...savedPage.querySelectorAll('[data-remove-favourite]')].find(item => item.dataset.removeFavourite === pendingRemoval?.id)
-      || savedPage.querySelector('[data-remove-favourite], a');
-    button?.focus({ preventScroll: true });
-  });
-  removalDialog.querySelector('[data-confirm-removal]').addEventListener('click', () => {
-    if (!pendingRemoval) return;
-    readSaved();
-    if (storageError) {
-      removalDialog.querySelector('[data-removal-error]').textContent = 'Saved clubs could not be read. Check browser storage permissions and try again.';
-      return;
-    }
-    const next = new Set(ids);
-    next.delete(pendingRemoval.id);
-    if (!persist(next)) {
-      removalDialog.querySelector('[data-removal-error]').textContent = 'Your browser could not remove this favourite. Please try again.';
-      return;
-    }
-    renderSavedPage();
-    removalDialog.close();
-    announce(`${pendingRemoval.name} removed from your favourites.`);
-  });
-  savedPage.addEventListener('click', event => {
-    if (!(event.target instanceof Element)) return;
-    const bin = event.target.closest('[data-remove-favourite]');
-    if (!bin) return;
-    pendingRemoval = { id: bin.dataset.removeFavourite, name: bin.dataset.clubName };
-    removalDialog.querySelector('#saved-removal-text').textContent = `Remove ${pendingRemoval.name} from your favourites? This removes it only from your saved list.`;
-    removalDialog.querySelector('[data-removal-error]').textContent = '';
-    removalDialog.showModal();
-  });
-  loadSavedPage();
-}
 document.addEventListener('click', event => {
   if (!(event.target instanceof Element)) return;
   const button = event.target.closest('[data-favourite-id]');
@@ -208,15 +98,14 @@ document.addEventListener('click', event => {
   if (removing) next.delete(id);
   else next.add(id);
   if (!persist(next)) return;
-  announce(removing ? 'Club removed from Your Clubs.' : 'Club saved in this browser.', !removing);
+  announce(removing ? 'Club removed from The Calendar.' : 'Club saved in this browser.', !removing);
   enhance();
   if (!removing) showFirstSaveNotice();
 });
 window.addEventListener('storage', event => {
   if (event.key !== key && event.key !== null) return;
   readSaved();
-  if (savedPage && clubs) renderSavedPage();
-  else enhance();
+  enhance();
 });
 enhance();
 // Only filtered club lists redraw controls; avoid observing unrelated page animations.

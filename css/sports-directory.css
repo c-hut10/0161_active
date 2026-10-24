@@ -1,10 +1,5 @@
 /* Sport index: group the full catalog alphabetically into compact, responsive directory cards. */
 .sports-directory-page { padding-bottom: 100px; }
-/* Mobile directory shortcut: separate saved clubs from the searchable sport catalog. */
-.sports-directory-page .sports-directory-saved { display:none; }
-@media (max-width:1040px) {
-  .sports-directory-page .sports-directory-saved { display:flex; margin-bottom:28px; }
-}
 .sports-directory-card__leagues { font-size:9px; line-height:1.4; }
 .sports-directory-controls {
   display: grid;

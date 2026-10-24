@@ -1,7 +1,7 @@
 import { formatPostcodes, escapeHtml, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { resolveClubAreas, clubTrainingAreas } from './club-areas.mjs';
 import { CLUB_ANSWER_FIELDS, PAID_PRICE_TYPES, clubAnswers, submissionCsv, submissionReview, submissionSummary } from './club-submission.mjs';
-import { clubProfileActions, renderProfileDetails } from './club-profile-details.mjs';
+import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs';
 import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
 (() => {
@@ -246,6 +246,8 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     ].join('');
     put('#preview-name', data.name, 'Your club name');
     put('#preview-eyebrow', [data.sport, areaLabel].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
+    document.querySelector('#preview-cost-title').textContent = profileCostHeading(previewClub);
+    document.querySelector('#preview-cost').innerHTML = renderProfileCost(previewClub);
     put('#preview-description', data.description, 'Your club description will appear here.');
     put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Training to be confirmed');
     put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');

@@ -157,8 +157,9 @@
 .week-head > div button:hover { color: var(--cal-lime); }
 .calendar-page .week-row { min-height: 102px; border-bottom: 1px solid var(--cal-line); }
 .week-club { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; padding: 12px 14px 12px 0; }
-.week-club a { overflow: hidden; color: var(--cal-paper); font-size: 16px; font-weight: 700; text-decoration: none; text-overflow: ellipsis; }
 .week-club a:hover { color: var(--cal-lime); }
+.week-club a { overflow: hidden; color: var(--cal-paper); font-size: 16px; font-weight: 700; text-decoration: none; text-overflow: ellipsis; }
+
 .week-club__title { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .week-club__title a { flex: 1; box-sizing: border-box; min-width: 0; min-height: 44px; padding: 12px 0; }
 .club-calendar-control { position: relative; flex: 0 0 44px; }
@@ -193,6 +194,7 @@
 .session-title { display: block; margin-bottom: 5px; color: var(--cal-paper); font-size: 14px; line-height: 1.4; white-space: normal; overflow-wrap: anywhere; }
 /* Session titles: link to the profile timetable while retaining the calendar's text styling. */
 .session-title-link { display:inline-flex; align-items:center; min-height:44px; color:inherit; text-decoration:underline; text-underline-offset:3px; }
+
 .session-title-link:hover { color:var(--cal-lime); }
 .session-title-link:focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
 .session-audience { display: block; margin-top: 4px; color: var(--cal-grey); font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
@@ -219,8 +221,9 @@
 .agenda-event { display: grid; grid-template-columns: minmax(104px, .45fr) minmax(180px, 1fr) minmax(150px, .9fr) minmax(110px, .5fr); align-items: center; gap: 20px; min-height: 106px; border-bottom: 1px solid var(--cal-line); }
 .agenda-time { color: var(--cal-lime); font-size: 16px; font-weight: 700; white-space: nowrap; }
 .agenda-day { display: block; margin-bottom: 4px; color: var(--cal-paper); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; white-space: normal; }
-.agenda-club { display: flex; min-width: 0; min-height: 44px; align-items: center; color: var(--cal-paper); font-size: 18px; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
 .agenda-club:hover { color: var(--cal-lime); }
+.agenda-club { display: flex; min-width: 0; min-height: 44px; align-items: center; color: var(--cal-paper); font-size: 18px; font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+
 .agenda-details { min-width: 0; color: var(--cal-grey); font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; }
 .agenda-details span { display: block; }
 .agenda-details .session-frequency { margin-top: 6px; }
@@ -311,3 +314,6 @@
   .day-nav-button::after { transition: none; }
   .calendar-view.is-entering { animation: none; }
 }
+
+/* Session estimates remain visible beside the schedule. */
+.session-distance { color:var(--cal-lime); font-size:12px; }

@@ -120,7 +120,7 @@ const titles = {
   'html/contact.html': 'Contact us | 0161 Active',
   'html/sports/glossary.html': 'Find sports clubs | 0161 Active'
 };
-const excluded = new Set(['html/your-clubs.html', '404.html', 'html/privacy.html', 'html/sports/glossary.html']);
+const excluded = new Set(['404.html', 'html/privacy.html', 'html/sports/glossary.html']);
 
 /* Sport pages: generate complete listings and metadata using the same rows as browser filters. */
 const glossaryTemplate = fs.readFileSync(path.join(root, 'templates/sport-glossary.inc'), 'utf8');
@@ -246,18 +246,10 @@ for (const file of htmlFiles(root)) {
       `$1${sports.length} SPORTS · ${visibleClubCount(sports, data.clubs)} CLUBS ON RECORD</p>`);
   }
   if (relative === 'html/calendar.html') {
-    const entries = [...data.clubs].sort((a, b) => a.name.localeCompare(b.name)).map(club => {
-      const sessions = club.sessions || [];
-      const sessionsByDay = new Map();
-      for (const session of sessions) {
-        const day = Number(session.dayOfWeek);
-        if (!sessionsByDay.has(day)) sessionsByDay.set(day, []);
-        sessionsByDay.get(day).push(session);
-      }
-      return { club, sessions, sessionsByDay };
-    });
+    // Saved IDs exist only in the visitor's browser; never ship an all-club fallback.
+    const entries = [];
     source = source.replace(/(<div class="week-grid" id="week-grid"[^>]*>)[\s\S]*?(<\/div>\s*<\/section>)/,
-      (_, opening, closing) => `${opening}${renderWeekGrid(entries)}${closing}`);
+      (_, opening, closing) => `${opening}<p class="agenda-empty">Your calendar shows only favourited clubs. Enable JavaScript to load your saved clubs.</p>${closing}`);
     source = source.replace(/(<p[^>]*id="result-count"[^>]*>)[\s\S]*?<\/p>/,
       `$1${entries.length} clubs · ${entries.reduce((sum, entry) => sum + entry.sessions.length, 0)} sessions</p>`);
     source = source.replace(/(<p[^>]*id="week-overline"[^>]*>)[\s\S]*?<\/p>/, `$1ALL SPORTS · ${entries.length} CLUBS</p>`);
@@ -272,10 +264,10 @@ for (const file of htmlFiles(root)) {
   } else {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
-  /* Favourites belong only on club lists, profiles and Your Clubs, including empty filtered lists. */
+  /* Favourites belong only on club lists and profiles, including empty filtered lists. */
   source = source.replace(/\s*<link\b[^>]*href="\/css\/club-favourites\.css(?:\?[^"]*)?"[^>]*>/g, '')
     .replace(/\s*<script\b[^>]*src="\/js\/club-favourites\.js(?:\?[^"]*)?"[^>]*>\s*<\/script>/g, '');
-  const needsFavourites = source.includes('data-favourite-id=') || /\bid="(?:your-clubs|club-list)"/.test(source);
+  const needsFavourites = source.includes('data-favourite-id=') || /\bid="club-list"/.test(source);
   const sharedAssets = [
     ['href="/css/site-background.css?v=20261023"', '<link rel="stylesheet" href="/css/site-background.css?v=20261023">'],
     // Shared navigation motion is included on current pages and every future generated template.
@@ -320,8 +312,7 @@ for (const file of htmlFiles(root)) {
   const club = data.clubs.find(record => record.profilePath === relative);
   const sport = sports.find(record => relative === `html/sports/${record.slug}.html`);
   const league = leaguePages.get(relative);
-  const listedClubs = relative === 'html/calendar.html' ? [...data.clubs]
-    : sport ? data.clubs.filter(record => clubSports(record).includes(sport.slug) && record.hiddenFromSportList !== true) : [];
+  const listedClubs = sport ? data.clubs.filter(record => clubSports(record).includes(sport.slug) && record.hiddenFromSportList !== true) : [];
   listedClubs.sort((a, b) => a.name.localeCompare(b.name));
   const structured = siteStructuredData({
     origin: base, relative, club, clubs: listedClubs,

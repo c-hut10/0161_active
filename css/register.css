@@ -78,7 +78,7 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 .preview-about h3 { margin:0 0 7px; color:var(--reg-lime); font-size:10px; font-weight:800; letter-spacing:.1em; }
 .preview-about p { width:100%; margin:0; color:#a5aaa2; font-size:9px; line-height:1.55; overflow-wrap:anywhere; }
 .preview-about p + p { margin-top:10px; }
-.preview-photo { display:flex; min-height:260px; flex-direction:column; align-items:center; justify-content:space-between; padding:14px 8px; border:1px solid #454945; color:#a5aaa2; background:linear-gradient(135deg, transparent 49.7%, rgba(255,255,255,.06) 50%, transparent 50.3%), #202220; font-size:8px; font-weight:800; letter-spacing:.1em; text-align:center; }
+.preview-photo { display:flex; box-sizing:border-box; height:min(260px, 50vh); min-height:0; max-height:50vh; flex-direction:column; align-items:center; justify-content:space-between; padding:14px 8px; border:1px solid #454945; color:#a5aaa2; background:linear-gradient(135deg, transparent 49.7%, rgba(255,255,255,.06) 50%, transparent 50.3%), #202220; font-size:8px; font-weight:800; letter-spacing:.1em; text-align:center; }
 .preview-photo > span:first-child { margin:auto; color:var(--reg-lime); font-size:clamp(44px, 8vw, 78px); font-weight:400; }
 .register-page .preview-club-card .preview-copy { display:flex; min-width:0; flex-direction:column; justify-content:center; align-self:stretch; padding:12px 10px; border:1px solid #454945; background:#202220; }
 .register-page .preview-club-card .preview-details { margin:0; border-top:1px solid #454945; }
@@ -102,7 +102,7 @@ body { background:var(--reg-ink); color:var(--reg-paper); font-family:Arial,Helv
 .preview-footnote { margin:12px 0 0; color:#a4a79c; font-size:11px; }
 @media(max-width:560px) {
   .preview-overview { grid-template-columns:1fr; }
-  .preview-photo { min-height:160px; }
+  .preview-photo { height:min(160px, 50vh); min-height:0; }
   .register-page .preview-club-card .preview-copy { padding:15px; }
 }
 
@@ -190,3 +190,13 @@ body.application-success-open { overflow:hidden; }
 .review-group p { grid-column:1/-1; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; color:var(--reg-paper); font-size:14px; line-height:1.65; }
 #download-registration { margin:22px 0 0; }
 @media(max-width:560px) { .steps li:nth-child(4) { margin-left:84px; } }
+
+/* Payment preview mirrors the public stacked options at preview scale. */
+.preview-cost .profile-cost__option { padding:10px 0; }
+.preview-cost .profile-cost__option + .profile-cost__option { border-top:1px solid #454945; }
+.preview-cost .profile-cost__option-heading { display:flex; flex-direction:column; align-items:flex-start; gap:6px; text-align:left; }
+.preview-cost .profile-cost__label { color:var(--reg-paper); font-size:10px; font-weight:600; }
+.preview-cost .profile-cost__amount { color:var(--reg-paper); font-size:14px; }
+.preview-cost .profile-cost__details { margin-top:6px; }
+.preview-cost .profile-cost__booking { margin-top:10px; padding-top:10px; border-top:1px solid #454945; }
+.preview-cost .profile-cost__booking h3 { color:var(--reg-paper); font-size:14px; line-height:1.3; }

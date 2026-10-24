@@ -131,6 +131,13 @@ export function enhanceFilterPickers(selector) {
       const upwards = below < 160 && above > below;
       widget.classList.toggle('filter-picker--above', upwards);
       menu.style.maxHeight = `${Math.max(44, Math.min(320, upwards ? above : below))}px`;
+      // Mobile map menus rise from its bottom bar, within the map's visible height.
+      const mapPanel = field.closest('.home-map-filter-panel');
+      if (mapPanel && window.matchMedia('(max-width:1040px)').matches) {
+        const frame = mapPanel.closest('.home-map-frame').getBoundingClientRect();
+        const barHeight = mapPanel.querySelector('.home-map-filter-toggle').getBoundingClientRect().height;
+        menu.style.maxHeight = `${Math.max(0, Math.min(window.innerHeight * .5, frame.height) - barHeight)}px`;
+      }
       const selected = choices.findIndex(option => additive ? option.textContent.startsWith('✓ ') : option.selected);
       activate(selected >= 0 ? selected : last ? choices.length - 1 : 0);
     }

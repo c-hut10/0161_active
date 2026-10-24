@@ -37,7 +37,7 @@
         "amount": null,
         "currency": "GBP"
       },
-      "pricingNotes": "Need pricing details",
+      "pricingNotes": "Contact Club for Session/Membership details",
       "tasterSessionCount": 3,
       "bookingRequired": false,
       "contact": "info@manchestertitans.co.uk",
@@ -98,7 +98,7 @@
         "amount": null,
         "currency": "GBP"
       },
-      "pricingNotes": "Need pricing details",
+      "pricingNotes": "Contact Club for Session/Membership details",
       "tasterSessionCount": 3,
       "bookingRequired": false,
       "contact": "info@manchestertitans.co.uk",
@@ -3795,12 +3795,12 @@
       "additionalInformation": null,
       "sessions": [],
       "id": "manchester-bees",
-      "imagePath": null,
+      "imagePath": "img/dodgeball/dodgeball - Manchester Bees.avif",
       "profilePath": "html/dodgeball/manchester-bees.html",
       "coordinates": null,
       "sources": [],
       "pricingNotes": null,
-      "bookingNotes": "Bookings required under Spond",
+      "bookingNotes": null,
       "tasterNotes": null,
       "trainingVenues": [
         {
@@ -5453,7 +5453,7 @@
       "id": "manchester-deaf-run-club",
       "name": "Manchester Deaf Run Club",
       "sport": "run-club",
-      "imagePath": null,
+      "imagePath": "img/run-club/run club - manchester deaf run club.avif",
       "coordinates": null,
       "sources": [],
       "membership": null,
@@ -5582,7 +5582,7 @@
       "sport": "run-club",
       "beginnerFriendly": true,
       "description": "Est. 1882, A proud running heritage built on friendship, community and miles. Based at The Y Club, Castlefield.",
-      "imagePath": null,
+      "imagePath": "img/run-club/run club - Manchester YMCA Harriers.avif",
       "profilePath": "html/athletics/mcr-ymca-harriers.html",
       "coordinates": null,
       "price": {
@@ -5637,7 +5637,14 @@
       "participatingLeagues": [],
       "participatesInLeague": null,
       "genderSpecific": false,
-      "pricingNotes": "Social membership · Competition membership: £40/year"
+      "pricingNotes": null,
+      "additionalSports": [
+        "athletics"
+      ],
+      "pricingOptions": [
+        "Social Membership: £20/year",
+        "Competition Membership: £40/year"
+      ]
     },
     {
       "id": "mile-shy-club",
@@ -5827,7 +5834,7 @@
       "id": "stretford-run-club",
       "name": "Stretford Run Club",
       "sport": "run-club",
-      "imagePath": null,
+      "imagePath": "img/run-club/run club - stretford run club.avif",
       "coordinates": null,
       "sources": [],
       "membership": null,
@@ -6159,7 +6166,7 @@
       "id": "northern-rebound",
       "name": "Northern Rebound",
       "sport": "squash",
-      "imagePath": null,
+      "imagePath": "img/squash/squash - northern rebound.avif",
       "coordinates": null,
       "sources": [],
       "membership": null,
@@ -7141,7 +7148,7 @@
       "id": "manchester-sharks-water-polo",
       "name": "Manchester Sharks Water Polo",
       "sport": "water-polo",
-      "imagePath": null,
+      "imagePath": "img/water-polo/water polo - Manchester Sharks.avif",
       "coordinates": null,
       "sources": [],
       "membership": null,

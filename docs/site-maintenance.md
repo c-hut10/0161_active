@@ -38,7 +38,7 @@ Visibility still follows `data/sports.json` through `visibleSportRecords`. When 
 
 `js/sport-glossary-renderer.mjs`, `js/sports-directory-renderer.mjs`, `js/calendar-week-renderer.mjs` and `js/site-nav-renderer.mjs` share HTML rendering between the build and browser. The sports directory, full-week calendar and global navigation are embedded during generation. JavaScript adds search, filters, day selections, downloads and mobile menu controls. Data-loading failures retain the generated content.
 
-Generated navigation binds its menu controls immediately; only pages missing navigation HTML import the fallback rendering/data modules. Saved-club scripts and styles are included only on club profiles, club lists and Your Clubs. The full saved-list renderer and removal dialog initialise only on Your Clubs.
+Generated navigation binds its menu controls immediately; only pages missing navigation HTML import the fallback rendering/data modules. Saved-club scripts and styles are included only on club profiles and club lists. The Calendar displays sessions from saved IDs in this browser. The retired Your Clubs page redirects to The Calendar; its separate list renderer and removal dialog have been removed.
 
 ## Public images and artwork archive
 
