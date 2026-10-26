@@ -8,9 +8,14 @@
   <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261009-leagues">
-  <link rel="stylesheet" href="../../css/sports-directory.css?v=20261015-your-clubs">
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
+<script defer src="/vendor/leaflet/leaflet.js"></script>
+<link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
+<link rel="stylesheet" href="/css/location-filter.css?v=20261025-labels">
+<script type="module" src="/js/home-reach-map.js?v=20261025-budget"></script>
+  <link rel="stylesheet" href="../../css/sports-directory.css?v=20261025-map-columns">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
-  <script type="module" src="../../js/sports-directory.js?v=20261009-leagues"></script>
+  <script type="module" src="../../js/sports-directory.js?v=20261025-sport-toggle"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -87,6 +92,9 @@
       </div>
     </header>
 
+    <!-- Keep the sports browser in the first column and the map across the other two. -->
+    <div class="sports-directory-layout">
+      <div class="sports-directory-column" role="region" aria-label="Scrollable sports list" tabindex="0">
     <section class="sports-directory-controls" aria-label="Search the sports directory">
       <label for="sports-search">FIND A SPORT</label>
       <input id="sports-search" type="search" placeholder="Search sports" autocomplete="off">
@@ -96,7 +104,7 @@
     <div class="sports-directory-message" id="sports-message" role="status" hidden></div>
     <div class="sports-directory-groups" id="sports-groups"><section class="sports-accessible-group" aria-labelledby="sports-accessible-title">
     <h2 id="sports-accessible-title" class="sports-accessible-group__title">ACCESSIBLE SPORTS</h2>
-    <div class="sports-directory-grid"><a class="sports-directory-card" href="wheelchair-basketball.html">
+    <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="wheelchair-basketball" href="wheelchair-basketball.html">
       <span class="sports-directory-card__name">Wheelchair Basketball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>2 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
@@ -104,102 +112,150 @@
     <h2 id="sports-other-title" class="sports-accessible-group__title">OTHER SPORTS</h2>
     <section class="sports-letter-group" aria-labelledby="sports-letter-A">
       <h3 id="sports-letter-A" class="sports-letter-group__letter">A</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="american-football.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="american-football" href="american-football.html">
       <span class="sports-directory-card__name">American Football</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>2 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="archery.html">
+    </a><a class="sports-directory-card" data-sport="archery" href="archery.html">
       <span class="sports-directory-card__name">Archery</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="athletics.html">
+    </a><a class="sports-directory-card" data-sport="athletics" href="athletics.html">
       <span class="sports-directory-card__name">Athletics</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>21 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-B">
       <h3 id="sports-letter-B" class="sports-letter-group__letter">B</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="badminton.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="badminton" href="badminton.html">
       <span class="sports-directory-card__name">Badminton</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="basketball.html">
+    </a><a class="sports-directory-card" data-sport="basketball" href="basketball.html">
       <span class="sports-directory-card__name">Basketball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>25 CLUBS</span><span class="sports-directory-card__leagues">4 LOCAL LEAGUES</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-C">
       <h3 id="sports-letter-C" class="sports-letter-group__letter">C</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="cycling.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="cycling" href="cycling.html">
       <span class="sports-directory-card__name">Cycling</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>9 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-D">
       <h3 id="sports-letter-D" class="sports-letter-group__letter">D</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="dodgeball.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="dodgeball" href="dodgeball.html">
       <span class="sports-directory-card__name">Dodgeball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-F">
       <h3 id="sports-letter-F" class="sports-letter-group__letter">F</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="flag-football.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="flag-football" href="flag-football.html">
       <span class="sports-directory-card__name">Flag Football</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="football.html">
+    </a><a class="sports-directory-card" data-sport="football" href="football.html">
       <span class="sports-directory-card__name">Football</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>11 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-H">
       <h3 id="sports-letter-H" class="sports-letter-group__letter">H</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="health-and-wellbeing.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="health-and-wellbeing" href="health-and-wellbeing.html">
       <span class="sports-directory-card__name">Health &amp; Wellbeing</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="hockey.html">
+    </a><a class="sports-directory-card" data-sport="hockey" href="hockey.html">
       <span class="sports-directory-card__name">Hockey</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>6 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-K">
       <h3 id="sports-letter-K" class="sports-letter-group__letter">K</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="korfball.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="korfball" href="korfball.html">
       <span class="sports-directory-card__name">Korfball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span><span class="sports-directory-card__leagues">4 LOCAL LEAGUES</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-R">
       <h3 id="sports-letter-R" class="sports-letter-group__letter">R</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="racketball.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="racketball" href="racketball.html">
       <span class="sports-directory-card__name">Racketball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="run-club.html">
+    </a><a class="sports-directory-card" data-sport="run-club" href="run-club.html">
       <span class="sports-directory-card__name">Run Club</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>14 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-S">
       <h3 id="sports-letter-S" class="sports-letter-group__letter">S</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="squash.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="squash" href="squash.html">
       <span class="sports-directory-card__name">Squash</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>7 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-T">
       <h3 id="sports-letter-T" class="sports-letter-group__letter">T</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="table-tennis.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="table-tennis" href="table-tennis.html">
       <span class="sports-directory-card__name">Table Tennis</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>4 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="tag-rugby.html">
+    </a><a class="sports-directory-card" data-sport="tag-rugby" href="tag-rugby.html">
       <span class="sports-directory-card__name">Tag Rugby</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
-    </a><a class="sports-directory-card" href="touch-rugby.html">
+    </a><a class="sports-directory-card" data-sport="touch-rugby" href="touch-rugby.html">
       <span class="sports-directory-card__name">Touch Rugby</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>4 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-U">
       <h3 id="sports-letter-U" class="sports-letter-group__letter">U</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="ultimate-frisbee.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="ultimate-frisbee" href="ultimate-frisbee.html">
       <span class="sports-directory-card__name">Ultimate Frisbee</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span><span class="sports-directory-card__leagues">1 LOCAL LEAGUE</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-W">
       <h3 id="sports-letter-W" class="sports-letter-group__letter">W</h3>
-      <div class="sports-directory-grid"><a class="sports-directory-card" href="water-polo.html">
+      <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="water-polo" href="water-polo.html">
       <span class="sports-directory-card__name">Water Polo</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section>
-  </section></div>
+  </section></div><!-- /Sports directory groups -->
+      </div>
+      <div class="sports-directory-map-column">
+<section class="calendar-sector-map home-reach-map" aria-labelledby="calendar-map-heading">
+      <h2 id="calendar-map-heading">The 0161 Map</h2>
+
+      <p id="calendar-map-summary" role="status">Select a training zone to see its clubs</p>
+      <div class="home-map-frame">
+        <div id="calendar-sector-map" role="region" aria-label="Map showing matching training zones and your selected reach"></div>
+        <div class="home-map-filter-panel" data-map-filters>
+          <h3 class="home-map-filter-heading">Other Filters</h3>
+    <form class="calendar-location-filter" id="calendar-location-filter" aria-label="Find sessions near a postcode">
+      <div class="home-map-selected-sport">
+        <span>Sport</span>
+        <button type="button" id="home-map-sport-summary" aria-expanded="false" aria-controls="home-map-sports-list" disabled>All sports</button>
+        <ul id="home-map-sports-list" class="home-map-sports-list" aria-label="Selected sports" hidden></ul>
+      </div>
+      <div class="home-map-filter-fields">
+        <label>Payment type<select id="home-map-price"><option value="all">Any price</option><option value="free">Free</option><option value="per_session">Pay-per-session</option><option value="membership">Membership (annual)</option></select></label>
+        <label id="home-map-amount-field" hidden><span>Amount <span id="home-map-amount-unit">(£ per session)</span></span><input id="home-map-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="---" aria-describedby="home-map-amount-help" disabled></label>
+        <small id="home-map-amount-help" class="home-map-amount-help" hidden>Maximum price per session.</small>
+        <label>Starting time<input id="home-map-time" type="time" step="60" value="00:00"></label>
+        <label>Flexibility<select id="home-map-flexibility"><option value="0">Exact time</option><option value="15">±15 minutes</option><option value="30">±30 minutes</option></select></label>
+      </div>
+      <div class="home-map-location-fields">
+      <label for="calendar-home-postcode">Your postcode
+        <input id="calendar-home-postcode" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="10" placeholder="e.g. M30 0AA" aria-describedby="calendar-postcode-help calendar-location-status">
+        <small class="calendar-postcode-help" id="calendar-postcode-help">Our club radius is calculated using approximate postcode sections to save power. Don't worry if the dot isn't on your postcode exactly, we get the point!</small>
+      </label>
+      <label class="calendar-radius-control" for="calendar-radius">
+        <span>Distance <output id="calendar-radius-value" for="calendar-radius">10 miles</output></span>
+        <input id="calendar-radius" type="range" min="0" max="23" step="1" value="13" aria-valuetext="10 miles">
+        <span class="calendar-radius-scale" aria-hidden="true"><span>0 miles</span><span>20 miles</span></span>
+      </label>
+      </div>
+      <button type="submit">Find nearby sessions</button>
+      <button type="button" data-clear-location hidden>Clear postcode</button>
+      <button type="button" id="home-map-clear-filters">Clear filters</button>
+      <p id="calendar-location-status" role="status"></p>
+    </form>
+        </div>
+      </div>
+      <p id="calendar-map-status" role="status" hidden></p>
+      <p id="calendar-ward-status" class="calendar-map-note" role="status" hidden></p>
+      <p class="calendar-map-note">Green zones contain clubs matching the filters. Click a zone to view its club information. Ward boundaries use the supplied May 2026 simplified dataset. The reach outline shows an approximate straight-line radius, not travel time. Background maps load from OpenStreetMap.</p>
+      <p class="calendar-map-credit">Approximate locations from <a href="https://www.getthedata.com/open-postcode-geo" target="_blank" rel="noopener noreferrer">GetTheData Open Postcode Geo</a> (August 2023). Contains OS data © Crown copyright and database right 2023; Royal Mail data © Royal Mail copyright and database right 2023; National Statistics data © Crown copyright and database right 2023.</p>
+    </section>
+      </div>
+    </div>
   </main>
 
   <footer class="site-footer" data-site-footer>

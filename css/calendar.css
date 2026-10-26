@@ -130,6 +130,11 @@
 .calendar-clear-filters:hover:not(:disabled) { border-color: var(--cal-lime); color: var(--cal-lime); }
 .calendar-clear-filters:disabled { opacity: .5; cursor: default; }
 .calendar-message { margin: 0 0 24px; padding: 14px 16px; border-left: 2px solid var(--cal-lime); color: var(--cal-grey); background: var(--cal-panel); font-size: 13px; }
+.calendar-page a.calendar-find-club,
+.calendar-page a.calendar-find-club:visited,
+.calendar-page a.calendar-find-club:hover,
+.calendar-page a.calendar-find-club:focus,
+.calendar-page a.calendar-find-club:active { color:#fff; }
 
 /* View heading: shared title treatment for the club-first grid and day agenda. */
 .calendar-view-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 18px; }
@@ -161,30 +166,12 @@
 .week-club a { overflow: hidden; color: var(--cal-paper); font-size: 16px; font-weight: 700; text-decoration: none; text-overflow: ellipsis; }
 
 .week-club__title { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.calendar-remove-favourite { display:inline-flex; flex:0 0 44px; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:0; background:transparent; color:var(--cal-lime); cursor:pointer; }
+.calendar-remove-favourite:hover { color:var(--cal-lime); }
+.calendar-remove-favourite:focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
+.agenda-club > a { color:inherit; text-decoration:inherit; }
 .week-club__title a { flex: 1; box-sizing: border-box; min-width: 0; min-height: 44px; padding: 12px 0; }
 .club-calendar-control { position: relative; flex: 0 0 44px; }
-.club-calendar-download { display: inline-flex; width: 44px; align-items: center; justify-content: center; min-height: 44px; padding: 0; border: 0; color: var(--cal-lime); background: transparent; cursor: pointer; }
-.club-calendar-download:hover { color: var(--cal-paper); }
-.club-calendar-download:disabled { opacity: .5; cursor: wait; }
-.week-club .club-calendar-tooltip {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 25;
-  visibility: hidden;
-  width: max-content;
-  padding: 10px 12px;
-  overflow: visible;
-  color: var(--cal-black);
-  background: var(--cal-lime);
-  font: 700 12px/1.4 Arial, Helvetica, sans-serif;
-  text-align: center;
-  box-shadow: 0 4px 12px rgb(0 0 0 / .3);
-}
-.club-calendar-tooltip small { display: block; margin-top: 4px; font-size: 12px; font-weight: 400; }
-.club-calendar-control:hover .club-calendar-tooltip,
-.club-calendar-control:focus-within .club-calendar-tooltip { visibility: visible; }
 .week-club span { overflow: hidden; color: var(--cal-grey); font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
 .week-cell { display: flex; flex-direction: column; justify-content: center; gap: 5px; min-width: 0; padding: 8px 6px; border-left: 1px solid var(--cal-line); }
 .week-day-label { display: none; }
@@ -317,3 +304,4 @@
 
 /* Session estimates remain visible beside the schedule. */
 .session-distance { color:var(--cal-lime); font-size:12px; }
+

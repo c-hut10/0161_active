@@ -89,13 +89,16 @@
 .home-entry__area-layer.is-visible { opacity:1; }
 .home-entry__area-layer:not(.is-visible) .home-entry__area-target { pointer-events:none; }
 .home-entry__map.is-detail .home-entry__map-base use { opacity:0; }
-.home-entry__map.is-detail .home-entry__map-base .is-zoom-selected { opacity:1; }
+.home-entry__map.is-detail .home-entry__map-base .is-zoom-selected { opacity:0; }
 .home-entry__map.is-detail .home-entry__map-lifts { opacity:0; }
 .home-entry__map-lifts { transition:opacity 350ms ease; }
 .home-entry__map.is-detail .home-entry__region-target { visibility:hidden; pointer-events:none; }
 .home-entry__map-back { position:absolute; left:0; bottom:-52px; min-height:44px; padding:8px 12px; border:1px solid #686868; background:var(--home-black); color:#fff; font:700 11px Arial,sans-serif; text-transform:uppercase; cursor:pointer; pointer-events:auto; }
-.home-entry__map-back:focus-visible { outline:2px solid #dffc3a; outline-offset:4px; }
+/* Keep programmatic map focus quiet; individual wards retain visible focus marks. */
+.home-entry__map:focus { outline: none; }
 .home-entry__area-outline { fill:none; stroke:#a0a0a0; stroke-width:.5; stroke-linejoin:miter; pointer-events:none; }
+/* Use the ward union for the zoomed grey edge so highlighted perimeter cells meet it exactly. */
+.home-entry__area-boundary { fill:#777d77; fill-opacity:.24; stroke:#a0a0a0; stroke-width:.65; stroke-linejoin:miter; pointer-events:none; }
 .home-entry__area-visual { opacity:0; pointer-events:none; transform-box:fill-box; transform-origin:center; transition:opacity 200ms ease,transform 300ms ease; }
 /* A small centred expansion creates a bulge while the pointer target stays fixed. */
 .home-entry__area-visual.is-active { opacity:1; transform:scale(1.025); }
@@ -120,6 +123,11 @@
 .home-entry__region-visual.is-active .home-entry__region-lift { transform: scale(1.035); }
 .home-entry__region-visual.is-active .home-entry__region-glow,
 .home-entry__region-visual.is-active .home-entry__region-fill { opacity: 1; }
+/* Black edges keep adjoining green zones distinct in overview and ward detail. */
+.home-entry__region-visual.is-active .home-entry__region-fill,
+.home-entry__region-visual.is-highlighted .home-entry__region-fill,
+.home-entry__area-visual.is-active .home-entry__area-fill,
+.home-entry__area-visual.is-highlighted .home-entry__area-fill { stroke: #000; }
 /* Invisible fixed shapes accept the pointer; the lifted drawings cannot steal hover. */
 .home-entry__region-target { cursor: pointer; outline: none; }
 .home-entry__region-target use { fill: transparent; stroke: none; pointer-events: fill; touch-action: manipulation; }

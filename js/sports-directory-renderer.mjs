@@ -12,7 +12,7 @@ export function renderSportsDirectory(records) {
     groups.get(letter).push(sport);
   });
 
-  const renderCards = entries => `<div class="sports-directory-grid">${entries.map(sport => `<a class="sports-directory-card" href="${escapeDirectoryText(sportGlossaryUrl(sport.slug, null, 'glossary.html'))}">
+  const renderCards = entries => `<div class="sports-directory-grid">${entries.map(sport => `<a class="sports-directory-card" data-sport="${escapeDirectoryText(sport.slug)}" href="${escapeDirectoryText(sportGlossaryUrl(sport.slug, null, 'glossary.html'))}">
       <span class="sports-directory-card__name">${escapeDirectoryText(displaySportName(sport.name))}</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>${sport.clubCount} ${sport.clubCount === 1 ? 'CLUB' : 'CLUBS'}</span>${hasRecordedLeagues(sport.leagueCount) ? `<span class="sports-directory-card__leagues">${sport.leagueCount} LOCAL ${sport.leagueCount === 1 ? 'LEAGUE' : 'LEAGUES'}</span>` : ''}</span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a>`).join('')}</div>`;

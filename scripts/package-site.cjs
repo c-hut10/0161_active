@@ -34,7 +34,7 @@ copyPublicTree('html', ['.html']);
 copyPublicTree('css', ['.css']);
 copyPublicTree('js', ['.js', '.mjs']);
 // Leaflet is self-hosted with its styles, icons and redistribution notice.
-copyPublicTree('vendor', ['.js', '.css', '.png', '.txt']);
+copyPublicTree('vendor', ['.js', '.mjs', '.css', '.png', '.txt']);
 // img contains live assets only; source artwork and retired drafts stay in archive/artwork.
 copyPublicTree('img', ['.avif', '.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2']);
 

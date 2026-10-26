@@ -1,10 +1,24 @@
 # Club responses: CSV and JSON
 
-`templates/club-registration.csv` is the universal questionnaire table. Its column names are JSON paths. `js/club-submission.mjs` defines those columns and normalises answers for both registration and CSV imports. Keep the headings intact; column order may vary.
+`templates/club-registration.csv` now uses the 27 agreed Master headings. The form CSV download and receiving-side spreadsheet copy share this column order. `js/club-submission.mjs` owns the headings and the named-field mapping. The importer matches by headings, so column order may vary.
+
+## Current Master format
+
+Use one row per session, repeating the club details. Each row has Club ID and Session ID. The registration form generates stable IDs; do not merge sessions into a single cell. The final Update Timestamp column belongs to the spreadsheet and is blank when exported directly from the form.
+
+The five yes/no columns use TRUE/FALSE or Not confirmed. Payment Type retains Per session, Monthly membership, Annual membership, Free or Not confirmed. Membership amount (£) applies only to Monthly/Annual membership; Session Price (£) applies only to Per session. Other payment cells use FALSE. Zero is valid. Kit details, gender eligibility and league names use FALSE when their controlling answer is FALSE. End time may be blank.
+
+Separate multiple league names with semicolons or line breaks. League names are supplied without scope; their team name defaults to the club name. Kit answers are retained as kitRequired and kitDetails in imported club records. Session IDs are retained as each session's id. The importer rejects duplicate Session IDs and missing IDs on rows containing session details. A FALSE Session ID denotes a club-only placeholder, not a session.
+
+Review with `node scripts/import-club-csv.mjs <responses.csv>`. It does not write unless `--write` is explicitly added. New/changed responses replace the specified club's session list; include all its sessions. Existing images and profile routes remain attached. Clubs absent from the CSV are not deleted.
+
+## Legacy JSON-path CSV compatibility
+
+The remaining mapping below describes earlier submissions. These headings remain accepted by the importer; they are no longer emitted by the current registration form. The legacy header template is `templates/club-registration-legacy.csv`. Retired questions remain supported for historical imports, without being shown to new applicants.
 
 ## One row per session
 
-Repeat the same club answers on every row for that club. Use a separate row for every training session, even when sessions share a time or venue. Conflicting club answers block an import. Same-day/start-time sessions are retained but reported for review.
+Repeat the same club answers on every row for that club, except that `price.amount` may vary by row for `per_session` payment. Use a separate row for every training session, even when sessions share a time or venue. Conflicting club-wide answers block an import. Same-day/start-time sessions are retained but reported for review.
 
 Leave `id` blank for a new club to generate it from its name. For an existing club, supply its existing JSON `id`, especially when changing its name. All sessions in a new response replace that club's previous session list; include its complete schedule. Existing photos and profile paths are retained. An import does not remove clubs absent from the CSV.
 
@@ -29,8 +43,8 @@ The flat `clubs` array in `data/clubs.json` is sorted by displayed sport name A�
 | `description` | About the club | `description` |
 | `contact` | Public contact email | String email or `null` |
 | `onlineProfile.url` | Website or social link | URL or `onlineProfile: null` |
-| `price.type` | Pricing type | `free`, `monthly_fee`, `annual_fee`, `per_session`, `unknown` |
-| `price.amount` | Standard price (£) | Standard session price or membership-only price; free becomes 0, unknown becomes `null` |
+| `price.type` | Payment type | `free`, `monthly_fee`, `annual_fee`, `per_session`, `unknown` |
+| `price.amount` | Session or membership price (£) | For `per_session`, the charge for the session on this row (zero is free); for monthly/annual membership, the club membership charge. Free becomes 0, unknown becomes `null`. |
 | `membership.period` | Optional membership period | `monthly`, `annual`, or blank |
 | `membership.amount` | Optional membership price (£) | Positive amount in pounds |
 | `membership.sessionAmount` | Member session price (£) | Zero or positive amount in pounds |
@@ -47,6 +61,8 @@ The flat `clubs` array in `data/clubs.json` is sorted by displayed sport name A�
 | `sessions.specialConsiderations` | Special considerations | Public session note or `null` |
 
 Currency defaults to GBP. Paid pricing requires an amount and explicit booking yes/no. Leave paid-only columns blank for Free or Unknown. Unknown answers stay null rather than becoming invented values. Empty session names default to Training followed by the supplied experience level.
+
+For `per_session`, `price.amount` belongs to the session on that row and may vary between rows for the same club. Enter zero for a free session; do not leave a confirmed per-session charge blank. The importer stores an explicit session price for each row. All other club-wide answers must still match across rows. Monthly and annual membership amounts remain club-wide. Registration's Payment type selection uses these same stored types and keeps the existing 29-column export order.
 
 ## Optional membership alongside session pricing
 
@@ -72,7 +88,7 @@ Optional membership applies only to `per_session`. Leave all three fields blank 
 
 Profiles show COST for the standard price and OPTIONAL MEMBERSHIP for the recurring price plus member session price. Calendar Membership matches membership-only clubs and pay-per-session clubs with a complete optional membership; the latter also match Pay-per-session. An imported member session price higher than the standard price is flagged for owner review.
 
-Readable Google Sheet headings for the pricing block are Pricing Type, Standard Price (£), Membership Period, Membership Price (£), Member Session Price (£). Export using the exact CSV field names above for direct import.
+Readable Google Sheet headings for the pricing block are Payment Type, Standard Price (£), Membership Period, Membership Price (£), Member Session Price (£). Export using the exact CSV field names above for direct import.
 
 ## Participating leagues
 
@@ -141,7 +157,7 @@ The owner's master sheet uses readable question headings, rather than JSON paths
 
 - Repeat Club name on every meaningful row. Club ID may be blank: match existing names/websites carefully before generating a new ID. History Log is owner bookkeeping, not automatically a confirmation date. The agreed import date sets Last Confirmed for approved club responses.
 - A row can provide a session, a pricing option, a league, or a combination. Empty session fields on pricing/league rows do not create fictitious sessions. Exact repeated sessions are merged after review; flag coinciding but different sessions for confirmation.
-- Pricing type uses Free, Unknown, Per session, Membership - Monthly, or Membership - Annual. Standard price (£) is the amount for that row's option. A separate membership row can accompany a per-session row. Member session price (£) must explicitly be 0 when included; blank means not supplied and must be clarified, not assumed free. Retain one optional membership period in the present schema; multiple alternative memberships need review.
+- Payment type uses Free, Unknown, Per session, Membership - Monthly, or Membership - Annual. Standard price (£) is the amount for that row's option. A separate membership row can accompany a per-session row. Member session price (£) must explicitly be 0 when included; blank means not supplied and must be clarified, not assumed free. Retain one optional membership period in the present schema; multiple alternative memberships need review.
 - The existing Optional membership, Membership price (£) and Member session price (£) columns can still provide a supplementary membership on a pay-per-session row. If providing separate pricing rows, avoid conflicting amounts in those columns.
 - Repeat the club name on league rows; different team/league combinations are collected together. Internal coverage does not require a team name. Other coverages do.
 - Session days are 1 (Monday) through 7 (Sunday), times HH:MM, and postcodes complete. Add Experience level for Beginner, Intermediate, Advanced or All Abilities; beginner friendliness does not imply a session experience level.

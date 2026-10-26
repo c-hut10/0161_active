@@ -136,7 +136,7 @@
       statAnimation?.cancel();
       count.textContent = 'Loading area map';
       try {
-        const { mountRegionDetail } = await import('./home-region-detail.mjs?v=20261023-inline-first-panel');
+        const { mountRegionDetail } = await import('./home-region-detail.mjs?v=20261025-linked-wards');
         if (listeners.signal.aborted || mobileMap.matches) return;
         detailView = mountRegionDetail(map, region, {
           reducedMotion,
@@ -146,6 +146,16 @@
             count.textContent = 'Club data coming soon';
             stat.hidden = true;
             announcement.textContent = `${area || region.name}. Club data coming soon.`;
+          },
+          activateArea(area) {
+            // Both maps share ward codes and centres from the supplied geographic boundaries.
+            // The interactive session map now lives beside the directory's sports list.
+            const destination = new URL('/html/sports/directory.html', location.origin);
+            destination.searchParams.set('area', JSON.stringify({
+              code:area.wardCode, name:area.name, borough:region.name, point:area.point
+            }));
+            destination.hash = 'calendar-sector-map';
+            location.assign(destination.href);
           },
           close() {
             detailView?.destroy();

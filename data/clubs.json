@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "metadata": {
     "description": "Shared club directory for the weekly schedule and calendar.",
-    "pricingTypeGuide": "Use price.type values free, monthly_fee, annual_fee, or per_session. Use unknown until the pricing type is confirmed; retain amount and currency when available.",
+    "pricingTypeGuide": "Use price.type values free, monthly_fee, annual_fee, or per_session. Use unknown until the payment type is confirmed; retain amount and currency when available.",
     "sampleDataNotice": "We are still building our database. Please double-check with clubs before attending a session.",
     "referenceLocations": [
       {

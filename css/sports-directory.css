@@ -44,6 +44,7 @@
   transition: color .18s ease, background .18s ease;
 }
 .sports-directory-card:hover,
+.sports-directory-card.is-selected,
 .sports-directory-card:focus-visible { color: var(--glossary-black); background: var(--glossary-lime); outline: none; }
 .sports-directory-card__name { min-width: 0; font-size: 12px; font-weight: 700; line-height: 1.3; }
 /* Sport totals: stack the counts and centre the navigation arrow alongside both lines. */
@@ -51,7 +52,41 @@
 .sports-directory-card__counts { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
 .sports-directory-card__arrow { font-size: 16px; line-height: 1; }
 .sports-directory-card:hover .sports-directory-card__meta,
+.sports-directory-card.is-selected .sports-directory-card__meta,
 .sports-directory-card:focus-visible .sports-directory-card__meta { color: var(--glossary-black); }
+
+/* Keep a one-column sports list beside a map spanning the other two columns. */
+.sports-directory-layout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.sports-directory-column { min-width: 0; }
+/* Contain desktop list scrolling so reaching either end does not move the neighbouring map. */
+@media (min-width: 801px) {
+  .sports-directory-column {
+    align-self: start;
+    max-height: max(260px, calc(100dvh - var(--site-nav-height, 100px) - 160px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--glossary-grey) transparent;
+    scrollbar-gutter: stable;
+    padding-right: 10px;
+  }
+  .sports-directory-column:focus-visible { outline: 2px solid var(--glossary-lime); outline-offset: 4px; }
+}
+/* The existing geographic map occupies both remaining columns inside the directory width. */
+.sports-directory-map-column { grid-column: span 2; min-width: 0; }
+.sports-directory-map-column .home-reach-map { width: 100%; max-width: none; margin: 28px 0 0; padding: 0; border: 0; }
+.sports-directory-map-column .home-map-frame { width: 100%; margin-left: 0; }
+.sports-directory-map-column #calendar-sector-map { height: clamp(480px, 70vh, 850px); }
+.sports-directory-layout .sports-directory-grid { grid-template-columns: 1fr; }
+.sports-directory-layout .sports-directory-controls { grid-template-columns: 1fr; gap: 10px; }
+.sports-directory-layout .sports-directory-count { justify-self: start; }
+.sports-directory-layout .sports-letter-group { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
+@media (max-width: 800px) {
+  .sports-directory-layout { grid-template-columns: 1fr; }
+  .sports-directory-map-column { grid-column: auto; }
+  .sports-directory-map-column #calendar-sector-map { height: 50vh; min-height: 300px; }
+  .sports-directory-map-column .home-map-frame { width: 100vw; margin-left: calc(50% - 50vw); }
+}
 
 @media (max-width: 800px) {
   .sports-directory-controls { grid-template-columns: 1fr auto; }

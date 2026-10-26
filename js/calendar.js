@@ -1,10 +1,9 @@
 import { savedClubsKey, readSavedClubs } from './saved-clubs.mjs';
-import { renderWeekGrid, frequencyToggle, eligibilityMarkup } from './calendar-week-renderer.mjs';
+import { renderWeekGrid, frequencyToggle, eligibilityMarkup, removeFavouriteButton } from './calendar-week-renderer.mjs';
 import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml, sessionSport, compareSessionStartTimes } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
 import { loadClubDirectory } from './site-data.mjs';
 import { beginControlLoading } from './control-loading.mjs';
-import { downloadClubCalendar } from './club-calendar.mjs';
 import { sessionTitle, sessionProfileUrl, sessionAddress, sessionVenueNote, sessionVenueNoteHtml, sessionTerms } from './session-details.mjs';
 import { priceLabel, sportName as displaySportName } from './club-directory-filters.js';
 
@@ -18,13 +17,34 @@ const dayView = document.querySelector('#day-view');
 const dayAgenda = document.querySelector('#day-agenda');
 const dayNavigation = document.querySelector('#calendar-day-nav');
 const selectionHelp = document.querySelector('#calendar-selection-help');
-const downloadStatus = document.createElement('p');
-downloadStatus.className = 'calendar-message';
-downloadStatus.setAttribute('role', 'status');
-downloadStatus.hidden = true;
-weekGrid.before(downloadStatus);
 const calendarPage = document.querySelector('.calendar-page');
 const mainContent = document.querySelector('#main-content');
+const favouriteStatus = document.createElement('p');
+favouriteStatus.className = 'calendar-message';
+favouriteStatus.setAttribute('role', 'status');
+favouriteStatus.hidden = true;
+document.querySelector('#calendar-message').after(favouriteStatus);
+mainContent.addEventListener('click', event => {
+  const button = event.target.closest('[data-remove-favourite]');
+  if (!button) return;
+  const club = clubs.find(item => item.id === button.dataset.removeFavourite);
+  if (!club) return;
+  const saved = readSavedClubs();
+  try {
+    if (saved.error) throw new Error('Your saved clubs could not be read.');
+    saved.ids.delete(club.id);
+    if (saved.ids.size) localStorage.setItem(savedClubsKey, JSON.stringify([...saved.ids]));
+    else localStorage.removeItem(savedClubsKey);
+    window.dispatchEvent(new Event('saved-clubs-changed'));
+    favouriteStatus.textContent = `${club.name} removed from your favourites.`;
+    // The removed button no longer exists; keep focus in the current calendar view.
+    const view = activeView === 'week' ? weekGrid : dayAgenda;
+    (view.querySelector('[data-remove-favourite]') || dayNavigation.querySelector('[data-view="week"]')).focus({ preventScroll:true });
+  } catch {
+    favouriteStatus.textContent = 'Your browser could not remove this favourite. Check its site-storage settings and try again.';
+  }
+  favouriteStatus.hidden = false;
+});
 const weekHeadingPosition = document.querySelector('#week-heading-position');
 const dayHeadingPosition = document.querySelector('#day-heading-position');
 
@@ -156,7 +176,7 @@ function renderSelectedDays(events, sportLabel, days, clubCount) {
     const sportLabel = displaySportName(sessionSport(club, session));
     return `<article class="agenda-event">
       <div class="agenda-time"><span class="agenda-day">${escapeHtml(day.name)}</span><time>${escapeHtml(formatTime(session))}</time><span class="agenda-sport">${escapeHtml(sportLabel)}</span></div>
-      <a class="agenda-club" href="${escapeHtml(`/${club.profilePath}`)}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>
+      <div class="agenda-club"><a href="${escapeHtml(`/${club.profilePath}`)}">${escapeHtml(club.name)}${clubVerificationBadge(club)}</a>${removeFavouriteButton(club)}</div>
       <div class="agenda-details"><strong class="session-title"><a class="session-title-link" href="${escapeHtml(sessionProfileUrl(club))}">${escapeHtml(sessionTitle(club, session))}</a></strong>${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}${eligibilityMarkup(session)}${session.distanceText ? `<span class="session-distance">${escapeHtml(session.distanceText)}</span>` : ''}<span>${escapeHtml(sessionAddress(session) || session.area || 'Area to confirm')}</span>${sessionVenueNote(club, session) ? `<span class="session-subtitle">${sessionVenueNoteHtml(club, session)}</span>` : ''}${frequencyToggle(session)}</div>
       <span class="agenda-price">${escapeHtml(priceLabel(club, session))}${sessionTerms(club, session, { includePrice: false }).map(term => `<br><span>${escapeHtml(term)}</span>`).join('')}</span>
     </article>`;
@@ -213,6 +233,7 @@ function renderCalendar() {
       const link = document.createElement('a');
       link.href = '/html/sports/directory.html';
       link.textContent = 'Find a club';
+      link.className = 'calendar-find-club';
       calendarMessage.append(link);
     }
     weekGrid.replaceChildren();
@@ -241,26 +262,7 @@ dayNavigation.addEventListener('click', event => {
   }
 });
 
-weekGrid.addEventListener('click', async event => {
-  const downloadButton = event.target.closest('[data-calendar-club]');
-  if (downloadButton) {
-    downloadButton.disabled = true;
-    downloadButton.setAttribute('aria-busy', 'true');
-    downloadStatus.textContent = 'Preparing calendar…';
-    downloadStatus.hidden = false;
-    try {
-      const club = clubs.find(item => item.id === downloadButton.dataset.calendarClub);
-      if (!club) throw new Error('Club calendar is unavailable.');
-      downloadStatus.textContent = downloadClubCalendar(club, new URL(`/${club.profilePath}`, window.location.href).href);
-    } catch (error) {
-      downloadStatus.textContent = error.message;
-    } finally {
-      downloadStatus.hidden = false;
-      downloadButton.disabled = false;
-      downloadButton.removeAttribute('aria-busy');
-    }
-    return;
-  }
+weekGrid.addEventListener('click', event => {
   const dayButton = event.target.closest('[data-day]');
   if (dayButton) toggleDay(Number(dayButton.dataset.day));
 });

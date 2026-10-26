@@ -104,21 +104,24 @@
           <div class="field-grid">
             <label class="field field-wide"><span class="field-title">Club name <span class="required">*</span></span><input name="name" required maxlength="70" placeholder="e.g. Northern Striders" autocomplete="organization"></label>
             <label class="field"><span class="field-title">Sport or activity <span class="required">*</span></span><input name="sport" required maxlength="50" placeholder="e.g. Rugby Union"></label>
+            <!-- Payment method is a club detail; session charges are collected with each session. -->
+            <label class="field"><span class="field-title">Payment type</span><select name="price.type"><option value="unknown">Not confirmed</option><option value="free">Free</option><option value="monthly_fee">Monthly membership</option><option value="annual_fee">Annual membership</option><option value="per_session">Per session</option></select></label>
             <!-- Beginner welcome: collect an explicit club-wide answer without changing session levels. -->
             <label class="field field-wide"><span class="field-title">Is your club beginner friendly? <span class="required">*</span></span><select name="beginnerFriendly" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <!-- Kit details are collected only when newcomers need to bring equipment. -->
+            <label class="field field-wide"><span class="field-title">Kit requirements for newcomers? <span class="required">*</span></span><select name="kitRequired" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <label class="field field-wide" id="kit-details-field" hidden><span class="field-title">Kit details <span class="required">*</span></span><textarea name="kitDetails" maxlength="600" rows="3" disabled></textarea></label>
             <!-- Gender eligibility: Yes reveals a blank box for the club's own wording. -->
             <label class="field field-wide"><span class="field-title">Is your team/club gender-specific? <span class="required">*</span></span><select name="genderSpecific" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide" id="gender-eligibility-field" hidden><span class="field-title">Who is it for? <span class="required">*</span></span><input name="genderEligibility" maxlength="150" disabled></label>
-            <!-- League participation: Yes reveals repeatable coverage/name questions. -->
+            <!-- League participation needs names only; the club name supplies its team name. -->
             <label class="field field-wide"><span class="field-title">Do you participate in a league? <span class="required">*</span></span><select name="participatesInLeague" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <div class="field-wide" id="league-questions" hidden>
               <div id="participating-leagues">
                 <fieldset class="training-session league-entry">
                   <legend data-league-heading>League 1</legend>
                   <div class="field-grid">
-                    <label class="field field-wide"><span class="field-title">Team name <span class="required">*</span></span><input data-league-field="teamName" maxlength="150" placeholder="e.g. Manchester Titans 1" disabled></label>
-                    <label class="field"><span class="field-title">How far does the league cover? <span class="required">*</span></span><select data-league-field="coverage" disabled><option value="">Choose coverage</option><option value="internal">Internal (club members)</option><option value="local_county">Local/County league</option><option value="regional">Regional</option><option value="national">National</option></select></label>
-                    <label class="field"><span class="field-title">What's the name of the league? <span class="required">*</span></span><input data-league-field="name" maxlength="150" placeholder="League name" disabled></label>
+                    <label class="field field-wide"><span class="field-title">What's the name of the league? <span class="required">*</span></span><input data-league-field="name" maxlength="150" placeholder="League name" disabled></label>
                   </div>
                   <button class="session-remove" type="button" data-remove-league hidden>Remove league</button>
                 </fieldset>
@@ -127,17 +130,10 @@
               <p class="session-status" id="league-status" aria-live="polite"></p>
             </div>
             <input type="hidden" name="participatingLeagues.name">
-            <input type="hidden" name="participatingLeagues.teamName">
-            <input type="hidden" name="participatingLeagues.coverage">
-            <!-- Pricing: paid options reveal their amount, tasters and booking details. -->
-            <label class="field"><span class="field-title">Pricing type</span><select name="price.type"><option value="unknown">Unknown</option><option value="free">Free</option><option value="monthly_fee">Monthly membership</option><option value="annual_fee">Annual membership</option><option value="per_session">Pay-per-session</option></select></label>
-            <label class="field" data-paid-pricing hidden><span class="field-title">Standard price (£) <span class="required">*</span></span><input name="price.amount" type="number" min="0.01" step="0.01" placeholder="e.g. 10" disabled><small>The session price, or membership price if membership is your main pricing type.</small></label>
-            <!-- Optional membership: pay-per-session clubs can offer a separate member rate. -->
-            <label class="field field-wide" data-membership-option hidden><span class="field-title">Optional membership</span><select name="membership.period" disabled><option value="">No optional membership</option><option value="monthly">Monthly membership</option><option value="annual">Annual membership</option></select><small>Does membership reduce the standard session price?</small></label>
-            <label class="field" data-membership-pricing hidden><span class="field-title">Membership price (£) <span class="required">*</span></span><input name="membership.amount" type="number" min="0.01" step="0.01" placeholder="e.g. 30" disabled></label>
-            <label class="field" data-membership-pricing hidden><span class="field-title">Member session price (£) <span class="required">*</span></span><input name="membership.sessionAmount" type="number" min="0" step="0.01" placeholder="e.g. 5" disabled><small>Enter 0 if sessions are included in membership.</small></label>
-            <label class="field" data-paid-pricing hidden><span class="field-title">Taster sessions</span><input name="tasterSessionCount" type="number" min="0" step="1" placeholder="e.g. 3" disabled></label>
-            <label class="field pricing-booking" data-paid-pricing hidden><span class="field-title">Booking required <span class="required">*</span></span><select name="bookingRequired" required disabled><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+            <!-- Only monthly and annual membership need a club-wide amount. -->
+            <label class="field" data-base-membership-price hidden><span class="field-title">Membership amount (£) <span class="required">*</span></span><input name="price.amount" type="number" min="0" step="0.01" placeholder="e.g. 10" disabled><small>The amount for your chosen monthly or annual membership.</small></label>
+            <label class="field field-wide"><span class="field-title">How many free taster sessions do you offer newcomers?</span><input name="tasterSessionCount" type="number" min="0" step="1" placeholder="e.g. 3"></label>
+            <label class="field field-wide pricing-booking"><span class="field-title">Does a first-timer need to book before a session? <span class="required">*</span></span><select name="bookingRequired" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide"><span class="field-title">About the club <span class="required">*</span></span><textarea name="description" required maxlength="600" rows="4" placeholder="Tell us some more about your club!"></textarea><small>Up to 600 characters.</small></label>
           </div>
         </section>
@@ -154,17 +150,18 @@
                 <!-- Session name: label each entry and include its title in the application. -->
                 <label class="field field-wide"><span class="field-title">What would you like this session to be called?</span><input data-session-field="title" maxlength="100" placeholder="e.g. Intense Circuit Training, Casual Kickabout etc."></label>
                 <label class="field field-wide"><span class="field-title">Day <span class="required">*</span></span><select data-session-field="dayOfWeek" required><option value="">Choose a day</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="7">Sunday</option></select></label>
+                <!-- Each pay-per-session entry carries its own charge into the preview and exports. -->
+                <label class="field field-wide" data-session-pricing hidden><span class="field-title">Session price (£) <span class="required">*</span></span><input data-session-field="price.amount" type="number" min="0" step="0.01" placeholder="e.g. 5.50" disabled></label>
                 <label class="field"><span class="field-title">Start time <span class="required">*</span></span><input data-session-field="startTime" type="time" required></label>
-                <label class="field">End time<input data-session-field="endTime" type="time"></label>
-                <!-- Experience level: collect who each individual training session is suited to. -->
-                <label class="field field-wide"><span class="field-title">Experience level</span><select data-session-field="eligibility"><option value="">Choose an experience level</option><option value="Beginner">Beginner</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option><option value="All Abilities">All Abilities</option></select></label>
+                <!-- End times are optional when the session has no fixed finishing time. -->
+                <label class="field">End time<input data-session-field="endTime" type="time"><small>If finish times are flexible - leave blank</small></label>
                 <!-- Additional sessions can reuse the previous session's current address. -->
                 <label class="session-same-location field-wide" data-same-location-option hidden><input type="checkbox" data-same-location> Same location as previous session</label>
-                <label class="field field-wide"><span class="field-title">Training address <span class="required">*</span></span><input data-session-field="meetingPoint" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"></label>
+                <label class="field field-wide"><span class="field-title">Session address <span class="required">*</span></span><input data-session-field="meetingPoint" required maxlength="150" placeholder="e.g. Cutting Room Square, Ancoats" autocomplete="street-address"></label>
                 <!-- Session postcode: categorise each training venue using the shared area rulebook. -->
-                <label class="field field-wide"><span class="field-title">Postcode <span class="required">*</span></span><input data-session-field="postcode" required maxlength="12" placeholder="e.g. M21 7SX" autocomplete="postal-code"></label>
+                <label class="field field-wide"><span class="field-title">Session postcode <span class="required">*</span></span><input data-session-field="postcode" required maxlength="12" placeholder="e.g. M21 7SX" autocomplete="postal-code"></label>
               </div>
-              <label class="field session-considerations">Special considerations<textarea data-session-field="specialConsiderations" maxlength="300" rows="2" placeholder="e.g. Every other week? First Thursday of every month?"></textarea></label>
+              <label class="field session-considerations">Any extra session info?<textarea data-session-field="specialConsiderations" maxlength="300" rows="2" placeholder="e.g. Every other week? First Thursday of every month?"></textarea></label>
               <button class="session-remove" type="button" data-remove-session hidden>Remove session</button>
             </fieldset>
           </div>
@@ -172,6 +169,7 @@
           <p class="session-status" id="session-status" aria-live="polite"></p>
           <!-- Static named fields let Netlify capture all repeatable sessions in one application. -->
           <input type="hidden" name="registrationCsv">
+          <input type="hidden" name="spreadsheetCopy">
           <input type="hidden" name="submissionSummary">
           <input type="hidden" name="sessions">
         </section>
@@ -182,8 +180,7 @@
           <div class="field-grid">
             <label class="field"><span class="field-title">Contact email <span class="required">*</span></span><input name="contact" type="email" required maxlength="120" placeholder="hello@yourclub.org" autocomplete="email" aria-describedby="contact-email-note"><small id="contact-email-note">This email will appear on your club profile. Our team will also use it for questions about your application.</small></label>
             <label class="field">Website or social link<input name="onlineProfile.url" type="url" maxlength="200" placeholder="https://"></label>
-            <!-- Additional details: this answer is public content in the club profile. -->
-            <label class="field field-wide"><span class="field-title">Additional information</span><textarea name="additionalInformation" maxlength="2000" rows="4" placeholder="Anything else you would like us to know?"></textarea><small>This information may appear publicly on your club profile.</small></label>
+
           </div>
         </section>
 
@@ -254,7 +251,6 @@
           <section class="preview-about" aria-labelledby="preview-about-title">
             <h3 id="preview-about-title">ABOUT THE CLUB</h3>
             <p id="preview-description">Your club description will appear here.</p>
-            <p id="preview-additional" hidden></p>
           </section>
           <section class="preview-about preview-cost" aria-labelledby="preview-cost-title">
             <h3 id="preview-cost-title">Costs</h3>
@@ -296,6 +292,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script type="module" src="../js/register.js?v=20261024-no-team-logo"></script>
+  <script type="module" src="../js/register.js?v=20261026-sheet-fields-v2"></script>
 </body>
 </html>

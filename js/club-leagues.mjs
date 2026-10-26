@@ -19,10 +19,12 @@ export function normaliseLeagues(value) {
   (Array.isArray(value) ? value : []).forEach(league => {
     const name = typeof league?.name === 'string' ? league.name.trim().replace(/\s+/g, ' ') : '';
     const teamName = typeof league?.teamName === 'string' ? league.teamName.trim().replace(/\s+/g, ' ') : '';
-    if (!name || (!teamName && league.coverage !== 'internal') || !Object.hasOwn(LEAGUE_COVERAGES, league.coverage)) return;
-    const key = JSON.stringify([name.toLocaleLowerCase('en-GB'), league.coverage, teamName.toLocaleLowerCase('en-GB')]);
+    // New registrations no longer ask coverage; retain the supplied name without guessing scope.
+    const coverage = league.coverage || null;
+    if (!name || (!teamName && coverage !== 'internal') || (coverage && !Object.hasOwn(LEAGUE_COVERAGES, coverage))) return;
+    const key = JSON.stringify([name.toLocaleLowerCase('en-GB'), coverage, teamName.toLocaleLowerCase('en-GB')]);
     if (!unique.has(key)) {
-      const entry = { teamName, name, leagueUrl: null, coverage: league.coverage };
+      const entry = { teamName, name, leagueUrl: null, coverage };
       // Organiser links are independent of the team's own online profile.
       try { if (['https:', 'http:'].includes(new URL(league.leagueUrl).protocol)) entry.leagueUrl = league.leagueUrl; } catch {}
       // Team-specific source links preserve different teams' supplied online pages.
@@ -33,9 +35,9 @@ export function normaliseLeagues(value) {
   return [...unique.values()];
 }
 
-/* Discovery includes local/county and regional leagues only; internal and national stay profile-only. */
+/* Names without supplied scope remain discoverable; existing internal/national rules stay intact. */
 export function discoverableLeagues(club) {
-  return normaliseLeagues(club.participatingLeagues).filter(league => ['local_county', 'regional'].includes(league.coverage));
+  return normaliseLeagues(club.participatingLeagues).filter(league => [null, 'local_county', 'regional'].includes(league.coverage));
 }
 
 /* Profile and registration preview share the internal-league label. */

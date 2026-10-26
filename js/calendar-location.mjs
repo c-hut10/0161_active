@@ -6,6 +6,7 @@ import { sessionSector, milesBetween, distanceLabel } from './postcode-distance.
 export function createCalendarLocation(onChange) {
   const form = document.querySelector('#calendar-location-filter');
   const postcode = form.querySelector('#calendar-home-postcode');
+  const postcodePlaceholder = postcode.placeholder;
   const radius = form.querySelector('#calendar-radius');
   // Native slider positions map to half-mile steps through 3, then whole miles.
   const radiusStops = [0, .5, 1, 1.5, 2, 2.5, 3, ...Array.from({ length:17 }, (_, i) => i + 4)];
@@ -28,6 +29,9 @@ export function createCalendarLocation(onChange) {
     origin = null;
     cache.clear();
     postcode.value = '';
+    delete postcode.dataset.selectedArea;
+    postcode.placeholder = postcodePlaceholder;
+    postcode.dispatchEvent(new Event('input', { bubbles:true }));
     postcode.removeAttribute('aria-invalid');
     clearButton.hidden = true;
     message.textContent = '';
@@ -53,7 +57,7 @@ export function createCalendarLocation(onChange) {
   /* Report filtered clubs while the map illustrates the chosen reach, not club pins. */
   function updateResults(entries = null) {
     if (!index) return;
-    if (origin) message.textContent = `Distances are approximate straight-line estimates, not routes or journey times.${unmappedDistances ? ` ${unmappedDistances} sessions without mapped locations are excluded from the distance results.` : ''}`;
+    if (origin) message.textContent = `${origin.label ? `Within ${radiusMiles()} ${radiusMiles() === 1 ? 'mile' : 'miles'} of ${origin.label}. ` : ''}Distances are approximate straight-line estimates, not routes or journey times.${unmappedDistances ? ` ${unmappedDistances} sessions without mapped locations are excluded from the distance results.` : ''}`;
     if (!reachMap) return;
     mapSummary.textContent = 'Select a training zone to see its clubs';
     reachMap.update(origin, radiusMiles(), index, entries);
@@ -62,6 +66,12 @@ export function createCalendarLocation(onChange) {
     event.preventDefault();
     if (!ready) return;
     const input = postcode.value.trim().toUpperCase().replace(/\s/g,'');
+    if (!input) {
+      postcode.removeAttribute('aria-invalid');
+      message.textContent = '';
+      clear();
+      return;
+    }
     const sector = postcodeSector(postcode.value);
     if (!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(input) && !/^[A-Z]{1,2}\d[A-Z\d]?\d$/.test(input)) {
       postcode.setAttribute('aria-invalid','true');
@@ -74,20 +84,25 @@ export function createCalendarLocation(onChange) {
       message.textContent = 'That postcode area is not in our lookup yet. Your existing filters have not changed.';
       return;
     }
-    origin = { sector, point };
-    cache.clear();
     postcode.value = postcode.value.trim().toUpperCase();
     postcode.removeAttribute('aria-invalid');
     clearButton.hidden = false;
     message.textContent = `Distances are approximate straight-line estimates, not routes or journey times.`;
+    origin = { sector, point };
+    delete postcode.dataset.selectedArea;
+    postcode.placeholder = postcodePlaceholder;
+    cache.clear();
     onChange();
   });
   clearButton.addEventListener('click', () => clear());
-  // Native range input supports touch and arrow keys; batch live updates into one frame.
-  radius.addEventListener('input', () => {
+  function updateRadiusLabel() {
     const value = `${radiusMiles()} ${radiusMiles() === 1 ? 'mile' : 'miles'}`;
     radiusValue.textContent = value;
     radius.setAttribute('aria-valuetext', radiusMiles() === 0 ? '0 miles, same approximate area' : value);
+  }
+  // Batch slider input while preserving ordinary keyboard and touch controls.
+  radius.addEventListener('input', () => {
+    updateRadiusLabel();
     if (!origin || radiusFrame) return;
     radiusFrame = requestAnimationFrame(() => { radiusFrame = 0; onChange(); });
   });
@@ -105,6 +120,23 @@ export function createCalendarLocation(onChange) {
   });
   return {
     clear, matches, decorate, updateResults,
+    selectArea(area) {
+      if (!ready || !area?.code || !Array.isArray(area.point) || area.point.length !== 2
+        || !area.point.every(Number.isFinite)) return false;
+      origin = { sector:null, key:`ward/${area.code}`, label:`${area.name}, ${area.borough}`, point:[...area.point] };
+      cache.clear();
+      radius.value = String(radiusStops.indexOf(1));
+      updateRadiusLabel();
+      postcode.value = '';
+      postcode.dataset.selectedArea = origin.label;
+      postcode.placeholder = area.name;
+      postcode.removeAttribute('aria-invalid');
+      clearButton.hidden = false;
+      reachMap?.selectWard(area.code);
+      onChange();
+      return true;
+    },
+    get ready() { return ready; },
     beginFiltering() { unmappedDistances = 0; },
     get active() { return Boolean(origin); },
     get label() { return origin ? radiusMiles() === 0 ? 'Same approximate postcode area' : `Within approx. ${radiusMiles()} ${radiusMiles() === 1 ? 'mile' : 'miles'} of your postcode` : ''; }

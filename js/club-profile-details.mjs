@@ -1,7 +1,7 @@
 import { displaySportName, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports, formatPrice, formatMembership } from './club-formatting.mjs';
 import { clubSessionPriceLabel } from './session-details.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
-import { normaliseLeagues, leaguePageUrl, leagueProfileLabel } from './club-leagues.mjs';
+import { normaliseLeagues, leaguePageUrl, leagueProfileLabel } from './club-leagues.mjs?v=20261026-sheet-fields';
 
 /* Public actions: profiles and the registration preview use the same email and URL rules. */
 export function clubProfileActions(club, pageUrl) {

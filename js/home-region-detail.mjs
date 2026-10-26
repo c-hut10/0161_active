@@ -1,7 +1,7 @@
-import { regionShapes } from './home-region-shapes.mjs?v=20261023-all-wards';
+import { regionShapes } from './home-region-shapes.mjs?v=20261025-linked-wards';
 
 /* Zoomed maps use ready-made paths; the browser performs no tracing or geographical lookup. */
-export function mountRegionDetail(map, region, { selectArea, close, reducedMotion }) {
+export function mountRegionDetail(map, region, { selectArea, activateArea, close, reducedMotion }) {
   const data = regionShapes[region.id];
   if (!data) throw new Error('Region shape unavailable');
   const ns = 'http://www.w3.org/2000/svg';
@@ -73,10 +73,6 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
       cameraFrame = requestAnimationFrame(tick);
     });
   };
-  const back = document.createElement('button');
-  back.type = 'button';
-  back.className = 'home-entry__map-back';
-  back.textContent = '← Back to Greater Manchester';
   const svg = document.createElementNS(ns, 'g');
   svg.classList.add('home-entry__area-layer');
   const [, , width, height] = data.viewBox.split(' ').map(Number);
@@ -87,7 +83,13 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
   const base = document.createElementNS(ns, 'g');
   const raised = document.createElementNS(ns, 'g');
   const targets = document.createElementNS(ns, 'g');
-  // The outer edge is drawn by the original borough; only shared internal edges are added here.
+  // The detail perimeter and wards share one traced grid, avoiding gaps against the older overview outline.
+  const boundary = document.createElementNS(ns, 'path');
+  boundary.setAttribute('d', data.outline);
+  boundary.setAttribute('class', 'home-entry__area-boundary');
+  boundary.setAttribute('fill-rule', 'evenodd');
+  boundary.setAttribute('aria-hidden', 'true');
+  base.append(boundary);
   const borders = document.createElementNS(ns, 'path');
   borders.setAttribute('d', data.borders);
   borders.setAttribute('class', 'home-entry__area-outline');
@@ -138,11 +140,17 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
     target.addEventListener('focus', () => {
       choose(visual, target, area);
     });
-    target.addEventListener('click', () => choose(visual, target, area));
+    // Ordinary activation follows the selected ward to its matching clubs.
+    target.addEventListener('click', () => {
+      choose(visual, target, area);
+      activateArea?.(area);
+    });
     target.addEventListener('keydown', event => {
       if (!['Enter', ' '].includes(event.key)) return;
       event.preventDefault();
+      if (event.repeat) return;
       choose(visual, target, area);
+      activateArea?.(area);
     });
     const clear = () => {
       if ((document.activeElement === target && target.matches(':focus-visible')) || active?.button !== target) return;
@@ -155,21 +163,18 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
     target.addEventListener('blur', clear);
     targets.append(target);
   });
-  map.after(back);
   let closing = false;
   let revealTimer;
   const goBack = async () => {
     if (closing) return;
     closing = true;
     clearTimeout(revealTimer);
-    back.disabled = true;
     svg.classList.remove('is-visible');
     targets.querySelectorAll('[tabindex]').forEach(target => target.setAttribute('tabindex', '-1'));
     map.classList.remove('is-detail');
     await moveCamera('matrix(1,0,0,1,0,0)', 650);
     if (alive) close();
   };
-  back.addEventListener('click', goBack);
   /* Empty space returns to the overview; use the moving outline rather than its rectangular bounds. */
   const emptySpace = document.createElementNS(ns, 'rect');
   const frame = map.viewBox.baseVal;
@@ -178,7 +183,6 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
   emptySpace.setAttribute('pointer-events', 'all');
   emptySpace.setAttribute('aria-hidden', 'true');
   map.insertBefore(emptySpace, camera);
-  const outline = map.querySelector(`#entry-shape-${region.id}`);
   const leftDoor = map.closest('.home-entry__door--left');
   leftDoor.classList.add('has-region-detail');
   const outsideClick = event => {
@@ -187,19 +191,21 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
     if (event.target.closest?.('.home-entry__area-target')) return;
     // Keyboard activation has no pointer location; touchscreen clicks may still have detail zero.
     if (event.detail === 0 && event.clientX === 0 && event.clientY === 0) return;
-    const matrix = camera.getScreenCTM();
+    // Outside taps use the same detailed outline and coordinate system as the visible wards.
+    const matrix = svg.getScreenCTM();
     if (!matrix) return;
     const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(matrix.inverse());
-    if (!outline.isPointInFill(point)) goBack();
+    if (!boundary.isPointInFill(point)) goBack();
   };
   leftDoor.addEventListener('click', outsideClick);
   const escape = event => {
     if (event.key !== 'Escape') return;
+    if (!map.parentElement.contains(event.target)) return;
     event.preventDefault();
     event.stopPropagation();
     goBack();
   };
-  map.parentElement.addEventListener('keydown', escape);
+  document.addEventListener('keydown', escape);
   // Reveal the internal lines halfway through the zoom, without shortening the camera motion.
   const revealAreas = () => {
     if (alive && !closing) {
@@ -231,7 +237,10 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
   window.visualViewport?.addEventListener('resize', refit);
   if (reducedMotion()) revealAreas();
   else revealTimer = setTimeout(revealAreas, 425);
-  back.focus({ preventScroll: true });
+  // Keep keyboard focus in the map after removing the former back button.
+  const originalTabIndex = map.getAttribute('tabindex');
+  map.setAttribute('tabindex', '-1');
+  map.focus({ preventScroll: true });
   return { namedAreaCount: data.areas.filter(area => area.confirmedName).length, destroy() {
     alive = false;
     resizeObserver.disconnect();
@@ -244,12 +253,13 @@ export function mountRegionDetail(map, region, { selectArea, close, reducedMotio
     leftDoor.removeEventListener('click', outsideClick);
     leftDoor.classList.remove('has-region-detail');
     emptySpace.remove();
-    map.parentElement.removeEventListener('keydown', escape);
+    document.removeEventListener('keydown', escape);
+    if (originalTabIndex === null) map.removeAttribute('tabindex');
+    else map.setAttribute('tabindex', originalTabIndex);
     originalGroups.forEach(group => map.append(group));
     originalTargets.forEach(target => { target.setAttribute('tabindex', '0'); target.removeAttribute('aria-hidden'); });
     selected.classList.remove('is-zoom-selected');
     map.classList.remove('is-detail');
     camera.remove();
-    back.remove();
   } };
 }

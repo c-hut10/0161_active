@@ -14,15 +14,10 @@
       window.addEventListener('load', () => document.documentElement.classList.remove('gallery-initialising'), { once: true });
     </script>
     <script type="module" src="js/home-gallery.js?v=20261020-gallery-startup"></script>
-    <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
-    <script defer src="/vendor/leaflet/leaflet.js"></script>
-    <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
-    <link rel="stylesheet" href="/css/location-filter.css?v=20261024-bottom-filters">
-    <script type="module" src="/js/home-reach-map.js?v=20261024-bottom-filters"></script>
     <link rel="stylesheet" href="css/home-panels.css?v=20261023-uniform-black">
     <!-- Interactive first homepage panel; all content below remains available without JavaScript. -->
     <link rel="stylesheet" href="css/home-entry.css?v=20261023-uniform-black">
-    <script src="js/home-entry.js?v=20261023-uniform-black"></script>
+    <script src="js/home-entry.js?v=20261025-linked-wards"></script>
 
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
@@ -291,107 +286,107 @@
         </button>
         <!-- Homepage gallery: the build supplies photos and links; visits shuffle the existing set. -->
         <div class="grid-container" id="club-gallery" role="region" tabindex="0" aria-label="Featured local sports clubs"><div class="gallery-row" aria-label="Featured clubs row 1">
-      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:0s;"><section class="gallery-card" data-club-id="manchester-foxes">
-        <a href="/html/touch-rugby/manchester-foxes.html">
-          <img src="/img/touch-rugby/touch rugby-Manchester Foxes.avif" alt="Manchester Foxes club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Foxes</h2><p class="gallery-caption__details">touch rugby · Fallowfield</p></div>
+      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:0s;"><section class="gallery-card" data-club-id="manchester-crows">
+        <a href="/html/flag-football/manchester-crows.html">
+          <img src="/img/flag-football/flag-football - Manchester Crows.avif" alt="Manchester Crows club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Crows</h2><p class="gallery-caption__details">flag-football · Charlestown</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="assheton-bowmen">
-        <a href="/html/archery/assheton-bowmen.html">
-          <img src="/img/archery/archery-Assheton Bowmen.avif" alt="Assheton Bowmen club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Assheton Bowmen</h2><p class="gallery-caption__details">archery · Moston</p></div>
+      </section><section class="gallery-card" data-club-id="manchester-revolution">
+        <a href="/html/wheelchair-basketball/manchester-revolution.html">
+          <img src="/img/wheelchair basketball/wheelchair basketball-Manchester Revolution.avif" alt="Manchester Revolution club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Revolution</h2><p class="gallery-caption__details">wheelchair basketball · Longsight</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="ancoats-run-club">
-        <a href="/html/run-club/AncoatRunClub.html">
-          <img src="/img/run-club/AncoatRunClub.avif" alt="Ancoats Run Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+      </section><section class="gallery-card" data-club-id="belle-vue-racers-running">
+        <a href="/html/run-club/belle-vue-racers-running.html">
+          <img src="/img/athletics/athletics-Belle Vue Racers.avif" alt="Belle Vue Racers club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Belle Vue Racers</h2><p class="gallery-caption__details">Run Club</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="manchester-hawks">
-        <a href="/html/korfball/manchester-hawks.html">
-          <img src="/img/korfball/korfball-Manchester Hawks.avif" alt="Manchester Hawks club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Hawks</h2><p class="gallery-caption__details">korfball · Didsbury</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="manchester-korfball">
-        <a href="/html/korfball/manchester-korfball.html">
-          <img src="/img/korfball/korfball-Manchester Korfball.avif" alt="Manchester Korfball club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Korfball</h2><p class="gallery-caption__details">korfball · Sale</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="manchester-foxes" aria-hidden="true">
-        <a href="/html/touch-rugby/manchester-foxes.html" tabindex="-1">
-          <img src="/img/touch-rugby/touch rugby-Manchester Foxes.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Foxes</h2><p class="gallery-caption__details">touch rugby · Fallowfield</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="assheton-bowmen" aria-hidden="true">
-        <a href="/html/archery/assheton-bowmen.html" tabindex="-1">
-          <img src="/img/archery/archery-Assheton Bowmen.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Assheton Bowmen</h2><p class="gallery-caption__details">archery · Moston</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="ancoats-run-club" aria-hidden="true">
-        <a href="/html/run-club/AncoatRunClub.html" tabindex="-1">
-          <img src="/img/run-club/AncoatRunClub.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="manchester-hawks" aria-hidden="true">
-        <a href="/html/korfball/manchester-hawks.html" tabindex="-1">
-          <img src="/img/korfball/korfball-Manchester Hawks.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Hawks</h2><p class="gallery-caption__details">korfball · Didsbury</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="manchester-korfball" aria-hidden="true">
-        <a href="/html/korfball/manchester-korfball.html" tabindex="-1">
-          <img src="/img/korfball/korfball-Manchester Korfball.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Korfball</h2><p class="gallery-caption__details">korfball · Sale</p></div>
-        </a>
-      </section></div>
-    </div><div class="gallery-row" aria-label="Featured clubs row 2">
-      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:-6.666666666666667s;"><section class="gallery-card" data-club-id="mcr-ymca-harriers">
-        <a href="/html/athletics/mcr-ymca-harriers.html">
-          <img src="/img/run-club/run club - Manchester YMCA Harriers.avif" alt="MCR YMCA Harriers club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>MCR YMCA Harriers</h2><p class="gallery-caption__details">Run Club · Beswick</p></div>
-        </a>
-      </section><section class="gallery-card" data-club-id="mcr-titans-mens">
-        <a href="/html/american-football/mcr-titans-mens.html">
-          <img src="/img/american-football/american football-Manchester TItans (M).avif" alt="Manchester Titans (mens) club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Titans (mens)</h2><p class="gallery-caption__details">american football · Longsight</p></div>
+      </section><section class="gallery-card" data-club-id="stretford-run-club">
+        <a href="/html/run-club/stretford-run-club.html">
+          <img src="/img/run-club/run club - stretford run club.avif" alt="Stretford Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Stretford Run Club</h2><p class="gallery-caption__details">Run Club · Stretford</p></div>
         </a>
       </section><section class="gallery-card" data-club-id="manchester-frontrunners">
         <a href="/html/run-club/ManchesterFrontrunners.html">
           <img src="/img/run-club/ManchesterFrontrunners.jpg" alt="Manchester Frontrunners club photo" loading="eager" decoding="async">
           <div class="gallery-caption"><h2>Manchester Frontrunners</h2><p class="gallery-caption__details">Run Club</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="eccles-archery-club">
-        <a href="/html/archery/eccles-archery-club.html">
-          <img src="/img/archery/archery-Eccles Archery.avif" alt="Eccles Archery Club club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Eccles Archery Club</h2><p class="gallery-caption__details">archery · Peel Green</p></div>
+      </section><section class="gallery-card" data-club-id="manchester-crows" aria-hidden="true">
+        <a href="/html/flag-football/manchester-crows.html" tabindex="-1">
+          <img src="/img/flag-football/flag-football - Manchester Crows.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Crows</h2><p class="gallery-caption__details">flag-football · Charlestown</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="mcr-titans-womens">
-        <a href="/html/american-football/mcr-titans-womens.html">
-          <img src="/img/american-football/american football-Manchester TItans (W).avif" alt="Manchester Titans (womens) club photo" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Titans (womens)</h2><p class="gallery-caption__details">american football · Longsight</p></div>
+      </section><section class="gallery-card" data-club-id="manchester-revolution" aria-hidden="true">
+        <a href="/html/wheelchair-basketball/manchester-revolution.html" tabindex="-1">
+          <img src="/img/wheelchair basketball/wheelchair basketball-Manchester Revolution.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Revolution</h2><p class="gallery-caption__details">wheelchair basketball · Longsight</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="mcr-ymca-harriers" aria-hidden="true">
-        <a href="/html/athletics/mcr-ymca-harriers.html" tabindex="-1">
-          <img src="/img/run-club/run club - Manchester YMCA Harriers.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>MCR YMCA Harriers</h2><p class="gallery-caption__details">Run Club · Beswick</p></div>
+      </section><section class="gallery-card" data-club-id="belle-vue-racers-running" aria-hidden="true">
+        <a href="/html/run-club/belle-vue-racers-running.html" tabindex="-1">
+          <img src="/img/athletics/athletics-Belle Vue Racers.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Belle Vue Racers</h2><p class="gallery-caption__details">Run Club</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="mcr-titans-mens" aria-hidden="true">
-        <a href="/html/american-football/mcr-titans-mens.html" tabindex="-1">
-          <img src="/img/american-football/american football-Manchester TItans (M).avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Titans (mens)</h2><p class="gallery-caption__details">american football · Longsight</p></div>
+      </section><section class="gallery-card" data-club-id="stretford-run-club" aria-hidden="true">
+        <a href="/html/run-club/stretford-run-club.html" tabindex="-1">
+          <img src="/img/run-club/run club - stretford run club.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Stretford Run Club</h2><p class="gallery-caption__details">Run Club · Stretford</p></div>
         </a>
       </section><section class="gallery-card" data-club-id="manchester-frontrunners" aria-hidden="true">
         <a href="/html/run-club/ManchesterFrontrunners.html" tabindex="-1">
           <img src="/img/run-club/ManchesterFrontrunners.jpg" alt="" loading="eager" decoding="async">
           <div class="gallery-caption"><h2>Manchester Frontrunners</h2><p class="gallery-caption__details">Run Club</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="eccles-archery-club" aria-hidden="true">
-        <a href="/html/archery/eccles-archery-club.html" tabindex="-1">
-          <img src="/img/archery/archery-Eccles Archery.avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Eccles Archery Club</h2><p class="gallery-caption__details">archery · Peel Green</p></div>
+      </section></div>
+    </div><div class="gallery-row" aria-label="Featured clubs row 2">
+      <div class="gallery-track" style="--gallery-card-count:10;--roll-duration:66.66666666666667s;--roll-phase-offset:-6.666666666666667s;"><section class="gallery-card" data-club-id="ghap-badminton">
+        <a href="/html/badminton/ghap-badminton.html">
+          <img src="/img/badminton/badminton-GHAP Badminton.avif" alt="GHAP Badminton club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>GHAP Badminton</h2><p class="gallery-caption__details">badminton · Old Trafford</p></div>
         </a>
-      </section><section class="gallery-card" data-club-id="mcr-titans-womens" aria-hidden="true">
-        <a href="/html/american-football/mcr-titans-womens.html" tabindex="-1">
-          <img src="/img/american-football/american football-Manchester TItans (W).avif" alt="" loading="eager" decoding="async">
-          <div class="gallery-caption"><h2>Manchester Titans (womens)</h2><p class="gallery-caption__details">american football · Longsight</p></div>
+      </section><section class="gallery-card" data-club-id="manchester-sharks-water-polo">
+        <a href="/html/water-polo/manchester-sharks-water-polo.html">
+          <img src="/img/water-polo/water polo - Manchester Sharks.avif" alt="Manchester Sharks Water Polo club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Sharks Water Polo</h2><p class="gallery-caption__details">water-polo · Beswick</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="redacted-run-club">
+        <a href="/html/run-club/RedactedRunClub.html">
+          <img src="/img/run-club/RedactedRunClub.jpeg" alt="Redacted Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Redacted Run Club</h2><p class="gallery-caption__details">Run Club · Ancoats</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="ancoats-run-club">
+        <a href="/html/run-club/AncoatRunClub.html">
+          <img src="/img/run-club/AncoatRunClub.avif" alt="Ancoats Run Club club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="manchester-lynx">
+        <a href="/html/basketball/manchester-lynx.html">
+          <img src="/img/basketball/basketball-Manchester Lynx.avif" alt="Manchester Lynx club photo" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Lynx</h2><p class="gallery-caption__details">basketball · Chorlton</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="ghap-badminton" aria-hidden="true">
+        <a href="/html/badminton/ghap-badminton.html" tabindex="-1">
+          <img src="/img/badminton/badminton-GHAP Badminton.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>GHAP Badminton</h2><p class="gallery-caption__details">badminton · Old Trafford</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="manchester-sharks-water-polo" aria-hidden="true">
+        <a href="/html/water-polo/manchester-sharks-water-polo.html" tabindex="-1">
+          <img src="/img/water-polo/water polo - Manchester Sharks.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Sharks Water Polo</h2><p class="gallery-caption__details">water-polo · Beswick</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="redacted-run-club" aria-hidden="true">
+        <a href="/html/run-club/RedactedRunClub.html" tabindex="-1">
+          <img src="/img/run-club/RedactedRunClub.jpeg" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Redacted Run Club</h2><p class="gallery-caption__details">Run Club · Ancoats</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="ancoats-run-club" aria-hidden="true">
+        <a href="/html/run-club/AncoatRunClub.html" tabindex="-1">
+          <img src="/img/run-club/AncoatRunClub.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Ancoats Run Club</h2><p class="gallery-caption__details">Run Club</p></div>
+        </a>
+      </section><section class="gallery-card" data-club-id="manchester-lynx" aria-hidden="true">
+        <a href="/html/basketball/manchester-lynx.html" tabindex="-1">
+          <img src="/img/basketball/basketball-Manchester Lynx.avif" alt="" loading="eager" decoding="async">
+          <div class="gallery-caption"><h2>Manchester Lynx</h2><p class="gallery-caption__details">basketball · Chorlton</p></div>
         </a>
       </section></div>
     </div></div><!-- /Homepage gallery -->
@@ -440,46 +435,6 @@
 
     </section>
     </div><!-- /First viewport: gallery above the introduction -->
-
-    <section class="calendar-sector-map home-reach-map" aria-labelledby="calendar-map-heading">
-      <h2 id="calendar-map-heading">The 0161 Map</h2>
-
-      <p id="calendar-map-summary" role="status">Select a training zone to see its clubs</p>
-      <div class="home-map-frame">
-        <div id="calendar-sector-map" role="region" aria-label="Map showing matching training zones and your selected reach"></div>
-        <div class="home-map-filter-panel" data-map-filters>
-          <button type="button" class="home-map-filter-toggle" aria-expanded="true" aria-controls="calendar-location-filter">Filters</button>
-    <form class="calendar-location-filter" id="calendar-location-filter" aria-label="Find sessions near a postcode">
-      <div class="home-map-filter-fields">
-        <label>Sport<select id="home-map-sport"><option value="all">All sports</option></select></label>
-        <label>Price<select id="home-map-price"><option value="all">Any price</option><option value="free">Free</option><option value="per_session">Pay-per-session</option><option value="membership">Membership</option></select></label>
-        <label>Starting time<input id="home-map-time" type="time" step="60" value="00:00"></label>
-        <label>Flexibility<select id="home-map-flexibility"><option value="0">Exact time</option><option value="15">±15 minutes</option><option value="30">±30 minutes</option></select></label>
-      </div>
-      <div class="home-map-location-fields">
-      <label for="calendar-home-postcode">Your postcode
-        <input id="calendar-home-postcode" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="10" placeholder="e.g. M30 0AA" aria-describedby="calendar-postcode-help calendar-location-status" required>
-        <small class="calendar-postcode-help" id="calendar-postcode-help">Our club radius is calculated using approximate postcode sections to save power. Don't worry if the dot isn't on your postcode exactly, we get the point!</small>
-      </label>
-      <label class="calendar-radius-control" for="calendar-radius">
-        <span>Distance <output id="calendar-radius-value" for="calendar-radius">10 miles</output></span>
-        <input id="calendar-radius" type="range" min="0" max="23" step="1" value="13" aria-valuetext="10 miles">
-        <span class="calendar-radius-scale" aria-hidden="true"><span>0 miles</span><span>20 miles</span></span>
-      </label>
-      </div>
-      <button type="submit">Find nearby sessions</button>
-      <button type="button" data-clear-location hidden>Clear postcode</button>
-      <button type="button" id="home-map-clear-filters">Clear filters</button>
-      <p id="calendar-location-status" role="status"></p>
-    </form>
-        </div>
-      </div>
-      <p id="calendar-map-status" role="status" hidden></p>
-      <p id="calendar-ward-status" class="calendar-map-note" role="status" hidden></p>
-      <p class="calendar-map-note">Green wards contain matching training sessions; grey wards show surrounding areas. Ward boundaries use the supplied May 2026 simplified dataset. The reach outline shows an approximate straight-line radius, not travel time. Background maps load from OpenStreetMap.</p>
-      <p class="calendar-map-credit">Approximate locations from <a href="https://www.getthedata.com/open-postcode-geo" target="_blank" rel="noopener noreferrer">GetTheData Open Postcode Geo</a> (August 2023). Contains OS data © Crown copyright and database right 2023; Royal Mail data © Royal Mail copyright and database right 2023; National Statistics data © Crown copyright and database right 2023.</p>
-    </section>
-
 
     <section class="mission-panels" aria-label="Explore our mission">
         <div class="mission-panels__stack" aria-label="Explore our mission">

@@ -23,7 +23,9 @@
 #calendar-sector-map .leaflet-popup-content a { color:#234d00; }
 #calendar-sector-map .leaflet-popup-content ul { padding-left:18px; }
 #calendar-sector-map .leaflet-control-zoom a { color:#202220; background:#fff; }
-#calendar-sector-map .leaflet-interactive:focus-visible { outline:2px solid #111211; }
+/* SVG outlines become rectangular during modifier-scroll; keyboard focus follows the zone shape instead. */
+#calendar-sector-map .leaflet-interactive:focus { outline: none; }
+#calendar-sector-map .leaflet-interactive:focus-visible { stroke: #111211; stroke-width: 2.5; }
 /* Fixed ward hit areas stay underneath a noninteractive retro-style bulge. */
 #calendar-sector-map .ward-hover-visual { pointer-events:none; transform-box:fill-box; transform-origin:center; animation:ward-bulge 480ms cubic-bezier(.22,1,.36,1) forwards; }
 @keyframes ward-bulge { from { opacity:0; transform:scale(1); } to { opacity:1; transform:scale(1.035); } }
@@ -54,15 +56,33 @@
 /* Homepage map follows Movement for everyone in normal document flow. */
 .home-reach-map { --cal-black:#111211; --cal-line:#454945; --cal-grey:#a5aaa2; --cal-paper:#faecd2; --cal-lime:#dffc3a; box-sizing:border-box; width:60vw; margin:28px auto 36px; padding:clamp(18px, 4vw, 40px); color:var(--cal-paper); background:var(--cal-black); font-family:Arial, Helvetica, sans-serif; }
 .home-reach-map #calendar-sector-map { height:50vh; }
+.home-reach-map #calendar-sector-map { scroll-margin-top:var(--site-nav-height,100px); }
 .home-reach-map #calendar-map-heading { color:var(--cal-lime); }
 @media(max-width:768px) { .home-reach-map { width:calc(100% - 36px); } }
 
-/* Filters sit over the map; the compact toggle works without a separate results list. */
+/* A green heading sits above the boxed filters; selected sports share the directory selection. */
 .home-map-frame { position:relative; }
-.home-map-filter-panel { position:absolute; top:12px; left:54px; z-index:2; width:290px; max-width:calc(100% - 72px); max-height:calc(100% - 24px); overflow:auto; border:1px solid var(--cal-line); background:var(--cal-black); box-sizing:border-box; }
-.home-map-filter-panel > .home-map-filter-toggle { display:block; width:100%; min-height:44px; padding:12px 14px; border:0; background:var(--cal-black); color:var(--cal-paper); cursor:pointer; font:700 14px Arial,sans-serif; text-align:left; }
-.home-map-filter-panel .calendar-location-filter { display:grid; padding:14px; margin:0; border:0; gap:14px; }
+.home-map-filter-panel { position:absolute; top:12px; left:54px; z-index:2; width:290px; max-width:calc(100% - 72px); max-height:calc(100% - 24px); overflow:auto; border:0; background:transparent; box-sizing:border-box; }
+/* The summary expands to a checklist; removing every entry restores all sports. */
+/* Match the small directory section headings and their green divider line. */
+.home-map-filter-heading { display:block; margin:0 0 12px; padding:14px 16px; border-bottom:1px solid var(--cal-lime); color:var(--cal-lime); background:var(--cal-black); font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.home-map-selected-sport { display:grid; align-content:start; gap:8px; color:var(--cal-grey); font:700 12px Arial,sans-serif; }
+.home-map-filter-panel #home-map-sport-summary { width:100%; text-align:left; font-size:14px; font-weight:700; color:var(--cal-paper); }
+.home-map-filter-panel #home-map-sport-summary.is-filter-selected { color:var(--cal-lime); }
+.home-map-sports-list { display:grid; gap:4px; margin:0; padding:0; list-style:none; }
+.home-map-sports-list li { display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--cal-line); }
+.home-map-sports-list li > span { flex:1; min-width:0; color:var(--cal-paper); font-size:12px; line-height:1.4; }
+.home-map-filter-panel .home-map-sport-remove { flex:0 0 44px; width:44px; padding:0; border:0; color:var(--cal-lime); font-size:24px; }
+.home-map-filter-fields > :first-child { grid-column:1 / -1; }
+.home-map-filter-fields.has-budget > :first-child { grid-column:auto; }
+.home-map-amount-help { grid-column:1 / -1; color:var(--cal-grey); font-size:11px; line-height:1.5; }
+.home-map-filter-panel .calendar-location-filter { display:grid; padding:14px; margin:0; border:1px solid var(--cal-line); background:var(--cal-black); gap:14px; }
 .home-map-filter-panel .calendar-location-filter label { min-width:0; width:100%; }
+/* Native labels and enhanced dropdown headings share the Sport label's typography. */
+.home-map-filter-panel .calendar-location-filter label,
+.home-map-filter-panel .calendar-location-filter .filter-field,
+.home-map-filter-panel .calendar-location-filter .filter-field > span:first-child,
+.home-map-selected-sport > span { color:var(--cal-grey); font:700 12px Arial,sans-serif; letter-spacing:normal; }
 .home-map-filter-panel .calendar-location-filter input:not([type="range"]), .home-map-filter-fields select { width:100%; min-width:0; }
 .home-map-filter-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
 .home-map-filter-fields > * { min-width:0; }
@@ -78,7 +98,6 @@
 .home-map-filter-panel .is-filter-selected .filter-picker__trigger,
 .home-map-filter-panel .calendar-location-filter input.is-filter-selected,
 .home-map-filter-panel .calendar-radius-control output { color:var(--cal-lime); }
-.home-map-filter-panel:not(.is-open) { width:auto; }
 .home-map-filter-panel [hidden] { display:none!important; }
 @media(max-width:1040px) {
   /* No outer box: permanent filters follow the full-width map in normal flow. */
@@ -86,9 +105,7 @@
   .home-reach-map > h2, .home-reach-map > p { margin-left:18px; margin-right:18px; }
   .home-reach-map .home-map-frame { width:100vw; margin-left:calc(50% - 50vw); }
   .home-reach-map #calendar-sector-map { box-sizing:border-box; border:0; }
-  .home-map-filter-panel,
-  .home-map-filter-panel:not(.is-open) { position:relative; top:auto; bottom:auto; left:auto; right:auto; width:100%; height:auto; max-width:none; max-height:none; overflow:visible; padding:0; border:0; }
-  .home-map-filter-panel > .home-map-filter-toggle { display:none; }
+  .home-map-filter-panel { position:relative; top:auto; bottom:auto; left:auto; right:auto; width:100%; height:auto; max-width:none; max-height:none; overflow:visible; padding:0; border:0; }
   .home-map-filter-panel .calendar-location-filter { position:static; max-height:none; box-sizing:border-box; overflow:visible; background:var(--cal-black); }
   .home-map-filter-panel .filter-field--open,
   .home-map-filter-panel .filter-picker { position:static; }

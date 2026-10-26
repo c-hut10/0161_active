@@ -18,6 +18,26 @@ export function matchesSessionPrice(club, session, price = 'all') {
     || (price === 'membership' && (['monthly_fee', 'annual_fee'].includes(priceType(pricedClub)) || Boolean(formatMembership(pricedClub))));
 }
 
+/* Compare recorded GBP charges only; annual membership budgets cover dues, not extra session fees. */
+export function matchesSessionBudget(club, session, price = 'all', maximum = '') {
+  if (!['per_session', 'membership'].includes(price) || String(maximum).trim() === '') return true;
+  const limit = Number(maximum);
+  if (!Number.isFinite(limit) || limit < 0) return false;
+  const pricedClub = sessionPricingClub(club, session);
+  const charge = pricedClub.price;
+  if ((charge?.currency || 'GBP') !== 'GBP') return false;
+  const amounts = [];
+  if (price === 'per_session' && charge?.type === 'per_session') amounts.push(charge.amount);
+  if (price === 'membership') {
+    if (charge?.type === 'annual_fee') amounts.push(charge.amount);
+    if (charge?.type === 'monthly_fee' && Number.isFinite(charge.amount)) amounts.push(charge.amount * 12);
+    if (formatMembership(pricedClub)) {
+      amounts.push(pricedClub.membership.amount * (pricedClub.membership.period === 'monthly' ? 12 : 1));
+    }
+  }
+  return amounts.some(amount => Number.isFinite(amount) && amount >= 0 && amount <= limit + 1e-8);
+}
+
 /* Existing consumers share the same sport labels and canonical area comparisons. */
 export function sportName(value) {
   return displaySportName(String(value || '').replaceAll('-', ' '), { titleCase: true, fallback: 'Sport' });

@@ -1,7 +1,7 @@
 import { formatPostcodes, escapeHtml, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { resolveClubAreas, clubTrainingAreas } from './club-areas.mjs';
-import { CLUB_ANSWER_FIELDS, PAID_PRICE_TYPES, clubAnswers, submissionCsv, submissionReview, submissionSummary } from './club-submission.mjs';
-import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs';
+import { FORM_ANSWER_FIELDS, clubAnswers, submissionCsv, submissionSpreadsheet, submissionReview, submissionSummary } from './club-submission.mjs?v=20261026-sheet-fields-v2';
+import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs?v=20261026-sheet-fields';
 import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
 (() => {
@@ -11,6 +11,8 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   const submitButton = form.querySelector('[type="submit"]');
   /* Submission state: prevent duplicate requests while Netlify processes the application. */
   let submitting = false;
+  // IDs stay stable across edits, downloads and the final submission.
+  const applicationId = `club-${crypto.randomUUID()}`;
   const sessionList = document.querySelector('#training-sessions');
   const addSessionButton = document.querySelector('#add-session');
   const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
@@ -130,17 +132,18 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     });
   }
 
-  /* Session data: preserve each entry's title, experience level and special considerations. */
+  /* Session data: preserve each entry's ID, price, venue, schedule and notes. */
   function readSessions() {
     return [...sessionList.querySelectorAll('.training-session')].map(block =>
-      Object.fromEntries([...block.querySelectorAll('[data-session-field]')].map(field => [
-        field.dataset.sessionField, field.value.trim()
-      ])));
+      Object.assign({ id: block.dataset.sessionId ||= `session-${crypto.randomUUID()}` },
+        Object.fromEntries([...block.querySelectorAll('[data-session-field]')].filter(field => !field.disabled).map(field => [
+          field.dataset.sessionField, field.value.trim()
+        ]))));
   }
 
   function sessionSummary(session) {
     const time = [session.startTime, session.endTime].filter(Boolean).join('–');
-    return [session.title, dayNames[session.dayOfWeek], time, session.eligibility, session.specialConsiderations].filter(Boolean).join(' · ');
+    return [session.title, dayNames[session.dayOfWeek], time, session.specialConsiderations].filter(Boolean).join(' · ');
   }
 
   /* Session headings: reflect typed names and keep numbering correct after adding or removing entries. */
@@ -161,7 +164,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   }
 
   /* Read answer fields only; generated CSV/JSON and the CAPTCHA are not part of the live preview. */
-  const values = () => Object.fromEntries(CLUB_ANSWER_FIELDS.map(name => {
+  const values = () => Object.fromEntries(FORM_ANSWER_FIELDS.map(name => {
     const field = form.elements.namedItem(name);
     return [name, field && !field.disabled ? field.value : ''];
   }));
@@ -179,7 +182,13 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     document.querySelector('#gender-eligibility-field').hidden = genderSpecific !== 'yes';
     genderEligibility.disabled = genderSpecific !== 'yes';
     genderEligibility.required = genderSpecific === 'yes';
-    // Collect each league's name and coverage together; hide and omit details for No.
+    // Kit questions follow the same Yes-only visibility and validation rule as gender.
+    const needsKit = form.elements.namedItem('kitRequired').value === 'yes';
+    const kitDetails = form.elements.namedItem('kitDetails');
+    document.querySelector('#kit-details-field').hidden = !needsKit;
+    kitDetails.disabled = !needsKit;
+    kitDetails.required = needsKit;
+    // Only league names are asked; the club name supplies team names internally.
     const participates = form.elements.namedItem('participatesInLeague').value === 'yes';
     document.querySelector('#league-questions').hidden = !participates;
     const leagueBlocks = [...leagueList.querySelectorAll('.league-entry')];
@@ -192,42 +201,26 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
         field.disabled = !participates;
         field.required = participates;
       });
-      const team = block.querySelector('[data-league-field="teamName"]');
-      // Internal leagues describe members' competition, so no team name is needed.
-      const internal = block.querySelector('[data-league-field="coverage"]').value === 'internal';
-      team.required = participates && !internal;
-      team.closest('label').querySelector('.required').hidden = internal;
-      return { teamName: team.value.trim(), name: block.querySelector('[data-league-field="name"]').value.trim(),
-        coverage: block.querySelector('[data-league-field="coverage"]').value };
+      return block.querySelector('[data-league-field="name"]').value.trim();
     });
-    form.elements.namedItem('participatingLeagues.name').value = participates ? leagueAnswers.map(league => league.name).join('\n') : '';
-    form.elements.namedItem('participatingLeagues.teamName').value = participates ? leagueAnswers.map(league => league.teamName).join('\n') : '';
-    form.elements.namedItem('participatingLeagues.coverage').value = participates ? leagueAnswers.map(league => league.coverage).join('\n') : '';
+    form.elements.namedItem('participatingLeagues.name').value = participates ? leagueAnswers.join('\n') : '';
     const leagueStatus = document.querySelector('#league-status');
     const leagueStatusText = `${leagueBlocks.length} ${leagueBlocks.length === 1 ? 'league' : 'leagues'} added.`;
     if (leagueStatus.textContent !== leagueStatusText) leagueStatus.textContent = leagueStatusText;
     syncSessionLocations();
-    // Keep paid fields out of submissions when Free or Unknown is selected.
     const pricingType = form.elements.namedItem('price.type').value;
-    const paid = PAID_PRICE_TYPES.includes(pricingType);
-    form.querySelectorAll('[data-paid-pricing]').forEach(row => {
-      row.hidden = !paid;
-      row.querySelector('input, select').disabled = !paid;
-    });
-    form.elements.namedItem('price.amount').required = paid;
-    // Paid clubs must explicitly confirm whether booking is required.
-    form.elements.namedItem('bookingRequired').required = paid;
-    // Only pay-per-session clubs expose the optional recurring membership questions.
-    const membershipPeriod = form.elements.namedItem('membership.period');
-    const canOfferMembership = pricingType === 'per_session';
-    membershipPeriod.closest('.field').hidden = !canOfferMembership;
-    membershipPeriod.disabled = !canOfferMembership;
-    const hasMembership = canOfferMembership && Boolean(membershipPeriod.value);
-    form.querySelectorAll('[data-membership-pricing]').forEach(row => {
-      row.hidden = !hasMembership;
+    // Recurring membership amounts stay club-wide; per-session amounts belong to each venue/time entry.
+    const recurring = ['monthly_fee', 'annual_fee'].includes(pricingType);
+    const baseAmount = form.elements.namedItem('price.amount');
+    baseAmount.closest('[data-base-membership-price]').hidden = !recurring;
+    baseAmount.disabled = !recurring;
+    baseAmount.required = recurring;
+    sessionList.querySelectorAll('[data-session-pricing]').forEach(row => {
+      const enabled = pricingType === 'per_session';
+      row.hidden = !enabled;
       const field = row.querySelector('input');
-      field.disabled = !hasMembership;
-      field.required = hasMembership;
+      field.disabled = !enabled;
+      field.required = enabled;
     });
     const data = values();
     const club = clubAnswers(data, readSessions());
@@ -251,8 +244,6 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     put('#preview-description', data.description, 'Your club description will appear here.');
     put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Training to be confirmed');
     put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
-    document.querySelector('#preview-additional').hidden = !data.additionalInformation.trim();
-    put('#preview-additional', data.additionalInformation, '');
     document.querySelectorAll('[data-preview-day]').forEach(day => {
       const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
       const hasSession = count > 0;
@@ -271,7 +262,9 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     const { data, club } = currentApplication;
     const review = submissionReview(club);
     form.elements.namedItem('sessions').value = JSON.stringify(club.sessions);
-    form.elements.namedItem('registrationCsv').value = submissionCsv(data, club.sessions);
+    form.elements.namedItem('registrationCsv').value = submissionCsv(data, club.sessions, applicationId);
+    // Receiving-side copy matches Master headings exactly, without a heading row.
+    form.elements.namedItem('spreadsheetCopy').value = submissionSpreadsheet(data, club.sessions, applicationId);
     form.elements.namedItem('submissionSummary').value = submissionSummary(review);
     document.querySelector('#submission-review').replaceChildren(...review.map(section => {
       const group = document.createElement('section');
@@ -388,7 +381,7 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     const block = leagueTemplate.cloneNode(true);
     leagueList.append(block);
     updatePreview();
-    focusFilterControl(block.querySelector('select'));
+    block.querySelector('[data-league-field="name"]').focus();
   });
   leagueList.addEventListener('click', event => {
     const remove = event.target.closest('[data-remove-league]');

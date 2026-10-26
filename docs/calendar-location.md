@@ -53,3 +53,39 @@ This section supersedes the earlier polygon presentation. The homepage now uses 
 Green wards contain matching sessions; muted grey wards provide surrounding context. Popups show ward name, borough and matching club links. Sessions without an assignment are counted beneath the map. The boundary file is fetched only when the map is visible. Geographic bounds are cached and offscreen grey wards are omitted; no continuous animation is used.
 
 The postcode radius calculation remains sector-centre based on both home and calendar pages. Ward display does not change radius eligibility or the site's existing area allocations. Old sector hulls have been removed from the public lookup and its builder, leaving only sector centres. The supplied OS attribution remains on the map. No browser verification was performed for this change.
+
+## Apply-only filtering and brief animation (25 October 2026)
+
+The homepage controls are restored. Sport, price, starting time, flexibility, postcode and radius are draft values until Apply filters is submitted. Postcode is optional, but a supplied value must be valid and present in the sector lookup. The submitted values are captured, then committed after a deliberate 3,000 ms presentation delay. Applying again cancels the previous timer. Clearing filters resets the draft controls and cancels a pending application; Apply filters commits the cleared draft.
+
+Only this pending period uses the diagonal SVG pattern, at its previously approved 1.666667-second cycle speed. Results and the postcode marker/radius are hidden during the animation. Completion restores matching green wards, surrounding grey wards, hover interactions and any applied location zone. All-ward and all-grey preview flags are removed. SVG animation is paused between submissions, when offscreen, in hidden tabs and for reduced-motion preferences. The persistent animation pause button is removed because the animation ends after three seconds. No animation library or continuous JavaScript frame loop is used.
+
+## Static map restored (25 October 2026)
+
+The apply-only transition above has been reverted. The homepage map no longer contains the SVG stripe animation, its observers or the artificial three-second timer. Sport, price, time/flexibility and an active radius update results immediately; submitting a postcode applies its location without a delay. Clearing filters also clears the applied postcode. The desktop section is again 60vw wide and the map is 50vh tall. Mobile retains its full-width, borderless map and permanently open filters below it.
+
+## Smooth modifier-wheel zoom (25 October 2026)
+
+The map now imports a self-hosted adaptation of mutsuyuki/Leaflet.SmoothWheelZoom from `vendor/leaflet-smooth-wheel-zoom/smooth-wheel-zoom.mjs`. Its MIT notice is retained in `LICENSE.txt`; there is no CDN or runtime GitHub request. The plugin's use of Leaflet's private `_move`, `_moveStart`, `_moveEnd` and `_stop` methods stays isolated in that module and should be reviewed when changing Leaflet versions.
+
+Command-scroll on Mac and Ctrl-scroll elsewhere activate the handler. Ordinary scrolling, form controls and popup scrolling remain outside its zoom interception. Sensitivity is 0.5. Fractional wheel zoom requires zoomSnap 0, while the existing +/- buttons retain zoomDelta 0.5. There is no idle frame loop: animation frames run only while interpolating an active gesture, converge to its goal and stop after scrolling ends. Pending frames and timers are cancelled when interrupted or disabled. Centered cursor positions and convergence avoid the upstream early-return/stalling cases.
+
+The OS reduced-motion preference and the site's `a11y-reduce-motion` class use discrete half-step zoom, batched at 160 ms. Site preferences, tab visibility, modifier release and window blur interrupt smooth zoom. Hover decoration clears at movement start; surrounding grey polygons still update at movement end. Public packaging now includes vendor `.mjs` modules. Packaged locally; browser behaviour has not been verified in this change.
+
+## Reusable ward geometry (25 October 2026)
+
+Each of the 215 wards is now converted into a Leaflet polygon once, with cached geographic bounds, popup/tooltip bindings and event handlers. The same polygon switches between green and grey styles when filters change. The viewport update compares cached bounds and attaches or detaches only wards whose visibility changes; wards that remain visible are left untouched. Matching bounds for camera fitting are computed from all matching records, so offscreen culling does not narrow the result extent.
+
+Grey polygons are noninteractive and excluded from keyboard navigation. Matching polygons retain fixed pointer targets, keyboard opening and current club links. Hover decorations are created lazily the first time a ward is highlighted and reused thereafter. Filtering refreshes an open popup from the current matching club set. The entire ward layer sits below postcode markers and hover decoration. No vector-tile library, new network dependency or animation loop is introduced. The cache retains polygon objects to avoid repeated geometry conversion; SVG elements may still be recreated by Leaflet when a detached ward returns to view. Browser performance has not been measured for this change.
+
+## Manual ward highlights (25 October 2026)
+
+All wards now start grey and remain interactive. Clicking or pressing Enter/Space toggles an individual ward green or grey, with aria-pressed exposing the state. Multiple wards can remain selected. These choices last only for the current page and survive viewport culling and filter updates. Filters update the club links in each popup, without automatically colouring wards. Wards without matching clubs show an explicit empty message. Hover decoration applies only to selected wards, so an unselected ward remains grey until activated. Postcode/radius eligibility is unchanged.
+
+## Retro ward links to the main map (25 October 2026)
+
+Desktop borough clicks retain their existing inner-ward view. Clicking a ward, or activating it with Enter/Space, dispatches `0161-map-area-selected` with its shared ward code, name, borough and prepared geographic point. The homepage map queues early selections until directory/postcode data are ready, clears sport/price/time filters, sets a one-mile radius, highlights the ward and scrolls/focuses the main map. Reduced-motion users get an immediate scroll. Existing mobile borough-overview behaviour is unchanged; no mobile inner-map zoom has been reintroduced.
+
+`scripts/build-retro-ward-links.py` now generates the pixel-style inner maps in `js/home-region-shapes.mjs` from the same 215 polygons used by the main map. This replaces older ward names and partitions that did not match the supplied May 2026 data. The original image references are retained in archive. `scripts/build-region-details.py` forwards to the geographic builder, preventing a later rebuild from restoring stale image-derived labels. Rebuild the retro module after regenerating or replacing `data/map-wards.json`.
+
+Ward points use an area centroid, with an interior representative point when a concave outline or hole puts the centroid outside the ward. They are area centres, not user addresses or confirmed club locations. The main map measures approximate straight-line distance from that point to session postcode-sector centres. The location input displays the selected ward as its placeholder and its description explains the area origin; entering a postcode or clearing location replaces it normally. Selected areas are not persisted between visits. No external geocoding requests are added.

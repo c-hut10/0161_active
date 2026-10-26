@@ -145,7 +145,7 @@ for (const [relative, league] of leaguePages) {
     description: escape(`Explore the ${league.teams.length} teams from ${league.clubs.length} clubs in ${league.name}. View participating ${sportName} clubs and their profile or website links.`),
     pageUrl: escape(new URL(relative, `${base}/`).href), leagueName: escape(league.name),
     sportGlossaryUrl: escape(`/html/sports/${sportSlugValue}.html`), sportName: escape(sportName),
-    coverageLabel: escape(`${LEAGUE_COVERAGES[league.coverage].replace(/\s+league$/i, '')} League`.toUpperCase()),
+    coverageLabel: escape(league.coverage ? `${LEAGUE_COVERAGES[league.coverage].replace(/\s+league$/i, '')} League`.toUpperCase() : 'LEAGUE'),
     /* Optional organiser link: omit it entirely when the league has no supplied URL. */
     leagueWebsite: league.leagueUrl ? `<p class="league-website"><a href="${escape(league.leagueUrl)}" target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab">(External League Website)</a></p>` : '',
     teamRows: renderLeagueTeamRows(league), footer
@@ -217,7 +217,7 @@ function htmlFiles(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     // Deployment copies and private response folders are not source pages or sitemap entries.
     if (entry.name.startsWith('.') || entry.name === 'node_modules'
-      || (dir === root && ['dist', 'private-imports', 'archive'].includes(entry.name))) return [];
+      || (dir === root && ['dist', 'private-imports', 'archive', 'tmp'].includes(entry.name))) return [];
     const full = path.join(dir, entry.name);
     return entry.isDirectory() ? htmlFiles(full) : entry.name.endsWith('.html') ? [full] : [];
   });
@@ -240,7 +240,7 @@ for (const file of htmlFiles(root)) {
   const navigation = `<div data-site-nav>${renderSiteNav(sports, active)}</div><!-- /Site navigation -->`;
   source = source.replace(/<div data-site-nav>[\s\S]*?<!-- \/Site navigation -->|<div data-site-nav><\/div>/, () => navigation);
   if (relative === 'html/sports/directory.html') {
-    source = source.replace(/(<div class="sports-directory-groups" id="sports-groups">)[\s\S]*?(<\/div>\s*<\/main>)/,
+    source = source.replace(/(<div class="sports-directory-groups" id="sports-groups">)[\s\S]*?(<\/div><!-- \/Sports directory groups -->)/,
       (_, opening, closing) => `${opening}${renderSportsDirectory(sports)}${closing}`);
     source = source.replace(/(<p[^>]*id="sports-count"[^>]*>)[\s\S]*?<\/p>/,
       `$1${sports.length} SPORTS · ${visibleClubCount(sports, data.clubs)} CLUBS ON RECORD</p>`);
