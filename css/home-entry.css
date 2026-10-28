@@ -1,175 +1,119 @@
-/* First homepage panel is part of normal document flow, with no entry gate. */
-.home-entry-page {
-  scrollbar-gutter:stable;
-  --home-black:#111211;
-  --entry-cell:24px;
-  --entry-grid-pattern:linear-gradient(rgba(223,252,58,.12) 1px,transparent 1px), linear-gradient(90deg,rgba(223,252,58,.12) 1px,transparent 1px);
-}
-/* Homepage navigation starts below the first panel, then sticks during normal browsing. */
-.home-entry-page .home-content > [data-site-nav] { position:sticky; top:0; z-index:1100; }
-.home-entry-page .home-content .site-navbar { position:relative !important; inset:auto !important; }
-/* Navigation remains a solid surface beneath the landing grid. */
-.home-entry-page .site-navbar { background:var(--home-black); }
+/* Static homepage content is always available; only a first-visit intro covers it. */
+.home-entry-page { scrollbar-gutter: stable; --home-black: #111211; }
 .home-entry-page body,
-.home-entry-page footer.site-footer { background-color:var(--home-black); }
-
-.home-entry-page .home-screen { margin-top:0; }
-#home-content { scroll-margin-top:0; }
-.home-entry {
-  --home-entry-ready: 1;
-  --entry-green: #dffc3a;
-  --entry-cell: 24px;
-  --entry-stage-height: max(100svh, 680px);
-  position: relative;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: none;
-  height: var(--entry-stage-height);
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  color: #fff;
-  background: var(--home-black);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
-  box-shadow:inset 1px 0 rgba(223,252,58,.12), inset -1px 0 rgba(223,252,58,.12);
+.home-entry-page footer.site-footer { background-color: var(--home-black); }
+.home-entry-page .home-content > [data-site-nav] { position: sticky; top: 0; z-index: 1100; }
+.home-entry-page .home-content .site-navbar { position: relative !important; inset: auto !important; }
+.home-entry-page .site-navbar { background: var(--home-black); }
+.home-entry-page .home-screen { margin-top: 0; }
+#home-content { scroll-margin-top: 0; }
+/* No script, a repeat visit or a direct club link shows the site without a loading gate. */
+.home-entry { display: none; }
+.home-intro-active { overflow: hidden; }
+.home-intro-active body { overflow: hidden; }
+.home-intro-active .home-entry {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(24px, 4svh, 48px); position: fixed; inset: 0; z-index: 2147483000;
+  overflow: hidden; box-sizing: border-box; margin: 0; padding: 28px 24px;
+  color: #fff; background-color: var(--home-black); font-family: Arial, Helvetica, sans-serif;
+  background-image: linear-gradient(rgba(223,252,58,.08) 1px,transparent 1px), linear-gradient(90deg,rgba(223,252,58,.08) 1px,transparent 1px);
+  background-size: 24px 24px;
 }
-.home-entry__scene { position: absolute; inset: 0 0 auto; height: var(--entry-stage-height); overflow: hidden; pointer-events: none; }
-/* One shared cell size drives the full-screen grid, static cubes and coordinate labels. */
-.home-entry__universe {
-  position: absolute;
-  inset: 0;
-  background-image:var(--entry-grid-pattern);
-  background-color: var(--home-black);
-  background-size: var(--entry-cell) var(--entry-cell);
-  background-position: 0 0;
-  background-repeat: repeat;
+.home-entry__title {
+  position: relative; z-index: 1; flex: none;
+  max-width: 1200px; margin: 0; color: #fff; text-align: center;
+  font-size: clamp(36px, 5.5vw, 84px); font-weight: 700; line-height: .98;
+  letter-spacing: -.055em;
 }
-.home-entry__cube { position: absolute; width: var(--entry-cell); height: var(--entry-cell); box-sizing: border-box; border: 1px solid rgba(223, 252, 58, .12); background: #080b07; }
-.home-entry__cube--olive { background: #26301b; }
-.home-entry__cube--green { background: rgba(223, 252, 58, .07); }
-.home-entry__cube[hidden], .home-entry__dot[hidden] { display: none; }
-/* Temporary design axes sit above the door faces but never intercept clicks. */
-.home-entry__axes { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
-.home-entry__axis-label { position: absolute; display: grid; place-items: center; box-sizing: border-box; min-width: 19px; height: 16px; color: #abb879; background: #111211d9; font: 10px/1 'Courier New', monospace; }
-.home-entry__axis-label--column { top: 3px; transform: translateX(-50%); }
-.home-entry__axis-label--row { left: 3px; transform: translateY(-50%); }
-
-/* Dots occupy a whole grid cell; the cached glow is centred and only its opacity changes. */
-.home-entry__dot { position: absolute; width: var(--entry-cell); height: var(--entry-cell); background: url('../img/home-entry-glow.svg') center / contain no-repeat; opacity: .22; animation: entry-dot var(--duration, 7s) var(--delay, 0s) ease-in-out infinite; }
-@keyframes entry-dot {
-  0%, 100% { opacity: .12; }
-  50% { opacity: .7; }
+.home-entry__map-stage {
+  flex: none; width: min(58.5vw, 720px); height: min(41.25svh, 43.875vw);
 }
-.home-entry.is-still .home-entry__dot { animation-play-state: paused; }
-
-/* Full-screen door faces slide apart; a static mask fades their lower edge behind the text. */
-.home-entry__doors { position: absolute; z-index: 1; inset: 0 0 auto; height: var(--entry-stage-height); pointer-events: none; }
-.home-entry__door { --entry-door-inset: 25px; position: absolute; top: 0; bottom: 0; width: 50%; }
-/* A quiet frame marks the 25px safe edge of each door. */
-.home-entry__door::before { content: ''; position: absolute; inset: var(--entry-door-inset); border: 1px solid #6668; pointer-events: none; }
-.home-entry__door--left { left: 0; }
-.home-entry__door--right { right: 0; }
-.home-entry__door::after { content: ''; position: absolute; z-index: 0; inset: 0; box-sizing: border-box; background: linear-gradient(100deg, rgba(20, 23, 19, .82), rgba(32, 39, 26, .82)); -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 80%); mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 80%); pointer-events: none; }
-.home-entry__door--left::before { border-right:0; }
-.home-entry__door--right::before { border-left:0; }
-.home-entry__door--right::after { background: linear-gradient(100deg, rgba(36, 44, 27, .82), rgba(20, 23, 19, .82)); }
-.home-entry__seam { position: absolute; z-index: 2; left: calc(50% - 2px); top: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--entry-green) 0%, var(--entry-green) 45%, transparent 80%); }
-.home-entry__door-glow { position: absolute; left: 50%; top: 9%; width: min(70vw, 600px); height: 58%; transform: translateX(-50%); opacity: .32; background: url('../img/home-entry-glow.svg') center / 100% 100% no-repeat; }
-/* Two quiet door panels frame the map and its information without adding another page. */
-.home-entry__door-content { position: absolute; z-index: 1; top: 50%; left: clamp(24px, 4vw, 76px); right: clamp(24px, 4vw, 76px); transform: translateY(-50%); }
-.home-entry__map { display: block; width: 100%; max-width: 680px; height: clamp(200px, 42svh, 440px); margin: 0 auto; overflow: visible; pointer-events: none; }
-/* Internal-area view: fixed pointer shapes stay in place while decorative copies lift. */
-/* The full left door receives outside taps while zoomed, at every viewport size. */
-.home-entry__door--left.has-region-detail { pointer-events:auto; }
-/* The SVG frame stays unchanged so entering detail cannot resize the overview. */
-.home-entry__door--left.has-region-detail .home-entry__map { overflow:visible; }
-.home-entry__area-layer { opacity:0; pointer-events:none; transition:opacity 700ms ease; }
-.home-entry__area-layer.is-visible { opacity:1; }
-.home-entry__area-layer:not(.is-visible) .home-entry__area-target { pointer-events:none; }
-.home-entry__map.is-detail .home-entry__map-base use { opacity:0; }
-.home-entry__map.is-detail .home-entry__map-base .is-zoom-selected { opacity:0; }
-.home-entry__map.is-detail .home-entry__map-lifts { opacity:0; }
-.home-entry__map-lifts { transition:opacity 350ms ease; }
-.home-entry__map.is-detail .home-entry__region-target { visibility:hidden; pointer-events:none; }
-.home-entry__map-back { position:absolute; left:0; bottom:-52px; min-height:44px; padding:8px 12px; border:1px solid #686868; background:var(--home-black); color:#fff; font:700 11px Arial,sans-serif; text-transform:uppercase; cursor:pointer; pointer-events:auto; }
-/* Keep programmatic map focus quiet; individual wards retain visible focus marks. */
-.home-entry__map:focus { outline: none; }
-.home-entry__area-outline { fill:none; stroke:#a0a0a0; stroke-width:.5; stroke-linejoin:miter; pointer-events:none; }
-/* Use the ward union for the zoomed grey edge so highlighted perimeter cells meet it exactly. */
-.home-entry__area-boundary { fill:#777d77; fill-opacity:.24; stroke:#a0a0a0; stroke-width:.65; stroke-linejoin:miter; pointer-events:none; }
-.home-entry__area-visual { opacity:0; pointer-events:none; transform-box:fill-box; transform-origin:center; transition:opacity 200ms ease,transform 300ms ease; }
-/* A small centred expansion creates a bulge while the pointer target stays fixed. */
-.home-entry__area-visual.is-active { opacity:1; transform:scale(1.025); }
-.home-entry__area-halo { fill:none; stroke:#dffc3a; stroke-width:8; stroke-opacity:.16; stroke-linejoin:round; }
-.home-entry__area-fill { fill:#dffc3a; stroke:#efffa2; stroke-width:1; }
-.home-entry__area-target { fill:transparent; stroke:none; cursor:pointer; pointer-events:fill; touch-action:manipulation; outline:none; }
-.home-entry__area-target:focus-visible { stroke:white; stroke-width:1.5; stroke-dasharray:3 2; }
-@media(max-width:640px) { .home-entry__map-back { bottom:0; min-height:32px; padding:4px 8px; font-size:9px; } }
-@media(prefers-reduced-motion:reduce) { .home-entry__area-visual { transition:none; } .home-entry__area-visual.is-active { transform:none; } }
-.home-entry.is-reduced-motion .home-entry__area-visual { transition:none; }
-.home-entry.is-reduced-motion .home-entry__area-visual.is-active { transform:none; }
-.home-entry.is-reduced-motion .home-entry__area-layer { transition:none; }
-@media(prefers-reduced-motion:reduce) { .home-entry__area-layer { transition:none; } }
-.home-entry__map-base { fill: none; stroke: #a0a0a0; stroke-width: .65; stroke-linejoin: miter; pointer-events: none; }
-.home-entry__map-base use { transition: opacity 350ms ease; }
-.home-entry__map-base .is-selected { opacity: .24; }
-.home-entry__map-lifts { pointer-events: none; }
-.home-entry__region-lift { transform-box: view-box; transition: transform 480ms cubic-bezier(.22, 1, .36, 1); }
+.home-entry__map { display: block; width: 100%; height: 100%; overflow: visible; }
+.home-entry__map-base { fill: #777d773d; stroke: #a0a0a0; stroke-width: .65; stroke-linejoin: miter; }
 .home-entry__region-glow,
-.home-entry__region-fill { opacity: 0; transition: opacity 320ms ease; pointer-events: none; }
-.home-entry__region-fill { fill: var(--entry-green); stroke: #efffa2; stroke-width: .8; stroke-linejoin: miter; }
-.home-entry__region-visual.is-active .home-entry__region-lift { transform: scale(1.035); }
-.home-entry__region-visual.is-active .home-entry__region-glow,
-.home-entry__region-visual.is-active .home-entry__region-fill { opacity: 1; }
-/* Black edges keep adjoining green zones distinct in overview and ward detail. */
-.home-entry__region-visual.is-active .home-entry__region-fill,
-.home-entry__region-visual.is-highlighted .home-entry__region-fill,
-.home-entry__area-visual.is-active .home-entry__area-fill,
-.home-entry__area-visual.is-highlighted .home-entry__area-fill { stroke: #000; }
-/* Invisible fixed shapes accept the pointer; the lifted drawings cannot steal hover. */
-.home-entry__region-target { cursor: pointer; outline: none; }
-.home-entry__region-target use { fill: transparent; stroke: none; pointer-events: fill; touch-action: manipulation; }
-.home-entry__region-target:focus-visible use { stroke: #fff; stroke-width: 1.5; stroke-dasharray: 3 2; }
-/* Retain the location scale while keeping the two supporting lines smaller and closer. */
-.home-entry__region-details { --entry-detail-size: clamp(18px, 2.3vw, 32px); max-width: 560px; color: #fff; text-transform: uppercase; }
-.home-entry__region-overview { display: flex; flex-direction: column; gap: clamp(8px, 1svh, 12px); margin: 0; padding: 0; list-style: none; color: inherit; font: 500 var(--entry-detail-size)/1.35 Arial, Helvetica, sans-serif; }
-.home-entry__region-name { margin: 0; color: inherit; font-size: 1.618em; font-weight: 700; line-height: 1.08; letter-spacing: -.045em; }
-.home-entry__region-count,
-.home-entry__stat { min-height: 1.15em; margin: 0; color: inherit; font: inherit; font-size: .85em; line-height: 1.15; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
-.home-entry__stat-number { color: inherit; font: inherit; }
-.home-entry__region-announcement { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-
-/* Enter is a normal link to the homepage navigation below this panel. */
-.home-entry__copy { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; box-sizing: border-box; min-height: var(--entry-stage-height); padding: 0 22px clamp(32px, 7svh, 72px); text-align: center; pointer-events: none; }
-/* Resume the centre seam below the text and Enter button, leaving both readable. */
-.home-entry__copy::after { content: ''; position: absolute; left: calc(50% - 2px); bottom: 0; width: 4px; height: calc(clamp(32px, 7svh, 72px) - 12px); background: linear-gradient(to bottom, transparent, var(--entry-green) 12px); }
-.home-entry__title { max-width: 1100px; margin: 0 0 24px; color: #fff; font-size: clamp(42px, 5.5vw, 84px); font-weight: 700; line-height: .95; letter-spacing: -.065em; text-transform: uppercase; }
-.home-entry__enter { text-decoration:none; display: inline-flex; align-items: center; gap: 18px; min-height: 58px; padding: 7px 22px 7px 7px; border: 1px solid #67704d; border-radius: 5px; color: #faecd2; background: var(--home-black); font: 700 clamp(14px, 1.4vw, 18px)/1.3 Arial, sans-serif; cursor: pointer; pointer-events: auto; }
-.home-entry__enter-icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; color: #111211; background: var(--entry-green); border-radius: 2px; }
-.home-entry__enter-icon svg { width: 22px; height: 22px; }
-.home-entry__enter:focus-visible { outline: 3px solid var(--entry-green); outline-offset: 5px; }
-
+.home-entry__region-fill { opacity: 0; transition: opacity 160ms linear; }
+.home-entry__region-fill { fill: #dffc3a; stroke: #000; stroke-width: .8; stroke-linejoin: miter; }
+.home-entry__region-visual.is-lit .home-entry__region-glow,
+.home-entry__region-visual.is-lit .home-entry__region-fill { opacity: 1; transition-duration: 40ms; }
+/* A short local scale/opacity trail connects consecutive boroughs without moving their source paths. */
+.home-entry__region-lift { transform: scale(1); transform-box: view-box; transition: transform 160ms cubic-bezier(.22,1,.36,1); }
+.home-entry__region-visual.is-leading .home-entry__region-lift { transform: scale(1.055); }
+.home-entry__region-visual.is-trail-near .home-entry__region-lift { transform: scale(1.035); }
+.home-entry__region-visual.is-trail-far .home-entry__region-lift { transform: scale(1.015); }
+.home-entry__region-visual.is-trail-near .home-entry__region-fill { opacity: .55; }
+.home-entry__region-visual.is-trail-near .home-entry__region-glow { opacity: .45; }
+.home-entry__region-visual.is-trail-far .home-entry__region-fill { opacity: .2; }
+.home-entry__region-visual.is-trail-far .home-entry__region-glow { opacity: .15; }
+.home-entry__region-visual.is-latched .home-entry__region-fill,
+.home-entry__region-visual.is-latched .home-entry__region-glow { opacity: 1; }
+.home-entry.is-complete .home-entry__region-lift { transform: scale(1); }
+.home-entry.is-spinning .home-entry__map { animation: intro-map-bulge var(--intro-cycle-time, 2010ms) cubic-bezier(.22,1,.36,1) 3 both; }
+/* Hold until 1360ms (spin plus full tail); shrink over 450ms, then rest for 200ms. */
+@keyframes intro-map-bulge { 0%,90.05%,100% { transform: scale(1); } 14%,67.66% { transform: scale(1.07); } }
+.home-entry.is-complete .home-entry__map { animation: intro-map-finish 450ms cubic-bezier(.22,1,.36,1) both; }
+@keyframes intro-map-finish { from { transform: scale(1.07); } to { transform: scale(1.18); } }
+/* Move the pre-rendered homepage into view as one layer; no layout/scroll recalculation per frame. */
+.home-intro-active .home-content { transform: translateY(100dvh); }
+.home-intro-active .gallery-track { animation-play-state: paused; }
+.home-intro-leaving .home-entry { transform: translateY(-100%); transition: transform 650ms cubic-bezier(.22,1,.36,1); }
+.home-intro-leaving .home-content { transform: translateY(0); transition: transform 650ms cubic-bezier(.22,1,.36,1); }
 @media (max-width: 640px) {
-  /* Stack content on narrow screens while the door faces keep their central split. */
-  .home-entry { --entry-stage-height: max(100svh, 740px); --entry-mobile-map-height: clamp(170px, 29svh, 250px); }
-  .home-entry__dot:nth-child(n+7) { display: none; }
-  .home-entry__door-content { width: calc(200% - 36px); max-width: none; right: auto; transform: none; }
-  .home-entry__map-content { top: 92px; left: 18px; }
-  .home-entry__map { height: var(--entry-mobile-map-height); }
-  .home-entry__region-details { --entry-detail-size: clamp(18px, 4.8vw, 22px); top: calc(116px + var(--entry-mobile-map-height)); left: calc(-100% + 18px); }
-  /* Clear the centre line through the phone map; it still returns below the Enter button. */
-  .home-entry__seam { background: linear-gradient(to bottom, var(--entry-green) 0 65px, transparent 92px); }
-  .home-entry__region-overview { gap: 6px; }
-  .home-entry__title { max-width: 340px; font-size: clamp(36px, 10.5vw, 52px); }
+  .home-entry__title { font-size: clamp(32px, 9vw, 48px); }
+  .home-entry__map-stage { width: calc(75vw - 36px); height: min(36svh, calc(56.25vw - 27px)); }
 }
-/* Reduced-motion preferences stop decoration without hiding the first panel. */
-@media (prefers-reduced-motion: reduce) { .home-entry__dot { animation:none; } }
-.a11y-reduce-motion .home-entry__dot { animation:none; }
-/* Region selection remains available without lifting or text motion for reduced-motion users. */
-.home-entry.is-reduced-motion .home-entry__region-lift,
-.home-entry.is-reduced-motion .home-entry__region-glow,
+@media (prefers-reduced-motion: reduce) {
+  .home-entry.is-spinning .home-entry__map { animation: none; }
+  .home-intro-active .home-content { transform: none; }
+  .home-intro-leaving .home-entry { transform: none; opacity: 0; transition: opacity 160ms linear; }
+  .home-intro-leaving .home-content { transition: none; }
+}
+.home-entry.is-reduced-motion .home-entry__map { animation: none; }
+.a11y-reduce-motion.home-intro-active .home-content { transform: none; }
+.a11y-reduce-motion.home-intro-leaving .home-entry { transform: none; opacity: 0; transition: opacity 160ms linear; }
+.a11y-reduce-motion.home-intro-leaving .home-content { transition: none; }
+
+/* Fixed-width dots change in four steps so the heading never shifts as they cycle. */
+.home-entry__loading-dots { display: inline-block; width: .84em; letter-spacing: 0; text-align: left; animation: intro-loading-dots 1200ms step-end infinite; }
+@keyframes intro-loading-dots {
+  0%, 24.99% { clip-path: inset(0 100% 0 0); }
+  25%, 49.99% { clip-path: inset(0 66.66% 0 0); }
+  50%, 74.99% { clip-path: inset(0 33.33% 0 0); }
+  75%, 100% { clip-path: inset(0); }
+}
+@media (prefers-reduced-motion: reduce) { .home-entry__loading-dots { animation: none; } }
+.home-entry.is-reduced-motion .home-entry__loading-dots { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .home-entry__region-lift { transform: none !important; transition: none; }
+  .home-entry__region-fill, .home-entry__region-glow { transition: none; }
+}
+.home-entry.is-reduced-motion .home-entry__region-lift { transform: none !important; transition: none; }
 .home-entry.is-reduced-motion .home-entry__region-fill,
-.home-entry.is-reduced-motion .home-entry__map-base use { transition: none; }
-.home-entry.is-reduced-motion .home-entry__region-lift { transform: none !important; }
+.home-entry.is-reduced-motion .home-entry__region-glow { transition: none; }
+
+/* Six terminal-like rows, with one fixed highlight band and a transform-only scrolling track. */
+.home-entry__sports {
+  --intro-sport-row: 24px;
+  position: relative; flex: none; width: min(420px, 86vw); height: calc(6 * var(--intro-sport-row)); overflow: hidden;
+  font: 700 12px/var(--intro-sport-row) 'Courier New', monospace; text-transform: uppercase;
+  mask-image: linear-gradient(to bottom, #0005, #000 22%, #000 78%, #0005);
+}
+.home-entry__sports::before {
+  content: ''; position: absolute; inset: calc(2 * var(--intro-sport-row)) 0 auto; height: var(--intro-sport-row);
+  background: #dffc3a1a; border-left: 2px solid #dffc3a; pointer-events: none;
+}
+.home-entry__sports-track {
+  position: relative; margin: 0; padding: 0; list-style: none;
+  animation: intro-sports-scroll calc(var(--intro-sport-count, 14) * 400ms) linear infinite;
+}
+.home-entry__sports-track li { box-sizing: border-box; height: var(--intro-sport-row); padding: 0 12px; white-space: nowrap; }
+.home-entry__sports-track li::before { content: '// '; color: #dffc3a; }
+@keyframes intro-sports-scroll { to { transform: translateY(calc(-1 * var(--intro-sport-count, 14) * var(--intro-sport-row))); } }
+@media (max-width: 640px) { .home-entry__sports { --intro-sport-row: 20px; font-size: 11px; } }
+@media (max-height: 500px) {
+  .home-intro-active .home-entry { gap: 8px; padding: 12px; }
+  .home-entry__sports { --intro-sport-row: 16px; font-size: 10px; }
+  .home-entry__map-stage { height: min(30svh, 43.875vw); }
+  .home-entry__title { font-size: clamp(22px, 4vw, 32px); }
+}
+@media (prefers-reduced-motion: reduce) { .home-entry__sports-track { animation: none; } }
+.home-entry.is-reduced-motion .home-entry__sports-track { animation: none; }

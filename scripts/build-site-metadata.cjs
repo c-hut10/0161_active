@@ -226,6 +226,9 @@ for (const file of htmlFiles(root)) {
   const relative = path.relative(root, file).split(path.sep).join('/');
   let source = fs.readFileSync(file, 'utf8');
   if (relative === 'index.html') {
+    // Ship the current visible sports once; the intro samples fourteen without fetching club data.
+    source = source.replace(/(<ul class="home-entry__sports-track" data-intro-sports>)[\s\S]*?(<\/ul><!-- \/Intro sports -->)/,
+      (_, opening, closing) => `${opening}${sports.map(sport => `<li>${escape(displaySportName(sport.name))}</li>`).join('')}${closing}`);
     /* Gallery selection: a rebuild rotates the set; browser visits reorder the same photos. */
     const photos = data.clubs.filter(club => typeof club.imagePath === 'string'
       && club.imagePath.startsWith('img/') && fs.existsSync(path.join(root, club.imagePath)));

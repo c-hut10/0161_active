@@ -62,26 +62,12 @@
   max-width: 850px;
   margin: 8px 0 0;
   color: var(--white);
-  font-size: clamp(30px, 4.5vw, 60px);
+  font-size: clamp(40px, calc(4.5vw + 10px), 70px);
   line-height: .92;
   letter-spacing: -.065em;
   text-transform: uppercase;
 }
 .mission-panels__period { color: #ff3030; }
-
-/* Signup invitation follows the heading and wraps naturally on smaller screens. */
-.mission-panels__signup {
-  margin: 12px 0 0;
-  color: var(--white);
-  font-size: clamp(14px, 1.3vw, 18px);
-  font-weight: 700;
-  letter-spacing: -.065em;
-  text-transform: uppercase;
-  line-height: 1.5;
-}
-/* The underlined final word is the registration link, with visible keyboard focus. */
-.mission-panels__signup > a { color: inherit; text-decoration: underline; text-underline-offset: .18em; }
-.mission-panels__signup > a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 
 /* Each static, full-width panel occupies one viewport height. */
 .mission-panels__stack {
@@ -142,7 +128,14 @@
   letter-spacing: -.06em;
   text-transform: uppercase;
 }
-.mission-panels__intro .home-quick-actions { padding-block: 10px; }
+.mission-panels__intro .home-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 650px;
+  margin-inline: auto;
+  padding-block: 10px;
+}
+.mission-panels__intro .home-quick-actions__link { min-width: 0; }
 
 /* Third-panel headline: hold each phrase on its own line while the center word flips. */
 .mission-panel__stacked-heading > span { display:block; }
@@ -172,7 +165,7 @@
   }
   .mission-panel__copy h3 { font-size:clamp(30px, 10vw, 46px); }
   .mission-panels__intro .home-quick-actions { gap: 6px; }
-  .mission-panels__intro .home-quick-actions__link { min-height: 44px; padding: 4px 10px 4px 4px; font-size: 11px; }
+  .mission-panels__intro .home-quick-actions__link { min-height: 44px; gap: 8px; padding: 4px 10px 4px 4px; font-size: 11px; }
   .mission-panels__intro .home-quick-actions__icon { width: 34px; height: 34px; flex-basis: 34px; }
 }
 

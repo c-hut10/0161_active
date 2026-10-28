@@ -14,10 +14,10 @@
       window.addEventListener('load', () => document.documentElement.classList.remove('gallery-initialising'), { once: true });
     </script>
     <script type="module" src="js/home-gallery.js?v=20261020-gallery-startup"></script>
-    <link rel="stylesheet" href="css/home-panels.css?v=20261023-uniform-black">
+    <link rel="stylesheet" href="css/home-panels.css?v=20261028-home-actions">
     <!-- Interactive first homepage panel; all content below remains available without JavaScript. -->
-    <link rel="stylesheet" href="css/home-entry.css?v=20261023-uniform-black">
-    <script src="js/home-entry.js?v=20261025-linked-wards"></script>
+    <link rel="stylesheet" href="css/home-entry.css?v=20261028-full-tail">
+    <script src="js/home-entry.js?v=20261028-full-tail"></script>
 
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
@@ -63,59 +63,14 @@
 </head>
 
 <body class="site-grid">
-<!-- Decorative pixels and a native modal create the opening without changing page URLs. -->
-<section class="home-entry" id="home-entry" aria-labelledby="home-entry-title">
-  <div class="home-entry__scene" aria-hidden="true">
-    <div class="home-entry__universe"></div>
-    <!-- Cube and glow addresses use column letters and row numbers, starting at A1. -->
-    <div class="home-entry__cubes">
-      <span class="home-entry__cube" data-cell="C3" data-mobile-cell="C3"></span>
-      <span class="home-entry__cube" data-cell="G2" data-mobile-cell="E2"></span>
-      <span class="home-entry__cube" data-cell="M5" data-mobile-cell="E6"></span>
-      <span class="home-entry__cube" data-cell="D9" data-mobile-cell="C8"></span>
-      <span class="home-entry__cube" data-cell="J11" data-mobile-cell="A10"></span>
-      <span class="home-entry__cube" data-cell="O14" data-mobile-cell="E12"></span>
-      <span class="home-entry__cube" data-cell="B15" data-mobile-cell="B14"></span>
-      <span class="home-entry__cube" data-cell="H14" data-mobile-cell="D15"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="E2" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="J5" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="O3" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="C6" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="G9" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="M8" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="E13" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--olive" data-cell="K15" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--green" data-cell="I3" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--green" data-cell="B11" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--green" data-cell="N12" data-mobile-cell="off"></span>
-      <span class="home-entry__cube home-entry__cube--green" data-cell="G16" data-mobile-cell="off"></span>
-    </div>
-    <div class="home-entry__dots">
-      <span class="home-entry__dot" data-cell="D5" data-mobile-cell="B5" style="--duration:7s;--delay:-2s"></span>
-      <span class="home-entry__dot" data-cell="H4" data-mobile-cell="E4" style="--duration:9s;--delay:-6s"></span>
-      <span class="home-entry__dot" data-cell="F9" data-mobile-cell="C9" style="--duration:8s;--delay:-4s"></span>
-      <span class="home-entry__dot" data-cell="T5" data-mobile-cell="F7" style="--duration:8s;--delay:-5s"></span>
-      <span class="home-entry__dot" data-cell="X9" data-mobile-cell="E11" style="--duration:10s;--delay:-1s"></span>
-      <span class="home-entry__dot" data-cell="AB12" data-mobile-cell="F13" style="--duration:7s;--delay:-3s"></span>
-      <span class="home-entry__dot" data-cell="K8" data-mobile-cell="off" style="--duration:9s;--delay:-3s"></span>
-      <span class="home-entry__dot" data-cell="C13" data-mobile-cell="off" style="--duration:10s;--delay:-7s"></span>
-      <span class="home-entry__dot" data-cell="R3" data-mobile-cell="off" style="--duration:8s;--delay:-4s"></span>
-      <span class="home-entry__dot" data-cell="Z8" data-mobile-cell="off" style="--duration:9s;--delay:-8s"></span>
-      <span class="home-entry__dot" data-cell="F14" data-mobile-cell="off" style="--duration:10s;--delay:-5s"></span>
-      <span class="home-entry__dot" data-cell="W15" data-mobile-cell="off" style="--duration:7s;--delay:-6s"></span>
-    </div>
-    <div class="home-entry__door-glow"></div>
-    <div class="home-entry__seam"></div>
-    <div class="home-entry__axes"></div>
+<!-- Three complete map cycles (temporarily replays on every homepage visit); the complete interactive map is preserved in archive/retro-map/. -->
+<section class="home-entry" id="home-entry" role="status" aria-labelledby="home-entry-title">
+  <div class="home-entry__sports" aria-hidden="true">
+    <ul class="home-entry__sports-track" data-intro-sports><li>American Football</li><li>Archery</li><li>Athletics</li><li>Badminton</li><li>Basketball</li><li>Cycling</li><li>Dodgeball</li><li>Flag Football</li><li>Football</li><li>Health &amp; Wellbeing</li><li>Hockey</li><li>Korfball</li><li>Racketball</li><li>Run Club</li><li>Squash</li><li>Table Tennis</li><li>Tag Rugby</li><li>Touch Rugby</li><li>Ultimate Frisbee</li><li>Water Polo</li><li>Wheelchair Basketball</li></ul><!-- /Intro sports -->
   </div>
-  <!-- Interactive door content stays outside the decorative, aria-hidden scene. -->
-  <div class="home-entry__doors">
-    <section class="home-entry__door home-entry__door--left" aria-label="Explore Greater Manchester">
-      <div class="home-entry__door-content home-entry__map-content">
-        <!-- Fixed hit shapes keep hover stable while a separate visual layer lifts above them. -->
-        <svg class="home-entry__map" viewBox="0 0 400 300" width="400" height="300" role="group" aria-labelledby="entry-map-title" aria-describedby="entry-map-help">
-          <title id="entry-map-title">Explore the ten Greater Manchester boroughs</title>
-          <desc id="entry-map-help">Hover, tap or focus a borough to explore it.</desc>
+  <div class="home-entry__map-stage">
+    <svg class="home-entry__map" viewBox="0 0 400 300" width="400" height="300" role="img" aria-labelledby="entry-map-title">
+          <title id="entry-map-title">The ten Greater Manchester boroughs</title>
           <defs>
             <path id="entry-shape-bolton" d="M147 48H149V50H151V53H152V54H153V55H154V63H155V64H158V63H164V59H165V58H167V57H171V59H173V60H174V62H172V63H173V64H174V68H175V69H176V70H178V71H179V73H180V80H179V82H178V85H177V86H176V87H175V97H176V103H177V104H179V105H181V106H182V108H183V116H182V115H179V118H181V119H184V120H185V121H188V122H190V126H191V128H192V129H190V128H187V129H185V135H181V134H176V133H174V132H171V131H169V130H168V128H166V127H165V126H163V127H161V126H157V125H151V124H148V126H146V131H145V132H144V133H143V134H139V133H136V132H132V131H127V130H126V129H123V128H120V127H118V129H114V131H115V132H114V134H113V135H111V136H109V138H106V135H105V134H103V132H102V131H101V130H100V129H98V128H96V127H95V126H94V125H95V121H92V118H93V117H94V116H95V113H94V110H95V109H93V108H92V102H91V101H90V100H89V98H87V95H86V94H85V93H84V92H83V91H80V90H74V89H72V88H69V89H66V87H67V85H69V83H70V80H71V78H72V77H73V76H75V75H78V73H81V74H82V75H83V76H84V77H85V78H86V80H87V82H88V84H89V85H90V84H92V83H93V82H95V81H96V78H98V75H101V74H102V73H104V72H105V71H106V70H108V69H109V67H111V66H112V64H114V63H115V62H118V63H121V64H123V65H124V66H127V67H129V68H130V69H133V67H134V66H136V65H137V66H140V64H139V63H140V62H141V61H142V60H143V51H145V50H146V49H147Z" fill-rule="evenodd"/>
             <path id="entry-shape-bury" d="M177 32H180V33H185V38H188V39H192V40H194V41H195V40H200V41H201V40H202V38H203V37H204V36H205V35H206V34H207V33H208V32H210V33H211V43H210V49H211V53H212V54H213V56H214V58H215V60H216V64H217V66H219V67H221V70H220V71H221V72H222V75H223V76H225V77H226V78H228V77H230V79H231V81H232V82H229V83H228V84H227V85H226V87H223V88H218V89H217V92H216V95H217V96H218V97H222V93H223V92H224V93H226V94H228V97H229V98H230V100H231V101H232V108H231V110H235V113H234V115H235V116H236V126H235V125H233V123H231V122H229V123H226V124H225V125H224V126H223V127H222V131H223V137H226V136H228V135H231V137H229V139H228V140H227V142H222V143H217V144H215V145H214V146H212V144H210V143H207V138H206V137H205V136H204V135H197V134H196V133H195V132H193V131H192V128H191V126H190V122H188V121H185V120H184V119H181V118H179V115H182V116H183V108H182V106H181V105H179V104H177V103H176V97H175V87H176V86H177V85H178V82H179V80H180V73H179V71H178V70H176V69H175V68H174V64H173V63H172V62H174V60H173V59H174V58H175V57H177V56H178V54H177V51H176V50H177V48H179V42H180V38H179V36H178V35H177Z" fill-rule="evenodd"/>
@@ -202,40 +157,9 @@
               </g>
             </g>
           </g>
-          <g class="home-entry__map-targets">
-            <g class="home-entry__region-target" data-region="bolton" role="button" tabindex="0" aria-label="Explore Bolton" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-bolton"/></g>
-            <g class="home-entry__region-target" data-region="bury" role="button" tabindex="0" aria-label="Explore Bury" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-bury"/></g>
-            <g class="home-entry__region-target" data-region="manchester" role="button" tabindex="0" aria-label="Explore Manchester" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-manchester"/></g>
-            <g class="home-entry__region-target" data-region="oldham" role="button" tabindex="0" aria-label="Explore Oldham" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-oldham"/></g>
-            <g class="home-entry__region-target" data-region="rochdale" role="button" tabindex="0" aria-label="Explore Rochdale" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-rochdale"/></g>
-            <g class="home-entry__region-target" data-region="salford" role="button" tabindex="0" aria-label="Explore Salford" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-salford"/></g>
-            <g class="home-entry__region-target" data-region="stockport" role="button" tabindex="0" aria-label="Explore Stockport" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-stockport"/></g>
-            <g class="home-entry__region-target" data-region="tameside" role="button" tabindex="0" aria-label="Explore Tameside" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-tameside"/></g>
-            <g class="home-entry__region-target" data-region="trafford" role="button" tabindex="0" aria-label="Explore Trafford" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-trafford"/></g>
-            <g class="home-entry__region-target" data-region="wigan" role="button" tabindex="0" aria-label="Explore Wigan" aria-pressed="false" aria-controls="entry-region-details"><use href="#entry-shape-wigan"/></g>
-          </g>
         </svg>
-      </div>
-    </section>
-    <section class="home-entry__door home-entry__door--right" aria-label="Region information">
-      <div class="home-entry__door-content home-entry__region-details" id="entry-region-details">
-        <!-- The location retains its scale; the two supporting lines are smaller and compact. -->
-        <ol class="home-entry__region-overview" role="list" aria-live="off">
-          <li class="home-entry__region-name" data-region-name>Greater Manchester</li>
-          <li class="home-entry__region-count" data-region-count>Select a region</li>
-          <li class="home-entry__stat" data-region-stat hidden></li>
-        </ol>
-        <p class="home-entry__region-announcement" data-region-announcement aria-live="polite" aria-atomic="true"></p>
-      </div>
-    </section>
   </div>
-  <div class="home-entry__copy">
-    <h2 class="home-entry__title" id="home-entry-title">Discover your next sport</h2>
-    <a class="home-entry__enter" href="#home-content">
-      <span class="home-entry__enter-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span>
-      <span>Enter 0161_Active</span>
-    </a>
-  </div>
+  <h2 class="home-entry__title" id="home-entry-title">MANCHESTER'S SPORTS LOADING<span class="home-entry__loading-dots" aria-hidden="true">...</span></h2>
 </section>
 <div class="home-content" id="home-content">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -425,11 +349,11 @@
         <div class="mission-panels__intro">
             <div class="mission-panels__heading">
                 <p class="mission-panels__eyebrow">Manchester’s sports club database</p>
-                <h1>Movement for everyone<span class="mission-panels__period">.</span></h1>
-                <p class="mission-panels__signup">Run a sports club? Sign up now - for <a href="/html/register.html">FREE</a></p>
+                <h1>Movement for<br>everyone<span class="mission-panels__period">.</span></h1>
             </div>
-            <nav class="home-quick-actions" aria-label="Find clubs and training sessions">
+            <nav class="home-quick-actions" aria-label="Find or register a club">
                 <a class="home-quick-actions__link" href="/html/sports/directory.html"><span class="home-quick-actions__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span><span class="home-quick-actions__title">Find a club</span></a>
+                <a class="home-quick-actions__link" href="/html/register.html"><span class="home-quick-actions__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></span><span class="home-quick-actions__title">Register a club</span></a>
             </nav>
         </div>
 
@@ -484,7 +408,7 @@
     </nav>
   </div>
 </footer>
-</div><!-- /Homepage content revealed by Enter -->
+</div><!-- /Homepage content -->
     <script src="js/home-panels.js?v=20261023-uniform-black"></script>
 </body>
 </html>
