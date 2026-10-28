@@ -7,3 +7,11 @@ export function readSavedClubs() {
     return { ids:new Set(value), error:false };
   } catch { return { ids:new Set(), error:true }; }
 }
+
+/* Notify other controls only after the browser accepts the complete saved list. */
+export function writeSavedClubs(ids) {
+  const values = [...ids];
+  if (values.length) localStorage.setItem(savedClubsKey, JSON.stringify(values));
+  else localStorage.removeItem(savedClubsKey);
+  window.dispatchEvent(new Event('saved-clubs-changed'));
+}

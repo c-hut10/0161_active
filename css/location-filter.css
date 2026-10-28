@@ -54,7 +54,8 @@
 .calendar-radius-scale { color:var(--cal-grey); font-size:11px; font-weight:400; }
 
 /* Homepage map follows Movement for everyone in normal document flow. */
-.home-reach-map { --cal-black:#111211; --cal-line:#454945; --cal-grey:#a5aaa2; --cal-paper:#faecd2; --cal-lime:#dffc3a; box-sizing:border-box; width:60vw; margin:28px auto 36px; padding:clamp(18px, 4vw, 40px); color:var(--cal-paper); background:var(--cal-black); font-family:Arial, Helvetica, sans-serif; }
+.home-reach-map, .home-map-filter-panel { --cal-black:#111211; --cal-line:#454945; --cal-grey:#a5aaa2; --cal-paper:#faecd2; --cal-lime:#dffc3a; }
+.home-reach-map { box-sizing:border-box; width:60vw; margin:28px auto 36px; padding:clamp(18px, 4vw, 40px); color:var(--cal-paper); background:var(--cal-black); font-family:Arial, Helvetica, sans-serif; }
 .home-reach-map #calendar-sector-map { height:50vh; }
 .home-reach-map #calendar-sector-map { scroll-margin-top:var(--site-nav-height,100px); }
 .home-reach-map #calendar-map-heading { color:var(--cal-lime); }
@@ -71,8 +72,6 @@
 .home-map-filter-panel #home-map-sport-summary.is-filter-selected { color:var(--cal-lime); }
 .home-map-sports-list { display:grid; gap:4px; margin:0; padding:0; list-style:none; }
 .home-map-sports-list li { display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--cal-line); }
-.home-map-sports-list li > span { flex:1; min-width:0; color:var(--cal-paper); font-size:12px; line-height:1.4; }
-.home-map-filter-panel .home-map-sport-remove { flex:0 0 44px; width:44px; padding:0; border:0; color:var(--cal-lime); font-size:24px; }
 .home-map-filter-fields > :first-child { grid-column:1 / -1; }
 .home-map-filter-fields.has-budget > :first-child { grid-column:auto; }
 .home-map-amount-help { grid-column:1 / -1; color:var(--cal-grey); font-size:11px; line-height:1.5; }
@@ -84,8 +83,15 @@
 .home-map-filter-panel .calendar-location-filter .filter-field > span:first-child,
 .home-map-selected-sport > span { color:var(--cal-grey); font:700 12px Arial,sans-serif; letter-spacing:normal; }
 .home-map-filter-panel .calendar-location-filter input:not([type="range"]), .home-map-filter-fields select { width:100%; min-width:0; }
-.home-map-filter-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.home-map-filter-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:end; gap:14px; }
 .home-map-filter-fields > * { min-width:0; }
+/* Native fields and enhanced dropdowns use the same label-to-control spacing. */
+.home-map-filter-fields > label,
+.home-map-filter-fields > .filter-field { display:grid; align-content:start; gap:8px; }
+.home-map-filter-panel .home-map-filter-fields input,
+.home-map-filter-panel .home-map-filter-fields .filter-picker__trigger { box-sizing:border-box; height:44px; min-height:44px; font:700 13px/1.4 Arial,Helvetica,sans-serif; }
+.home-map-filter-panel .home-map-filter-fields .filter-picker__trigger { gap:6px; }
+.home-map-filter-panel .home-map-filter-fields .filter-picker__trigger > span:first-child { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .home-map-location-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:14px; }
 .home-map-location-fields > * { min-width:0; }
 .home-map-location-fields .calendar-radius-control > span { flex-wrap:wrap; gap:6px; }
@@ -111,3 +117,94 @@
   .home-map-filter-panel .filter-picker { position:static; }
   .home-map-filter-panel .filter-picker__options { position:static; max-height:50vh; margin-top:4px; }
 }
+
+/* Zone results form a full-height drawer attached to the map's right edge. */
+.home-map-results-panel {
+  position: absolute;
+  z-index: 700;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(320px, calc(100% - 64px));
+  height: 100%;
+  overflow: hidden;
+  padding: 16px;
+  border: 0;
+  border-left: 1px solid #555b50;
+  background: #111211;
+  color: #faecd2;
+  font: 14px Arial, sans-serif;
+  animation: map-zone-enter 180ms ease-out;
+}
+.home-map-results-panel[hidden] { display: none; }
+.map-zone-heading { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #555b50; }
+.map-zone-heading h3 { flex: 1; margin: 0; color: #dffc3a; font-size: 12px; line-height: 1.4; letter-spacing: .08em; text-transform: uppercase; }
+.map-zone-heading button { width: 36px; min-height: 36px; padding: 0; border: 0; background: none; color: #faecd2; font: 28px Arial, sans-serif; cursor: pointer; }
+/* Only the results scroll; reserve room at the foot for Leaflet's visible map credits. */
+.home-map-results-panel [data-zone-clubs] { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 44px; }
+.map-zone-clubs { margin: 0; padding: 0; list-style: none; }
+.map-zone-clubs li { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid #353a34; }
+.map-zone-number { flex: 0 0 2ch; color: #999; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.map-zone-club-details { min-width: 0; }
+.map-zone-clubs li:last-child { border-bottom: 0; }
+.home-map-results-panel .map-zone-eyebrow { margin: 0 0 7px; color: #dffc3a; font-size: 10px; font-weight: 700; line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; }
+.home-map-results-panel .map-zone-clubs a { color: #faecd2; font-size: 16px; font-weight: 700; line-height: 1.4; text-decoration: none; }
+.home-map-results-panel .map-zone-clubs a:hover { text-decoration: underline; }
+.map-zone-empty { margin: 14px 0 0; line-height: 1.5; }
+.home-map-results-panel :focus-visible { outline: 2px solid #dffc3a; outline-offset: 3px; }
+@keyframes map-zone-enter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-map-results-panel { animation: none; }
+}
+
+/* Mobile uses the map height as the bottom sheet's maximum extent. */
+.map-zone-handle { display: none; }
+@media (max-width: 800px) {
+  .home-map-results-panel {
+    top: auto; left: 0; right: 0; bottom: 0; width: 100%;
+    height: var(--zone-sheet-height, 75%); max-height: 100%;
+    padding: 0 12px 8px; border-left: 0; border-top: 1px solid #555b50;
+    animation-name: map-zone-rise;
+  }
+  .map-zone-handle {
+    display: flex; flex: 0 0 24px; align-items: center; justify-content: center;
+    width: 100%; padding: 0; border: 0; background: transparent;
+    cursor: ns-resize; touch-action: none;
+  }
+  .map-zone-handle span { width: 40px; height: 3px; border-radius: 2px; background: #92968e; }
+  .map-zone-heading { padding-bottom: 4px; }
+  .map-zone-clubs li { padding: 8px 0; }
+  .home-map-results-panel .map-zone-eyebrow { margin-bottom: 3px; }
+  .home-map-results-panel .map-zone-clubs a { font-size: 14px; }
+  .home-map-results-panel [data-zone-clubs] { padding-bottom: 32px; }
+}
+/* Keep 30px gaps in both directions; narrow menus fall back from three columns to two. */
+.home-map-sports-list {
+  grid-template-columns: repeat(auto-fit, minmax(max(120px, calc((100% - 60px) / 3)), 1fr));
+  gap: 30px; max-height: 50vh; overflow-y: auto; overscroll-behavior: contain;
+  padding: 3px;
+}
+.home-map-sports-list li { min-width: 0; border: 0; }
+.home-map-sports-list label {
+  position: relative; display: flex; align-items: center; gap: 8px; box-sizing: border-box;
+  height: 100%; min-height: 56px; padding: 10px 8px;
+  border: 1px solid var(--cal-line); background: var(--cal-black);
+  color: var(--cal-paper); font-size: 12px; line-height: 1.4; cursor: pointer;
+}
+.home-map-sports-list label:has(input:checked) { border-color: var(--cal-lime); color: var(--cal-lime); }
+.home-map-sports-list label:focus-within { outline: 2px solid var(--cal-lime); outline-offset: 2px; }
+.home-map-filter-panel .calendar-location-filter .home-map-sports-list input[type="checkbox"] { position: absolute; top: 0; left: 0; width: 1px; height: 1px; min-height: 0; margin: -1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); }
+.home-map-sport-power { flex: 0 0 16px; width: 16px; height: 16px; color: var(--cal-grey); }
+.home-map-sports-list input:checked + .home-map-sport-power { color: var(--cal-lime); }
+@keyframes map-zone-rise { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+/* A disclosure arrow identifies the shared sports submenu. */
+.home-map-filter-panel #home-map-sport-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#home-map-sport-summary::after { content: ''; flex: 0 0 7px; width: 7px; height: 7px; margin-right: 4px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+#home-map-sport-summary[aria-expanded="true"]::after { transform: rotate(225deg); }

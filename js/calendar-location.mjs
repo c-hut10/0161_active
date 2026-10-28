@@ -1,6 +1,6 @@
-import { createReachMap } from './calendar-sector-map.mjs';
+import { createReachMap } from './calendar-sector-map.mjs?v=20261028-data-credits';
 import { postcodeSector } from './club-areas.mjs';
-import { sessionSector, milesBetween, distanceLabel } from './postcode-distance.mjs';
+import { sessionSector, milesBetween } from './postcode-distance.mjs';
 
 /* This controller shares the calendar's filtered entries; it owns no second filter system. */
 export function createCalendarLocation(onChange) {
@@ -43,10 +43,6 @@ export function createCalendarLocation(onChange) {
     if (!origin || !point) return null;
     if (!cache.has(sector)) cache.set(sector, milesBetween(origin.point, point));
     return cache.get(sector);
-  }
-  function decorate(session) {
-    const miles = distance(session);
-    return miles === null ? session : { ...session, distanceText:distanceLabel(miles, origin.sector === sessionSector(session)) };
   }
   function matches(session) {
     if (!origin) return true;
@@ -119,7 +115,7 @@ export function createCalendarLocation(onChange) {
     if (mapSummary) mapSummary.textContent = 'The reach map is unavailable. You can still browse the club calendar.';
   });
   return {
-    clear, matches, decorate, updateResults,
+    clear, matches, updateResults,
     selectArea(area) {
       if (!ready || !area?.code || !Array.isArray(area.point) || area.point.length !== 2
         || !area.point.every(Number.isFinite)) return false;
@@ -137,8 +133,6 @@ export function createCalendarLocation(onChange) {
       return true;
     },
     get ready() { return ready; },
-    beginFiltering() { unmappedDistances = 0; },
-    get active() { return Boolean(origin); },
-    get label() { return origin ? radiusMiles() === 0 ? 'Same approximate postcode area' : `Within approx. ${radiusMiles()} ${radiusMiles() === 1 ? 'mile' : 'miles'} of your postcode` : ''; }
+    beginFiltering() { unmappedDistances = 0; }
   };
 }

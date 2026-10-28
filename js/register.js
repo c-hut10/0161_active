@@ -1,6 +1,6 @@
 import { formatPostcodes, escapeHtml, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { resolveClubAreas, clubTrainingAreas } from './club-areas.mjs';
-import { FORM_ANSWER_FIELDS, clubAnswers, submissionCsv, submissionSpreadsheet, submissionReview, submissionSummary } from './club-submission.mjs?v=20261026-sheet-fields-v2';
+import { FORM_ANSWER_FIELDS, clubAnswers, registrationTransfer, submissionReview, submissionSummary } from './club-submission.mjs?v=20261028-single-row-export';
 import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs?v=20261026-sheet-fields';
 import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
@@ -11,8 +11,8 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   const submitButton = form.querySelector('[type="submit"]');
   /* Submission state: prevent duplicate requests while Netlify processes the application. */
   let submitting = false;
-  // IDs stay stable across edits, downloads and the final submission.
-  const applicationId = `club-${crypto.randomUUID()}`;
+  // This identifies the application only; the receiving sheet assigns club/session IDs.
+  const submissionReference = `submission-${crypto.randomUUID()}`;
   const sessionList = document.querySelector('#training-sessions');
   const addSessionButton = document.querySelector('#add-session');
   const sessionTemplate = sessionList.querySelector('.training-session').cloneNode(true);
@@ -132,13 +132,12 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     });
   }
 
-  /* Session data: preserve each entry's ID, price, venue, schedule and notes. */
+  /* Session data: preserve each entry's price, venue, schedule and notes; Sheets assigns IDs. */
   function readSessions() {
     return [...sessionList.querySelectorAll('.training-session')].map(block =>
-      Object.assign({ id: block.dataset.sessionId ||= `session-${crypto.randomUUID()}` },
-        Object.fromEntries([...block.querySelectorAll('[data-session-field]')].filter(field => !field.disabled).map(field => [
-          field.dataset.sessionField, field.value.trim()
-        ]))));
+      Object.fromEntries([...block.querySelectorAll('[data-session-field]')].filter(field => !field.disabled).map(field => [
+        field.dataset.sessionField, field.value.trim()
+      ])));
   }
 
   function sessionSummary(session) {
@@ -261,10 +260,12 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   function prepareSubmission() {
     const { data, club } = currentApplication;
     const review = submissionReview(club);
-    form.elements.namedItem('sessions').value = JSON.stringify(club.sessions);
-    form.elements.namedItem('registrationCsv').value = submissionCsv(data, club.sessions, applicationId);
-    // Receiving-side copy matches Master headings exactly, without a heading row.
-    form.elements.namedItem('spreadsheetCopy').value = submissionSpreadsheet(data, club.sessions, applicationId);
+    const transfer = registrationTransfer(data, club.sessions, submissionReference);
+    form.elements.namedItem('sessions').value = transfer.sessionsJson;
+    form.elements.namedItem('registrationCsv').value = transfer.csv;
+    form.elements.namedItem('spreadsheetCopy').value = transfer.spreadsheet;
+    form.elements.namedItem('submissionReference').value = transfer.reference;
+    form.elements.namedItem('registrationImport').value = transfer.importBlock;
     form.elements.namedItem('submissionSummary').value = submissionSummary(review);
     document.querySelector('#submission-review').replaceChildren(...review.map(section => {
       const group = document.createElement('section');

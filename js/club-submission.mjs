@@ -99,7 +99,7 @@ function submissionRows(values, sessions, id) {
       'How many free taster sessions do you offer newcomers?': known(club.tasterSessionCount),
       'Participate in a league?': known(club.participatesInLeague),
       'League name': dependent(club.participatesInLeague, club.participatingLeagues.map(league => league.name).join('; ')),
-      'Session ID': session ? known(session.id) : false,
+      'Session ID': session ? (session.id || '') : false,
       'Training day': session ? known(DAY_NAMES[session.dayOfWeek]) : 'Not confirmed',
       'Session Price (£)': club.price.type === 'per_session' ? known(session?.price?.amount) : false,
       'Session Name': known(session?.title), 'Session address': known(session?.meetingPoint),
@@ -111,20 +111,43 @@ function submissionRows(values, sessions, id) {
     return MASTER_COLUMNS.map(field => typeof row[field] === 'boolean' ? String(row[field]).toUpperCase() : row[field]);
   });
 }
-export function submissionCsv(values, sessions, id = '') {
-  const rows = submissionRows(values, sessions, id).map(row => row.map(csvCell).join(','));
-  return [MASTER_COLUMNS.map(csvCell).join(','), ...rows].join('\r\n') + '\r\n';
+function csvFromRows(rows) {
+  const lines = rows.map(row => row.map(csvCell).join(','));
+  return [MASTER_COLUMNS.map(csvCell).join(','), ...lines].join('\r\n') + '\r\n';
 }
 
 /* Paste into an existing sheet: data rows only, with paragraph breaks flattened inside cells. */
-export function submissionSpreadsheet(values, sessions, id = '') {
+function spreadsheetFromRows(rows) {
   const cell = value => {
     let answer = String(value ?? '').replace(/[\t\r\n]+/g, ' ');
     if (/^\s*[=+@-]/.test(answer)) answer = `'${answer}`;
     return answer;
   };
-  const rows = submissionRows(values, sessions, id).map(row => row.map(cell).join('\t'));
-  return rows.join('\r\n');
+  return rows.map(row => row.map(cell).join('\t')).join('\r\n');
+}
+
+export function submissionCsv(values, sessions, id = '') {
+  return csvFromRows(submissionRows(values, sessions, id));
+}
+export function submissionSpreadsheet(values, sessions, id = '') {
+  return spreadsheetFromRows(submissionRows(values, sessions, id));
+}
+
+/* Public registrations carry an import reference, never authoritative table IDs. */
+export function registrationTransfer(values, sessions, reference) {
+  const cleanSessions = sessions.map(session => {
+    const copy = { ...session };
+    delete copy.id;
+    return copy;
+  });
+  const rows = submissionRows(values, cleanSessions, '');
+  return {
+    reference,
+    csv: csvFromRows(rows),
+    spreadsheet: spreadsheetFromRows(rows),
+    sessionsJson: JSON.stringify(cleanSessions),
+    importBlock: JSON.stringify({ version: 1, submissionReference: reference, headings: MASTER_COLUMNS, rows })
+  };
 }
 
 /* One readable representation for the final review and Netlify notification summary. */

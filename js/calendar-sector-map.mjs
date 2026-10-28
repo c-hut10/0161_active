@@ -1,4 +1,5 @@
 import { escapeHtml } from './club-formatting.mjs';
+import { groupWardSessions, renderWardClubList } from './map-zone-results.mjs?v=20261028-club-number-column';
 import { attachSmoothWheelZoom } from '../vendor/leaflet-smooth-wheel-zoom/smooth-wheel-zoom.mjs';
 
 /* One reach zone illustrates the same straight-line radius used by the calendar. */
@@ -14,6 +15,108 @@ export function createReachMap(element, status) {
   const emptyClubs = new Map();
   const greyStyle = { color:'#737773', weight:.75, fillColor:'#777d77', fillOpacity:.24, smoothFactor:1 };
   const greenStyle = { color:'#527000', weight:1.5, fillColor:'#b5e61d', fillOpacity:.296875, smoothFactor:1 };
+  const resultPanel = element.querySelector('[data-zone-results]');
+  const resultTitle = resultPanel?.querySelector('[data-zone-title]');
+  const resultList = resultPanel?.querySelector('[data-zone-clubs]');
+  let selectedWard = null;
+  const mobileSheet = matchMedia('(max-width: 800px)');
+  const sheetHandle = resultPanel?.querySelector('[data-zone-handle]');
+  let collapsedHeight = 0;
+  let sheetExpanded = false;
+  function sizeSheet(expanded = sheetExpanded) {
+    if (!resultPanel || resultPanel.hidden || !mobileSheet.matches) return;
+    const items = [...resultList.querySelectorAll('.map-zone-clubs > li')].slice(0, 3);
+    // Measure actual wrapped entries so the resting sheet shows three clubs when space permits.
+    collapsedHeight = Math.min(element.clientHeight, 24 + resultPanel.querySelector('.map-zone-heading').offsetHeight
+      + items.reduce((sum, item) => sum + item.offsetHeight, 0) + 42);
+    if (!items.length) collapsedHeight = Math.min(element.clientHeight, 160);
+    setSheetHeight(expanded ? element.clientHeight : collapsedHeight);
+  }
+  function setSheetHeight(height) {
+    const value = Math.min(element.clientHeight, Math.max(collapsedHeight, height));
+    resultPanel.style.setProperty('--zone-sheet-height', `${value}px`);
+    sheetExpanded = value >= element.clientHeight - 1;
+    sheetHandle.setAttribute('aria-expanded', String(sheetExpanded));
+    sheetHandle.setAttribute('aria-label', sheetExpanded ? 'Collapse club panel' : 'Expand club panel');
+  }
+  // Pointer capture keeps dragging on the handle; the club list retains ordinary touch scrolling.
+  let sheetDrag = null;
+  let suppressHandleClick = false;
+  sheetHandle?.addEventListener('pointerdown', event => {
+    if (!mobileSheet.matches || event.button !== 0) return;
+    sheetDrag = { id:event.pointerId, y:event.clientY, height:resultPanel.offsetHeight };
+    suppressHandleClick = false;
+    sheetHandle.setPointerCapture(event.pointerId);
+  });
+  sheetHandle?.addEventListener('pointermove', event => {
+    if (!sheetDrag || event.pointerId !== sheetDrag.id) return;
+    const delta = sheetDrag.y - event.clientY;
+    if (Math.abs(delta) > 4) suppressHandleClick = true;
+    setSheetHeight(sheetDrag.height + delta);
+  });
+  function finishSheetDrag(event) {
+    if (!sheetDrag || event.pointerId !== sheetDrag.id) return;
+    sheetDrag = null;
+    centreWard(wardRecords.get(selectedWard));
+  }
+  sheetHandle?.addEventListener('pointerup', finishSheetDrag);
+  sheetHandle?.addEventListener('pointercancel', finishSheetDrag);
+  sheetHandle?.addEventListener('click', () => {
+    if (suppressHandleClick) { suppressHandleClick = false; return; }
+    sizeSheet(!sheetExpanded);
+    centreWard(wardRecords.get(selectedWard));
+  });
+  function centreWard(record, animate = true) {
+    if (!map || !record) return;
+    const size = map.getSize();
+    // offsetWidth measures the drawer's final width, even while it slides in from offscreen.
+    const rightInset = resultPanel && !resultPanel.hidden && !mobileSheet.matches ? resultPanel.offsetWidth : 0;
+    const uncoveredRight = Math.max(0, size.x - rightInset);
+    const filters = element.parentElement.querySelector('[data-map-filters]');
+    let leftInset = 0;
+    if (filters && getComputedStyle(filters).position === 'absolute') {
+      leftInset = Math.max(0, filters.getBoundingClientRect().right - element.getBoundingClientRect().left);
+    }
+    leftInset = Math.min(leftInset, Math.max(0, uncoveredRight - 24));
+    const bottomInset = resultPanel && !resultPanel.hidden && mobileSheet.matches ? resultPanel.offsetHeight : 0;
+    if (size.y - bottomInset < 24) return; // A fully expanded sheet leaves no map area to centre within.
+    const visibleCentre = window.L.point((leftInset + uncoveredRight) / 2, (size.y - bottomInset) / 2);
+    const projectedWard = map.project(record.bounds.getCenter(), map.getZoom());
+    const cameraCentre = projectedWard.add(size.divideBy(2).subtract(visibleCentre));
+    const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches
+      || document.documentElement.classList.contains('a11y-reduce-motion');
+    // Pan once at the existing zoom; changing result text must not keep moving the visitor's map.
+    map.panTo(map.unproject(cameraCentre, map.getZoom()), { animate:animate && !reduced, duration:.18 });
+  }
+  function openWard(record, focus = false, recenter = true) {
+    if (!resultPanel) return;
+    const previous = wardRecords.get(selectedWard);
+    selectedWard = record.feature.properties.code;
+    // Keep the panel heading to the selected zone; full place names remain on map targets.
+    resultTitle.textContent = record.feature.properties.name;
+    resultList.innerHTML = renderWardClubList(record.clubs);
+    resultPanel.hidden = false;
+    sizeSheet(previous !== record ? false : sheetExpanded);
+    if (previous) syncWardTarget(previous);
+    syncWardTarget(record);
+    if (recenter) centreWard(record);
+    if (focus) resultTitle.focus({ preventScroll: true });
+  }
+  function closeWard() {
+    const previous = wardRecords.get(selectedWard);
+    selectedWard = null;
+    resultPanel.hidden = true;
+    if (previous) {
+      syncWardTarget(previous);
+      previous.layer.getElement()?.focus({ preventScroll: true });
+    }
+  }
+  resultPanel?.querySelector('[data-close-zone]').addEventListener('click', closeWard);
+  resultPanel?.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    event.stopPropagation();
+    closeWard();
+  });
   let snapshot = null;
   let visible = false;
   let zoneKey = null;
@@ -39,17 +142,24 @@ export function createReachMap(element, status) {
       status.textContent = 'The map could not load. Use the calendar below.';
       return false;
     }
-    // Short, ordinary interactions: no continuous effects or animated viewport changes.
+    // Ordinary interactions stay still; selecting a zone uses only one short pan at the current zoom.
     map = L.map(element, { scrollWheelZoom:false, doubleClickZoom:false, zoomAnimation:false,
       fadeAnimation:false, markerZoomAnimation:false, inertia:false, boxZoom:false,
-      minZoom:8, maxZoom:16, zoomDelta:.5, zoomSnap:0, smoothSensitivity:1, attributionControl:true }).setView([53.4808,-2.2426],10);
+      minZoom:8, maxZoom:16, zoomDelta:.5, zoomSnap:0, smoothSensitivity:1, attributionControl:false }).setView([53.4808,-2.2426],10);
     map.zoomControl.setPosition('topleft');
+    // The menu scrolls independently; clicks and wheel input must not move the map underneath it.
+    if (resultPanel) {
+      L.DomEvent.disableClickPropagation(resultPanel);
+      L.DomEvent.disableScrollPropagation(resultPanel);
+    }
     // Modifier-scroll zooms only this map; an ordinary wheel event still scrolls the page.
     const isMac = /Mac|iPhone|iPad/.test(navigator.userAgentData?.platform || navigator.platform || '');
     element.setAttribute('aria-description', `Hold ${isMac ? 'Command' : 'Ctrl'} and scroll to zoom the map. Scroll normally to move the page.`);
     attachSmoothWheelZoom(map);
-    // Keep required map credits clear of the bottom filter bar on small screens.
-    if (window.matchMedia('(max-width:1040px)').matches) map.attributionControl.setPosition('topright');
+    // Keep data credits visible without the Leaflet prefix; mobile credits clear the bottom sheet.
+    const mobileCredits = matchMedia('(max-width:1040px)');
+    const credits = L.control.attribution({ position:mobileCredits.matches ? 'topright' : 'bottomleft', prefix:false }).addTo(map);
+    mobileCredits.addEventListener('change', event => credits.setPosition(event.matches ? 'topright' : 'bottomleft'));
     let tileErrors = 0;
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom:19, detectRetina:false, updateWhenIdle:true, updateWhenZooming:false, keepBuffer:1,
@@ -108,6 +218,10 @@ export function createReachMap(element, status) {
     target.setAttribute('role', 'button');
     target.setAttribute('aria-label', `${record.title}: view club information${record.clubs.size ? `, ${record.clubs.size} matching ${record.clubs.size === 1 ? 'club' : 'clubs'}` : ', no matching clubs'}`);
     target.removeAttribute('aria-pressed');
+    if (resultPanel) {
+      target.setAttribute('aria-controls', resultPanel.id);
+      target.setAttribute('aria-expanded', String(selectedWard === record.feature.properties.code && !resultPanel.hidden));
+    }
     target.removeAttribute('aria-hidden');
   }
   function prepareWardRecords() {
@@ -121,11 +235,9 @@ export function createReachMap(element, status) {
       wardRecords.set(feature.properties.code, record);
       if (!overviewBounds) overviewBounds = window.L.latLngBounds([]);
       overviewBounds.extend(record.bounds);
-      layer.bindTooltip(escapeHtml(title)).bindPopup(() =>
-        `<strong>${escapeHtml(title)}</strong>${record.clubs.size ? `<ul>${[...record.clubs.values()].map(club => `<li><a href="/${escapeHtml(club.profilePath)}">${escapeHtml(club.name)}</a></li>`).join('')}</ul>` : '<p>No clubs match the current filters in this ward.</p>'}`,
-        { autoPan:false });
-      layer.on('mouseover popupopen', () => highlightWard(feature));
-      layer.on('mouseout popupclose', () => clearHover(feature.properties.code));
+      layer.on('click', () => openWard(record));
+      layer.on('mouseover', () => highlightWard(feature));
+      layer.on('mouseout', () => clearHover(feature.properties.code));
       // Leaflet creates a fresh SVG target only when a detached ward is added again.
       layer.on('add', () => {
         syncWardTarget(record);
@@ -136,7 +248,7 @@ export function createReachMap(element, status) {
         target.addEventListener('keydown', event => {
           if (event.key !== 'Enter' && event.key !== ' ') return;
           event.preventDefault();
-          if (!event.repeat) layer.openPopup();
+          if (!event.repeat) openWard(record, true);
         });
       });
     });
@@ -161,7 +273,7 @@ export function createReachMap(element, status) {
     const requested = wardRecords.get(requestedWard);
     if (requested && wardLayer.hasLayer(requested.polygon)) {
       requestedWard = null;
-      requested.layer.openPopup();
+      openWard(requested);
     }
   }
   function draw() {
@@ -182,16 +294,7 @@ export function createReachMap(element, status) {
     const { origin, radiusMiles, entries } = snapshot;
     const L = window.L;
     prepareWardRecords();
-    const groups = new Map();
-    let unassigned = 0;
-    if (entries) entries.forEach(({ club,sessions }) => sessions.forEach(session => {
-      const match = (session.postcode || session.meetingPoint || '').match(/\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b/i);
-      const postcode = match ? match[0].replace(/\s/g, '').toUpperCase() : '';
-      const code = wards.postcodes[postcode];
-      if (!code) { unassigned++; return; }
-      if (!groups.has(code)) groups.set(code, new Map());
-      groups.get(code).set(club.id, club);
-    }));
+    const { groups, unassigned } = groupWardSessions(entries, wards.postcodes);
     const coverage = document.querySelector('#calendar-ward-status');
     if (coverage) {
       coverage.hidden = !unassigned;
@@ -207,7 +310,7 @@ export function createReachMap(element, status) {
         if (!record.clubs.size) clearHover(code);
       }
       syncWardTarget(record);
-      if (record.layer.isPopupOpen()) record.layer.getPopup().update();
+      if (selectedWard === code && resultPanel && !resultPanel.hidden) openWard(record, false, false);
     });
     const nextKey = origin ? `${origin.key || origin.sector}/${radiusMiles}` : [...groups.keys()].sort().join('|');
     if (nextKey === zoneKey) { drawContext(); return; }
@@ -239,6 +342,13 @@ export function createReachMap(element, status) {
       if (visible) { map?.invalidateSize({ animate:false, pan:false }); draw(); }
     }).observe(element);
   } else visible = true;
+  // Recalculate the uncovered centre after a real viewport resize, not on every pan or hover.
+  if ('ResizeObserver' in window) new ResizeObserver(() => {
+    if (!visible || !map || !resultPanel || resultPanel.hidden) return;
+    map.invalidateSize({ animate:false, pan:false });
+    sizeSheet();
+    centreWard(wardRecords.get(selectedWard), false);
+  }).observe(element);
   return {
     selectWard,
     update(origin, radiusMiles, index = null, entries = null) { snapshot = { origin,radiusMiles,index,entries }; if (visible) draw(); }

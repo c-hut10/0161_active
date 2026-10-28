@@ -1,0 +1,506 @@
+{
+  "savedDate": "2026-10-28",
+  "scope": "Retro map source, ten borough details, reference assets and existing animation path data",
+  "files": [
+    {
+      "path": "archive/artwork/borough-source-cutouts/1-Salford.png",
+      "bytes": 714657,
+      "sha256": "54a0e9221075278d5beabe1f4952e5e1d2dd38636fa090dccf0710de8e47629b"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/10-Wigan.png",
+      "bytes": 772132,
+      "sha256": "e35eccb8f506ace3641e389d3d0e92d9a7648e73629f483fee4bb05b59572f86"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/2-Manchester.png",
+      "bytes": 854655,
+      "sha256": "fd36d4ba2d3e5864a272bfb0d9125f584e254fdc9f0919d287b411c69cbc01f8"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/3-Trafford.png",
+      "bytes": 862777,
+      "sha256": "b8fbb157fc1c7390598fd2f857fdc2876892f98024f723aab66a9cc537dac50a"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/4-Stockport.png",
+      "bytes": 745420,
+      "sha256": "ee9a5d961d7b40ca9fa5f6c87c298333292db9ee8f1c79ecf4cd969ff7a3595e"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/5-Tameside.png",
+      "bytes": 654653,
+      "sha256": "0abec794242259ad00b1a2d21b8697794900fbab69dc26359160032116ecb3cf"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/6-Oldham.png",
+      "bytes": 867624,
+      "sha256": "5e0a455174a7255c290bd9955649d502c5e4a7e3fa25c8bc295292b53d8f254f"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/7-Rochdale.png",
+      "bytes": 783145,
+      "sha256": "1d0c509ba3d13dbbc49d4c344e5b3f5c580ba329c9366cf7c9de6b53c43d7cc9"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/8-Bury.png",
+      "bytes": 775141,
+      "sha256": "656f22964a076e551b3c5da1dc9e2edb8a38c1712fc98e85c9769d8078bcf86d"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/9-Bolton.png",
+      "bytes": 840127,
+      "sha256": "5c8c0963a31367867ab1ed9016aaa01b91db70e64feca934807b4237ed882803"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/bolton-ward-labels.json",
+      "bytes": 1660,
+      "sha256": "a6cd5f8901ab563ebe3ae9474708a9d53afa8dc906b73a1123795e1eb565575b"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/bolton-ward-reference.jpg",
+      "bytes": 4374891,
+      "sha256": "3904bcc2101dc7254c53577fbb5c00986576097d97c174c98d83ff23f8039999"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/bury-ward-labels.json",
+      "bytes": 1392,
+      "sha256": "fe47aa749c29a1d5d5e040accf2fcf48f61b5eea115fc2693202ad67228e3a06"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/bury-ward-reference.jpeg",
+      "bytes": 28119,
+      "sha256": "70450c1e2011b7b999d24f94b8c9e8449e10f787ed569734fc6d83608905387f"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/manchester-ward-labels.json",
+      "bytes": 2358,
+      "sha256": "68fe224d1e0d3dfba9067a6bfd26826797f152d6931655c8829eaefd229c6341"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/manchester-ward-reference.png",
+      "bytes": 370234,
+      "sha256": "b6eee4d0c1f92f1cef59407afe756371c0b2d72ed24045161c334d016d0a479a"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/oldham-ward-labels.json",
+      "bytes": 1608,
+      "sha256": "44f7c997cfe7c59fa379147ee0af37747d76112b300be0ca6c6f2e66fa85345b"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/oldham-ward-reference.jpg",
+      "bytes": 184498,
+      "sha256": "4eaa75ef5eab19229f64665b096ddb9e9d6440d96f1580b4cc92ffe26f651355"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/oldham-ward-reference.png",
+      "bytes": 571898,
+      "sha256": "b66131851645f47fcadee36aec953d081bfe4122f77ae34d3fb9357a69578933"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/rochdale-ward-labels.json",
+      "bytes": 1726,
+      "sha256": "6bd6d4ddcd64aaea99fe640f4ca0164621e3de0fd069c79f72ef6b2e95a42668"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/rochdale-ward-reference.pdf",
+      "bytes": 7404229,
+      "sha256": "2c795d184c99fb592478303e06e136f5ace44c694145fa42027580086e907b4c"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/salford-ward-labels.json",
+      "bytes": 1678,
+      "sha256": "b060b563804f8bc461226fcb29fe509d1851eb1d5e8e2ca1e3e64cdbfcecd51e"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/salford-ward-reference.png",
+      "bytes": 489680,
+      "sha256": "328b9908b7a2af7ff7d4d80e71a59d3d091498b393d473cccc9580347e568ec7"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/stockport-ward-labels.json",
+      "bytes": 1829,
+      "sha256": "3606cabaf25dacaedc84031e770b0aa4b7207b364ab2cb92b9ba9ad975b45d03"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/stockport-ward-partition.png",
+      "bytes": 21483,
+      "sha256": "95e5db3f49f7f5ba0169b60b1fa1a3f63f52a0c74735aab8394fa1f7384785ca"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/stockport-ward-reference.pdf",
+      "bytes": 7315748,
+      "sha256": "102f02ca58c3f9e89f383139fcc7e2119b96045a6090ebc698de1e6a68dfdd45"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/tameside-ward-labels.json",
+      "bytes": 1628,
+      "sha256": "7e5ef0f79f1eda26732c7b277a9da9d5270ae6b30ca8548991e249c63a16d4a1"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/tameside-ward-reference.pdf",
+      "bytes": 7727522,
+      "sha256": "efef5c5cdf457dee2a91cd1f3f1d28af58bdc4610e50318602122ad43a01632c"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/trafford-ward-labels.json",
+      "bytes": 1751,
+      "sha256": "5514fe00ed410d78a1f2da447aba8bc5e4da66ab50053771228495032976ec39"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/trafford-ward-partition.png",
+      "bytes": 10560,
+      "sha256": "8d5719cff49f40e3be7b2156160b9b940a112438f870c4be7789a9a3708bd9d4"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/trafford-ward-reference.svg",
+      "bytes": 733253,
+      "sha256": "6bf9e1a2e318d89c9100605420c30422fb984c9fcebe34f1dc485b53e2466aa8"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/wigan-ward-labels.json",
+      "bytes": 2014,
+      "sha256": "b6c11880617e2cb29c07f7cb46075ba599554d896be53442f08f2524b772aff6"
+    },
+    {
+      "path": "archive/artwork/borough-source-cutouts/wigan-ward-reference.jpg",
+      "bytes": 111691,
+      "sha256": "86fbe15bdc01a17d1610081f9761d741103d4fc54b994a081046bf3c72bf8b5c"
+    },
+    {
+      "path": "archive/artwork/manchester-region-pixelated-draft.png",
+      "bytes": 1430678,
+      "sha256": "f49e4811b8ae838f9bf6b78ce69f8e58d221084ef212ac05e6025e9839e909d1"
+    },
+    {
+      "path": "archive/artwork/manchester-region-pixelated-v2.png",
+      "bytes": 1531178,
+      "sha256": "d8f60f0bae251588d51d5b3be4f53c2b3aaae87a531ec1accc006e64599b9aae"
+    },
+    {
+      "path": "archive/artwork/manchester-region-pixelated-v3.png",
+      "bytes": 1512022,
+      "sha256": "ed447e06b1c675c6253230f9c3f1e87e0fb7ed6112a3c5a4300cb7863ceca675"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/README.md",
+      "bytes": 1027,
+      "sha256": "b4415beb336bd83920dad906ae418547b7effc234af238b26f78f72fe6be3e67"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/bolton-highlight.png",
+      "bytes": 79635,
+      "sha256": "2aaaeab83dcd3808f7e9910c36564c6ce1e4043134b9a64e351a10566bd51577"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/bolton-highlight.webp",
+      "bytes": 29438,
+      "sha256": "cf26cef46e3c14d1af8f18ea09b0ffca466ec9fa40b0db92ca081cce38f0f598"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/borough-border-key.png",
+      "bytes": 86828,
+      "sha256": "1e828d4bd8a661203d7dccb4f44d6a98a0ec12ea837880034c6c1356169b8221"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/bury-highlight.png",
+      "bytes": 70608,
+      "sha256": "78f918f581535c352bc5b725a735300bed49f7da17a4453672639d2473373b22"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/bury-highlight.webp",
+      "bytes": 25204,
+      "sha256": "699fbf741cbc1806d63282bdf169a9ce8c38e365ec5c4d3b084b4e6eb4b38c72"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/greater-manchester-base.png",
+      "bytes": 25280,
+      "sha256": "c86584854439c7473deff037ac0d0567e857cc00a132cd24eb473381930135cd"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/greater-manchester-base.webp",
+      "bytes": 3858,
+      "sha256": "0cab422d2a65ac29d0b8e0aac142ca71229e714bb64f1be27bcdc1d5f415eff5"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/greater-manchester-hollow-black.png",
+      "bytes": 23368,
+      "sha256": "8f92c85113f195727b37a2ea141b37fe072a3d2afd48bd6567406fe06e624ca8"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/greater-manchester-hollow.png",
+      "bytes": 26650,
+      "sha256": "85ad61ecc476be0c239bab8147aa0d39bd0824098c43d72f9255590c7f7dde10"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/greater-manchester-original-colours.png",
+      "bytes": 164357,
+      "sha256": "f079e6bb8d1c8c88b6a4e0ecef82334dbbc9e2fa5f5cf0b2ac24a59ffe0a1894"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/manchester-borough-image-pack.zip",
+      "bytes": 1345057,
+      "sha256": "3932c1036b91957742b411bf8a4277644dc5cf57dc3ceb77fe985239f8810a68"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/manchester-highlight.png",
+      "bytes": 78647,
+      "sha256": "c8fabfc325a769265cefdcfaa630cd8ca37b32df773726d4dc97ed0a16a0ccab"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/manchester-highlight.webp",
+      "bytes": 29010,
+      "sha256": "48bb02f26119987bc3714ce1931a40d3caeba15b59f8c36f10887e4c5de6f479"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/bolton.png",
+      "bytes": 5608,
+      "sha256": "f2ca2caca0233ed16e771c11bd251f74336171e24904e7cd556e26c1f9b42c61"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/bury.png",
+      "bytes": 5774,
+      "sha256": "8dc9632089b37f6503a02c8490d4b7c6f773ab378cd1831489fa322773a009f3"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/manchester.png",
+      "bytes": 6218,
+      "sha256": "5d6192ed3e495937a21bbf63331f1ea509ae725540ebaa97fee057874c58e23a"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/oldham.png",
+      "bytes": 5677,
+      "sha256": "25e3aaaed331dd6acbdab5f6040eb3a528d04b060b597671ff737b38a0d4e833"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/rochdale.png",
+      "bytes": 5855,
+      "sha256": "092234f972118ba1343684d77f17b7bdc73dd9860a4b9b91819f286c7bb65e14"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/salford.png",
+      "bytes": 5526,
+      "sha256": "56cddba1f810a2e979d8ec6f88bca72ce2259d2df0ad441c803af88976200e70"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/stockport.png",
+      "bytes": 5574,
+      "sha256": "e681518dcb16096c2318b0c46d830dd746e52a050fc2ca25122cfe6eb7ab4c5b"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/tameside.png",
+      "bytes": 5333,
+      "sha256": "90815fe3d6180e52f603095be44956bc3e8351ca746845b69cd2bdb0d9ce367e"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/trafford.png",
+      "bytes": 5479,
+      "sha256": "f8193a61dd19a952dd4a7088a34dad4a7ed76c8893e99136b92697571482bd64"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/masks/wigan.png",
+      "bytes": 5907,
+      "sha256": "ed05bbca1bb84f73d957b7e17ecaa1f7cced491d7a9fb9e348897c6746a75827"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/oldham-highlight.png",
+      "bytes": 78693,
+      "sha256": "b20a27c37b9271b06a26abee4833dd4aea25d9a9fea7870b896702500f3d6270"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/oldham-highlight.webp",
+      "bytes": 28522,
+      "sha256": "0a2f943b5737aa2bf9eb13a04ed3b29c47a0ed867049acd95f71ce0ddb075903"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/rochdale-highlight.png",
+      "bytes": 81349,
+      "sha256": "96a66ed91af44e1e9fac9b885359c83e6c03c13d0178cf056836041cf49e3afa"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/rochdale-highlight.webp",
+      "bytes": 30506,
+      "sha256": "d4bbc824869841420445b8eae0b9da43c4a9801c0ebdfecebbe2e58c4f094d09"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/salford-highlight.png",
+      "bytes": 73176,
+      "sha256": "4869e8e336fc3f1942be97e70310f896ff0260854ba90ca3c876a7f1a22a3230"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/salford-highlight.webp",
+      "bytes": 27370,
+      "sha256": "a45797cf7b0730b013364115bed64fc1178adc9fd84d923e92578ef2381be95a"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/stockport-highlight.png",
+      "bytes": 71730,
+      "sha256": "0fc74f6d6770972417a19ecc30db29a97cd98e8e4695e58779d9f78024ab5c9e"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/stockport-highlight.webp",
+      "bytes": 26120,
+      "sha256": "24b638f0e09247d5210fa2d18b0cb6fbb76acbfba572cc7f481c094e872274a8"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/tameside-highlight.png",
+      "bytes": 61389,
+      "sha256": "26dd2ad25c3506b4906242347324ba1ed88feb6230bf13e3cf751bd15d4df2bb"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/tameside-highlight.webp",
+      "bytes": 21760,
+      "sha256": "b9880ff7c5dc0da74877109e75b53e6d4bcc9c437ac30c4a5995c43bb350d6b0"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/ten-boroughs-preview.jpg",
+      "bytes": 237458,
+      "sha256": "e92202ca220e202e0c84a10112d91f8af91e42afda07be1f03e98d5f4e1e9706"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/trafford-highlight.png",
+      "bytes": 67800,
+      "sha256": "49979e89548484f637fbbba54f82a702b686270a8ef76348877dac65fe5b1de5"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/trafford-highlight.webp",
+      "bytes": 23994,
+      "sha256": "0efc0d358f926293640ca1e518d3e17801fd2b60683629c2b8e1df926e1a1240"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/wigan-highlight.png",
+      "bytes": 87076,
+      "sha256": "f8610272be8ce69e12dda15e897de97fa49d3693716d1b5bbbcf14720c528619"
+    },
+    {
+      "path": "archive/artwork/manchester-regions/wigan-highlight.webp",
+      "bytes": 31486,
+      "sha256": "16e6591e1828fcaf4f042bed9b55b6fc9c0faf38232ecdc26834dc88549319fc"
+    },
+    {
+      "path": "archive/geo/wards-may-2026-source.geojson",
+      "bytes": 433503,
+      "sha256": "59812cd4840effbd5bcf2f75ffcb256b498df5b91998dd07324eba394a12b856"
+    },
+    {
+      "path": "css/home-entry.css",
+      "bytes": 14268,
+      "sha256": "80941720aa5cf9cee60fb62b139e1ded4c56849e548087a3916d56130d29ca74"
+    },
+    {
+      "path": "data/map-wards.json",
+      "bytes": 145680,
+      "sha256": "d069c60c7f092f9dab43f19630c1f9344cf9f8cf383ab2ac50c27426233abb38"
+    },
+    {
+      "path": "img/home-entry-glow.svg",
+      "bytes": 404,
+      "sha256": "1dec2cce6bab489e6e25cecdd1b1dccd91bb230b1246858fdd7f14b2af678b7c"
+    },
+    {
+      "path": "img/manchester-regions/hover/bolton-glow.webp",
+      "bytes": 13372,
+      "sha256": "a687247cd89e2162d70d99aff33f89a231aa3972b0f1424866643a3ef3ebb42f"
+    },
+    {
+      "path": "img/manchester-regions/hover/bury-glow.webp",
+      "bytes": 11260,
+      "sha256": "7e3d3fa9ae82d101e432a54ac662f65e67e6e528c7129a6825c3252bb64b3047"
+    },
+    {
+      "path": "img/manchester-regions/hover/manchester-glow.webp",
+      "bytes": 14070,
+      "sha256": "1a55c46a516345cd11c71e33b0b9ba025e8ee11730c71bfcfbb8a9b9fbcbb72e"
+    },
+    {
+      "path": "img/manchester-regions/hover/oldham-glow.webp",
+      "bytes": 13688,
+      "sha256": "f9a6928fc325c2f778a9d6ff73998bdcc309858a6f3ac88b6907733b8a3726ea"
+    },
+    {
+      "path": "img/manchester-regions/hover/rochdale-glow.webp",
+      "bytes": 14670,
+      "sha256": "3a17020b4d03b6dbf2e8bc244416a94d087e6722501f06c1ba5d8cd28a483ccd"
+    },
+    {
+      "path": "img/manchester-regions/hover/salford-glow.webp",
+      "bytes": 12470,
+      "sha256": "56927a4d5eb7e68db4498dfc5c34380fd6a47e62b9c665b5ad08b9a087f49b7a"
+    },
+    {
+      "path": "img/manchester-regions/hover/stockport-glow.webp",
+      "bytes": 12104,
+      "sha256": "7294162f15ea36bbcafcdbb06f34da44b5216c626fcbf802c5af1519f68393a6"
+    },
+    {
+      "path": "img/manchester-regions/hover/tameside-glow.webp",
+      "bytes": 9590,
+      "sha256": "5c74181f894257cb99718a5022918a4c7edb02efa92f7aff2593662332e704f1"
+    },
+    {
+      "path": "img/manchester-regions/hover/trafford-glow.webp",
+      "bytes": 11224,
+      "sha256": "0d50ef264024091d1fbbefaeb8998cc2dfb98a1cbbeaddad9ad0d2a17fed5e82"
+    },
+    {
+      "path": "img/manchester-regions/hover/wigan-glow.webp",
+      "bytes": 15706,
+      "sha256": "cd1a84bbfe37bf699b3546644525012a39352298e04f379c0625767b8e4915a8"
+    },
+    {
+      "path": "index.html",
+      "bytes": 50167,
+      "sha256": "03275e9bf5fc5a55a232bd641b9cf59ea3da8d64db0a719078dbe7e6549f1ca0"
+    },
+    {
+      "path": "js/home-entry.js",
+      "bytes": 17501,
+      "sha256": "5de242e40ae7a49f40553bf97c34f20f57e5ce2d3fe077e22657bce9fbbdc2f2"
+    },
+    {
+      "path": "js/home-region-detail.mjs",
+      "bytes": 12558,
+      "sha256": "bcd9ac67c65f39d627cda49586e104289131e38a257301ce7cdb65271357309a"
+    },
+    {
+      "path": "js/home-region-shapes.mjs",
+      "bytes": 209390,
+      "sha256": "3ff79c7ab1b770ab560ea8d6c37a3f69ef16cc1d650bcf6f93e2610dacc3e5d7"
+    },
+    {
+      "path": "scripts/build-map-wards.py",
+      "bytes": 3371,
+      "sha256": "39d32788f7bb82e60758854a86870e54659c01a9b090c029c33709f1f18dfccc"
+    },
+    {
+      "path": "scripts/build-region-details.py",
+      "bytes": 262,
+      "sha256": "feed543f26abf711b15960adbf04d9eb1891250a0a64b7a8c7a61a61abbaa5cc"
+    },
+    {
+      "path": "scripts/build-retro-ward-links.py",
+      "bytes": 4801,
+      "sha256": "fe4d6105a906f4821ea575880e0c4fc3c5b7c616ba46f73f099574aedf0272a2"
+    },
+    {
+      "path": "scripts/prepare-ward-partitions.py",
+      "bytes": 2203,
+      "sha256": "f34bd6aaf49ada66fabce90874fa13feb433fc0349fed9886881f91199606789"
+    },
+    {
+      "path": "tmp/satellite-map-draft/manchester-ward-animation.json",
+      "bytes": 22106,
+      "sha256": "954980917ee3adcff8e3665e89573698c4d56a5863395730d76e6301aef1249b"
+    },
+    {
+      "path": "tmp/satellite-map-draft/retro-loop-paths.json",
+      "bytes": 63683,
+      "sha256": "5b54d807255953ff2adf5ff4b5ebb7ac35e22c472237b5fa54c733665567645d"
+    },
+    {
+      "path": "tmp/satellite-map-draft/retro-paths.json",
+      "bytes": 48363,
+      "sha256": "3a6b7bf3a0ccdc664234b6d485e9ae52b6c8c2039fb6a5913b65056815ac33e5"
+    }
+  ]
+}

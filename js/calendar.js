@@ -1,4 +1,4 @@
-import { savedClubsKey, readSavedClubs } from './saved-clubs.mjs';
+import { savedClubsKey, readSavedClubs, writeSavedClubs } from './saved-clubs.mjs';
 import { renderWeekGrid, frequencyToggle, eligibilityMarkup, removeFavouriteButton } from './calendar-week-renderer.mjs';
 import { WEEK_DAYS as DAYS, sessionTime as formatTime, escapeHtml, sessionSport, compareSessionStartTimes } from './club-formatting.mjs';
 import { clubVerificationBadge } from './club-verification.mjs';
@@ -33,9 +33,7 @@ mainContent.addEventListener('click', event => {
   try {
     if (saved.error) throw new Error('Your saved clubs could not be read.');
     saved.ids.delete(club.id);
-    if (saved.ids.size) localStorage.setItem(savedClubsKey, JSON.stringify([...saved.ids]));
-    else localStorage.removeItem(savedClubsKey);
-    window.dispatchEvent(new Event('saved-clubs-changed'));
+    writeSavedClubs(saved.ids);
     favouriteStatus.textContent = `${club.name} removed from your favourites.`;
     // The removed button no longer exists; keep focus in the current calendar view.
     const view = activeView === 'week' ? weekGrid : dayAgenda;
@@ -201,7 +199,7 @@ function renderCalendar() {
   /* Weekly eyebrow: show the chosen sport and count clubs matching every active filter. */
   const sportLabel = 'All sports';
   let clubCount;
-  let sessionCount = 0;
+  let sessionCount;
   if (activeView === 'week') {
     clubCount = entries.length;
     sessionCount = entries.reduce((total, entry) => total + entry.sessions.length, 0);

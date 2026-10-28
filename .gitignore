@@ -8,7 +8,8 @@
 
 # Generated deployment output and local machine artefacts.
 /dist/
-node_modules/
+node_modules
+.pnpm-store/
 .DS_Store
 *.log
 

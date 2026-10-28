@@ -1,14 +1,16 @@
-import { createCalendarLocation } from './calendar-location.mjs';
-import { loadClubDirectory } from './site-data.mjs';
+import { createCalendarLocation } from './calendar-location.mjs?v=20261028-cleanup';
+import { visibleSportRecords } from './sport-catalog.mjs';
+import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
 import { sessionSport } from './club-formatting.mjs';
 import { sportName, matchesSessionPrice, matchesSessionBudget, matchesSessionStartTime } from './club-directory-filters.js?v=20261025-budget';
 import { enhanceFilterPickers, syncFilterPickers } from './filter-picker.mjs';
-import { selectedMapSports, removeMapSport, clearMapSports } from './map-sport-selection.mjs';
+import { selectedMapSports, addMapSport, removeMapSport, clearMapSports } from './map-sport-selection.mjs';
 
 /* Directory map controls reuse session-level price, sport, time and postcode helpers. */
 const sportSummary = document.querySelector('#home-map-sport-summary');
 const sportList = document.querySelector('#home-map-sports-list');
 let sportListSignature = '';
+let availableSports = [];
 const price = document.querySelector('#home-map-price');
 const amount = document.querySelector('#home-map-amount');
 const amountField = document.querySelector('#home-map-amount-field');
@@ -26,32 +28,34 @@ function updateSportSelection() {
   sportSummary.textContent = sports.length
     ? `${sportName(sports[0])}${sports.length > 1 ? ` + ${sports.length - 1} more` : ''}` : 'All sports';
   sportSummary.classList.toggle('is-filter-selected', sports.length > 0);
-  const signature = sports.join('|');
-  if (!sports.length) {
-    sportList.hidden = true;
-    sportSummary.setAttribute('aria-expanded', 'false');
-  }
+  const signature = `${availableSports.map(sport => sport.slug).join('|')}|${sports.join('|')}`;
   if (signature === sportListSignature) return;
   sportListSignature = signature;
-  sportList.replaceChildren(...sports.map(sport => {
+  // The same complete sports checklist is available on desktop and mobile.
+  const focusedSport = document.activeElement?.dataset.sportChoice;
+  sportList.replaceChildren(...availableSports.map(sport => {
     const item = document.createElement('li');
-    const name = document.createElement('span'); name.textContent = sportName(sport);
-    const remove = document.createElement('button');
-    remove.type = 'button'; remove.className = 'home-map-sport-remove'; remove.textContent = '×';
-    remove.setAttribute('aria-label', `Remove ${sportName(sport)}`);
-    const removeSelection = () => {
-      const index = [...sportList.children].indexOf(item);
-      removeMapSport(sport);
-      const next = sportList.children[Math.min(index, sportList.children.length - 1)];
-      (next?.querySelector('.home-map-sport-remove') || sportSummary).focus({ preventScroll:true });
-    };
-    remove.addEventListener('click', removeSelection);
-    item.append(remove, name);
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'checkbox'; input.checked = selectedMapSports.has(sport.slug);
+    input.dataset.sportChoice = sport.slug;
+    input.addEventListener('change', () => {
+      if (input.checked) addMapSport(sport.slug); else removeMapSport(sport.slug);
+      window.dispatchEvent(new Event('0161-map-overview-request'));
+    });
+    // Keep native selection and keyboard behaviour behind a lightweight power icon.
+    const power = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    power.classList.add('home-map-sport-power');
+    power.setAttribute('viewBox', '0 0 24 24');
+    power.setAttribute('aria-hidden', 'true');
+    power.innerHTML = '<path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+    label.append(input, power, document.createTextNode(sportName(sport.slug)));
+    item.append(label);
     return item;
   }));
+  if (focusedSport) [...sportList.querySelectorAll('input')].find(input => input.dataset.sportChoice === focusedSport)?.focus({ preventScroll:true });
 }
 sportSummary.addEventListener('click', () => {
-  if (!selectedMapSports.size) return;
   sportList.hidden = !sportList.hidden;
   sportSummary.setAttribute('aria-expanded', String(!sportList.hidden));
 });
@@ -130,8 +134,6 @@ function render() {
   locationFilter.updateResults(entries);
   syncFilterPickers();
   updateFieldColours();
-  // Keep the directory's selected card aligned with the current sport and Clear filters.
-  window.dispatchEvent(new Event('0161-map-sport-changed'));
 }
 flexibility.addEventListener('change', render);
 // A yearly figure and a session figure are different budgets; start blank when changing payment type.
@@ -151,8 +153,9 @@ document.querySelector('#home-map-clear-filters').addEventListener('click', () =
 });
 window.addEventListener('0161-map-sports-input', render);
 [sportSummary,price].forEach(control => { control.disabled = true; });
-loadClubDirectory().then(data => {
+Promise.all([loadClubDirectory(), loadSportCatalog()]).then(([data, catalog]) => {
   clubs = data.clubs;
+  availableSports = visibleSportRecords(catalog, clubs);
   directoryReady = true;
   [sportSummary,price].forEach(control => { control.disabled = false; });
   enhanceFilterPickers('.home-map-filter-fields select');

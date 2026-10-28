@@ -1,0 +1,20 @@
+node_modules/
+dist/
+tmp/
+archive/
+vendor/
+# These files are emitted by generators, rather than maintained by hand.
+js/postcode-areas.mjs
+js/home-region-shapes.mjs
+data/map-wards.json
+data/postcode-sectors.json
+data/club-map-locations.json
+data/geocoding-cache.json
+# Generated pages contain shared sections owned by the build scripts.
+html/athletics/
+html/archery/
+html/basketball/
+html/cycling/
+html/football/
+html/leagues/
+# The quality runner checks all public HTML metadata separately.

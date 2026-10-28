@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { mergeCsvSessions } from './merge-csv-sessions.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CSV_COLUMNS, MASTER_COLUMNS, masterRowAnswers, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, MEMBERSHIP_PERIODS, clubAnswers } from '../js/club-submission.mjs';
@@ -44,13 +45,14 @@ function readCsv(source) {
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const file = args.find(argument => !argument.startsWith('--'));
-if (!file || args.some(argument => argument.startsWith('--') && !['--write'].includes(argument))) {
-  throw new Error('Usage: node scripts/import-club-csv.mjs <responses.csv> [--write]');
+if (!file || args.some(argument => argument.startsWith('--') && !['--write', '--merge-sessions'].includes(argument))) {
+  throw new Error('Usage: node scripts/import-club-csv.mjs <responses.csv> [--merge-sessions] [--write]');
 }
 const rows = readCsv(fs.readFileSync(path.resolve(file), 'utf8'));
 const headers = rows.shift() || [];
 const matches = columns => headers.length === columns.length && new Set(headers).size === headers.length && columns.every(column => headers.includes(column));
 const masterFormat = matches(MASTER_COLUMNS);
+if (args.includes('--merge-sessions') && !masterFormat) throw new Error('Incremental imports require the Master CSV with Club IDs and Session IDs.');
 if (!masterFormat && !matches(CSV_COLUMNS)) throw new Error('CSV headings must match the Master template or the legacy JSON-path template. Column order may vary.');
 if (!rows.length) throw new Error('The CSV contains no club answers.');
 const dataFile = path.join(root, 'data/clubs.json');
@@ -68,10 +70,14 @@ rows.forEach((row, index) => {
   try { values = masterFormat ? masterRowAnswers(raw) : raw; }
   catch (error) { errors.push(`Row ${line}: ${error.message}`); return; }
   if (!values.name || !values.sport) { errors.push(`Row ${line}: club name and sport are required.`); return; }
-  const id = values.id || sportSlug(values.name);
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) { errors.push(`Row ${line}: id must use lowercase words separated by hyphens.`); return; }
+  const requestedId = values.id || sportSlug(values.name);
+  const matchingIds = data.clubs.filter(club => club.id.toLowerCase() === requestedId.toLowerCase());
+  if (matchingIds.length > 1) { errors.push(`Row ${line}: Club ID matches multiple existing records.`); return; }
+  const id = matchingIds[0]?.id || requestedId;
+  const idPattern = masterFormat ? /^[a-z0-9]+(?:-[a-z0-9]+)*$/i : /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  if (!idPattern.test(id)) { errors.push(`Row ${line}: id must use lowercase words separated by hyphens.`); return; }
   const existing = data.clubs.find(club => club.id === id);
-  if (!values.id && !existing && data.clubs.some(club => club.name.toLowerCase() === values.name.toLowerCase())) {
+  if (!existing && data.clubs.some(club => club.name.toLowerCase() === values.name.toLowerCase())) {
     errors.push(`Row ${line}: this club name already exists under another id. Supply its existing id to update it.`); return;
   }
   if (!groups.has(id)) groups.set(id, { values, rows: [] });
@@ -84,9 +90,9 @@ rows.forEach((row, index) => {
   const session = Object.fromEntries(SESSION_ANSWER_FIELDS.map(field => [field, values[`sessions.${field}`]]));
   if (masterFormat && values['sessions.id']) {
     session.id = values['sessions.id'];
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(session.id)) errors.push(`Row ${line}: invalid Session ID.`);
-    if (sessionIds.has(session.id)) errors.push(`Row ${line}: duplicate Session ID ${session.id}. Each session needs its own row and ID.`);
-    sessionIds.add(session.id);
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(session.id)) errors.push(`Row ${line}: invalid Session ID.`);
+    if (sessionIds.has(session.id.toLowerCase())) errors.push(`Row ${line}: duplicate Session ID ${session.id}. Each session needs its own row and ID.`);
+    sessionIds.add(session.id.toLowerCase());
   }
   // Empty session columns create a club with no listed sessions, never a fictitious training entry.
   if (Object.values(session).some(Boolean)) {
@@ -173,7 +179,13 @@ for (const [id, group] of groups) {
     session.dataStatus = 'user-submitted';
   });
   const existing = data.clubs.find(club => club.id === id);
-  // Existing photos, paths and sources remain; a response replaces the club's complete session list.
+  // Full responses replace schedules. Incremental files explicitly preserve untouched Session IDs.
+  if (args.includes('--merge-sessions')) {
+    try { answers.sessions = mergeCsvSessions(existing?.sessions || [], answers.sessions, id); }
+    catch (error) { errors.push(error.message); }
+  }
+  // Existing photos, paths and sources remain.
+
   updates.push({ ...(existing || {}), ...answers, id,
     ...(!masterFormat && existing ? { kitRequired: existing.kitRequired ?? null, kitDetails: existing.kitDetails ?? null } : {}),
     imagePath: existing?.imagePath || null,

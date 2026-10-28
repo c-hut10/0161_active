@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
 <script defer src="/vendor/leaflet/leaflet.js"></script>
 <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
-<link rel="stylesheet" href="/css/location-filter.css?v=20261025-labels">
-<script type="module" src="/js/home-reach-map.js?v=20261025-budget"></script>
-  <link rel="stylesheet" href="../../css/sports-directory.css?v=20261025-map-columns">
+<link rel="stylesheet" href="/css/location-filter.css?v=20261028-cleanup">
+<script type="module" src="/js/home-reach-map.js?v=20261028-cleanup"></script>
+  <link rel="stylesheet" href="../../css/sports-directory.css?v=20261028-cleanup">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
-  <script type="module" src="../../js/sports-directory.js?v=20261025-sport-toggle"></script>
+  <script type="module" src="../../js/sports-directory.js?v=20261028-cleanup"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -105,6 +105,7 @@
     <div class="sports-directory-groups" id="sports-groups"><section class="sports-accessible-group" aria-labelledby="sports-accessible-title">
     <h2 id="sports-accessible-title" class="sports-accessible-group__title">ACCESSIBLE SPORTS</h2>
     <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="wheelchair-basketball" href="wheelchair-basketball.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Wheelchair Basketball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>2 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
@@ -113,96 +114,116 @@
     <section class="sports-letter-group" aria-labelledby="sports-letter-A">
       <h3 id="sports-letter-A" class="sports-letter-group__letter">A</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="american-football" href="american-football.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">American Football</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>2 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="archery" href="archery.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Archery</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="athletics" href="athletics.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Athletics</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>21 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-B">
       <h3 id="sports-letter-B" class="sports-letter-group__letter">B</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="badminton" href="badminton.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Badminton</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="basketball" href="basketball.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Basketball</span>
-      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>25 CLUBS</span><span class="sports-directory-card__leagues">4 LOCAL LEAGUES</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>25 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-C">
       <h3 id="sports-letter-C" class="sports-letter-group__letter">C</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="cycling" href="cycling.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Cycling</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>9 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-D">
       <h3 id="sports-letter-D" class="sports-letter-group__letter">D</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="dodgeball" href="dodgeball.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Dodgeball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-F">
       <h3 id="sports-letter-F" class="sports-letter-group__letter">F</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="flag-football" href="flag-football.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Flag Football</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="football" href="football.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Football</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>11 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-H">
       <h3 id="sports-letter-H" class="sports-letter-group__letter">H</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="health-and-wellbeing" href="health-and-wellbeing.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Health &amp; Wellbeing</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="hockey" href="hockey.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Hockey</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>6 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-K">
       <h3 id="sports-letter-K" class="sports-letter-group__letter">K</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="korfball" href="korfball.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Korfball</span>
-      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span><span class="sports-directory-card__leagues">4 LOCAL LEAGUES</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-R">
       <h3 id="sports-letter-R" class="sports-letter-group__letter">R</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="racketball" href="racketball.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Racketball</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="run-club" href="run-club.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Run Club</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>14 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-S">
       <h3 id="sports-letter-S" class="sports-letter-group__letter">S</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="squash" href="squash.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Squash</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>7 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-T">
       <h3 id="sports-letter-T" class="sports-letter-group__letter">T</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="table-tennis" href="table-tennis.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Table Tennis</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>4 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="tag-rugby" href="tag-rugby.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Tag Rugby</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a><a class="sports-directory-card" data-sport="touch-rugby" href="touch-rugby.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Touch Rugby</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>4 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-U">
       <h3 id="sports-letter-U" class="sports-letter-group__letter">U</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="ultimate-frisbee" href="ultimate-frisbee.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Ultimate Frisbee</span>
-      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span><span class="sports-directory-card__leagues">1 LOCAL LEAGUE</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>3 CLUBS</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
     </section><section class="sports-letter-group" aria-labelledby="sports-letter-W">
       <h3 id="sports-letter-W" class="sports-letter-group__letter">W</h3>
       <div class="sports-directory-grid"><a class="sports-directory-card" data-sport="water-polo" href="water-polo.html">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">Water Polo</span>
       <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>1 CLUB</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a></div>
@@ -215,14 +236,21 @@
 
       <p id="calendar-map-summary" role="status">Select a training zone to see its clubs</p>
       <div class="home-map-frame">
-        <div id="calendar-sector-map" role="region" aria-label="Map showing matching training zones and your selected reach"></div>
+        <div id="calendar-sector-map" role="region" aria-label="Map showing matching training zones and your selected reach">
+          <!-- Zone results stay within the map; the existing filters remain a separate control group. -->
+          <aside class="home-map-results-panel" id="map-zone-results" data-zone-results aria-labelledby="map-zone-title" hidden>
+            <button type="button" class="map-zone-handle" data-zone-handle aria-label="Expand club panel" aria-expanded="false"><span></span></button>
+            <header class="map-zone-heading"><h3 id="map-zone-title" data-zone-title tabindex="-1"></h3><button type="button" data-close-zone aria-label="Close zone clubs">×</button></header>
+            <div data-zone-clubs></div>
+          </aside>
+        </div>
         <div class="home-map-filter-panel" data-map-filters>
           <h3 class="home-map-filter-heading">Other Filters</h3>
     <form class="calendar-location-filter" id="calendar-location-filter" aria-label="Find sessions near a postcode">
       <div class="home-map-selected-sport">
         <span>Sport</span>
         <button type="button" id="home-map-sport-summary" aria-expanded="false" aria-controls="home-map-sports-list" disabled>All sports</button>
-        <ul id="home-map-sports-list" class="home-map-sports-list" aria-label="Selected sports" hidden></ul>
+        <ul id="home-map-sports-list" class="home-map-sports-list" aria-label="Sports" hidden></ul>
       </div>
       <div class="home-map-filter-fields">
         <label>Payment type<select id="home-map-price"><option value="all">Any price</option><option value="free">Free</option><option value="per_session">Pay-per-session</option><option value="membership">Membership (annual)</option></select></label>

@@ -1,5 +1,4 @@
 import { displaySportName, sportGlossaryUrl, escapeHtml as escapeDirectoryText } from './club-formatting.mjs';
-import { hasRecordedLeagues } from './club-leagues.mjs';
 
 /* Directory HTML: the build and browser search use the same sport cards. */
 export function renderSportsDirectory(records) {
@@ -13,8 +12,9 @@ export function renderSportsDirectory(records) {
   });
 
   const renderCards = entries => `<div class="sports-directory-grid">${entries.map(sport => `<a class="sports-directory-card" data-sport="${escapeDirectoryText(sport.slug)}" href="${escapeDirectoryText(sportGlossaryUrl(sport.slug, null, 'glossary.html'))}">
+      <svg class="sports-directory-card__power" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10M6.3 5.3a9 9 0 1 0 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="sports-directory-card__name">${escapeDirectoryText(displaySportName(sport.name))}</span>
-      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>${sport.clubCount} ${sport.clubCount === 1 ? 'CLUB' : 'CLUBS'}</span>${hasRecordedLeagues(sport.leagueCount) ? `<span class="sports-directory-card__leagues">${sport.leagueCount} LOCAL ${sport.leagueCount === 1 ? 'LEAGUE' : 'LEAGUES'}</span>` : ''}</span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
+      <span class="sports-directory-card__meta"><span class="sports-directory-card__counts"><span>${sport.clubCount} ${sport.clubCount === 1 ? 'CLUB' : 'CLUBS'}</span></span><span class="sports-directory-card__arrow" aria-hidden="true">↗</span></span>
     </a>`).join('')}</div>`;
   const accessibleSection = accessibleEntries.length ? `<section class="sports-accessible-group" aria-labelledby="sports-accessible-title">
     <h2 id="sports-accessible-title" class="sports-accessible-group__title">ACCESSIBLE SPORTS</h2>

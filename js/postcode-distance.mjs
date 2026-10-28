@@ -11,7 +11,3 @@ export function milesBetween(left, right) {
 export function sessionSector(session) {
   return postcodeSector(session.postcode) || postcodeSector(session.meetingPoint);
 }
-export function distanceLabel(miles, sameSector = false) {
-  if (sameSector) return 'Same approximate area';
-  return miles < 1 ? 'Under 1 mile (approx.)' : `Approx. ${Math.round(miles)} ${Math.round(miles) === 1 ? 'mile' : 'miles'}`;
-}

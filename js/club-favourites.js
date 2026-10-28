@@ -1,5 +1,5 @@
 /* Browser-only favourites: persist club IDs only after an explicit save action. */
-import { savedClubsKey as key, readSavedClubs } from './saved-clubs.mjs';
+import { savedClubsKey as key, readSavedClubs, writeSavedClubs } from './saved-clubs.mjs';
 const noticeKey = '0161active-saved-clubs-notice';
 let ids = new Set();
 let storageError = false;
@@ -70,11 +70,9 @@ function enhance() {
 function persist(next) {
   try {
     // Do not report success or change the UI unless the browser accepts the write.
-    if (next.size) localStorage.setItem(key, JSON.stringify([...next]));
-    else localStorage.removeItem(key);
+    writeSavedClubs(next);
     ids = next;
     storageError = false;
-    window.dispatchEvent(new Event('saved-clubs-changed'));
     return true;
   } catch {
     announce('Your browser could not save this change. Check its site-storage settings and try again.');

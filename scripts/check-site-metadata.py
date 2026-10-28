@@ -39,7 +39,8 @@ assert len(urls) == len(set(urls)), 'duplicate sitemap URL'
 pages = {}
 indexable = set()
 footer = (ROOT / 'templates/site-footer.inc').read_text().strip()
-for file in ROOT.rglob('*.html'):
+# Check deployed pages, not local experiments, templates or packaged copies.
+for file in [ROOT / 'index.html', ROOT / '404.html', *(ROOT / 'html').rglob('*.html')]:
     relative = file.relative_to(ROOT).as_posix()
     p = Page()
     source = file.read_text()
