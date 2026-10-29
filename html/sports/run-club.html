@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore Run Club clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.">
-  <title>Run Club | 0161 Active</title>
+  <title>Find Run Club clubs in Manchester | 0161 Active</title>
   <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
-  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261010-smooth-leagues">
-  <script defer src="/js/site-nav.js?v=20261009-static-navigation"></script>
-  <script type="module" src="../../js/sport-glossary.js?v=20261010-smooth-leagues"></script>
+  <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261012-team-toggle">
+  <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
+  <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
+  <script type="module" src="../../js/sport-glossary.js?v=20261029-profile-save-only"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -17,16 +18,19 @@
   <script defer src="/js/accessibility.js"></script>
   <link rel="stylesheet" href="/css/club-verification.css">
   <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">
+  <link rel="stylesheet" href="/css/site-background.css?v=20261023">
+  <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
+  <script src="/js/page-transitions.js?v=20261020"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/run-club.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="0161 Active">
   <meta property="og:locale" content="en_GB">
-  <meta property="og:title" content="Run Club | 0161 Active">
+  <meta property="og:title" content="Find Run Club clubs in Manchester | 0161 Active">
   <meta property="og:description" content="Explore Run Club clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.">
   <meta property="og:url" content="https://0161active.co.uk/html/sports/run-club.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Run Club | 0161 Active">
+  <meta name="twitter:title" content="Find Run Club clubs in Manchester | 0161 Active">
   <meta name="twitter:description" content="Explore Run Club clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.">
   <meta property="og:image" content="https://0161active.co.uk/img/0161%20Active_Logo.png">
   <meta property="og:image:type" content="image/png">
@@ -37,10 +41,10 @@
   <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
   <!-- Structured data -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/run-club.html#page","url":"https://0161active.co.uk/html/sports/run-club.html","name":"Run Club | 0161 Active","description":"Explore Run Club clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/run-club.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/run-club.html#list","numberOfItems":11,"itemListElement":[{"@type":"ListItem","position":1,"name":"Ancoats Run Club","url":"https://0161active.co.uk/html/run-club/AncoatRunClub.html"},{"@type":"ListItem","position":2,"name":"Belle Vue Racers","url":"https://0161active.co.uk/html/run-club/belle-vue-racers-running.html"},{"@type":"ListItem","position":3,"name":"Chorlton Runners","url":"https://0161active.co.uk/html/run-club/chorlton-runners-running.html"},{"@type":"ListItem","position":4,"name":"Didsbury Runners","url":"https://0161active.co.uk/html/run-club/DidsburyRunners.html"},{"@type":"ListItem","position":5,"name":"Just A Run Club","url":"https://0161active.co.uk/html/run-club/JustARunClub.html"},{"@type":"ListItem","position":6,"name":"Manchester Frontrunners","url":"https://0161active.co.uk/html/run-club/ManchesterFrontrunners.html"},{"@type":"ListItem","position":7,"name":"Mile Shy Club","url":"https://0161active.co.uk/html/run-club/MileShyClub.html"},{"@type":"ListItem","position":8,"name":"Not A Running Club","url":"https://0161active.co.uk/html/run-club/NotARunningClub.html"},{"@type":"ListItem","position":9,"name":"Redacted Run Club","url":"https://0161active.co.uk/html/run-club/RedactedRunClub.html"},{"@type":"ListItem","position":10,"name":"Royton Road Runners","url":"https://0161active.co.uk/html/run-club/royton-road-runners.html"},{"@type":"ListItem","position":11,"name":"Tiny Moves","url":"https://0161active.co.uk/html/run-club/TinyMoves.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/run-club.html#page","url":"https://0161active.co.uk/html/sports/run-club.html","name":"Find Run Club clubs in Manchester | 0161 Active","description":"Explore Run Club clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/run-club.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/run-club.html#list","numberOfItems":14,"itemListElement":[{"@type":"ListItem","position":1,"name":"Ancoats Run Club","url":"https://0161active.co.uk/html/run-club/AncoatRunClub.html"},{"@type":"ListItem","position":2,"name":"Belle Vue Racers","url":"https://0161active.co.uk/html/run-club/belle-vue-racers-running.html"},{"@type":"ListItem","position":3,"name":"Chorlton Runners","url":"https://0161active.co.uk/html/run-club/chorlton-runners-running.html"},{"@type":"ListItem","position":4,"name":"Didsbury Runners","url":"https://0161active.co.uk/html/run-club/DidsburyRunners.html"},{"@type":"ListItem","position":5,"name":"Just A Run Club","url":"https://0161active.co.uk/html/run-club/JustARunClub.html"},{"@type":"ListItem","position":6,"name":"Manchester Deaf Run Club","url":"https://0161active.co.uk/html/run-club/manchester-deaf-run-club.html"},{"@type":"ListItem","position":7,"name":"Manchester Frontrunners","url":"https://0161active.co.uk/html/run-club/ManchesterFrontrunners.html"},{"@type":"ListItem","position":8,"name":"MCR YMCA Harriers","url":"https://0161active.co.uk/html/athletics/mcr-ymca-harriers.html"},{"@type":"ListItem","position":9,"name":"Mile Shy Club","url":"https://0161active.co.uk/html/run-club/MileShyClub.html"},{"@type":"ListItem","position":10,"name":"Not A Running Club","url":"https://0161active.co.uk/html/run-club/NotARunningClub.html"},{"@type":"ListItem","position":11,"name":"Redacted Run Club","url":"https://0161active.co.uk/html/run-club/RedactedRunClub.html"},{"@type":"ListItem","position":12,"name":"Royton Road Runners","url":"https://0161active.co.uk/html/run-club/royton-road-runners.html"},{"@type":"ListItem","position":13,"name":"Stretford Run Club","url":"https://0161active.co.uk/html/run-club/stretford-run-club.html"},{"@type":"ListItem","position":14,"name":"Tiny Moves","url":"https://0161active.co.uk/html/run-club/TinyMoves.html"}]}]}</script>
   <!-- /Structured data -->
 </head>
-<body class="sport-glossary-body" data-sport="run-club">
+<body class="sport-glossary-body site-grid" data-sport="run-club">
 <!-- Generated sport glossary: edit templates/sport-glossary.inc and rebuild. -->
 <a class="skip-link" href="#main-content">Skip to main content</a>
   <div data-site-nav><header class="site-navbar">
@@ -48,18 +52,18 @@
       <a class="site-navbar__brand" href="/" aria-label="0161 Active home"><img src="/img/0161 Active_Logo_Transparent.png" alt="0161 Active"></a>
       <nav class="site-navbar__desktop" aria-label="Main navigation">
         <div class="site-navbar__sports">
-          <a class="site-navbar__link" href="/html/sports/directory.html" aria-current="page">SPORTS</a>
+          <a class="site-navbar__link" href="/html/sports/directory.html" aria-current="page">THE CLUBS</a>
           <div class="site-navbar__sports-panel" aria-label="Sports directory links">
             <a class="site-navbar__sports-all" href="/html/sports/directory.html">BROWSE ALL SPORTS →</a>
             <p class="site-navbar__sports-section-title">ACCESSIBLE SPORTS</p>
             <div class="site-navbar__sports-grid"><a href="/html/sports/wheelchair-basketball.html">Wheelchair Basketball</a></div>
             <p class="site-navbar__sports-section-title">OTHER SPORTS</p>
-            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a></div>
+            <div class="site-navbar__sports-grid"><a href="/html/sports/american-football.html">American Football</a><a href="/html/sports/archery.html">Archery</a><a href="/html/sports/athletics.html">Athletics</a><a href="/html/sports/badminton.html">Badminton</a><a href="/html/sports/basketball.html">Basketball</a><a href="/html/sports/cycling.html">Cycling</a><a href="/html/sports/dodgeball.html">Dodgeball</a><a href="/html/sports/flag-football.html">Flag Football</a><a href="/html/sports/football.html">Football</a><a href="/html/sports/health-and-wellbeing.html">Health &amp; Wellbeing</a><a href="/html/sports/hockey.html">Hockey</a><a href="/html/sports/korfball.html">Korfball</a><a href="/html/sports/racketball.html">Racketball</a><a href="/html/sports/run-club.html">Run Club</a><a href="/html/sports/squash.html">Squash</a><a href="/html/sports/table-tennis.html">Table Tennis</a><a href="/html/sports/tag-rugby.html">Tag Rugby</a><a href="/html/sports/touch-rugby.html">Touch Rugby</a><a href="/html/sports/ultimate-frisbee.html">Ultimate Frisbee</a><a href="/html/sports/water-polo.html">Water Polo</a></div>
           </div>
         </div>
-        <a class="site-navbar__link" href="/html/calendar.html">CALENDAR</a>
-        <a class="site-navbar__link" href="/html/register.html">REGISTER YOUR CLUB</a>
-        <a class="site-navbar__link" href="/html/contact.html">CONTACT US</a>
+        <a class="site-navbar__link" href="/html/calendar.html">THE CALENDAR</a>
+        <a class="site-navbar__link" href="/html/register.html">THE REGISTRATION</a>
+        <a class="site-navbar__link" href="/html/contact.html">THE CONTACT US BIT</a>
       </nav>
       <button class="site-navbar__menu-button" type="button" aria-controls="site-mobile-drawer" aria-expanded="false">MENU</button>
     </div>
@@ -69,10 +73,10 @@
         <p class="site-navbar__drawer-title">MENU</p>
         <button class="site-navbar__close" type="button">CLOSE ×</button>
       </div>
-      <a class="site-navbar__drawer-link" href="/html/sports/directory.html" aria-current="page">SPORTS <span aria-hidden="true">↗</span></a>
-      <a class="site-navbar__drawer-link" href="/html/calendar.html">CALENDAR <span aria-hidden="true">↗</span></a>
-      <a class="site-navbar__drawer-link" href="/html/register.html">REGISTER YOUR CLUB <span aria-hidden="true">↗</span></a>
-      <a class="site-navbar__drawer-link" href="/html/contact.html">CONTACT US <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/sports/directory.html" aria-current="page">THE CLUBS <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/calendar.html">THE CALENDAR <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/register.html">THE REGISTRATION <span aria-hidden="true">↗</span></a>
+      <a class="site-navbar__drawer-link" href="/html/contact.html">THE CONTACT US BIT <span aria-hidden="true">↗</span></a>
     </nav>
   </header></div><!-- /Site navigation -->
 
@@ -94,7 +98,7 @@
         <input id="club-search" type="search" placeholder="Club name" autocomplete="off">
       </label>
       <label>AREA
-        <select id="area-filter"><option value="all">All areas</option></select>
+        <select id="area-filter"><option value="all">All areas</option><option value="Ancoats">Ancoats</option><option value="Beswick">Beswick</option><option value="Chorlton">Chorlton</option><option value="City Centre">City Centre</option><option value="Didsbury">Didsbury</option><option value="Media City">Media City</option><option value="Stretford">Stretford</option></select>
       </label>
       <label>DAY
         <select id="day-filter">
@@ -113,7 +117,7 @@
     <noscript><p class="sport-glossary-message">You can browse every club below. Enable JavaScript to use the filters.</p></noscript>
     <!-- Club rows are generated at build time, then updated by browser filters. -->
     <section class="sport-club-directory" aria-label="Club results">
-      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">11 CLUBS SHOWN</p></div>
+      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">14 CLUBS SHOWN</p></div>
       <p class="sport-glossary-message" id="directory-message" role="status" hidden></p>
       <ol class="sport-club-list" id="club-list" aria-label="Run Club clubs"><li>
       <article class="sport-club-row">
@@ -152,7 +156,7 @@
           <h3><a class="sport-club-name" href="/html/run-club/DidsburyRunners.html">Didsbury Runners</a></h3>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:45</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
+        <p class="sport-club-row__area">Didsbury</p>
         <a class="sport-club-link" href="/html/run-club/DidsburyRunners.html" aria-label="Open Didsbury Runners profile">↗</a>
       </article>
     </li><li>
@@ -169,11 +173,31 @@
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
+          <h3><a class="sport-club-name" href="/html/run-club/manchester-deaf-run-club.html">Manchester Deaf Run Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 23 October 2026" title="Club verified · Last Confirmed: 23 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
+        </div>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Saturday · 11:00</span></p>
+        <p class="sport-club-row__area">Media City</p>
+        <a class="sport-club-link" href="/html/run-club/manchester-deaf-run-club.html" aria-label="Open Manchester Deaf Run Club profile">↗</a>
+      </article>
+    </li><li>
+      <article class="sport-club-row">
+        <span class="sport-club-row__number" aria-hidden="true"></span>
+        <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/ManchesterFrontrunners.html">Manchester Frontrunners</a></h3>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:45</span><span class="sport-club-row__day">Thursday · 19:00</span><span class="sport-club-row__day">Saturday · 10:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
         <a class="sport-club-link" href="/html/run-club/ManchesterFrontrunners.html" aria-label="Open Manchester Frontrunners profile">↗</a>
+      </article>
+    </li><li>
+      <article class="sport-club-row">
+        <span class="sport-club-row__number" aria-hidden="true"></span>
+        <div class="sport-club-row__details">
+          <h3><a class="sport-club-name" href="/html/athletics/mcr-ymca-harriers.html">MCR YMCA Harriers<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 23 October 2026" title="Club verified · Last Confirmed: 23 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
+        </div>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 18:30–20:00</span><span class="sport-club-row__day">Tuesday · 18:30–20:00</span></p>
+        <p class="sport-club-row__area">Beswick · City Centre</p>
+        <a class="sport-club-link" href="/html/athletics/mcr-ymca-harriers.html" aria-label="Open MCR YMCA Harriers profile">↗</a>
       </article>
     </li><li>
       <article class="sport-club-row">
@@ -191,7 +215,7 @@
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/NotARunningClub.html">Not A Running Club</a></h3>
         </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:30–19:30</span><span class="sport-club-row__day">Thursday · 19:00–20:30</span></p>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 19:00–20:30</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
         <a class="sport-club-link" href="/html/run-club/NotARunningClub.html" aria-label="Open Not A Running Club profile">↗</a>
       </article>
@@ -199,10 +223,10 @@
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/run-club/RedactedRunClub.html">Redacted Run Club</a></h3>
+          <h3><a class="sport-club-name" href="/html/run-club/RedactedRunClub.html">Redacted Run Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 15 October 2026" title="Club verified · Last Confirmed: 15 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
         </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:30–19:30</span><span class="sport-club-row__day">Saturday · 09:30–10:30</span></p>
-        <p class="sport-club-row__area">Area to confirm</p>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:30</span></p>
+        <p class="sport-club-row__area">Ancoats</p>
         <a class="sport-club-link" href="/html/run-club/RedactedRunClub.html" aria-label="Open Redacted Run Club profile">↗</a>
       </article>
     </li><li>
@@ -214,6 +238,16 @@
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
         <a class="sport-club-link" href="/html/run-club/royton-road-runners.html" aria-label="Open Royton Road Runners profile">↗</a>
+      </article>
+    </li><li>
+      <article class="sport-club-row">
+        <span class="sport-club-row__number" aria-hidden="true"></span>
+        <div class="sport-club-row__details">
+          <h3><a class="sport-club-name" href="/html/run-club/stretford-run-club.html">Stretford Run Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 23 October 2026" title="Club verified · Last Confirmed: 23 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
+        </div>
+        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:00</span><span class="sport-club-row__day">Saturday · 09:00</span><span class="sport-club-row__day">Sunday · 09:00</span></p>
+        <p class="sport-club-row__area">Stretford · Chorlton</p>
+        <a class="sport-club-link" href="/html/run-club/stretford-run-club.html" aria-label="Open Stretford Run Club profile">↗</a>
       </article>
     </li><li>
       <article class="sport-club-row">
@@ -236,9 +270,10 @@
       <a class="site-footer__email" href="mailto:contact.0161active@gmail.com">contact.0161active@gmail.com</a>
     </div>
     <nav class="site-footer__links" aria-label="Footer navigation">
+      <a href="/html/for-clubs.html">For Clubs</a>
       <a href="/html/contact.html">Contact us</a>
       <a href="/html/register.html">Register your club</a>
-      <a href="/html/contact.html#corrections">Report incorrect information</a>
+      <a href="/html/contact.html">Report incorrect information</a>
       <a href="/html/privacy.html">Privacy policy</a>
       <a href="/html/privacy.html#cookies" data-cookie-settings>Cookie settings</a>
       <a href="/html/contact.html" data-accessibility-settings>Accessibility settings</a>

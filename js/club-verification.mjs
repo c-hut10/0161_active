@@ -10,6 +10,14 @@ export function clubConfirmation(club) {
   return club.verification?.status === 'verified' ? verificationDate(club.verification.lastConfirmed) : null;
 }
 
+/* Importing a row is not itself verification: approval must be explicit. */
+export function verificationFromImport(verified, existing, importDate) {
+  if (verified !== true) return { status: 'unverified', lastConfirmed: null };
+  const confirmation = clubConfirmation(existing || {}) || verificationDate(importDate);
+  if (!confirmation) throw new Error('A valid confirmation date is required for a verified club.');
+  return { status: 'verified', lastConfirmed: confirmation.date };
+}
+
 export function clubVerificationBadge(club) {
   const confirmation = clubConfirmation(club);
   if (!confirmation) return '';

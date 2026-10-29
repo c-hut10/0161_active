@@ -8,9 +8,13 @@
 
 # Generated deployment output and local machine artefacts.
 /dist/
-node_modules/
+node_modules
+.pnpm-store/
 .DS_Store
 *.log
 
 # Keep future response exports private; the blank CSV template remains versioned.
 /private-imports/
+
+# Downloadable drafts and spreadsheet exports are not website source.
+/outputs/

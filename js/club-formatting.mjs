@@ -11,7 +11,20 @@ export const WEEK_DAYS = [
 export const DAY_NAMES = ['', ...WEEK_DAYS.map(day => day.name)];
 export const DAY_NUMBERS = Object.fromEntries(WEEK_DAYS.map(day => [day.short.toLowerCase(), day.number]));
 
+/* Directory maintenance: keep the flat JSON list grouped by sport, then alphabetised by club name. */
+export function compareClubsBySportAndName(left, right) {
+  const compare = (a, b) => String(a || '').localeCompare(String(b || ''), 'en-GB', { sensitivity: 'base' });
+  return compare(displaySportName(left.sport), displaySportName(right.sport))
+    || compare(left.name, right.name)
+    || compare(left.id, right.id);
+}
+
 /* Gender display: shorten Men/Women combinations without changing the stored answer. */
+/* Beginner friendliness is a club-wide answer; missing information never implies Yes or No. */
+export function beginnerFriendlyLabel(club) {
+  return club.beginnerFriendly === true ? 'Yes' : club.beginnerFriendly === false ? 'No' : '';
+}
+
 export function genderEligibilityLabel(club) {
   if (club.genderSpecific === false) return 'All genders';
   if (club.genderSpecific !== true) return '';
@@ -28,9 +41,20 @@ export function escapeHtml(value = '') {
   })[character]);
 }
 
+/* Time values: accept either hour width, compare actual minutes and display consistent HH:MM. */
+export function timeMinutes(value) {
+  const match = String(value || '').trim().match(/^(\d{1,2}):([0-5]\d)$/);
+  return match && Number(match[1]) < 24 ? Number(match[1]) * 60 + Number(match[2]) : null;
+}
+export function compareSessionStartTimes(left, right) {
+  return (timeMinutes(left.startTime) ?? 1440) - (timeMinutes(right.startTime) ?? 1440);
+}
+export function formatTimeValue(value) {
+  return timeMinutes(value) === null ? value : String(value).trim().padStart(5, '0');
+}
 export function sessionTime(session) {
   if (!session.startTime) return 'Time TBC';
-  return session.endTime ? `${session.startTime}–${session.endTime}` : session.startTime;
+  return session.endTime ? `${formatTimeValue(session.startTime)}–${formatTimeValue(session.endTime)}` : formatTimeValue(session.startTime);
 }
 
 /* Postcodes: uppercase full UK codes and put one space before their final three characters. */
@@ -47,6 +71,17 @@ export function sportSlug(value) {
     .toLocaleLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   // Previously shared links can still use the old sport identifier.
   return slug === 'running' ? 'run-club' : slug;
+}
+
+/* Multi-sport clubs keep one profile; sessions can specify their own sport for filtering. */
+export function clubSports(club) {
+  return [...new Set([club.sport, ...(Array.isArray(club.additionalSports) ? club.additionalSports : [])].map(sportSlug).filter(Boolean))];
+}
+export function sessionSport(club, session) {
+  return sportSlug(session?.sport || club.sport);
+}
+export function clubForSport(club, sport) {
+  return { ...club, sessions: (club.sessions || []).filter(session => sessionSport(club, session) === sportSlug(sport)) };
 }
 
 export function displaySportName(value, { titleCase = false, fallback = '' } = {}) {
@@ -89,7 +124,7 @@ export function onlineProfileAction(value, base) {
 /* Pricing: share membership labels and currency formatting while keeping stored types compatible. */
 export const PRICE_TYPE_LABELS = {
   free: 'Free', monthly_fee: 'Monthly membership', annual_fee: 'Annual membership',
-  per_session: 'Pay-per-session', paid: 'Paid', unknown: 'Price not confirmed'
+  per_session: 'Pay-per-session', paid: 'Paid', unknown: 'Contact club'
 };
 export const PRICE_TYPE_ORDER = ['free', 'monthly_fee', 'annual_fee', 'per_session', 'paid', 'unknown'];
 const PRICE_PERIODS = {
@@ -112,23 +147,24 @@ export function formatMembership(club, options = {}) {
     type: membership.period === 'monthly' ? 'monthly_fee' : 'annual_fee', amount: membership.amount, currency
   } }, { ...options, compact: true });
   const session = formatPrice({ price: { type: 'per_session', amount: membership.sessionAmount, currency } }, { ...options, compact: true });
-  return `${recurring} + ${session}`;
+  return membership.sessionAmount === 0 ? recurring : `${recurring} + ${session}`;
 }
 
 export function formatPrice(club, {
-  compact = false, unknown = 'Price not confirmed', free = 'Free',
-  missingAmount = 'amount not listed', minimumFractionDigits = 2
+  compact = false, unknown = 'Contact club', free = 'Free',
+  missingAmount = 'Contact club', minimumFractionDigits = 2
 } = {}) {
   const price = club.price;
-  if (!price || price.type === 'unknown') return unknown;
+  if (!price?.type || price.type === 'unknown') return unknown;
   if (price.type === 'free') return free;
   if (Number.isFinite(price.amount)) {
     const amount = new Intl.NumberFormat('en-GB', {
-      style: 'currency', currency: price.currency || 'GBP', minimumFractionDigits,
+      style: 'currency', currency: price.currency || 'GBP',
+      minimumFractionDigits: Number.isInteger(price.amount) ? 0 : minimumFractionDigits,
       maximumFractionDigits: 2
     }).format(price.amount);
     const period = PRICE_PERIODS[price.type]?.[compact ? 'compact' : 'full'] || price.period;
     return period ? `${amount}${compact ? '' : ' '}${period}` : amount;
   }
-  return `${PRICE_TYPE_LABELS[price.type] || 'Paid'} · ${missingAmount}`;
+  return missingAmount;
 }

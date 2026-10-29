@@ -3,8 +3,11 @@ import { shuffleGalleryItems } from './home-gallery-renderer.mjs';
 /* Gallery enhancement: shuffle the prerendered photos without fetching another set. */
 function renderRandomClubs() {
   const gallery = document.querySelector('#club-gallery');
-  if (!gallery) return;
+  if (!gallery || gallery.dataset.initialised === 'true') return;
+  gallery.dataset.initialised = 'true';
   const pause = document.querySelector('[data-gallery-pause]');
+  // Reveal a working native button; its icon is decorative and its label names the next action.
+  if (pause) pause.hidden = false;
   /* Pause/resume: translate the visible card position into a loop phase, including manual scrolling. */
   pause?.addEventListener('click', () => {
     const paused = !gallery.classList.contains('is-paused');
@@ -28,8 +31,10 @@ function renderRandomClubs() {
     });
     gallery.classList.toggle('is-paused', paused);
     if (!paused) gallery.scrollLeft = 0;
-    pause.setAttribute('aria-pressed', String(paused));
-    pause.textContent = paused ? 'Resume gallery' : 'Pause gallery';
+    pause.dataset.paused = String(paused);
+    const label = paused ? 'Resume gallery' : 'Pause gallery';
+    pause.setAttribute('aria-label', label);
+    pause.title = label;
   });
   const sizeGallery = () => {
     gallery.style.setProperty('--gallery-card-width', `${gallery.clientWidth / 3}px`);
@@ -61,4 +66,9 @@ function renderRandomClubs() {
   });
 }
 
-renderRandomClubs();
+/* Reveal one final arrangement even if enhancement fails; image decoding never delays the page. */
+try {
+  renderRandomClubs();
+} finally {
+  document.documentElement.classList.remove('gallery-initialising');
+}

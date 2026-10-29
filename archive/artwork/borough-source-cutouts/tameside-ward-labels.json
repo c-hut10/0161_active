@@ -1,0 +1,82 @@
+{
+  "reference": "tameside-ward-reference.pdf",
+  "note": "Matched to owner-supplied ward reference on 23 October 2026. Stockport and Trafford use replacement internal partitions from these references. Postcode allocations and club counts are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Mossley"
+    },
+    "2": {
+      "number": null,
+      "name": "Ashton Hurst"
+    },
+    "3": {
+      "number": null,
+      "name": "Ashton Waterloo"
+    },
+    "4": {
+      "number": null,
+      "name": "Stalybridge South"
+    },
+    "5": {
+      "number": null,
+      "name": "Stalybridge North"
+    },
+    "6": {
+      "number": null,
+      "name": "Ashton St Michael\u2019s"
+    },
+    "7": {
+      "number": null,
+      "name": "Droylsden East"
+    },
+    "8": {
+      "number": null,
+      "name": "St Peter\u2019s"
+    },
+    "9": {
+      "number": null,
+      "name": "Droylsden West"
+    },
+    "10": {
+      "number": null,
+      "name": "Audenshaw"
+    },
+    "11": {
+      "number": null,
+      "name": "Dukinfield"
+    },
+    "12": {
+      "number": null,
+      "name": "Dukinfield Stalybridge"
+    },
+    "13": {
+      "number": null,
+      "name": "Longdendale"
+    },
+    "14": {
+      "number": null,
+      "name": "Hyde Newton"
+    },
+    "15": {
+      "number": null,
+      "name": "Denton North East"
+    },
+    "16": {
+      "number": null,
+      "name": "Denton West"
+    },
+    "17": {
+      "number": null,
+      "name": "Hyde Godley"
+    },
+    "18": {
+      "number": null,
+      "name": "Hyde Werneth"
+    },
+    "19": {
+      "number": null,
+      "name": "Denton South"
+    }
+  }
+}

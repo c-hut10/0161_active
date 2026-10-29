@@ -48,12 +48,11 @@ writeGeneratedFile(path.join(root, 'js/postcode-areas.mjs'),
 const { resolveClubAreas, clubTrainingAreas } = await import(pathToFileURL(path.join(root, 'js/club-areas.mjs')).href);
 data.clubs = data.clubs.map(resolveClubAreas);
 const { renderClubProfile } = await import(pathToFileURL(path.join(root, 'js/club-profile-renderer.mjs')).href);
-const { visibleSportRecords } = await import(pathToFileURL(path.join(root, 'js/sport-catalog.mjs')).href);
+const { visibleSportRecords, visibleClubCount } = await import(pathToFileURL(path.join(root, 'js/sport-catalog.mjs')).href);
 const { renderSiteNav } = await import(pathToFileURL(path.join(root, 'js/site-nav-renderer.mjs')).href);
 const { renderSportClubRows } = await import(pathToFileURL(path.join(root, 'js/sport-glossary-renderer.mjs')).href);
 const { renderSportsDirectory } = await import(pathToFileURL(path.join(root, 'js/sports-directory-renderer.mjs')).href);
-const { renderWeekGrid } = await import(pathToFileURL(path.join(root, 'js/calendar-week-renderer.mjs')).href);
-const { sportSlug } = await import(pathToFileURL(path.join(root, 'js/club-formatting.mjs')).href);
+const { clubSports, clubForSport } = await import(pathToFileURL(path.join(root, 'js/club-formatting.mjs')).href);
 const { clubDescriptionText } = await import(pathToFileURL(path.join(root, 'js/club-description.mjs')).href);
 const { siteStructuredData } = await import(pathToFileURL(path.join(root, 'js/site-structured-data.mjs')).href);
 const { renderHomeGallery } = await import(pathToFileURL(path.join(root, 'js/home-gallery-renderer.mjs')).href);
@@ -145,7 +144,7 @@ for (const [relative, league] of leaguePages) {
     description: escape(`Explore the ${league.teams.length} teams from ${league.clubs.length} clubs in ${league.name}. View participating ${sportName} clubs and their profile or website links.`),
     pageUrl: escape(new URL(relative, `${base}/`).href), leagueName: escape(league.name),
     sportGlossaryUrl: escape(`/html/sports/${sportSlugValue}.html`), sportName: escape(sportName),
-    coverageLabel: escape(`${LEAGUE_COVERAGES[league.coverage].replace(/\s+league$/i, '')} League`.toUpperCase()),
+    coverageLabel: escape(league.coverage ? `${LEAGUE_COVERAGES[league.coverage].replace(/\s+league$/i, '')} League`.toUpperCase() : 'LEAGUE'),
     /* Optional organiser link: omit it entirely when the league has no supplied URL. */
     leagueWebsite: league.leagueUrl ? `<p class="league-website"><a href="${escape(league.leagueUrl)}" target="_blank" rel="noopener noreferrer" aria-description="Opens in a new tab">(External League Website)</a></p>` : '',
     teamRows: renderLeagueTeamRows(league), footer
@@ -161,12 +160,13 @@ for (const sport of sports) {
   if (['directory', 'glossary', 'index'].includes(sport.slug)) throw new Error(`Reserved sport page name: ${sport.slug}`);
   sportPages.add(relative);
   const name = displaySportName(sport.name);
-  const clubs = data.clubs.filter(club => sportSlug(club.sport) === sport.slug && club.hiddenFromSportList !== true)
+  const clubs = data.clubs.filter(club => clubSports(club).includes(sport.slug) && club.hiddenFromSportList !== true).map(club => clubForSport(club, sport.slug))
     .sort((a, b) => a.name.localeCompare(b.name));
   const areas = [...new Set(clubs.flatMap(clubTrainingAreas))]
     .sort((a, b) => a.localeCompare(b));
   const values = {
-    sportSlug: escape(sport.slug), sportName: escape(name), title: escape(`${name} | 0161 Active`),
+    // Search titles describe the sport and location while visible headings keep the sport name.
+    sportSlug: escape(sport.slug), sportName: escape(name), title: escape(`Find ${name} clubs in Manchester | 0161 Active`),
     description: escape(`Explore ${name} clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.`),
     areaOptions: '<option value="all">All areas</option>' + areas.map(area => `<option value="${escape(area)}">${escape(area)}</option>`).join(''),
     clubCount: String(clubs.length).padStart(2, '0'), clubRows: renderSportClubRows(clubs),
@@ -216,7 +216,7 @@ function htmlFiles(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     // Deployment copies and private response folders are not source pages or sitemap entries.
     if (entry.name.startsWith('.') || entry.name === 'node_modules'
-      || (dir === root && ['dist', 'private-imports'].includes(entry.name))) return [];
+      || (dir === root && ['dist', 'outputs', 'private-imports', 'archive', 'tmp'].includes(entry.name))) return [];
     const full = path.join(dir, entry.name);
     return entry.isDirectory() ? htmlFiles(full) : entry.name.endsWith('.html') ? [full] : [];
   });
@@ -226,10 +226,13 @@ for (const file of htmlFiles(root)) {
   const relative = path.relative(root, file).split(path.sep).join('/');
   let source = fs.readFileSync(file, 'utf8');
   if (relative === 'index.html') {
+    // Ship the current visible sports once; the intro samples fourteen without fetching club data.
+    source = source.replace(/(<ul class="home-entry__sports-track" data-intro-sports>)[\s\S]*?(<\/ul><!-- \/Intro sports -->)/,
+      (_, opening, closing) => `${opening}${sports.map(sport => `<li>${escape(displaySportName(sport.name))}</li>`).join('')}${closing}`);
     /* Gallery selection: a rebuild rotates the set; browser visits reorder the same photos. */
     const photos = data.clubs.filter(club => typeof club.imagePath === 'string'
       && club.imagePath.startsWith('img/') && fs.existsSync(path.join(root, club.imagePath)));
-    source = source.replace(/(<div class="grid-container" id="club-gallery"[^>]*>)[\s\S]*?(<\/div>\s*<button class="gallery-pause")/,
+    source = source.replace(/(<div class="grid-container" id="club-gallery"[^>]*>)[\s\S]*?(<\/div><!-- \/Homepage gallery -->)/,
       (_, opening, closing) => `${opening}${renderHomeGallery(photos)}${closing}`);
   }
   /* Static navigation: browser JavaScript binds controls to this already-readable markup. */
@@ -239,24 +242,16 @@ for (const file of htmlFiles(root)) {
   const navigation = `<div data-site-nav>${renderSiteNav(sports, active)}</div><!-- /Site navigation -->`;
   source = source.replace(/<div data-site-nav>[\s\S]*?<!-- \/Site navigation -->|<div data-site-nav><\/div>/, () => navigation);
   if (relative === 'html/sports/directory.html') {
-    source = source.replace(/(<div class="sports-directory-groups" id="sports-groups">)[\s\S]*?(<\/div>\s*<\/main>)/,
+    source = source.replace(/(<div class="sports-directory-groups" id="sports-groups">)[\s\S]*?(<\/div><!-- \/Sports directory groups -->)/,
       (_, opening, closing) => `${opening}${renderSportsDirectory(sports)}${closing}`);
     source = source.replace(/(<p[^>]*id="sports-count"[^>]*>)[\s\S]*?<\/p>/,
-      `$1${sports.length} SPORTS · ${sports.reduce((sum, sport) => sum + sport.clubCount, 0)} CLUBS ON RECORD</p>`);
+      `$1${sports.length} SPORTS · ${visibleClubCount(sports, data.clubs)} CLUBS ON RECORD</p>`);
   }
   if (relative === 'html/calendar.html') {
-    const entries = [...data.clubs].sort((a, b) => a.name.localeCompare(b.name)).map(club => {
-      const sessions = club.sessions || [];
-      const sessionsByDay = new Map();
-      for (const session of sessions) {
-        const day = Number(session.dayOfWeek);
-        if (!sessionsByDay.has(day)) sessionsByDay.set(day, []);
-        sessionsByDay.get(day).push(session);
-      }
-      return { club, sessions, sessionsByDay };
-    });
+    // Saved IDs exist only in the visitor's browser; never ship an all-club fallback.
+    const entries = [];
     source = source.replace(/(<div class="week-grid" id="week-grid"[^>]*>)[\s\S]*?(<\/div>\s*<\/section>)/,
-      (_, opening, closing) => `${opening}${renderWeekGrid(entries)}${closing}`);
+      (_, opening, closing) => `${opening}<p class="agenda-empty">Your calendar shows only favourited clubs. Enable JavaScript to load your saved clubs.</p>${closing}`);
     source = source.replace(/(<p[^>]*id="result-count"[^>]*>)[\s\S]*?<\/p>/,
       `$1${entries.length} clubs · ${entries.reduce((sum, entry) => sum + entry.sessions.length, 0)} sessions</p>`);
     source = source.replace(/(<p[^>]*id="week-overline"[^>]*>)[\s\S]*?<\/p>/, `$1ALL SPORTS · ${entries.length} CLUBS</p>`);
@@ -264,14 +259,26 @@ for (const file of htmlFiles(root)) {
   /* Browser tab icon: replace page-specific paths with one global logo reference. */
   source = source.replace(/\s*<link\b[^>]*rel="(?:shortcut )?icon"[^>]*>/g, '');
   source = source.replace('</head>', '  <link rel="icon" type="image/png" href="/img/0161%20Active_Logo.png">\n</head>');
-  source = source.replace(/src="(?:\.\.\/|\/)?(?:\.\.\/)?js\/site-nav\.js(?:\?[^"]*)?"/g, 'src="/js/site-nav.js?v=20261009-static-navigation"');
+  source = source.replace(/src="(?:\.\.\/|\/)?(?:\.\.\/)?js\/site-nav\.js(?:\?[^"]*)?"/g, 'src="/js/site-nav.js?v=20261022-cleanup"');
   source = source.replace(/href="(?:\.\.\/|\/)?(?:\.\.\/)?css\/site-nav\.css(?:\?[^"]*)?"/g, 'href="/css/site-nav.css?v=20261009-breakpoints"');
   if (/<footer\b/.test(source)) {
     source = source.replace(/<footer\b[\s\S]*?<\/footer>/, () => footer);
   } else {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
+  /* Calendar saving is available only inside individual club profiles. */
+  source = source.replace(/\s*<link\b[^>]*href="\/css\/club-favourites\.css(?:\?[^"]*)?"[^>]*>/g, '')
+    .replace(/\s*<script\b[^>]*src="\/js\/club-favourites\.js(?:\?[^"]*)?"[^>]*>\s*<\/script>/g, '');
+  const needsFavourites = source.includes('data-favourite-id=');
   const sharedAssets = [
+    ['href="/css/site-background.css?v=20261023"', '<link rel="stylesheet" href="/css/site-background.css?v=20261023">'],
+    // Shared navigation motion is included on current pages and every future generated template.
+    ['href="/css/page-transitions.css?v=20261020"', '<link rel="stylesheet" href="/css/page-transitions.css?v=20261020">'],
+    ['src="/js/page-transitions.js?v=20261020"', '<script src="/js/page-transitions.js?v=20261020"></script>'],
+    ...(needsFavourites ? [
+      ['href="/css/club-favourites.css?v=20261029-calendar-button"', '<link rel="stylesheet" href="/css/club-favourites.css?v=20261029-calendar-button">'],
+      ['src="/js/club-favourites.js?v=20261029-calendar-button-fix"', '<script type="module" src="/js/club-favourites.js?v=20261029-calendar-button-fix"></script>']
+    ] : []),
     ['href="/css/site-footer.css"', '<link rel="stylesheet" href="/css/site-footer.css">'],
     ['href="/css/cookie-settings.css"', '<link rel="stylesheet" href="/css/cookie-settings.css">'],
     ['src="/js/cookie-settings.js"', '<script defer src="/js/cookie-settings.js"></script>'],
@@ -282,6 +289,13 @@ for (const file of htmlFiles(root)) {
   for (const [reference, tag] of sharedAssets) {
     if (!source.includes(reference)) source = source.replace('</head>', `  ${tag}\n</head>`);
   }
+  // Every current and future generated page opts into the same background texture.
+  source = source.replace(/<body\b([^>]*)>/, (tag, attributes) => {
+    const classes = attributes.match(/\bclass="([^"]*)"/);
+    if (!classes) return `<body${attributes} class="site-grid">`;
+    if (classes[1].split(/\s+/).includes('site-grid')) return tag;
+    return tag.replace(classes[0], `class="${classes[1]} site-grid"`);
+  });
   const main = source.match(/<main\b[^>]*>/);
   if (main) {
     const existingId = main[0].match(/\bid="([^"]+)"/);
@@ -300,8 +314,7 @@ for (const file of htmlFiles(root)) {
   const club = data.clubs.find(record => record.profilePath === relative);
   const sport = sports.find(record => relative === `html/sports/${record.slug}.html`);
   const league = leaguePages.get(relative);
-  const listedClubs = relative === 'html/calendar.html' ? [...data.clubs]
-    : sport ? data.clubs.filter(record => sportSlug(record.sport) === sport.slug && record.hiddenFromSportList !== true) : [];
+  const listedClubs = sport ? data.clubs.filter(record => clubSports(record).includes(sport.slug) && record.hiddenFromSportList !== true) : [];
   listedClubs.sort((a, b) => a.name.localeCompare(b.name));
   const structured = siteStructuredData({
     origin: base, relative, club, clubs: listedClubs,

@@ -1,0 +1,90 @@
+{
+  "reference": "trafford-ward-reference.svg",
+  "note": "Matched to owner-supplied ward reference on 23 October 2026. Stockport and Trafford use replacement internal partitions from these references. Postcode allocations and club counts are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Hale"
+    },
+    "2": {
+      "number": null,
+      "name": "Hale Barns & Timperley South"
+    },
+    "3": {
+      "number": null,
+      "name": "Altrincham"
+    },
+    "4": {
+      "number": null,
+      "name": "Timperley Central"
+    },
+    "5": {
+      "number": null,
+      "name": "Timperley North"
+    },
+    "6": {
+      "number": null,
+      "name": "Bowdon"
+    },
+    "7": {
+      "number": null,
+      "name": "Broadheath"
+    },
+    "8": {
+      "number": null,
+      "name": "Brooklands"
+    },
+    "9": {
+      "number": null,
+      "name": "Manor"
+    },
+    "10": {
+      "number": null,
+      "name": "Sale Moor"
+    },
+    "11": {
+      "number": null,
+      "name": "Ashton upon Mersey"
+    },
+    "12": {
+      "number": null,
+      "name": "Sale Central"
+    },
+    "13": {
+      "number": null,
+      "name": "Bucklow-St Martins"
+    },
+    "14": {
+      "number": null,
+      "name": "Flixton"
+    },
+    "15": {
+      "number": null,
+      "name": "Stretford & Humphrey Park"
+    },
+    "16": {
+      "number": null,
+      "name": "Urmston"
+    },
+    "17": {
+      "number": null,
+      "name": "Longford"
+    },
+    "18": {
+      "number": null,
+      "name": "Old Trafford"
+    },
+    "19": {
+      "number": null,
+      "name": "Davyhulme"
+    },
+    "20": {
+      "number": null,
+      "name": "Lostock & Barton"
+    },
+    "21": {
+      "number": null,
+      "name": "Gorse Hill & Cornbrook"
+    }
+  }
+}

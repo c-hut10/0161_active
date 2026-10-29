@@ -1,6 +1,7 @@
 # Postcode sector naming rulebook
 
 Saved: 7 October 2026. Stockport, BL, OL and WA expansions: 9 October 2026.
+Area naming and map-alignment policy updated: 23 October 2026.
 
 ## Authority and purpose
 
@@ -23,6 +24,38 @@ The single table below contains all 403 approved mappings: 173 Manchester M sect
 - For the Stockport, BL, OL and WA expansions, the owner delegated broad, approximate assignments. Use the nearest sensible main-town label without escalating minor boundary overlaps or creating smaller village labels. The existing Manchester M-sector decisions remain unchanged.
 - Sectors outside an approved grouping remain unmapped until their broad labels are agreed.
 - Use the same approved labels for the calendar, sport directories, club profiles, gallery and map.
+
+## Area naming and map alignment — 23 October 2026
+
+The owner approved retaining the simple **postcode sector → area name** system. Refine labels where useful across the whole website, including profiles, filters, calendars and map labels. This is a practical area-naming system; allocations and future map counts are approximate.
+
+- Keep this rulebook as the single editable source. Do not introduce a separate editable set of map-area names or a full-postcode-to-ward lookup for this revision.
+- Keep one approved area name per sector. Where a sector overlaps neighbourhoods or wards, propose one sensible name for owner approval instead of automatically splitting it or adding full-postcode exceptions.
+- Use the supplied Manchester ward map as a naming reference. Its shapes do not establish exact postcode-sector boundaries. Do not present approximate allocations as official ward statistics.
+- Give priority to distinguishing **Piccadilly** and **Deansgate** where sector research supports a practical distinction. Retain **City Centre** for sectors the owner chooses to keep broad.
+- Do not force all neighbourhood names into the 32 electoral ward names. Combined ward names and East/West subdivisions are options for review, not automatic replacements.
+- Manchester's M postcode area extends beyond the City of Manchester. Do not assign every M sector to a Manchester ward or alter other boroughs solely to match this city map.
+- Preserve the existing broad treatment outside Manchester unless the owner requests a specific refinement.
+- Record proposed changes below for review. Only an owner-approved change to the approved sector table becomes an active website allocation; rebuild the generated lookup and pages when that table changes.
+
+### Pending naming considerations
+
+These are review topics, not approved replacement mappings. The 403 entries in the approved table remain in effect.
+
+| Current label or grouping | Consideration for the next revision |
+| --- | --- |
+| City Centre | Review relevant M1, M2, M3 and M4 sectors for Piccadilly or Deansgate. Choose one practical label per sector; do not infer a ward from the postcode district alone. |
+| Ancoats and Beswick | Decide whether to retain the separate neighbourhood labels or use Ancoats & Beswick for agreed sectors. |
+| Clayton and Openshaw | Review whether Clayton & Openshaw would make the site easier to navigate. |
+| Miles Platting and Newton Heath | Review the separate labels against the combined ward name; keep New Moston and Collyhurst as distinct review topics. |
+| Gorton | Consider Gorton & Abbey Hey where the owner wants the wider name. |
+| Chorlton | Review whether any sectors should use Chorlton Park. Preserve Chorlton-on-Medlock as a separate neighbourhood. |
+| Didsbury | Consider Didsbury East and Didsbury West where a sector-level distinction is useful. |
+| Fallowfield and the M20 group | Revisit Fallowfield assignments alongside Withington and Old Moat. Do not automatically assign every sector to a ward with the same name. |
+| Wythenshawe | Consider useful sector-level distinctions for Baguley, Brooklands, Sharston and Woodhouse Park. Review alongside the existing Northenden label. |
+| Blackley and other neighbourhood-only names | Decide whether the existing name remains clearer than a ward label. A name absent from the ward list is not automatically an error. |
+| Charlestown | Review how Manchester and Salford locations should be distinguished in labels and filters. No borough-qualified replacement has been approved yet. |
+| M15 4 labelled Trafford | Review the sector's practical area label before using it for borough routing. Do not silently change the approved assignment. |
 
 ## Stockport grouping policy
 

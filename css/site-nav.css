@@ -29,27 +29,8 @@
 }
 .site-navbar__brand { position: relative; display: inline-flex; flex: 0 0 auto; align-items: center; margin-left: -16px; }
 .site-navbar__brand img { display: block; width: 171px; max-height: 90px; object-fit: contain; }
-.site-navbar__brand::before,
-.site-navbar__brand::after {
-  position: absolute;
-  inset: 12px 18px;
-  content: '';
-  pointer-events: none;
-}
-.site-navbar__brand::before {
-  background: linear-gradient(#faecd2, #faecd2) left top / 0% 1px no-repeat,
-              linear-gradient(#faecd2, #faecd2) right bottom / 0% 1px no-repeat;
-  transition: background-size .25s ease;
-}
-.site-navbar__brand::after {
-  background: linear-gradient(#faecd2, #faecd2) left top / 1px 0% no-repeat,
-              linear-gradient(#faecd2, #faecd2) right bottom / 1px 0% no-repeat;
-  transition: background-size .25s ease;
-}
-.site-navbar__brand:hover::before,
-.site-navbar__brand:focus-visible::before { background-size: 100% 1px, 100% 1px; }
-.site-navbar__brand:hover::after,
-.site-navbar__brand:focus-visible::after { background-size: 1px 100%, 1px 100%; transition-delay: .25s; }
+/* Logo link: retain a static keyboard focus indicator without a hover animation. */
+.site-navbar__brand:focus-visible { outline: 2px solid #faecd2; outline-offset: 3px; }
 .site-navbar__desktop { display: flex; flex: 1; height: 100px; align-items: stretch; justify-content: space-evenly; gap: 20px; margin-left: 0; }
 .site-navbar__link,
 .site-navbar__menu-button {
@@ -82,6 +63,25 @@
 }
 .site-navbar__link:hover::after,
 .site-navbar__link:focus-visible::after { transform: scaleX(1); }
+/* Shared text links: reuse the navbar's left-to-right underline motion. */
+.site-link-underline { position: relative; }
+.site-link-underline::after {
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  content: '';
+  background: #faecd2;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+a:hover .site-link-underline::after,
+a:focus-visible .site-link-underline::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .site-link-underline::after { transition: none; }
+}
 .site-navbar__link:hover,
 .site-navbar__link:focus-visible,
 .site-navbar__menu-button:hover,
@@ -137,8 +137,6 @@ body.site-nav-open { overflow: hidden; }
   /* Crop the transparent canvas and keep the resized logo mark close to the left edge. */
   .site-navbar__brand { position: absolute; top: 0; left: 16px; height: var(--site-nav-height); margin-left: 0; }
   .site-navbar__brand img { width: 89px; height: 52px; max-height: none; margin-left: -11px; object-fit: cover; }
-  .site-navbar__brand::before,
-  .site-navbar__brand::after { inset: 14px 0; }
   .site-navbar__desktop { display: none; }
   .site-navbar__menu-button { display: inline-flex; min-height: 42px; padding: 0 4px; color: #faecd2; font-size: 13px; letter-spacing: .12em; }
   .site-navbar__overlay {
@@ -182,8 +180,6 @@ body.site-nav-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-navbar__brand::before,
-  .site-navbar__brand::after,
   .site-navbar__link::after,
   .site-navbar__overlay,
   .site-navbar__drawer { transition: none; }

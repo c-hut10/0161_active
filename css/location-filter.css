@@ -1,0 +1,210 @@
+/* Local postcode lookup: ordinary controls with the same palette as the existing filters. */
+.calendar-location-filter { display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin:0 0 20px; padding:18px; border:1px solid var(--cal-line); }
+.calendar-location-filter label { display:grid; gap:8px; color:var(--cal-grey); font-size:12px; font-weight:700; }
+.calendar-location-filter input, .calendar-location-filter button { box-sizing:border-box; min-height:44px; padding:10px 12px; border:1px solid var(--cal-line); border-radius:0; background:var(--cal-black); color:var(--cal-paper); font:inherit; }
+.calendar-location-filter input { width:180px; text-transform:uppercase; }
+.calendar-location-filter button { cursor:pointer; }
+.calendar-location-filter [type="submit"] { background:var(--cal-lime); color:var(--cal-black); font-weight:700; }
+.calendar-location-filter button:disabled { opacity:.5; cursor:wait; }
+.calendar-location-filter :focus-visible { outline:2px solid var(--cal-lime); outline-offset:3px; }
+.calendar-location-filter p { flex-basis:100%; margin:0; color:var(--cal-grey); font-size:12px; line-height:1.6; }
+.calendar-location-filter input[aria-invalid="true"] { border-color:#faecd2; outline:2px solid #faecd2; }
+
+/* Leaflet supplies geographic context; filtered sector coverage remains a separate layer. */
+.calendar-sector-map { margin:28px 0 36px; padding:20px; border:1px solid var(--cal-line); }
+.calendar-sector-map h2 { margin:0 0 12px; font-size:25px; }
+.calendar-sector-map > p { color:var(--cal-grey); font-size:13px; line-height:1.6; }
+#calendar-sector-map { display:block; width:100%; height:clamp(280px, 55vh, 480px); background:#202220; border:1px solid var(--cal-line); isolation:isolate; z-index:0; }
+/* Override the legacy page-wide div border rule only for map controls and the frame. */
+.calendar-page #calendar-sector-map { border:1px solid var(--cal-line); }
+#calendar-sector-map .leaflet-control-attribution { color:#333; background:rgba(255,255,255,.94); font-size:11px; }
+#calendar-sector-map .leaflet-control-attribution a { color:#174b66; }
+#calendar-sector-map .leaflet-popup-content { color:#202220; font-size:13px; line-height:1.6; }
+#calendar-sector-map .leaflet-popup-content a { color:#234d00; }
+#calendar-sector-map .leaflet-popup-content ul { padding-left:18px; }
+#calendar-sector-map .leaflet-control-zoom a { color:#202220; background:#fff; }
+/* SVG outlines become rectangular during modifier-scroll; keyboard focus follows the zone shape instead. */
+#calendar-sector-map .leaflet-interactive:focus { outline: none; }
+#calendar-sector-map .leaflet-interactive:focus-visible { stroke: #111211; stroke-width: 2.5; }
+/* Fixed ward hit areas stay underneath a noninteractive retro-style bulge. */
+#calendar-sector-map .ward-hover-visual { pointer-events:none; transform-box:fill-box; transform-origin:center; animation:ward-bulge 480ms cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes ward-bulge { from { opacity:0; transform:scale(1); } to { opacity:1; transform:scale(1.035); } }
+@media(prefers-reduced-motion:reduce) {
+  #calendar-sector-map .ward-hover-visual { animation:none; transform:none; }
+}
+.a11y-reduce-motion #calendar-sector-map .ward-hover-visual { animation:none; transform:none; }
+.calendar-map-credit a { color:var(--cal-lime); text-underline-offset:3px; }
+.calendar-sector-map .calendar-map-credit { font-size:11px; }
+@media (max-width:560px) {
+  .calendar-location-filter { padding:14px; }
+  .calendar-location-filter label { flex:1 1 100%; }
+  .calendar-location-filter input { width:100%; }
+  .calendar-location-filter button { flex:1; }
+  .calendar-sector-map { padding:12px; }
+}
+/* Filter tile images from their first paint, without a separately composited parent filter. */
+/* Matching-club overlays remain outside these images and retain their green. */
+#calendar-sector-map .leaflet-tile { filter:grayscale(1); float:none; }
+
+/* One-mile radius steps, with a visible current value and native keyboard/touch support. */
+.calendar-location-filter .calendar-radius-control { width:min(100%, 300px); min-width:220px; }
+.calendar-radius-control > span { display:flex; justify-content:space-between; gap:20px; }
+.calendar-radius-control output { color:var(--cal-paper); font-variant-numeric:tabular-nums; }
+.calendar-location-filter input[type="range"] { width:100%; min-height:44px; padding:0; border:0; accent-color:var(--cal-lime); cursor:pointer; }
+.calendar-radius-scale { color:var(--cal-grey); font-size:11px; font-weight:400; }
+
+/* Homepage map follows Movement for everyone in normal document flow. */
+.home-reach-map, .home-map-filter-panel { --cal-black:#111211; --cal-line:#454945; --cal-grey:#a5aaa2; --cal-paper:#faecd2; --cal-lime:#dffc3a; }
+.home-reach-map { box-sizing:border-box; width:60vw; margin:28px auto 36px; padding:clamp(18px, 4vw, 40px); color:var(--cal-paper); background:var(--cal-black); font-family:Arial, Helvetica, sans-serif; }
+.home-reach-map #calendar-sector-map { height:50vh; }
+.home-reach-map #calendar-sector-map { scroll-margin-top:var(--site-nav-height,100px); }
+.home-reach-map #calendar-map-heading { color:var(--cal-lime); }
+@media(max-width:768px) { .home-reach-map { width:calc(100% - 36px); } }
+
+/* A green heading sits above the boxed filters; selected sports share the directory selection. */
+.home-map-frame { position:relative; }
+.home-map-filter-panel { position:absolute; top:12px; left:54px; z-index:2; width:290px; max-width:calc(100% - 72px); max-height:calc(100% - 24px); overflow:auto; border:0; background:transparent; box-sizing:border-box; }
+/* The summary expands to a checklist; removing every entry restores all sports. */
+/* Match the small directory section headings and their green divider line. */
+.home-map-filter-heading { display:block; margin:0 0 12px; padding:14px 16px; border-bottom:1px solid var(--cal-lime); color:var(--cal-lime); background:var(--cal-black); font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.home-map-selected-sport { display:grid; align-content:start; gap:8px; color:var(--cal-grey); font:700 12px Arial,sans-serif; }
+.home-map-filter-panel #home-map-sport-summary { width:100%; text-align:left; font-size:14px; font-weight:700; color:var(--cal-paper); }
+.home-map-filter-panel #home-map-sport-summary.is-filter-selected { color:var(--cal-lime); }
+.home-map-sports-list { display:grid; gap:4px; margin:0; padding:0; list-style:none; }
+.home-map-sports-list li { display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--cal-line); }
+.home-map-filter-fields > :first-child { grid-column:1 / -1; }
+.home-map-filter-fields.has-budget > :first-child { grid-column:auto; }
+.home-map-amount-help { grid-column:1 / -1; color:var(--cal-grey); font-size:11px; line-height:1.5; }
+.home-map-filter-panel .calendar-location-filter { display:grid; padding:14px; margin:0; border:1px solid var(--cal-line); background:var(--cal-black); gap:14px; }
+.home-map-filter-panel .calendar-location-filter label { min-width:0; width:100%; }
+/* Native labels and enhanced dropdown headings share the Sport label's typography. */
+.home-map-filter-panel .calendar-location-filter label,
+.home-map-filter-panel .calendar-location-filter .filter-field,
+.home-map-filter-panel .calendar-location-filter .filter-field > span:first-child,
+.home-map-selected-sport > span { color:var(--cal-grey); font:700 12px Arial,sans-serif; letter-spacing:normal; }
+.home-map-filter-panel .calendar-location-filter input:not([type="range"]), .home-map-filter-fields select { width:100%; min-width:0; }
+.home-map-filter-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:end; gap:14px; }
+.home-map-filter-fields > * { min-width:0; }
+/* Native fields and enhanced dropdowns use the same label-to-control spacing. */
+.home-map-filter-fields > label,
+.home-map-filter-fields > .filter-field { display:grid; align-content:start; gap:8px; }
+.home-map-filter-panel .home-map-filter-fields input,
+.home-map-filter-panel .home-map-filter-fields .filter-picker__trigger { box-sizing:border-box; height:44px; min-height:44px; font:700 13px/1.4 Arial,Helvetica,sans-serif; }
+.home-map-filter-panel .home-map-filter-fields .filter-picker__trigger { gap:6px; }
+.home-map-filter-panel .home-map-filter-fields .filter-picker__trigger > span:first-child { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.home-map-location-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; gap:14px; }
+.home-map-location-fields > * { min-width:0; }
+.home-map-location-fields .calendar-radius-control > span { flex-wrap:wrap; gap:6px; }
+.home-map-filter-fields select { min-height:44px; border:1px solid var(--cal-line); background:var(--cal-black); color:var(--cal-paper); font:inherit; }
+.home-map-filter-panel .calendar-radius-control { min-width:0; }
+.home-map-filter-panel .calendar-postcode-help { color:var(--cal-grey); font-size:11px; font-weight:400; line-height:1.5; }
+/* Default values are grey; chosen values, flexibility and distance remain green. */
+.home-map-filter-panel .filter-picker__trigger,
+.home-map-filter-panel .calendar-location-filter input:not([type="range"]) { color:var(--cal-grey); }
+.home-map-filter-panel .is-filter-selected .filter-picker__trigger,
+.home-map-filter-panel .calendar-location-filter input.is-filter-selected,
+.home-map-filter-panel .calendar-radius-control output { color:var(--cal-lime); }
+.home-map-filter-panel [hidden] { display:none!important; }
+@media(max-width:1040px) {
+  /* No outer box: permanent filters follow the full-width map in normal flow. */
+  .calendar-sector-map.home-reach-map { width:100%; max-width:none; margin:28px 0 36px; padding:0; border:0; background:transparent; }
+  .home-reach-map > h2, .home-reach-map > p { margin-left:18px; margin-right:18px; }
+  .home-reach-map .home-map-frame { width:100vw; margin-left:calc(50% - 50vw); }
+  .home-reach-map #calendar-sector-map { box-sizing:border-box; border:0; }
+  .home-map-filter-panel { position:relative; top:auto; bottom:auto; left:auto; right:auto; width:100%; height:auto; max-width:none; max-height:none; overflow:visible; padding:0; border:0; }
+  .home-map-filter-panel .calendar-location-filter { position:static; max-height:none; box-sizing:border-box; overflow:visible; background:var(--cal-black); }
+  .home-map-filter-panel .filter-field--open,
+  .home-map-filter-panel .filter-picker { position:static; }
+  .home-map-filter-panel .filter-picker__options { position:static; max-height:50vh; margin-top:4px; }
+}
+
+/* Zone results form a full-height drawer attached to the map's right edge. */
+.home-map-results-panel {
+  position: absolute;
+  z-index: 700;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(320px, calc(100% - 64px));
+  height: 100%;
+  overflow: hidden;
+  padding: 16px;
+  border: 0;
+  border-left: 1px solid #555b50;
+  background: #111211;
+  color: #faecd2;
+  font: 14px Arial, sans-serif;
+  animation: map-zone-enter 180ms ease-out;
+}
+.home-map-results-panel[hidden] { display: none; }
+.map-zone-heading { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #555b50; }
+.map-zone-heading h3 { flex: 1; margin: 0; color: #dffc3a; font-size: 12px; line-height: 1.4; letter-spacing: .08em; text-transform: uppercase; }
+.map-zone-heading button { width: 36px; min-height: 36px; padding: 0; border: 0; background: none; color: #faecd2; font: 28px Arial, sans-serif; cursor: pointer; }
+/* Only the results scroll; reserve room at the foot for Leaflet's visible map credits. */
+.home-map-results-panel [data-zone-clubs] { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 44px; }
+.map-zone-clubs { margin: 0; padding: 0; list-style: none; }
+.map-zone-clubs li { display: flex; align-items: center; gap: 12px; padding: 16px 0; border-bottom: 1px solid #353a34; }
+.map-zone-number { flex: 0 0 2ch; color: #999; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.map-zone-club-details { min-width: 0; }
+.map-zone-clubs li:last-child { border-bottom: 0; }
+.home-map-results-panel .map-zone-eyebrow { margin: 0 0 7px; color: #dffc3a; font-size: 10px; font-weight: 700; line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; }
+.home-map-results-panel .map-zone-clubs a { color: #faecd2; font-size: 16px; font-weight: 700; line-height: 1.4; text-decoration: none; }
+.home-map-results-panel .map-zone-clubs a:hover { text-decoration: underline; }
+.map-zone-empty { margin: 14px 0 0; line-height: 1.5; }
+.home-map-results-panel :focus-visible { outline: 2px solid #dffc3a; outline-offset: 3px; }
+@keyframes map-zone-enter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-map-results-panel { animation: none; }
+}
+
+/* Mobile uses the map height as the bottom sheet's maximum extent. */
+.map-zone-handle { display: none; }
+@media (max-width: 800px) {
+  .home-map-results-panel {
+    top: auto; left: 0; right: 0; bottom: 0; width: 100%;
+    height: var(--zone-sheet-height, 75%); max-height: 100%;
+    padding: 0 12px 8px; border-left: 0; border-top: 1px solid #555b50;
+    animation-name: map-zone-rise;
+  }
+  .map-zone-handle {
+    display: flex; flex: 0 0 24px; align-items: center; justify-content: center;
+    width: 100%; padding: 0; border: 0; background: transparent;
+    cursor: ns-resize; touch-action: none;
+  }
+  .map-zone-handle span { width: 40px; height: 3px; border-radius: 2px; background: #92968e; }
+  .map-zone-heading { padding-bottom: 4px; }
+  .map-zone-clubs li { padding: 8px 0; }
+  .home-map-results-panel .map-zone-eyebrow { margin-bottom: 3px; }
+  .home-map-results-panel .map-zone-clubs a { font-size: 14px; }
+  .home-map-results-panel [data-zone-clubs] { padding-bottom: 32px; }
+}
+/* Keep 30px gaps in both directions; narrow menus fall back from three columns to two. */
+.home-map-sports-list {
+  grid-template-columns: repeat(auto-fit, minmax(max(120px, calc((100% - 60px) / 3)), 1fr));
+  gap: 30px; max-height: 50vh; overflow-y: auto; overscroll-behavior: contain;
+  padding: 3px;
+}
+.home-map-sports-list li { min-width: 0; border: 0; }
+.home-map-sports-list label {
+  position: relative; display: flex; align-items: center; gap: 8px; box-sizing: border-box;
+  height: 100%; min-height: 56px; padding: 10px 8px;
+  border: 1px solid var(--cal-line); background: var(--cal-black);
+  color: var(--cal-paper); font-size: 12px; line-height: 1.4; cursor: pointer;
+}
+.home-map-sports-list label:has(input:checked) { border-color: var(--cal-lime); color: var(--cal-lime); }
+.home-map-sports-list label:focus-within { outline: 2px solid var(--cal-lime); outline-offset: 2px; }
+.home-map-filter-panel .calendar-location-filter .home-map-sports-list input[type="checkbox"] { position: absolute; top: 0; left: 0; width: 1px; height: 1px; min-height: 0; margin: -1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); }
+.home-map-sport-power { flex: 0 0 16px; width: 16px; height: 16px; color: var(--cal-grey); }
+.home-map-sports-list input:checked + .home-map-sport-power { color: var(--cal-lime); }
+@keyframes map-zone-rise { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+/* A disclosure arrow identifies the shared sports submenu. */
+.home-map-filter-panel #home-map-sport-summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#home-map-sport-summary::after { content: ''; flex: 0 0 7px; width: 7px; height: 7px; margin-right: 4px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+#home-map-sport-summary[aria-expanded="true"]::after { transform: rotate(225deg); }

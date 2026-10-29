@@ -1,0 +1,106 @@
+{
+  "reference": "wigan-ward-reference.jpg",
+  "note": "Matched to owner-supplied ward reference on 23 October 2026. Stockport and Trafford use replacement internal partitions from these references. Postcode allocations and club counts are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Aspull, New Springs and Whelley"
+    },
+    "2": {
+      "number": null,
+      "name": "Standish with Langtree"
+    },
+    "3": {
+      "number": null,
+      "name": "Shevington with Lower Ground"
+    },
+    "4": {
+      "number": null,
+      "name": "Wigan Central"
+    },
+    "5": {
+      "number": null,
+      "name": "Wigan West"
+    },
+    "6": {
+      "number": null,
+      "name": "Orrell"
+    },
+    "7": {
+      "number": null,
+      "name": "Pemberton"
+    },
+    "8": {
+      "number": null,
+      "name": "Ince"
+    },
+    "9": {
+      "number": null,
+      "name": "Douglas"
+    },
+    "10": {
+      "number": null,
+      "name": "Hindley"
+    },
+    "11": {
+      "number": null,
+      "name": "Worsley Mesnes"
+    },
+    "12": {
+      "number": null,
+      "name": "Atherton"
+    },
+    "13": {
+      "number": null,
+      "name": "Abram"
+    },
+    "14": {
+      "number": null,
+      "name": "Hindley Green"
+    },
+    "15": {
+      "number": null,
+      "name": "Winstanley"
+    },
+    "16": {
+      "number": null,
+      "name": "Atherleigh"
+    },
+    "17": {
+      "number": null,
+      "name": "Tyldesley"
+    },
+    "18": {
+      "number": null,
+      "name": "Leigh West"
+    },
+    "19": {
+      "number": null,
+      "name": "Bryn"
+    },
+    "20": {
+      "number": null,
+      "name": "Astley Mosley Common"
+    },
+    "21": {
+      "number": null,
+      "name": "Leigh East"
+    },
+    "22": {
+      "number": null,
+      "name": "Ashton"
+    },
+    "23": {
+      "number": null,
+      "name": "Golborne and Lowton West"
+    },
+    "24": {
+      "number": null,
+      "name": "Lowton East"
+    },
+    "25": {
+      "number": null,
+      "name": "Leigh South"
+    }
+  }
+}

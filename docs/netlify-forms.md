@@ -1,46 +1,56 @@
 # Registration form on Netlify
 
-The static form in `html/register.html` is named `club-registration`. Netlify detects its named fields at deployment. The script sends a URL-encoded POST to the site root and shows the existing confirmation animation after a successful response.
+The static form in `html/register.html` is named `club-registration`. Its questions now follow the agreed Clubs / Master / Sessions spreadsheet fields. Netlify stores submissions for manual review; it does not directly write to Google Sheets or publish club records.
 
-## Owner setup
+## Questions and conditions
 
-1. Open this site's Forms area in Netlify and enable form detection if it is disabled.
-2. Deploy the updated website after enabling detection.
-3. Confirm that `club-registration` appears in Forms.
-4. Under Forms → Submission notifications → Add notification, add an Email notification for `club-registration` to `contact.0161active@gmail.com`.
-5. Submit one application from the deployed website with two training sessions. Confirm both sessions, pricing, contact details and additional information appear in Netlify and in the notification email. This live check has not been performed.
+- Club name, sport, payment type, beginner friendliness, kit requirements, gender eligibility, league participation, booking and free tasters are collected in The basics.
+- Kit details appear and become required only when kit is required.
+- Gender eligibility appears and becomes required only for a gender-specific club.
+- League participation reveals league names only. Team name defaults to the club name; coverage is left unknown rather than guessed. Multiple league names can be added.
+- Monthly/annual membership reveals Membership amount (£). Per session reveals a separate required price for every training session. Zero is allowed.
+- Booking and free-taster questions are available for every payment type, including Free.
+- Each training session collects its name, day, price when relevant, start time, optional end time, address, postcode and extra session information.
+- Same location as previous session remains an input shortcut; the full address and postcode are copied into that session's own record.
+- Contact email and website/social link are in Contact details.
+- League scope, team-name questions, optional membership/member rates, session experience level and extra club information are no longer asked. Existing stored club records are not rewritten by changing the form.
 
-Netlify stores the application. Email notifications require the dashboard setup above; the recipient is not configured by client-side JavaScript. Applications are reviewed manually and do not automatically change `clubs.json`.
+## One session means one spreadsheet row
 
-## Submitted details
+The public form does not assign Club IDs or Session IDs. Their columns stay blank until the receiving spreadsheet imports the application. A separate submission reference identifies the application for duplicate-import checks; it is never used as a club or session ID.
 
-All questionnaire answers use the JSON names documented in docs/club-csv-format.md. Each session has a title, dayOfWeek, startTime, endTime, eligibility, meetingPoint, postcode and specialConsiderations. The named sessions field holds this JSON array; registrationCsv holds the equivalent CSV with one row per session. Stored areas and duplicate readable schedule/address fields have been removed. Additional information is public club content in additionalInformation. Paid-only fields are omitted for Free or Unknown. Optional membership fields (`membership.period`, `membership.amount`, `membership.sessionAmount`) are submitted only for pay-per-session clubs offering membership. The CSV has 28 columns; blank membership cells mean no optional membership.
+`registrationCsv` and the CSV download use the 27 Master headings in `templates/club-registration.csv`, in exactly the same order as `tools/google-sheets/0161.gs`. Three sessions produce three rows, repeating the club details on each. Two sessions at the same venue or time still remain separate rows. Multiple leagues do not multiply the session rows. Their names share one cell, separated by semicolons; the importer reads them as separate leagues.
 
-Field names have changed in this schema update. Deploy the updated static form so Netlify detects them, then check a live submission. Older submissions retain their previous field names and require translation; they are not rewritten.
+`spreadsheetCopy` contains those same data rows as tab-separated text, without headings. Its Club ID and real-session Session ID cells are blank. The preferred receiving workflow is the reviewed import below, rather than direct pasting, because direct pasting does not record the submission reference. No public copy control is added.
 
-## Failure and spam handling
+TRUE/FALSE answers export in uppercase. Unknown answers use Not confirmed. Inapplicable membership/session amounts and conditional answers use FALSE. Flexible end times remain blank. Update Timestamp is blank on form output because the spreadsheet owns its actual edit timestamp.
 
-Required fields are validated before sending. While sending, the button is disabled. A failed request displays an error and keeps all answers for retry. Local previews do not send submissions or show success. The hidden `bot-field` is Netlify's honeypot; suspected spam may be filtered even when the request returns successfully, so inspect the Forms spam area if an application is missing.
+CSV retains paragraphs and quotes commas/newlines. The spreadsheet-copy version flattens internal tabs and newlines so each session occupies exactly one row when pasted. Formula-like text is escaped. Verify that Netlify's notification email preserves tabs before relying on email-to-spreadsheet copying.
 
-Sources: https://docs.netlify.com/manage/forms/setup/ and https://docs.netlify.com/manage/forms/submissions/ and https://docs.netlify.com/manage/forms/spam-filters/
+The named `sessions` field separately holds the complete session JSON array, including each individual price, without IDs. It is an additional representation, not a replacement for the separate CSV/spreadsheet rows. `submissionSummary` holds the readable review text shown to the applicant. Five yes/no answers use actual booleans in the JSON and TRUE/FALSE in the spreadsheet export; the underlying named select values remain yes/no.
 
-## reCAPTCHA preparation and live checks
+## Import a registration into Sheets
 
-The form and empty widget mount use `data-netlify-recaptcha="true"` for Netlify-provided reCAPTCHA 2. No owner-supplied Google keys are required for this integration. Netlify injects the widget during deployment and validates submitted tokens server-side. The existing FormData encoding includes `g-recaptcha-response`. The browser blocks missing tokens and resets the challenge after a failed request. Redirected responses are treated as failures so a CAPTCHA rejection does not show a success screen.
+The hidden `registrationImport` field contains JSON with version 1, the submission reference, the agreed 27 headings and one row per session. The hidden `submissionReference` field also exposes the reference separately. Neither field changes the public form interface.
 
-1. Enable form detection before deploying the updated HTML.
-2. Deploy and open `/html/register.html` on the live domain.
-3. Confirm the widget appears and Forms → club-registration reports CAPTCHA protection.
-4. With a valid test application, attempt submission without completing the check: it must show an error and keep the answers.
-5. Complete the check yourself and submit one labelled test application. Confirm it appears in Verified submissions with the training sessions intact.
-6. Check mobile layout and the retry behaviour after an expired check.
+1. Copy the complete `registrationImport` JSON block from the notification email.
+2. Choose **0161 Active → Import registration** in the spreadsheet.
+3. Paste the block and choose **Preview registration**. Review the club name, sport and session count.
+4. Choose **Import registration**. Sheets assigns the numbered Club ID and a distinct Session ID for every actual session, including sessions with identical schedules. It updates Master, Clubs and Sessions through the existing sync rules.
+5. Use the normal CSV preparation workflow when ready to update the website. The public form download is not an authoritative website update file because it has no official IDs.
 
-The CAPTCHA cannot be rendered or verified by the plain local preview. These live checks remain outstanding. Current credit-based Netlify plans include free unlimited Forms; legacy plans have separate submission allowances. Check your account's plan and Forms usage rather than enabling paid upgrades.
+The importer discards all supplied IDs and timestamps, even if the pasted JSON was altered. It records imported submission references in the saved state and rejects repeat imports. A submission matching an existing club name is stopped for manual review as an update; it cannot silently overwrite that club. A club without sessions gets a club-only Master placeholder rather than an invented session.
 
-## Gender eligibility
+## Deploy and verify
 
-The required genderSpecific Yes/No question appears near the start of The basics. Yes reveals a blank, required genderEligibility text box for the club's own wording; No disables and omits that text field. Both named fields are included in the CSV contract, which now has 28 columns. Deploy the revised form so Netlify detects the new fields. The profile and preview show GENDER ELIGIBILITY below SPORT; No displays All genders and unanswered existing records show no row.
+1. Deploy the updated HTML and scripts so Netlify detects the revised named fields, including `registrationImport` and `submissionReference`.
+2. Replace the spreadsheet's complete Apps Script with the updated `tools/google-sheets/0161.gs`, save and reload Sheets. Do not run Fresh Start for this update.
+3. Confirm the notification includes the complete import JSON. Submit one clearly labelled application with three sessions and verify three rows with blank IDs before import.
+4. Preview and import on a copied spreadsheet. Verify one numbered Club ID, three distinct Session IDs and three Master rows. Try importing the same block again and confirm it is rejected.
+5. Check kit Yes/No, league Yes/No, monthly/annual membership, Per session and Free. Confirm conditional answers export as FALSE where inapplicable.
 
-## League participation
+Local form/output checks do not verify deployment, Netlify field detection or email rendering. No live submission was sent during this update. Older submissions retain their old fields and cannot use this JSON import unless converted and reviewed separately.
 
-participatesInLeague captures Yes/No. Yes reveals repeatable team name, league name and coverage questions. The named fields participatingLeagues.teamName, participatingLeagues.name and participatingLeagues.coverage preserve each combination in matching lines; registrationCsv contains the same answers. Users enter each team name directly. No stores an empty list. Deploy the revised form before checking detection of all four fields in Netlify. National names appear only on club profiles, while Local/County and Regional records feed glossary discovery with separate club and team counts.
+## Submission and spam handling
+
+The existing URL-encoded POST, bot-field honeypot, Netlify reCAPTCHA, retry handling and success screen remain. Required answers are validated before sending. Local previews do not submit to Netlify. Deployment is required to render and verify Netlify's CAPTCHA and form detection. Applications are reviewed manually before import.

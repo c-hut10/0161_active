@@ -1,0 +1,33 @@
+/* Separate, readable panels are also the fallback for reduced motion and short screens. */
+.clubs-intro .clubs-intro__title { font-size:clamp(30px, 5vw, 58px); }
+.club-cards { margin-top:30px; }
+.club-cards .club-cards__stack { border:0; max-width:760px; margin:auto; }
+.club-cards .club-card { display:flex; flex-direction:column; height:50vh; padding:0 24px 28px; margin-bottom:24px; border:1px solid #62675f; border-radius:16px; background:#191c19; }
+.club-cards .club-card:nth-child(2) { background:#202520; }
+.club-cards .club-card:nth-child(3) { background:#293029; }
+.club-card__summary { flex-shrink:0; display:flex; align-items:center; min-height:52px; margin:0 -24px 24px; padding:12px 24px; border-bottom:1px solid #454945; border-radius:16px 16px 0 0; }
+.club-cards .club-card__summary { color:#dffc3a; font-size:11px; font-weight:700; line-height:1.4; letter-spacing:.1em; text-transform:uppercase; }
+/* Keep longer copy readable within the agreed panel height. */
+.club-card__body { min-height:0; overflow:auto; }
+.club-card h3 { margin:0 0 18px; color:#faecd2; font-size:clamp(22px, 3vw, 32px); letter-spacing:-.035em; }
+.club-cards .club-card p:not(.club-card__summary) { font-size:clamp(14px, 1.6vw, 17px); line-height:1.65; }
+.club-card-holder { display:flex; position:relative; max-width:784px; min-height:110px; margin:0 auto; padding:36px 24px 24px; align-items:flex-end; justify-content:space-between; gap:20px; border:1px solid #62675f; border-radius:20px; background:#111211; }
+.club-card-holder__slot { position:absolute; width:68px; height:9px; top:15px; left:calc(50% - 34px); border:1px solid #454945; border-radius:10px; background:#080a08; }
+.club-card-holder__brand { color:#dffc3a; font-size:clamp(20px, 3vw, 30px); font-weight:800; letter-spacing:-.05em; }
+.club-card-holder__type { color:#a5aaa2; font-size:11px; letter-spacing:.15em; }
+
+/* Native sticky positioning builds the stack without a scroll handler or animation loop. */
+@media (prefers-reduced-motion:no-preference) and (min-height:740px) {
+  /* A shared sticky container gives the final card and holder room to finish joining. */
+  .club-cards .club-cards__stack { padding-bottom:50svh; }
+  .club-cards .club-card { position:sticky; top:calc(var(--site-nav-height) + 12px); z-index:1; min-height:0; margin-bottom:18svh; }
+  .club-cards .club-card:nth-child(2) { top:calc(var(--site-nav-height) + 64px); z-index:2; }
+  .club-cards .club-card:nth-child(3) { top:calc(var(--site-nav-height) + 116px); z-index:3; margin-bottom:18svh; padding-bottom:88px; }
+  .club-card-holder { position:sticky; top:calc(var(--site-nav-height) + 56px + 50vh); z-index:4; }
+}
+
+/* Only covered text softens; summary strips and the current card remain sharp. */
+@media (prefers-reduced-motion:no-preference) and (min-height:740px) {
+  .club-card__body { transition:filter 160ms ease, opacity 160ms ease; }
+  .club-card.is-covered .club-card__body { filter:blur(3px); opacity:.55; }
+}

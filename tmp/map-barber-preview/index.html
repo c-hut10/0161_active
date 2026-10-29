@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>0161 Map · Five-second stripe loop</title><meta name="description" content="A private design preview of a five-second diagonal green-and-grey sweep across Greater Manchester wards."><link rel="stylesheet" href="/vendor/leaflet/leaflet.css"><style>
+*{box-sizing:border-box}body{margin:0;background:#111211;color:#faecd2;font-family:Arial,Helvetica,sans-serif}.heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 28px}h1{margin:0;color:#dffc3a;font-size:24px;letter-spacing:-.04em}.controls{display:flex;align-items:center;gap:16px}.controls span{color:#a5aaa2;font-size:12px}button{border:1px solid #454945;min-height:44px;padding:10px 16px;background:#111211;color:#faecd2;font:700 12px Arial;cursor:pointer}button:focus-visible{outline:2px solid #dffc3a;outline-offset:3px}#map{height:calc(100svh - 115px);min-height:360px;background:#202220}.leaflet-tile-pane{filter:grayscale(1)}.note{margin:0;padding:12px 28px;color:#a5aaa2;font-size:12px}.leaflet-control-attribution{font-size:10px!important}@media(max-width:640px){.heading{padding:14px 18px;flex-wrap:wrap}h1{font-size:21px}.controls span{font-size:11px}#map{height:72svh}.note{padding:12px 18px}}
+</style></head><body><header class="heading"><h1>The 0161 Map</h1><div class="controls"><span>FIVE-SECOND LOOP</span><button id="pause" type="button" aria-pressed="false">Pause animation</button></div></header><main><div id="map" role="region" aria-label="Greyscale Manchester map with green and grey diagonal stripes moving downward inside ward boundaries"></div><p class="note" id="status" role="status">Loading ward boundaries…</p></main><script src="/vendor/leaflet/leaflet.js"></script><script>
+/* One SVG pattern provides a shared, seamless sweep; roads and ward geometry never move. */
+const map=L.map('map',{scrollWheelZoom:false,doubleClickZoom:false,zoomAnimation:false,fadeAnimation:false,markerZoomAnimation:false,inertia:false,zoomSnap:.5,zoomDelta:.5}).setView([53.48,-2.25],10);
+map.zoomControl.setPosition('topright');
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,detectRetina:false,updateWhenIdle:true,keepBuffer:1,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Contains OS data © Crown copyright and database right'}).addTo(map);
+const pause=document.getElementById('pause'),status=document.getElementById('status');
+const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+let rendererSvg=null,paused=reduced.matches,inView=true;
+function updateMotion(){
+ if(rendererSvg){if(paused||document.hidden||!inView)rendererSvg.pauseAnimations();else rendererSvg.unpauseAnimations();}
+ pause.textContent=paused?'Play animation':'Pause animation';pause.setAttribute('aria-pressed',String(paused));
+}
+pause.addEventListener('click',()=>{paused=!paused;updateMotion()});
+document.addEventListener('visibilitychange',updateMotion);
+reduced.addEventListener('change',e=>{paused=e.matches;updateMotion()});
+new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;updateMotion()}).observe(document.getElementById('map'));
+fetch('/data/map-wards.json',{credentials:'omit'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(data=>{
+ const wards=L.geoJSON(data,{style:{color:'#737773',weight:.85,fillOpacity:1,smoothFactor:1},interactive:false}).addTo(map);
+ map.fitBounds(wards.getBounds(),{padding:[24,24],animate:false});
+ rendererSvg=wards.getLayers()[0].getElement().ownerSVGElement;
+ const ns='http://www.w3.org/2000/svg';
+ function node(name,attrs){const element=document.createElementNS(ns,name);Object.entries(attrs).forEach(([k,v])=>element.setAttribute(k,v));return element;}
+ const defs=node('defs',{}),pattern=node('pattern',{id:'ward-barber-bands',patternUnits:'userSpaceOnUse',width:256,height:256});
+ pattern.append(node('rect',{width:256,height:256,fill:'#777d77','fill-opacity':.24}));
+ const bands=node('g',{});
+ // Diagonal shapes repeat on both axes; exactly one period down every five seconds.
+ for(const offset of [-512,-256,0,256])bands.append(node('polygon',{points:`0,${offset} 256,${offset+256} 256,${offset+384} 0,${offset+128}`,fill:'#b5e61d','fill-opacity':.296875}));
+ bands.append(node('animateTransform',{attributeName:'transform',type:'translate',from:'0 0',to:'0 256',dur:'5s',repeatCount:'indefinite',calcMode:'linear'}));
+ pattern.append(bands);defs.append(pattern);rendererSvg.prepend(defs);
+ wards.eachLayer(layer=>{layer.getElement().style.fill='url(#ward-barber-bands)'});
+ status.textContent='Preview only. Diagonal bands descend in a five-second loop; roads and borders stay fixed.';
+ updateMotion();
+}).catch(()=>{status.textContent='The ward preview could not load. Refresh to try again.'});
+</script></body></html>

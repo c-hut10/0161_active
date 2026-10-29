@@ -1,6 +1,5 @@
 /* Sport index: group the full catalog alphabetically into compact, responsive directory cards. */
 .sports-directory-page { padding-bottom: 100px; }
-.sports-directory-card__leagues { font-size:9px; line-height:1.4; }
 .sports-directory-controls {
   display: grid;
   grid-template-columns: auto minmax(180px, 420px) 1fr;
@@ -53,6 +52,41 @@
 .sports-directory-card:hover .sports-directory-card__meta,
 .sports-directory-card:focus-visible .sports-directory-card__meta { color: var(--glossary-black); }
 
+/* First-column filters (or fallback sport links) sit beside the map. */
+.sports-directory-layout { display: grid; grid-template-columns: minmax(260px, 30%) minmax(0, 1fr); gap: 30px; }
+.sports-directory-column { min-width: 0; }
+/* Contain desktop list scrolling so reaching either end does not move the neighbouring map. */
+@media (min-width: 801px) {
+  .sports-directory-column {
+    align-self: start;
+    max-height: max(260px, calc(100dvh - var(--site-nav-height, 100px) - 160px));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--glossary-grey) transparent;
+    scrollbar-gutter: stable;
+    padding-right: 10px;
+  }
+  .sports-directory-column:focus-visible { outline: 2px solid var(--glossary-lime); outline-offset: 4px; }
+}
+/* The map fills the remaining directory width. */
+.sports-directory-map-column { min-width: 0; }
+.sports-directory-map-column .home-reach-map { width: 100%; max-width: none; margin: 28px 0 0; padding: 0; border: 0; }
+.sports-directory-map-column .home-map-frame { width: 100%; margin-left: 0; }
+.sports-directory-map-column #calendar-sector-map { height: clamp(480px, 70vh, 850px); }
+.sports-directory-layout .sports-directory-grid { grid-template-columns: 1fr; }
+.sports-directory-layout .sports-directory-controls { grid-template-columns: 1fr; gap: 10px; }
+.sports-directory-layout .sports-directory-count { justify-self: start; }
+.sports-directory-layout .sports-letter-group { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; }
+@media (max-width: 800px) {
+  /* Mobile sports selection lives in the map filters. */
+  .sports-directory-layout { display: flex; flex-direction: column; }
+  .sports-directory-map-column { order: -1; }
+  .sports-directory-column { display: none; }
+  .sports-directory-map-column #calendar-sector-map { height: 50vh; min-height: 300px; }
+  .sports-directory-map-column .home-map-frame { width: calc(100% + 2 * clamp(18px, 5vw, 72px)); margin-left: calc(-1 * clamp(18px, 5vw, 72px)); }
+}
+
 @media (max-width: 800px) {
   .sports-directory-controls { grid-template-columns: 1fr auto; }
   .sports-directory-controls label { grid-column: 1 / -1; }
@@ -70,4 +104,58 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sports-directory-card { transition: none; }
+}
+
+/* Preserve the static sport-link fallback when the sidebar controller is unavailable. */
+@media (min-width: 801px) {
+  .sports-directory-layout:not(.has-filter-sidebar) .home-map-frame { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .sports-directory-map-column #calendar-sector-map { box-sizing: border-box; }
+  .sports-directory-layout:not(.has-filter-sidebar) #calendar-sector-map { grid-column: 2; grid-row: 1; }
+  .sports-directory-layout:not(.has-filter-sidebar) .sports-directory-map-column .home-map-filter-panel {
+    position: static; grid-column: 1; grid-row: 1; width: 100%; max-width: none;
+    max-height: clamp(480px, 70vh, 850px); overflow-y: auto; z-index: auto;
+  }
+  .home-map-filter-panel .calendar-location-filter { border: 0; padding: 0; }
+  .home-map-filter-heading { padding: 14px 0; }
+  .sports-directory-layout:not(.has-filter-sidebar) .home-map-selected-sport { display: none; }
+  .home-map-filter-panel .home-map-location-fields { grid-template-columns: 1fr; }
+  .sports-directory-layout .sports-letter-group,
+  .sports-directory-layout .sports-directory-grid { display: contents; }
+  .sports-directory-layout .sports-letter-group__letter { display: none; }
+  .sports-accessible-group, .sports-other-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+  .sports-accessible-group__title { grid-column: 1 / -1; margin-bottom: 0; }
+  .sports-directory-card {
+    justify-content: flex-start; gap: 8px; box-sizing: border-box; min-height: 56px;
+    padding: 10px 8px; border: 1px solid var(--glossary-line); background: var(--glossary-black);
+  }
+  .sports-directory-card:hover,
+  .sports-directory-card:focus-visible { color: var(--glossary-paper); background: var(--glossary-black); }
+  .sports-directory-card:focus-visible { outline: 2px solid var(--glossary-lime); outline-offset: 2px; }
+  .sports-directory-card__power { flex: 0 0 16px; width: 16px; height: 16px; color: var(--glossary-grey); }
+  .sports-directory-card__meta { display: none; }
+}
+
+/* The shared filter form replaces the separate desktop sports browser. */
+@media (min-width: 801px) {
+  .has-filter-sidebar .sports-directory-column > :not(.home-map-filter-panel) { display: none; }
+  .has-filter-sidebar .sports-directory-column { padding-right: 0; overflow-x: hidden; }
+  .has-filter-sidebar .sports-directory-column .home-map-filter-panel {
+    position: static; width: 100%; max-width: none; max-height: none; overflow: visible;
+  }
+}
+
+/* On desktop, the open sports list occupies the whole filter menu. */
+@media (min-width: 801px) {
+  .has-filter-sidebar .sports-directory-column:has(#home-map-sport-summary[aria-expanded="true"]) .home-map-filter-panel {
+    display: flex; flex-direction: column;
+    height: max(260px, calc(100dvh - var(--site-nav-height, 100px) - 160px));
+  }
+  .has-filter-sidebar .home-map-filter-panel:has(#home-map-sport-summary[aria-expanded="true"]) .calendar-location-filter {
+    display: flex; flex: 1; min-height: 0; flex-direction: column; align-items: stretch;
+  }
+  .has-filter-sidebar .calendar-location-filter:has(#home-map-sport-summary[aria-expanded="true"]) > :not(.home-map-selected-sport) { display: none; }
+  .has-filter-sidebar .home-map-selected-sport:has(#home-map-sport-summary[aria-expanded="true"]) {
+    flex: 1; min-height: 0; grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  .has-filter-sidebar #home-map-sports-list:not([hidden]) { max-height: none; min-height: 0; align-content: start; }
 }

@@ -1,0 +1,86 @@
+{
+  "reference": "rochdale-ward-reference.pdf",
+  "note": "Matched to owner-supplied ward reference on 23 October 2026. Stockport and Trafford use replacement internal partitions from these references. Postcode allocations and club counts are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Wardle, Shore & West Littleborough"
+    },
+    "2": {
+      "number": null,
+      "name": "Littleborough Lakeside"
+    },
+    "3": {
+      "number": null,
+      "name": "Norden"
+    },
+    "4": {
+      "number": null,
+      "name": "Healey"
+    },
+    "5": {
+      "number": null,
+      "name": "Smallbridge & Firgrove"
+    },
+    "6": {
+      "number": null,
+      "name": "Spotland & Falinge"
+    },
+    "7": {
+      "number": null,
+      "name": "Milnrow & Newhey"
+    },
+    "8": {
+      "number": null,
+      "name": "Central Rochdale"
+    },
+    "9": {
+      "number": null,
+      "name": "Bamford"
+    },
+    "10": {
+      "number": null,
+      "name": "Kingsway"
+    },
+    "11": {
+      "number": null,
+      "name": "Milkstone & Deeplish"
+    },
+    "12": {
+      "number": null,
+      "name": "Balderstone & Kirkholt"
+    },
+    "13": {
+      "number": null,
+      "name": "North Heywood"
+    },
+    "14": {
+      "number": null,
+      "name": "Castleton"
+    },
+    "15": {
+      "number": null,
+      "name": "West Heywood"
+    },
+    "16": {
+      "number": null,
+      "name": "Hopwood Hall"
+    },
+    "17": {
+      "number": null,
+      "name": "North Middleton"
+    },
+    "18": {
+      "number": null,
+      "name": "West Middleton"
+    },
+    "19": {
+      "number": null,
+      "name": "South Middleton"
+    },
+    "20": {
+      "number": null,
+      "name": "East Middleton"
+    }
+  }
+}

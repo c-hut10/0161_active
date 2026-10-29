@@ -1,0 +1,25 @@
+/* Favourites: compact controls retain the site's warm text and neon-green accent. */
+.club-favourite { min-height:44px; padding:10px 14px; margin-top:10px; border:1px solid #454945; border-radius:0; background:#111211; color:#fff; font:700 13px Arial, sans-serif; cursor:pointer; }
+.club-favourite[hidden] { display:none; }
+/* Calendar controls: saved state uses the site's neon-green fill. */
+.club-favourite[data-favourite-id] { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; min-height:44px; padding:10px 14px; }
+.club-favourite[data-favourite-id][hidden] { display:none; }
+.club-favourite[aria-pressed="true"] { background:#dffc3a; color:#111211; border-color:#dffc3a; }
+.club-favourite:hover, .club-favourite:focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
+.club-favourites-status { position:fixed; bottom:20px; left:20px; right:20px; width:fit-content; max-width:calc(100% - 40px); padding:14px; background:#111211; color:#faecd2; border:1px solid #dffc3a; z-index:1200; font:14px/1.5 Arial, sans-serif; }
+/* Save-confirmation link: keep the shortcut visible and usable by keyboard and touch. */
+.club-favourites-status a { display:inline-flex; align-items:center; min-height:44px; color:#dffc3a; text-decoration:underline; }
+.club-favourites-status a:focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
+/* Profile actions: match the adjacent Contact and Website buttons without the list's top margin. */
+.profile-actions .club-favourite { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:44px; min-height:44px; margin:0; padding:0 15px; letter-spacing:.08em; white-space:nowrap; }
+.profile-actions .club-favourite[hidden] { display:none; }
+@media (max-width:560px) { .profile-actions .club-favourite { flex:1; } }
+/* Storage explanation: a dismissible footer popup appears only after the first successful save. */
+.club-favourites-storage-notice { position:fixed; bottom:20px; left:20px; right:20px; max-width:760px; display:flex; align-items:center; gap:18px; padding:18px; border:1px solid #dffc3a; background:#111211; color:#faecd2; z-index:1200; box-sizing:border-box; font:14px/1.6 Arial,sans-serif; }
+.club-favourites-storage-notice[hidden] { display:none; }
+.club-favourites-storage-notice p { margin:0; }
+.club-favourites-storage-notice a { color:#dffc3a; text-decoration:underline; }
+.club-favourites-storage-notice button { flex-shrink:0; min-height:44px; padding:8px 14px; background:#dffc3a; color:#111211; border:0; font:700 13px Arial,sans-serif; cursor:pointer; }
+.club-favourites-storage-notice :focus-visible { outline:2px solid #faecd2; outline-offset:3px; }
+@media (max-width:560px) { .club-favourites-storage-notice { flex-direction:column; align-items:flex-start; bottom:12px; left:12px; right:12px; max-height:50vh; overflow:auto; } }
+

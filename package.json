@@ -1,0 +1,23 @@
+{
+  "name": "0161-active",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "check": "node scripts/check-code.mjs",
+    "check:lint": "eslint js scripts tools tests eslint.config.mjs --no-warn-ignored",
+    "check:format": "node scripts/check-format.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "hooks:install": "node scripts/install-hooks.mjs",
+    "build": "node scripts/build-site-metadata.cjs && node scripts/package-site.cjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
+    "prettier": "3.9.10"
+  }
+}

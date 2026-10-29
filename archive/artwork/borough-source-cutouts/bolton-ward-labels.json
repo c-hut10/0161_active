@@ -1,0 +1,86 @@
+{
+  "reference": "Bolton Wards.jpg",
+  "note": "Shape components matched by position to the owner-supplied attached ward map on 23 October 2026. The reference has no ward numbering. Postcode allocations are unchanged.",
+  "areas": {
+    "1": {
+      "number": null,
+      "name": "Bromley Cross"
+    },
+    "2": {
+      "number": null,
+      "name": "Bradshaw"
+    },
+    "3": {
+      "number": null,
+      "name": "Astley Bridge"
+    },
+    "4": {
+      "number": null,
+      "name": "Smithills"
+    },
+    "5": {
+      "number": null,
+      "name": "Horwich North East"
+    },
+    "6": {
+      "number": null,
+      "name": "Horwich & Blackrod"
+    },
+    "7": {
+      "number": null,
+      "name": "Tonge with the Haulgh"
+    },
+    "8": {
+      "number": null,
+      "name": "Crompton"
+    },
+    "9": {
+      "number": null,
+      "name": "Breightmet"
+    },
+    "10": {
+      "number": null,
+      "name": "Heaton & Lostock"
+    },
+    "11": {
+      "number": null,
+      "name": "Halliwell"
+    },
+    "12": {
+      "number": null,
+      "name": "Westhoughton North & Chew Moor"
+    },
+    "13": {
+      "number": null,
+      "name": "Rumworth"
+    },
+    "14": {
+      "number": null,
+      "name": "Little Lever & Darcy Lever"
+    },
+    "15": {
+      "number": null,
+      "name": "Great Lever"
+    },
+    "16": {
+      "number": null,
+      "name": "Hulton"
+    },
+    "17": {
+      "number": null,
+      "name": "Farnworth"
+    },
+    "18": {
+      "number": null,
+      "name": "Westhoughton South"
+    },
+    "19": {
+      "number": null,
+      "name": "Kearsley"
+    },
+    "20": {
+      "number": null,
+      "name": "Harper Green"
+    }
+  }
+}

@@ -6,7 +6,7 @@
 node scripts/build-site-metadata.cjs
 ```
 
-Every page uses `img/0161 Active_Logo.png` for its favicon and Open Graph/Twitter image. The older social-card generator is not part of the current build workflow.
+Every page uses `img/0161 Active_Logo.png` for its favicon and Open Graph/Twitter image. The retired social-card generator has been removed; its old images are preserved in `archive/artwork/social/`.
 
 Run the profile generator after changes to club data, the profile renderer or indexing policy. It embeds every club profile in the initial HTML, including details, sessions, links and Last Confirmed information. Generated profiles are displayed directly. The profile script adds calendar downloads; page rendering happens during generation. Rebuild and deploy profiles after data changes.
 
@@ -22,6 +22,10 @@ This server explicitly sends AVIF as `image/avif` and disables asset caching. It
 
 Add each club with a unique `id` and a `profilePath` of `html/<sport>/<club>.html`, then run `node scripts/build-site-metadata.cjs`. The generator creates missing sport folders and profile pages, updates existing pages, regenerates titles/descriptions/canonical and social tags, and includes the new pages in the sitemap. It does not need a copied profile page or change club verification dates. Profile filenames cannot be `index.html`.
 
+`js/club-profile-details.mjs` owns the detail rows and contact/online-action rules used by both generated profiles and the registration preview. Keep changes there so optional fields, league labels, booking guidance and prices stay aligned. The preview keeps a compact layout and does not link to unpublished league pages.
+
+Registration keeps one normalised answer snapshot for the live preview. Review rows, session JSON, CSV and the notification summary are produced on entering Review and send, downloading the CSV or submitting. Typing does not rebuild those hidden outputs.
+
 ## Homepage gallery
 
 The generator chooses 10 available club photos for each build using `js/home-gallery-renderer.mjs`. Their images, captions and profile links are embedded directly in `index.html`. `js/home-gallery.js` shuffles only those prerendered cards on each visit and adds pause/resume controls. It does not fetch the club directory or choose another photo set. A rebuild rotates the set; deploy the rebuilt homepage to publish that selection.
@@ -33,6 +37,12 @@ The build creates `html/sports/<sport-slug>.html` for each visible sport using `
 Visibility still follows `data/sports.json` through `visibleSportRecords`. When a sport is hidden, the build removes its marked generated glossary; hand-authored files are preserved. Rebuild after changing club records or sport visibility.
 
 `js/sport-glossary-renderer.mjs`, `js/sports-directory-renderer.mjs`, `js/calendar-week-renderer.mjs` and `js/site-nav-renderer.mjs` share HTML rendering between the build and browser. The sports directory, full-week calendar and global navigation are embedded during generation. JavaScript adds search, filters, day selections, downloads and mobile menu controls. Data-loading failures retain the generated content.
+
+Generated navigation binds its menu controls immediately; only pages missing navigation HTML import the fallback rendering/data modules. Saved-club scripts and styles are included only on club profiles and club lists. The Calendar displays sessions from saved IDs in this browser. The retired Your Clubs page redirects to The Calendar; its separate list renderer and removal dialog have been removed.
+
+## Public images and artwork archive
+
+Keep only live website images in `img/`. Put source images, masks, contact sheets and discarded variants in `archive/artwork/`; packaging excludes that entire folder. Earlier map drafts are kept there, while the ten glow images used by the welcome map remain in `img/manchester-regions/hover/`. Archiving a file does not remove it from Git history.
 
 ## Shared session display
 
@@ -71,6 +81,8 @@ The sitemap omits `lastmod` until real content-change dates can be tracked. Neve
 Run `python3 scripts/check-site-metadata.py` and `git diff --check`. After deployment, check `/`, the `/index.html` redirect, `/sitemap.xml`, `/robots.txt`, a missing URL and a club profile. Confirm that public pages and share images return successful responses without requiring authentication. Record shipped changes separately from the Unreleased changelog.
 
 ## Page styles
+
+`css/site-background.css` supplies the static grey grid for page backgrounds on desktop and mobile. The generator includes it and adds the `site-grid` body class to current and future pages. Adjust `--site-grid-size` and `--site-grid-line` there to change spacing and visibility globally. Photos, cards, navigation and the homepage welcome scene retain their own backgrounds.
 
 The registration page uses `css/site-base.css` for shared body defaults and `css/register.css` for its components. It no longer loads `css/0161_Page.css`. Other pages still depend on that legacy stylesheet; migrate and compare them individually before removing it.
 

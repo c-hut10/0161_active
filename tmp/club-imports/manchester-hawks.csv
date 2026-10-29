@@ -1,0 +1,17 @@
+id,name,sport,beginnerFriendly,genderSpecific,genderEligibility,participatesInLeague,participatingLeagues.teamName,participatingLeagues.name,participatingLeagues.coverage,description,contact,onlineProfile.url,price.type,price.amount,membership.period,membership.amount,membership.sessionAmount,tasterSessionCount,bookingRequired,additionalInformation,sessions.title,sessions.dayOfWeek,sessions.startTime,sessions.endTime,sessions.meetingPoint,sessions.postcode,sessions.eligibility,sessions.specialConsiderations
+,Manchester Hawks,Korfball,yes,no,,yes,"Manchester Hawks 1
+Manchester Hawks 2
+Manchester Hawks 3
+Manchester Hawks Vibes
+Manchester Hawks 4
+Manchester Hawks 5","Northern Regional League
+Northern Regional League
+North West Korfball League 1
+North West Korfball League 2
+North West Korfball League 2
+North West Korfball League 3","regional
+regional
+local_county
+local_county
+local_county
+local_county","Friendly & sociable korfball club in south Manchester, 🤩 New players of any level always welcome!",manchesterhawks@hotmail.co.uk,https://manchesterhawks.co.uk/,per_session,6,,,,4,no,,Weekly Training,3,19:00,21:00,Parrs Wood High School Sports Centre,M20 5PG,,
