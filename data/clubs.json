@@ -289,7 +289,7 @@
       "sport": "archery",
       "beginnerFriendly": null,
       "description": null,
-      "imagePath": null,
+      "imagePath": "img/archery/archery-Moorside Archery Club.avif",
       "profilePath": "html/archery/moorside-archery-club.html",
       "coordinates": null,
       "price": {
@@ -2962,7 +2962,7 @@
           "dataStatus": "user-submitted",
           "price": {
             "type": "per_session",
-            "amount": 6.0,
+            "amount": 6,
             "currency": "GBP"
           }
         }
@@ -3863,392 +3863,6 @@
       }
     },
     {
-      "id": "beswick-community-football-club-pd-coaching",
-      "name": "Beswick Community Football Club / PD Coaching",
-      "sport": "football",
-      "beginnerFriendly": null,
-      "description": "Youth football development and grassroots teams in East Manchester",
-      "imagePath": null,
-      "profilePath": "html/football/beswick-community-football-club-pd-coaching.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": true,
-      "contact": "pdcoaching_@hotmail.com",
-      "onlineProfile": {
-        "url": "https://www.pdcoachingmcr.co.uk/"
-      },
-      "sessions": [
-        {
-          "dayOfWeek": 1,
-          "startTime": "18:00",
-          "endTime": "20:00",
-          "meetingPoint": "The East Manchester Academy",
-          "postcode": "M11 3DS",
-          "title": "Training",
-          "subtitle": "Demonstration session — not confirmed",
-          "dataStatus": "demonstration",
-          "specialConsiderations": "This day and time were made up for demonstration. The listed venue is a club-associated location, not a confirmed training venue for this session. Contact the club before attending."
-        }
-      ],
-      "pricingNotes": null,
-      "bookingNotes": "Required through online session booking",
-      "tasterNotes": null,
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://www.pdcoachingmcr.co.uk/",
-          "supports": [
-            "onlineProfile"
-          ]
-        },
-        {
-          "url": "https://www.pdcoachingmcr.co.uk/contact",
-          "supports": [
-            "contact"
-          ]
-        },
-        {
-          "url": "https://www.pdcoachingmcr.co.uk/programmes",
-          "supports": [
-            "training"
-          ]
-        },
-        {
-          "url": "https://www.pdcoachingmcr.co.uk/contact",
-          "supports": [
-            "venue"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
-    },
-    {
-      "id": "bury-amateurs-afc",
-      "name": "Bury Amateurs AFC",
-      "sport": "football",
-      "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
-      "profilePath": "html/football/bury-amateurs-afc.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
-      "contact": "buryamateursec@gmail.com",
-      "onlineProfile": null,
-      "sessions": [
-        {
-          "dayOfWeek": 2,
-          "startTime": "18:30",
-          "endTime": "20:30",
-          "meetingPoint": "Drinkwater Park playing field, Rainsough Brow, Prestwich",
-          "postcode": "M25 9SU",
-          "title": "Training",
-          "subtitle": "Demonstration session — not confirmed",
-          "dataStatus": "demonstration",
-          "specialConsiderations": "This day and time were made up for demonstration. The listed venue is a club-associated location, not a confirmed training venue for this session. Contact the club before attending."
-        }
-      ],
-      "pricingNotes": null,
-      "bookingNotes": null,
-      "tasterNotes": null,
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "contact"
-          ]
-        },
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "venue"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
-    },
-    {
-      "id": "bury-football-club",
-      "name": "Bury Football Club",
-      "sport": "football",
-      "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
-      "profilePath": "html/football/bury-football-club.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
-      "contact": "enquiries@buryfc.co.uk",
-      "onlineProfile": {
-        "url": "https://buryfc.co.uk/"
-      },
-      "sessions": [
-        {
-          "dayOfWeek": 3,
-          "startTime": "18:00",
-          "endTime": "20:00",
-          "meetingPoint": "Gigg Lane, Bury",
-          "postcode": "BL9 9HR",
-          "title": "Training",
-          "subtitle": "Demonstration session — not confirmed",
-          "dataStatus": "demonstration",
-          "specialConsiderations": "This day and time were made up for demonstration. The listed venue is a club-associated location, not a confirmed training venue for this session. Contact the club before attending."
-        }
-      ],
-      "pricingNotes": null,
-      "bookingNotes": null,
-      "tasterNotes": null,
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://buryfc.co.uk/",
-          "supports": [
-            "onlineProfile"
-          ]
-        },
-        {
-          "url": "https://buryfc.co.uk/contact/",
-          "supports": [
-            "contact"
-          ]
-        },
-        {
-          "url": "https://buryfc.co.uk/stadium/j-robs-ground-maintenance-stadium/",
-          "supports": [
-            "venue"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
-    },
-    {
-      "id": "manchester-football-dreams",
-      "name": "Manchester Football Dreams",
-      "sport": "football",
-      "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
-      "profilePath": "html/football/manchester-football-dreams.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
-      "contact": "mcrfootballdreams@gmail.com",
-      "onlineProfile": null,
-      "sessions": [
-        {
-          "dayOfWeek": 4,
-          "startTime": "18:30",
-          "endTime": "20:30",
-          "meetingPoint": "City Centre — demonstration location; training address to confirm",
-          "postcode": "M1 1",
-          "title": "Training",
-          "subtitle": "Demonstration session — not confirmed",
-          "dataStatus": "demonstration",
-          "specialConsiderations": "This day, time and City Centre location were made up for demonstration. The postcode sector is an area placeholder, not a confirmed training address. Contact the club before attending."
-        }
-      ],
-      "pricingNotes": null,
-      "bookingNotes": null,
-      "tasterNotes": null,
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "contact",
-            "general"
-          ]
-        },
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "venue"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
-    },
-    {
-      "id": "radcliffe-borough-juniors",
-      "name": "Radcliffe Borough Juniors",
-      "sport": "football",
-      "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
-      "profilePath": "html/football/radcliffe-borough-juniors.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
-      "contact": "secretary@radcliffeboroughjuniors.com",
-      "onlineProfile": {
-        "url": "https://www.pitchero.com/clubs/radcliffeboroughjuniorsfc"
-      },
-      "sessions": [
-        {
-          "dayOfWeek": 6,
-          "startTime": "10:00",
-          "endTime": "12:00",
-          "meetingPoint": "Close Park, Dumers Lane, Radcliffe",
-          "postcode": "M26 2QS",
-          "title": "Training",
-          "subtitle": "Demonstration session — not confirmed",
-          "dataStatus": "demonstration",
-          "specialConsiderations": "This day and time were made up for demonstration. The listed venue is a club-associated location, not a confirmed training venue for this session. Contact the club before attending."
-        }
-      ],
-      "pricingNotes": null,
-      "bookingNotes": null,
-      "tasterNotes": null,
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://www.pitchero.com/clubs/radcliffeboroughjuniorsfc",
-          "supports": [
-            "onlineProfile"
-          ]
-        },
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "contact"
-          ]
-        },
-        {
-          "url": "https://www.pitchero.com/clubs/radcliffeboroughjuniorsfc/contact",
-          "supports": [
-            "general"
-          ]
-        },
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "venue"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null,
-      "trainingVenues": [
-        {
-          "meetingPoint": "Close Park, Radcliffe",
-          "postcode": "M26 2QS"
-        }
-      ]
-    },
-    {
-      "id": "radcliffe-juniors-fc",
-      "name": "Radcliffe Juniors FC",
-      "sport": "football",
-      "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
-      "profilePath": "html/football/radcliffe-juniors-fc.html",
-      "coordinates": null,
-      "price": {
-        "type": "unknown",
-        "amount": null,
-        "currency": "GBP"
-      },
-      "tasterSessionCount": null,
-      "bookingRequired": null,
-      "contact": "radcliffejuniors@outlook.com",
-      "onlineProfile": null,
-      "sessions": [
-        {
-          "dayOfWeek": 7,
-          "startTime": "11:00",
-          "endTime": "13:00",
-          "meetingPoint": "Redbank playing field, Unsworth Street, Radcliffe",
-          "postcode": "M26 3",
-          "title": "Training",
-          "subtitle": "Demonstration session — not confirmed",
-          "dataStatus": "demonstration",
-          "specialConsiderations": "This day and time were made up for demonstration. The listed venue is a club-associated location, not a confirmed training venue for this session. The postcode sector is an area placeholder; the full training postcode is unconfirmed. Contact the club before attending."
-        }
-      ],
-      "pricingNotes": null,
-      "bookingNotes": null,
-      "tasterNotes": null,
-      "verification": {
-        "status": "unverified",
-        "lastConfirmed": null
-      },
-      "additionalInformation": null,
-      "sources": [
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "contact",
-            "general"
-          ]
-        },
-        {
-          "url": "https://www.bury.gov.uk/local-leisure-events/outdoor-play-sports/football-pitches",
-          "supports": [
-            "venue"
-          ]
-        }
-      ],
-      "membership": null,
-      "participatingLeagues": [],
-      "participatesInLeague": null
-    },
-    {
       "id": "ramsbottom-united-jfc",
       "name": "Ramsbottom United JFC",
       "sport": "football",
@@ -5010,7 +4624,7 @@
       },
       "price": {
         "type": "per_session",
-        "amount": 6.0,
+        "amount": 6,
         "currency": "GBP"
       },
       "membership": null,
@@ -5084,7 +4698,7 @@
       },
       "price": {
         "type": "monthly_fee",
-        "amount": 15.0,
+        "amount": 15,
         "currency": "GBP"
       },
       "membership": null,
@@ -5587,7 +5201,7 @@
       "coordinates": null,
       "price": {
         "type": "annual_fee",
-        "amount": 20.0,
+        "amount": 20,
         "currency": "GBP"
       },
       "tasterSessionCount": 2,
@@ -6630,8 +6244,8 @@
         "currency": "GBP"
       },
       "membership": null,
-      "tasterSessionCount": null,
-      "bookingRequired": null,
+      "tasterSessionCount": 1,
+      "bookingRequired": false,
       "additionalInformation": "All welcome. Come down and give it a try!\n\nTaster sessions are FREE. Contact the club for regular pricing. The cost to join a league can be found on our website and varies between each league.",
       "sessions": [
         {
@@ -6642,8 +6256,9 @@
           "meetingPoint": "East Manchester Academy, 60 Grey Mare Lane",
           "postcode": "M11 3DS",
           "eligibility": "All Abilities",
-          "specialConsiderations": "Every Monday, with league games taking place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 7pm, 7:40pm or 8:20pm, and your team will be allocated one of these slots each week.",
-          "dataStatus": "user-submitted"
+          "specialConsiderations": "There are no training sessions, so you can jump straight into playing! Kick-off times are 7pm, 7:40pm or 8:20pm, and your team will be allocated one of these slots each week.",
+          "dataStatus": "user-submitted",
+          "id": "TARU-0001-S00001"
         },
         {
           "title": "East Manchester League",
@@ -6653,19 +6268,21 @@
           "meetingPoint": "East Manchester Academy, 60 Grey Mare Lane",
           "postcode": "M11 3DS",
           "eligibility": "All Abilities",
-          "specialConsiderations": "Every Tuesday, with league games taking place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 7pm, 7:40pm or 8:20pm, and your team will be allocated one of these slots each week.",
-          "dataStatus": "user-submitted"
+          "specialConsiderations": "There are no training sessions, so you can jump straight into playing! Kick-off times are 7pm, 7:40pm or 8:20pm, and your team will be allocated one of these slots each week.",
+          "dataStatus": "user-submitted",
+          "id": "TARU-0001-S00002"
         },
         {
           "title": "Salford Thursday League",
           "dayOfWeek": 4,
           "startTime": "20:00",
           "endTime": "22:00",
-          "meetingPoint": "Parrenthorn High School, Heywood Road",
+          "meetingPoint": "Parrenthorn High School, Heywood Rd",
           "postcode": "M25 2BW",
           "eligibility": "All Abilities",
-          "specialConsiderations": "Every Thursday, with league games taking place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 8pm, 8:40pm, 9pm or 9:20pm, and your team will be allocated one of these slots each week.",
-          "dataStatus": "user-submitted"
+          "specialConsiderations": "Our league games take place weekly. There are no training sessions, so you can jump straight into playing! Kick-off times are 8pm, 8:40pm, 9pm or 9:20pm, and your team will be allocated one of these slots each week.",
+          "dataStatus": "user-submitted",
+          "id": "TARU-0001-S00003"
         }
       ],
       "id": "try-tag-rugby-salford",
@@ -6794,8 +6411,8 @@
       "name": "Manchester Village Spartans Touch Rugby",
       "sport": "touch-rugby",
       "beginnerFriendly": null,
-      "description": null,
-      "imagePath": null,
+      "description": "The Village Spartans are a pioneering Inclusive Touch Rugby club and a nationally-recognised Touch centre based at Sale Sports Club in South Manchester.  Since 2017, we’ve led the way in helping to grow Inclusive Touch Rugby, with the support of our colleagues at O2 Touch (now Touch Union), our friends at Pride in Touch and England Touch. We welcome new players of all genders sexualities, experience levels and ambitions.  Apply to play FREE* for up to one month and come along to our Welcome Sessions on the first day of the month.",
+      "imagePath": "img/touch-rugby/touch rugby-Manchester Village Spartans.avif",
       "profilePath": "html/touch-rugby/manchester-village-spartans-touch.html",
       "coordinates": null,
       "price": {
@@ -6803,13 +6420,24 @@
         "amount": null,
         "currency": "GBP"
       },
-      "tasterSessionCount": null,
+      "tasterSessionCount": 4,
       "bookingRequired": false,
       "contact": "touch@villagespartans.co.uk",
       "onlineProfile": {
         "url": "https://villagespartans.co.uk/touch/"
       },
-      "sessions": [],
+      "sessions": [
+        {
+          "title": "Inclusive Touch Training",
+          "dayOfWeek": 1,
+          "startTime": "18:30",
+          "meetingPoint": "Sale Sports Club, Rockwood",
+          "postcode": "M33 2DE",
+          "specialConsiderations": "For all abilities",
+          "id": "TORU-0002-S00001",
+          "dataStatus": "user-submitted"
+        }
+      ],
       "pricingNotes": null,
       "bookingNotes": null,
       "tasterNotes": null,
@@ -6842,13 +6470,14 @@
           "postcode": "M33 2DE"
         }
       ],
-      "genderSpecific": null,
-      "genderEligibility": null
+      "genderSpecific": false,
+      "genderEligibility": null,
+      "kitRequired": false
     },
     {
       "name": "NQ Rebels",
       "sport": "touch-rugby",
-      "description": null,
+      "description": "Experience fun, fitness, and friendship through Touch rugby!",
       "beginnerFriendly": true,
       "genderSpecific": false,
       "genderEligibility": null,
@@ -6892,7 +6521,7 @@
         }
       ],
       "id": "nq-rebels",
-      "imagePath": null,
+      "imagePath": "img/touch-rugby/touch rugby-NQ Rebels.avif",
       "profilePath": "html/touch-rugby/nq-rebels.html",
       "coordinates": null,
       "sources": [],
@@ -7172,7 +6801,7 @@
       "profilePath": "html/water-polo/manchester-sharks-water-polo.html",
       "price": {
         "type": "per_session",
-        "amount": 7.0,
+        "amount": 7,
         "currency": "GBP"
       },
       "sessions": [
@@ -7188,7 +6817,7 @@
           "dataStatus": "user-submitted",
           "price": {
             "type": "per_session",
-            "amount": 7.0,
+            "amount": 7,
             "currency": "GBP"
           }
         },
@@ -7204,7 +6833,7 @@
           "dataStatus": "user-submitted",
           "price": {
             "type": "per_session",
-            "amount": 6.0,
+            "amount": 6,
             "currency": "GBP"
           }
         }

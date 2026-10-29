@@ -1,7 +1,7 @@
 import { formatPostcodes, escapeHtml, DAY_NAMES as dayNames, DAY_NUMBERS as dayNumbers } from './club-formatting.mjs';
 import { resolveClubAreas, clubTrainingAreas } from './club-areas.mjs';
-import { FORM_ANSWER_FIELDS, clubAnswers, registrationTransfer, submissionReview, submissionSummary } from './club-submission.mjs?v=20261028-single-row-export';
-import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs?v=20261026-sheet-fields';
+import { FORM_ANSWER_FIELDS, clubAnswers, registrationTransfer, submissionReview, submissionSummary } from './club-submission.mjs?v=20261029-payment-order';
+import { clubProfileActions, renderProfileDetails, renderProfileCost, profileCostHeading } from './club-profile-details.mjs?v=20261029-bottom-contact';
 import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './filter-picker.mjs';
 
 (() => {
@@ -19,6 +19,22 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   const leagueList = document.querySelector('#participating-leagues');
   const leagueTemplate = leagueList.querySelector('.league-entry').cloneNode(true);
   const addLeagueButton = document.querySelector('#add-league');
+  const paymentList = document.querySelector('#payment-options');
+  const paymentTemplate = paymentList.querySelector('.payment-option').cloneNode(true);
+  const addPayment = document.querySelector('#add-payment-option');
+  addPayment.addEventListener('click', () => {
+    const block = paymentTemplate.cloneNode(true);
+    paymentList.append(block);
+    block.querySelector('[data-payment-name]').focus();
+    updatePreview();
+  });
+  paymentList.addEventListener('click', event => {
+    const button = event.target.closest('[data-remove-payment]');
+    if (!button) return;
+    button.closest('.payment-option').remove();
+    updatePreview();
+    addPayment.focus();
+  });
 
   /* Application steps: keep all answers in the form while showing one section at a time. */
   const sections = [...form.querySelectorAll('[data-form-step]')];
@@ -90,6 +106,8 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     const invalid = invalidFields[0];
     if (!invalid) return true;
     if (currentStep !== index) showStep(index, false);
+    const collapsed = invalid.closest('details');
+    if (collapsed) collapsed.open = true;
     syncFilterPickers();
     focusFilterControl(invalid);
     return false;
@@ -140,11 +158,6 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
       ])));
   }
 
-  function sessionSummary(session) {
-    const time = [session.startTime, session.endTime].filter(Boolean).join('–');
-    return [session.title, dayNames[session.dayOfWeek], time, session.specialConsiderations].filter(Boolean).join(' · ');
-  }
-
   /* Session headings: reflect typed names and keep numbering correct after adding or removing entries. */
   function numberSessions() {
     const blocks = [...sessionList.querySelectorAll('.training-session')];
@@ -174,6 +187,14 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
   function updatePreview() {
     if (previewFrame) cancelAnimationFrame(previewFrame);
     previewFrame = 0;
+    const paymentRows = [...paymentList.querySelectorAll('.payment-option')].map(block => {
+      const name = block.querySelector('[data-payment-name]');
+      const details = block.querySelector('[data-payment-details]');
+      name.required = details.required = Boolean(name.value.trim() || details.value.trim());
+      return name.value.trim() && details.value.trim()
+        ? `${name.value.trim()}: ${details.value.trim().replace(/[\r\n\t]+/g, ' ').replace(/\s+\|\s+/g, ' / ')}` : '';
+    }).filter(Boolean);
+    form.elements.namedItem('paymentOptions').value = paymentRows.join('\n');
     numberSessions();
     // Reveal and require the free-text answer only when Yes is selected.
     const genderSpecific = form.elements.namedItem('genderSpecific').value;
@@ -230,25 +251,34 @@ import { enhanceFilterPickers, syncFilterPickers, focusFilterControl } from './f
     const { sessions } = club;
     const actions = clubProfileActions(previewClub);
     document.querySelector('#preview-details').innerHTML = renderProfileDetails(previewClub, {
-      onlineAction: actions.online, timetableId: 'preview-week-title', preview: true
+      onlineAction: actions.online, preview: true
     });
     document.querySelector('#preview-actions').innerHTML = [
-      actions.contact ? `<span class="preview-action preview-action--secondary">${escapeHtml(actions.contact.label)}</span>` : '',
-      actions.online ? `<span class="preview-action">${escapeHtml(actions.online.label)}</span>` : ''
+      actions.online ? `<span class="preview-action">${escapeHtml(actions.online.label)}</span>` : '',
+      '<span class="preview-action preview-action--secondary">SHARE CLUB</span>'
     ].join('');
     put('#preview-name', data.name, 'Your club name');
     put('#preview-eyebrow', [data.sport, areaLabel].filter(Boolean).map(value => value.toUpperCase()).join(' · '), 'YOUR SPORT · YOUR AREA');
     document.querySelector('#preview-cost-title').textContent = profileCostHeading(previewClub);
     document.querySelector('#preview-cost').innerHTML = renderProfileCost(previewClub);
     put('#preview-description', data.description, 'Your club description will appear here.');
-    put('#preview-schedule', sessions.map(sessionSummary).join('\n'), 'Training to be confirmed');
-    put('#preview-week-location', sessions.map(session => [session.meetingPoint, session.postcode].filter(Boolean).join(', ')).join('\n'), 'Add your public meeting place');
+    document.querySelector('#preview-session-list').innerHTML = sessions.length ? sessions.map(session =>
+      `<article class="preview-week__session"><strong>${escapeHtml(session.title)}</strong>
+        ${session.beginnerFriendly === true ? '<span class="session-beginners">Beginners Welcome</span>' : ''}
+        <span>${escapeHtml([dayNames[session.dayOfWeek], [session.startTime, session.endTime].filter(Boolean).join('–')].filter(Boolean).join(' · '))}</span>
+        <span>${escapeHtml([session.meetingPoint, session.postcode].filter(Boolean).join(', ') || 'Add your public meeting place')}</span>
+      </article>`).join('') : '<div class="preview-week__session">Training to be confirmed</div>';
     document.querySelectorAll('[data-preview-day]').forEach(day => {
       const count = sessions.filter(session => session.dayOfWeek === dayNumbers[day.dataset.previewDay]).length;
       const hasSession = count > 0;
+      day.hidden = !hasSession;
       day.classList.toggle('has-session', hasSession);
       day.querySelector('b').textContent = hasSession ? `${count} ${count === 1 ? 'SESSION' : 'SESSIONS'}` : '—';
     });
+    const previewGrid = document.querySelector('.preview-week__grid');
+    const trainingDays = previewGrid.querySelectorAll('[data-preview-day]:not([hidden])').length;
+    previewGrid.hidden = trainingDays === 0;
+    previewGrid.style.setProperty('--preview-training-days', trainingDays || 1);
     // Clear corrected errors, including paid fields that have become disabled.
     form.querySelectorAll('input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"]').forEach(field => validateField(field));
     // Enhance new session/league rows after the original native templates have been cloned.

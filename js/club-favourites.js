@@ -59,9 +59,11 @@ function announce(message, linkToClubs = false) {
 function enhance() {
   document.querySelectorAll('[data-favourite-id]').forEach(button => {
     const selected = ids.has(button.dataset.favouriteId);
-    const label = selected ? 'Unsave club' : 'Save club';
+    const label = selected ? 'Remove from calendar' : 'Save To Calendar';
     button.hidden = false;
-    // Retain the icon; pressed state controls its fill while labels explain the action.
+    const text = selected ? 'Saved' : 'Save To Calendar';
+    // Rewriting identical text would retrigger the club-list MutationObserver forever.
+    if (button.textContent !== text) button.textContent = text;
     button.title = label;
     button.setAttribute('aria-pressed', String(selected));
     button.setAttribute('aria-label', `${label}: ${button.dataset.clubName}`);

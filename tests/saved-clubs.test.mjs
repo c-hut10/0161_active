@@ -1,6 +1,56 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
 import { savedClubsKey, readSavedClubs, writeSavedClubs } from '../js/saved-clubs.mjs';
+
+test('redrawn calendar buttons settle without a repeated text mutation loop', () => {
+  let writes = 0;
+  let text = '';
+  const button = {
+    dataset: { favouriteId: 'club-a', clubName: 'Club A' },
+    get textContent() {
+      return text;
+    },
+    set textContent(value) {
+      text = value;
+      writes++;
+    },
+    setAttribute() {}
+  };
+  const element = () => ({ setAttribute() {}, querySelector: () => ({ addEventListener() {} }) });
+  let observerCallback;
+  const context = vm.createContext({
+    key: 'saved',
+    readSavedClubs: () => ({ ids: new Set(), error: false }),
+    writeSavedClubs() {},
+    document: {
+      createElement: element,
+      body: { append() {} },
+      addEventListener() {},
+      querySelector: () => ({}),
+      querySelectorAll: () => [button]
+    },
+    window: { addEventListener() {} },
+    MutationObserver: class {
+      constructor(callback) {
+        observerCallback = callback;
+      }
+      observe() {}
+    }
+  });
+  const source = fs.readFileSync(new URL('../js/club-favourites.js', import.meta.url), 'utf8');
+  vm.runInContext(source.replace(/^import .*;$/m, ''), context);
+  assert.equal(text, 'Save To Calendar');
+  assert.equal(writes, 1);
+  observerCallback();
+  observerCallback();
+  assert.equal(writes, 1);
+  vm.runInContext("ids.add('club-a'); enhance();", context);
+  assert.equal(text, 'Saved');
+  observerCallback();
+  assert.equal(writes, 2);
+});
 
 function storageContext(t, initial = []) {
   const descriptors = ['localStorage', 'window'].map((name) => [

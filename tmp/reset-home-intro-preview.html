@@ -1,3 +1,3 @@
 <!doctype html><html lang="en"><meta charset="utf-8"><title>Reset local intro preview</title>
 <button type="button" id="reset">Reset intro preview only</button><p role="status" id="status"></p>
-<script>document.querySelector('#reset').addEventListener('click',()=>{localStorage.removeItem('0161active-home-intro-seen');document.querySelector('#status').textContent='Intro preview reset. Other browser data is unchanged.';});</script></html>
+<script>document.querySelector('#reset').addEventListener('click',()=>{sessionStorage.removeItem('0161active-home-intro-seen');document.querySelector('#status').textContent='Intro preview reset for this tab. Other browser data is unchanged.';});</script></html>

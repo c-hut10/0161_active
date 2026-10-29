@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261012-team-toggle">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
   <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
-  <script type="module" src="../../js/sport-glossary.js?v=20261015-row-menus"></script>
+  <script type="module" src="../../js/sport-glossary.js?v=20261029-profile-save-only"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -21,8 +21,6 @@
   <link rel="stylesheet" href="/css/site-background.css?v=20261023">
   <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
   <script src="/js/page-transitions.js?v=20261020"></script>
-  <link rel="stylesheet" href="/css/club-favourites.css">
-  <script type="module" src="/js/club-favourites.js?v=20261022-cleanup"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/run-club.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -126,7 +124,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/AncoatRunClub.html">Ancoats Run Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="ancoats-run-club" data-club-name="Ancoats Run Club" aria-pressed="false" aria-label="Save club: Ancoats Run Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:30–19:30</span><span class="sport-club-row__day">Saturday · 09:00–10:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -137,7 +134,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/belle-vue-racers-running.html">Belle Vue Racers</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="belle-vue-racers-running" data-club-name="Belle Vue Racers" aria-pressed="false" aria-label="Save club: Belle Vue Racers" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -148,7 +144,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/chorlton-runners-running.html">Chorlton Runners</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="chorlton-runners-running" data-club-name="Chorlton Runners" aria-pressed="false" aria-label="Save club: Chorlton Runners" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -159,7 +154,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/DidsburyRunners.html">Didsbury Runners</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="didsbury-runners" data-club-name="Didsbury Runners" aria-pressed="false" aria-label="Save club: Didsbury Runners" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:45</span></p>
         <p class="sport-club-row__area">Didsbury</p>
@@ -170,7 +164,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/JustARunClub.html">Just A Run Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="just-a-run-club" data-club-name="Just A Run Club" aria-pressed="false" aria-label="Save club: Just A Run Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:30–19:30</span><span class="sport-club-row__day">Saturday · 10:00–11:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -181,7 +174,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/manchester-deaf-run-club.html">Manchester Deaf Run Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 23 October 2026" title="Club verified · Last Confirmed: 23 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="manchester-deaf-run-club" data-club-name="Manchester Deaf Run Club" aria-pressed="false" aria-label="Save club: Manchester Deaf Run Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Saturday · 11:00</span></p>
         <p class="sport-club-row__area">Media City</p>
@@ -192,7 +184,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/ManchesterFrontrunners.html">Manchester Frontrunners</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="manchester-frontrunners" data-club-name="Manchester Frontrunners" aria-pressed="false" aria-label="Save club: Manchester Frontrunners" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:45</span><span class="sport-club-row__day">Thursday · 19:00</span><span class="sport-club-row__day">Saturday · 10:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -203,7 +194,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/athletics/mcr-ymca-harriers.html">MCR YMCA Harriers<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 23 October 2026" title="Club verified · Last Confirmed: 23 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="mcr-ymca-harriers" data-club-name="MCR YMCA Harriers" aria-pressed="false" aria-label="Save club: MCR YMCA Harriers" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 18:30–20:00</span><span class="sport-club-row__day">Tuesday · 18:30–20:00</span></p>
         <p class="sport-club-row__area">Beswick · City Centre</p>
@@ -214,7 +204,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/MileShyClub.html">Mile Shy Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="mile-shy-club" data-club-name="Mile Shy Club" aria-pressed="false" aria-label="Save club: Mile Shy Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:30–19:30</span><span class="sport-club-row__day">Thursday · 18:30–19:30</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -225,7 +214,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/NotARunningClub.html">Not A Running Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="not-a-running-club" data-club-name="Not A Running Club" aria-pressed="false" aria-label="Save club: Not A Running Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 19:00–20:30</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -236,7 +224,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/RedactedRunClub.html">Redacted Run Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 15 October 2026" title="Club verified · Last Confirmed: 15 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="redacted-run-club" data-club-name="Redacted Run Club" aria-pressed="false" aria-label="Save club: Redacted Run Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:30</span></p>
         <p class="sport-club-row__area">Ancoats</p>
@@ -247,7 +234,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/royton-road-runners.html">Royton Road Runners</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="royton-road-runners" data-club-name="Royton Road Runners" aria-pressed="false" aria-label="Save club: Royton Road Runners" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -258,7 +244,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/stretford-run-club.html">Stretford Run Club<span class="club-verified" role="img" aria-label="Club verified · Last Confirmed: 23 October 2026" title="Club verified · Last Confirmed: 23 October 2026"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6.5 12 3.5 3.5 7.5-7.5" fill="none" stroke="#111211" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="stretford-run-club" data-club-name="Stretford Run Club" aria-pressed="false" aria-label="Save club: Stretford Run Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 19:00</span><span class="sport-club-row__day">Saturday · 09:00</span><span class="sport-club-row__day">Sunday · 09:00</span></p>
         <p class="sport-club-row__area">Stretford · Chorlton</p>
@@ -269,7 +254,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/run-club/TinyMoves.html">Tiny Moves</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="tiny-moves" data-club-name="Tiny Moves" aria-pressed="false" aria-label="Save club: Tiny Moves" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:15</span></p>
         <p class="sport-club-row__area">Area to confirm</p>

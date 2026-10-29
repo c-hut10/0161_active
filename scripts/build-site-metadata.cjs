@@ -216,7 +216,7 @@ function htmlFiles(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     // Deployment copies and private response folders are not source pages or sitemap entries.
     if (entry.name.startsWith('.') || entry.name === 'node_modules'
-      || (dir === root && ['dist', 'private-imports', 'archive', 'tmp'].includes(entry.name))) return [];
+      || (dir === root && ['dist', 'outputs', 'private-imports', 'archive', 'tmp'].includes(entry.name))) return [];
     const full = path.join(dir, entry.name);
     return entry.isDirectory() ? htmlFiles(full) : entry.name.endsWith('.html') ? [full] : [];
   });
@@ -266,18 +266,18 @@ for (const file of htmlFiles(root)) {
   } else {
     source = source.replace('</body>', `${footer}\n</body>`);
   }
-  /* Favourites belong only on club lists and profiles, including empty filtered lists. */
+  /* Calendar saving is available only inside individual club profiles. */
   source = source.replace(/\s*<link\b[^>]*href="\/css\/club-favourites\.css(?:\?[^"]*)?"[^>]*>/g, '')
     .replace(/\s*<script\b[^>]*src="\/js\/club-favourites\.js(?:\?[^"]*)?"[^>]*>\s*<\/script>/g, '');
-  const needsFavourites = source.includes('data-favourite-id=') || /\bid="club-list"/.test(source);
+  const needsFavourites = source.includes('data-favourite-id=');
   const sharedAssets = [
     ['href="/css/site-background.css?v=20261023"', '<link rel="stylesheet" href="/css/site-background.css?v=20261023">'],
     // Shared navigation motion is included on current pages and every future generated template.
     ['href="/css/page-transitions.css?v=20261020"', '<link rel="stylesheet" href="/css/page-transitions.css?v=20261020">'],
     ['src="/js/page-transitions.js?v=20261020"', '<script src="/js/page-transitions.js?v=20261020"></script>'],
     ...(needsFavourites ? [
-      ['href="/css/club-favourites.css"', '<link rel="stylesheet" href="/css/club-favourites.css">'],
-      ['src="/js/club-favourites.js?v=20261022-cleanup"', '<script type="module" src="/js/club-favourites.js?v=20261022-cleanup"></script>']
+      ['href="/css/club-favourites.css?v=20261029-calendar-button"', '<link rel="stylesheet" href="/css/club-favourites.css?v=20261029-calendar-button">'],
+      ['src="/js/club-favourites.js?v=20261029-calendar-button-fix"', '<script type="module" src="/js/club-favourites.js?v=20261029-calendar-button-fix"></script>']
     ] : []),
     ['href="/css/site-footer.css"', '<link rel="stylesheet" href="/css/site-footer.css">'],
     ['href="/css/cookie-settings.css"', '<link rel="stylesheet" href="/css/cookie-settings.css">'],

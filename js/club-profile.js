@@ -1,7 +1,36 @@
-import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_FILE_LABEL, downloadClubCalendar } from './club-calendar.mjs';
+import { CALENDAR_DOWNLOAD_LABEL, CALENDAR_IMPORT_HINT, downloadClubCalendar } from './club-calendar.mjs?v=20261029-download-club';
 import { loadClubDirectory } from './site-data.mjs';
+import { clubShareData, shareClub } from './club-share.mjs';
 const profileRoot = document.querySelector('#club-profile-root');
 const clubId = profileRoot?.dataset.clubId;
+
+/* On-demand sharing needs no directory fetch, background work or third-party widget. */
+const shareButton = profileRoot?.querySelector('[data-share-club]');
+if (shareButton) {
+  shareButton.hidden = false;
+  const feedback = profileRoot.querySelector('.profile-share-feedback');
+  const status = feedback.querySelector('[role="status"]');
+  const manual = feedback.querySelector('input');
+  shareButton.addEventListener('click', async () => {
+    shareButton.disabled = true;
+    feedback.hidden = true;
+    manual.hidden = true;
+    try {
+      const data = clubShareData(shareButton.dataset.shareName,
+        document.querySelector('link[rel="canonical"]')?.href, location.href);
+      const result = await shareClub(data, navigator);
+      if (result === 'cancelled' || result === 'shared') return;
+      status.textContent = result === 'copied' ? 'Club link copied' : 'Copy the club link below.';
+      feedback.hidden = false;
+      if (result === 'manual') {
+        manual.value = data.url;
+        manual.hidden = false;
+        manual.focus({ preventScroll: true });
+        manual.select();
+      }
+    } finally { shareButton.disabled = false; }
+  });
+}
 
 /* Profile addresses: copy the rendered venue and postcode without requesting club data again. */
 profileRoot?.querySelectorAll('[data-copy-address]').forEach(button => { button.hidden = false; });
@@ -12,11 +41,15 @@ profileRoot?.addEventListener('click', async event => {
   const status = session.querySelector('.profile-copy-address-status');
   const address = button.dataset.copyAddress;
   button.disabled = true;
-  button.textContent = 'Copying…';
+  button.setAttribute('aria-busy', 'true');
+  button.classList.remove('is-copied');
+  status.classList.remove('profile-copy-address-status--success');
   status.hidden = true;
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(address);
+    button.classList.add('is-copied');
+    status.classList.add('profile-copy-address-status--success');
     status.textContent = 'Address copied';
   } catch {
     status.textContent = 'Could not copy automatically. Copy the selected address below.';
@@ -28,7 +61,7 @@ profileRoot?.addEventListener('click', async event => {
       manual.readOnly = true;
       manual.rows = 3;
       manual.setAttribute('aria-label', 'Training address for manual copying');
-      session.append(manual);
+      session.insertBefore(manual, button);
     }
     manual.value = address;
     manual.focus({ preventScroll: true });
@@ -36,7 +69,7 @@ profileRoot?.addEventListener('click', async event => {
   } finally {
     status.hidden = false;
     button.disabled = false;
-    button.textContent = 'Copy address';
+    button.removeAttribute('aria-busy');
   }
 });
 /* Static profile enhancement: load club data only when the user downloads its calendar. */
@@ -46,16 +79,23 @@ function addCalendarDownload() {
   button.type = 'button';
   button.className = 'profile-action profile-calendar-download';
   button.textContent = CALENDAR_DOWNLOAD_LABEL.toUpperCase();
-  const label = document.createElement('small');
-  label.textContent = CALENDAR_FILE_LABEL;
-  button.append(label);
+  const action = document.createElement('div');
+  action.className = 'profile-calendar-action';
+  const hint = document.createElement('small');
+  hint.className = 'profile-calendar-hint';
+  hint.textContent = CALENDAR_IMPORT_HINT;
+  hint.id = 'profile-calendar-import-hint';
+  hint.hidden = true;
+  action.append(hint, button);
   const status = document.createElement('p');
   status.className = 'profile-status';
   status.setAttribute('role', 'status');
   status.hidden = true;
-  profileRoot.querySelector('.profile-week__heading')?.append(button);
+  profileRoot.querySelector('.profile-week__heading')?.append(action);
   profileRoot.querySelector('.profile-week')?.append(status);
   button.addEventListener('click', async () => {
+    hint.hidden = false;
+    button.setAttribute('aria-describedby', hint.id);
     button.disabled = true;
     /* Announce progress while the shared directory is fetched for the download. */
     button.setAttribute('aria-busy', 'true');
@@ -74,7 +114,6 @@ function addCalendarDownload() {
       button.disabled = false;
       button.removeAttribute('aria-busy');
       button.textContent = CALENDAR_DOWNLOAD_LABEL.toUpperCase();
-      button.append(label);
     }
   });
 }

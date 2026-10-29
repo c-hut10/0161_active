@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261012-team-toggle">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
   <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
-  <script type="module" src="../../js/sport-glossary.js?v=20261015-row-menus"></script>
+  <script type="module" src="../../js/sport-glossary.js?v=20261029-profile-save-only"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -21,8 +21,6 @@
   <link rel="stylesheet" href="/css/site-background.css?v=20261023">
   <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
   <script src="/js/page-transitions.js?v=20261020"></script>
-  <link rel="stylesheet" href="/css/club-favourites.css">
-  <script type="module" src="/js/club-favourites.js?v=20261022-cleanup"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/football.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -43,7 +41,7 @@
   <meta name="twitter:image:alt" content="0161 Active logo">
   <!-- /Social preview -->
   <!-- Structured data -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/football.html#page","url":"https://0161active.co.uk/html/sports/football.html","name":"Find Football clubs in Manchester | 0161 Active","description":"Explore Football clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/football.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/football.html#list","numberOfItems":11,"itemListElement":[{"@type":"ListItem","position":1,"name":"Beswick Community Football Club / PD Coaching","url":"https://0161active.co.uk/html/football/beswick-community-football-club-pd-coaching.html"},{"@type":"ListItem","position":2,"name":"Bury Amateurs AFC","url":"https://0161active.co.uk/html/football/bury-amateurs-afc.html"},{"@type":"ListItem","position":3,"name":"Bury Football Club","url":"https://0161active.co.uk/html/football/bury-football-club.html"},{"@type":"ListItem","position":4,"name":"Manchester Football Dreams","url":"https://0161active.co.uk/html/football/manchester-football-dreams.html"},{"@type":"ListItem","position":5,"name":"Radcliffe Borough Juniors","url":"https://0161active.co.uk/html/football/radcliffe-borough-juniors.html"},{"@type":"ListItem","position":6,"name":"Radcliffe Juniors FC","url":"https://0161active.co.uk/html/football/radcliffe-juniors-fc.html"},{"@type":"ListItem","position":7,"name":"Ramsbottom United JFC","url":"https://0161active.co.uk/html/football/ramsbottom-united-jfc.html"},{"@type":"ListItem","position":8,"name":"Seedfield FC","url":"https://0161active.co.uk/html/football/seedfield-fc.html"},{"@type":"ListItem","position":9,"name":"Warth Fold and Redvales Community Sports Club","url":"https://0161active.co.uk/html/football/warth-fold-and-redvales-community-sports-club.html"},{"@type":"ListItem","position":10,"name":"Westbury Sports Club","url":"https://0161active.co.uk/html/football/westbury-sports-club.html"},{"@type":"ListItem","position":11,"name":"Wythenshawe Football Club","url":"https://0161active.co.uk/html/football/wythenshawe-football-club.html"}]}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://0161active.co.uk/html/sports/football.html#page","url":"https://0161active.co.uk/html/sports/football.html","name":"Find Football clubs in Manchester | 0161 Active","description":"Explore Football clubs across Greater Manchester. Filter by area and training day, and view individual club profiles on 0161 Active.","inLanguage":"en-GB","isPartOf":{"@id":"https://0161active.co.uk/#website"},"mainEntity":{"@id":"https://0161active.co.uk/html/sports/football.html#list"}},{"@type":"ItemList","@id":"https://0161active.co.uk/html/sports/football.html#list","numberOfItems":5,"itemListElement":[{"@type":"ListItem","position":1,"name":"Ramsbottom United JFC","url":"https://0161active.co.uk/html/football/ramsbottom-united-jfc.html"},{"@type":"ListItem","position":2,"name":"Seedfield FC","url":"https://0161active.co.uk/html/football/seedfield-fc.html"},{"@type":"ListItem","position":3,"name":"Warth Fold and Redvales Community Sports Club","url":"https://0161active.co.uk/html/football/warth-fold-and-redvales-community-sports-club.html"},{"@type":"ListItem","position":4,"name":"Westbury Sports Club","url":"https://0161active.co.uk/html/football/westbury-sports-club.html"},{"@type":"ListItem","position":5,"name":"Wythenshawe Football Club","url":"https://0161active.co.uk/html/football/wythenshawe-football-club.html"}]}]}</script>
   <!-- /Structured data -->
 </head>
 <body class="sport-glossary-body site-grid" data-sport="football">
@@ -100,7 +98,7 @@
         <input id="club-search" type="search" placeholder="Club name" autocomplete="off">
       </label>
       <label>AREA
-        <select id="area-filter"><option value="all">All areas</option><option value="Beswick">Beswick</option><option value="Bury">Bury</option><option value="City Centre">City Centre</option><option value="Northenden">Northenden</option><option value="Prestwich">Prestwich</option><option value="Radcliffe">Radcliffe</option></select>
+        <select id="area-filter"><option value="all">All areas</option><option value="Bury">Bury</option><option value="Northenden">Northenden</option></select>
       </label>
       <label>DAY
         <select id="day-filter">
@@ -119,80 +117,13 @@
     <noscript><p class="sport-glossary-message">You can browse every club below. Enable JavaScript to use the filters.</p></noscript>
     <!-- Club rows are generated at build time, then updated by browser filters. -->
     <section class="sport-club-directory" aria-label="Club results">
-      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">11 CLUBS SHOWN</p></div>
+      <div class="sport-club-directory__heading"><p class="sport-glossary-eyebrow" id="club-count" aria-live="polite">05 CLUBS SHOWN</p></div>
       <p class="sport-glossary-message" id="directory-message" role="status" hidden></p>
       <ol class="sport-club-list" id="club-list" aria-label="Football clubs"><li>
       <article class="sport-club-row">
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/football/beswick-community-football-club-pd-coaching.html">Beswick Community Football Club / PD Coaching</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="beswick-community-football-club-pd-coaching" data-club-name="Beswick Community Football Club / PD Coaching" aria-pressed="false" aria-label="Save club: Beswick Community Football Club / PD Coaching" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
-        </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Monday · 18:00–20:00</span></p>
-        <p class="sport-club-row__area">Beswick</p>
-        <a class="sport-club-link" href="/html/football/beswick-community-football-club-pd-coaching.html" aria-label="Open Beswick Community Football Club / PD Coaching profile">↗</a>
-      </article>
-    </li><li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/football/bury-amateurs-afc.html">Bury Amateurs AFC</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="bury-amateurs-afc" data-club-name="Bury Amateurs AFC" aria-pressed="false" aria-label="Save club: Bury Amateurs AFC" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
-        </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 18:30–20:30</span></p>
-        <p class="sport-club-row__area">Prestwich</p>
-        <a class="sport-club-link" href="/html/football/bury-amateurs-afc.html" aria-label="Open Bury Amateurs AFC profile">↗</a>
-      </article>
-    </li><li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/football/bury-football-club.html">Bury Football Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="bury-football-club" data-club-name="Bury Football Club" aria-pressed="false" aria-label="Save club: Bury Football Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
-        </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:00–20:00</span></p>
-        <p class="sport-club-row__area">Bury</p>
-        <a class="sport-club-link" href="/html/football/bury-football-club.html" aria-label="Open Bury Football Club profile">↗</a>
-      </article>
-    </li><li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/football/manchester-football-dreams.html">Manchester Football Dreams</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="manchester-football-dreams" data-club-name="Manchester Football Dreams" aria-pressed="false" aria-label="Save club: Manchester Football Dreams" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
-        </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 18:30–20:30</span></p>
-        <p class="sport-club-row__area">City Centre</p>
-        <a class="sport-club-link" href="/html/football/manchester-football-dreams.html" aria-label="Open Manchester Football Dreams profile">↗</a>
-      </article>
-    </li><li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/football/radcliffe-borough-juniors.html">Radcliffe Borough Juniors</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="radcliffe-borough-juniors" data-club-name="Radcliffe Borough Juniors" aria-pressed="false" aria-label="Save club: Radcliffe Borough Juniors" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
-        </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Saturday · 10:00–12:00</span></p>
-        <p class="sport-club-row__area">Radcliffe</p>
-        <a class="sport-club-link" href="/html/football/radcliffe-borough-juniors.html" aria-label="Open Radcliffe Borough Juniors profile">↗</a>
-      </article>
-    </li><li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
-          <h3><a class="sport-club-name" href="/html/football/radcliffe-juniors-fc.html">Radcliffe Juniors FC</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="radcliffe-juniors-fc" data-club-name="Radcliffe Juniors FC" aria-pressed="false" aria-label="Save club: Radcliffe Juniors FC" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
-        </div>
-        <p class="sport-club-row__sessions"><span class="sport-club-row__day">Sunday · 11:00–13:00</span></p>
-        <p class="sport-club-row__area">Radcliffe</p>
-        <a class="sport-club-link" href="/html/football/radcliffe-juniors-fc.html" aria-label="Open Radcliffe Juniors FC profile">↗</a>
-      </article>
-    </li><li>
-      <article class="sport-club-row">
-        <span class="sport-club-row__number" aria-hidden="true"></span>
-        <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/football/ramsbottom-united-jfc.html">Ramsbottom United JFC</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="ramsbottom-united-jfc" data-club-name="Ramsbottom United JFC" aria-pressed="false" aria-label="Save club: Ramsbottom United JFC" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -203,7 +134,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/football/seedfield-fc.html">Seedfield FC</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="seedfield-fc" data-club-name="Seedfield FC" aria-pressed="false" aria-label="Save club: Seedfield FC" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -214,7 +144,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/football/warth-fold-and-redvales-community-sports-club.html">Warth Fold and Redvales Community Sports Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="warth-fold-and-redvales-community-sports-club" data-club-name="Warth Fold and Redvales Community Sports Club" aria-pressed="false" aria-label="Save club: Warth Fold and Redvales Community Sports Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -225,7 +154,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/football/westbury-sports-club.html">Westbury Sports Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="westbury-sports-club" data-club-name="Westbury Sports Club" aria-pressed="false" aria-label="Save club: Westbury Sports Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Thursday · 20:00–21:00</span></p>
         <p class="sport-club-row__area">Bury</p>
@@ -236,7 +164,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/football/wythenshawe-football-club.html">Wythenshawe Football Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="wythenshawe-football-club" data-club-name="Wythenshawe Football Club" aria-pressed="false" aria-label="Save club: Wythenshawe Football Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Northenden</p>

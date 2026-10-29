@@ -1,4 +1,4 @@
-import { createReachMap } from './calendar-sector-map.mjs?v=20261028-data-credits';
+import { createReachMap } from './calendar-sector-map.mjs?v=20261029-sport-panel-close';
 import { postcodeSector } from './club-areas.mjs';
 import { sessionSector, milesBetween } from './postcode-distance.mjs';
 

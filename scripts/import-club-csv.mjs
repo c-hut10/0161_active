@@ -2,10 +2,10 @@ import fs from 'node:fs';
 import { mergeCsvSessions } from './merge-csv-sessions.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CSV_COLUMNS, MASTER_COLUMNS, masterRowAnswers, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, MEMBERSHIP_PERIODS, clubAnswers } from '../js/club-submission.mjs';
+import { CSV_COLUMNS, MASTER_COLUMNS, PRE_OPTIONS_MASTER_COLUMNS, PRE_VERIFIED_MASTER_COLUMNS, LEGACY_MASTER_COLUMNS, LEGACY_CSV_COLUMNS, masterRowAnswers, CLUB_ANSWER_FIELDS, SESSION_ANSWER_FIELDS, PAID_PRICE_TYPES, MEMBERSHIP_PERIODS, clubAnswers } from '../js/club-submission.mjs';
 import { sportSlug, WEEK_DAYS, compareClubsBySportAndName } from '../js/club-formatting.mjs';
 import { areaFromPostcode } from '../js/club-areas.mjs';
-import { verificationDate } from '../js/club-verification.mjs';
+import { verificationDate, verificationFromImport } from '../js/club-verification.mjs';
 import { leagueAnswers, LEAGUE_COVERAGES } from '../js/club-leagues.mjs';
 
 /* CSV decoding: preserve quoted commas, line breaks and escaped quotes in club answers. */
@@ -51,9 +51,9 @@ if (!file || args.some(argument => argument.startsWith('--') && !['--write', '--
 const rows = readCsv(fs.readFileSync(path.resolve(file), 'utf8'));
 const headers = rows.shift() || [];
 const matches = columns => headers.length === columns.length && new Set(headers).size === headers.length && columns.every(column => headers.includes(column));
-const masterFormat = matches(MASTER_COLUMNS);
+const masterFormat = matches(MASTER_COLUMNS) || matches(PRE_OPTIONS_MASTER_COLUMNS) || matches(PRE_VERIFIED_MASTER_COLUMNS) || matches(LEGACY_MASTER_COLUMNS);
 if (args.includes('--merge-sessions') && !masterFormat) throw new Error('Incremental imports require the Master CSV with Club IDs and Session IDs.');
-if (!masterFormat && !matches(CSV_COLUMNS)) throw new Error('CSV headings must match the Master template or the legacy JSON-path template. Column order may vary.');
+if (!masterFormat && !matches(CSV_COLUMNS) && !matches(LEGACY_CSV_COLUMNS)) throw new Error('CSV headings must match the Master template or the legacy JSON-path template. Column order may vary.');
 if (!rows.length) throw new Error('The CSV contains no club answers.');
 const dataFile = path.join(root, 'data/clubs.json');
 const data = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
@@ -82,7 +82,7 @@ rows.forEach((row, index) => {
   }
   if (!groups.has(id)) groups.set(id, { values, rows: [] });
   const group = groups.get(id);
-  for (const field of CLUB_ANSWER_FIELDS.concat(masterFormat ? ['kitRequired', 'kitDetails'] : [])) {
+  for (const field of CLUB_ANSWER_FIELDS.concat(masterFormat ? ['kitRequired', 'kitDetails', 'verified', 'paymentOptions'] : [])) {
     // Per-session charges may differ across rows; every other club-wide answer must still agree.
     if (field === 'price.amount' && values['price.type'] === 'per_session' && group.values['price.type'] === 'per_session') continue;
     if (values[field] !== group.values[field]) errors.push(`Row ${line}: ${field} conflicts with another row for ${id}. Repeat identical club details on every session row.`);
@@ -187,6 +187,9 @@ for (const [id, group] of groups) {
   // Existing photos, paths and sources remain.
 
   updates.push({ ...(existing || {}), ...answers, id,
+    ...(headers.includes('Payment options') ? { pricingOptions: null } : {}),
+    // Older exports have no optional payment choices; do not erase existing choices on that account.
+    ...(!headers.includes('Payment options') && existing ? { paymentOptions: existing.paymentOptions || [] } : {}),
     ...(!masterFormat && existing ? { kitRequired: existing.kitRequired ?? null, kitDetails: existing.kitDetails ?? null } : {}),
     imagePath: existing?.imagePath || null,
     profilePath: existing?.profilePath || `html/${answers.sport}/${id}.html`,
@@ -196,12 +199,12 @@ for (const [id, group] of groups) {
     pricingNotes: null, bookingNotes: null, tasterNotes: null,
     // A complete form response supersedes owner-held venues with its submitted sessions.
     trainingVenues: [],
-    verification: { status: 'verified', lastConfirmed: importDate }
+    verification: verificationFromImport(masterFormat && group.values.verified === 'yes', existing, importDate)
   });
 }
 if (warnings.length) console.log('Review issues:\n' + warnings.map(message => `- ${message}`).join('\n'));
 if (errors.length) throw new Error('Import blocked; no records changed:\n' + errors.map(message => `- ${message}`).join('\n'));
-console.log(`${updates.length} clubs prepared, ${updates.reduce((total, club) => total + club.sessions.length, 0)} sessions. Last Confirmed: ${importDate}.`);
+console.log(`${updates.length} clubs prepared, ${updates.reduce((total, club) => total + club.sessions.length, 0)} sessions. ${updates.filter(club => club.verification.status === 'verified').length} explicitly verified.`);
 if (args.includes('--write')) {
   for (const update of updates) {
     const index = data.clubs.findIndex(club => club.id === update.id);

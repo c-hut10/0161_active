@@ -1,28 +1,37 @@
 import { formatPostcodes, sportSlug, displaySportName, formatPrice, formatMembership, genderEligibilityLabel, DAY_NAMES } from './club-formatting.mjs';
 import { sessionTitle, sessionPricingClub } from './session-details.mjs';
+import { paymentOptions } from './club-payment-options.mjs';
 import { normaliseLeagues, leagueAnswers, LEAGUE_COVERAGES } from './club-leagues.mjs?v=20261026-sheet-fields';
 
 /* Legacy CSV fields remain readable; the current form exports the agreed Master headings. */
 export const CLUB_ANSWER_FIELDS = ['name', 'sport', 'beginnerFriendly', 'genderSpecific', 'genderEligibility', 'participatesInLeague', 'participatingLeagues.teamName', 'participatingLeagues.name', 'participatingLeagues.coverage', 'description', 'contact', 'onlineProfile.url',
   'price.type', 'price.amount', 'membership.period', 'membership.amount', 'membership.sessionAmount',
   'tasterSessionCount', 'bookingRequired', 'additionalInformation'];
-export const SESSION_ANSWER_FIELDS = ['title', 'dayOfWeek', 'startTime', 'endTime',
+export const SESSION_ANSWER_FIELDS = ['title', 'dayOfWeek', 'beginnerFriendly', 'startTime', 'endTime',
   'meetingPoint', 'postcode', 'eligibility', 'specialConsiderations'];
 export const CSV_COLUMNS = ['id', ...CLUB_ANSWER_FIELDS, ...SESSION_ANSWER_FIELDS.map(field => `sessions.${field}`)];
 // Retired questions remain supported only when reading earlier CSV submissions.
 export const FORM_ANSWER_FIELDS = CLUB_ANSWER_FIELDS.filter(field => ![
   'participatingLeagues.teamName', 'participatingLeagues.coverage', 'membership.period',
-  'membership.amount', 'membership.sessionAmount', 'additionalInformation'
-].includes(field)).concat(['kitRequired', 'kitDetails']);
-export const MASTER_COLUMNS = [
+  'membership.amount', 'membership.sessionAmount', 'additionalInformation', 'beginnerFriendly'
+].includes(field)).concat(['kitRequired', 'kitDetails', 'paymentOptions']);
+const VERIFIED_LAST_MASTER_COLUMNS = [
   'Club ID', 'Club name', 'Sport or activity', 'Contact email', 'Website or social link',
-  'Beginner friendly?', 'Kit requirements for newcomers?', 'Kit Details:', 'Gender-specific?',
+  'Kit requirements for newcomers?', 'Kit Details:', 'Gender-specific?',
   'Gender eligibility — if applicable', 'About the club', 'Payment Type', 'Membership amount (£)',
   'Booking required?', 'How many free taster sessions do you offer newcomers?',
-  'Participate in a league?', 'League name', 'Session ID', 'Training day', 'Session Price (£)',
+  'Participate in a league?', 'League name', 'Session ID', 'Training day', 'Session beginner friendly?', 'Session Price (£)',
   'Session Name', 'Session address', 'Session Postcode', 'Start time', 'End time',
-  'Any extra session info?', 'Update Timestamp'
+  'Any extra session info?', 'Payment options', 'Verified', 'Update Timestamp'
 ];
+export const MASTER_COLUMNS = ['Verified', ...VERIFIED_LAST_MASTER_COLUMNS.filter(field => !['Verified', 'Payment options'].includes(field))];
+MASTER_COLUMNS.splice(MASTER_COLUMNS.indexOf('Payment Type'), 0, 'Payment options');
+export const PRE_OPTIONS_MASTER_COLUMNS = VERIFIED_LAST_MASTER_COLUMNS.filter(field => field !== 'Payment options');
+export const PRE_VERIFIED_MASTER_COLUMNS = PRE_OPTIONS_MASTER_COLUMNS.filter(field => field !== 'Verified');
+// Earlier files remain readable without treating a club answer as session evidence.
+export const LEGACY_MASTER_COLUMNS = PRE_VERIFIED_MASTER_COLUMNS.filter(field => field !== 'Session beginner friendly?');
+LEGACY_MASTER_COLUMNS.splice(5, 0, 'Beginner friendly?');
+export const LEGACY_CSV_COLUMNS = CSV_COLUMNS.filter(field => field !== 'sessions.beginnerFriendly');
 const PAYMENT_LABELS = { free: 'Free', monthly_fee: 'Monthly membership', annual_fee: 'Annual membership', per_session: 'Per session', unknown: 'Not confirmed' };
 export const PAID_PRICE_TYPES = ['monthly_fee', 'annual_fee', 'per_session'];
 export const MEMBERSHIP_PERIODS = ['monthly', 'annual'];
@@ -32,6 +41,9 @@ const optional = value => text(value) || null;
 /* Normalised answers: the form and CSV importer produce the same club/session fields. */
 export function sessionAnswers(values) {
   const session = Object.fromEntries(SESSION_ANSWER_FIELDS.map(field => [field, optional(values[field])]));
+  const beginner = text(values.beginnerFriendly).toLowerCase();
+  if (beginner && !['true', 'false', 'yes', 'no', 'not confirmed'].includes(beginner)) throw new Error('Session beginner friendly?: use TRUE, FALSE or Not confirmed.');
+  session.beginnerFriendly = ['true', 'yes'].includes(beginner) ? true : ['false', 'no'].includes(beginner) ? false : null;
   if (text(values.id)) session.id = text(values.id);
   session.dayOfWeek = session.dayOfWeek ? Number(session.dayOfWeek) : null;
   session.meetingPoint = optional(formatPostcodes(session.meetingPoint));
@@ -71,7 +83,8 @@ export function clubAnswers(values, sessions) {
     tasterSessionCount: text(values.tasterSessionCount) ? Number(values.tasterSessionCount) : null,
     // Explicit CSV answers apply at any price; unspecified booking is hidden by default.
     bookingRequired: text(values.bookingRequired) === 'yes' ? true : text(values.bookingRequired) === 'no' ? false : null,
-    additionalInformation: optional(values.additionalInformation), sessions: sessions.map(sessionAnswers)
+    additionalInformation: optional(values.additionalInformation), sessions: sessions.map(sessionAnswers),
+    paymentOptions: paymentOptions(values.paymentOptions)
   };
 }
 
@@ -90,7 +103,7 @@ function submissionRows(values, sessions, id) {
     const row = {
       'Club ID': id, 'Club name': known(club.name), 'Sport or activity': known(values.sport),
       'Contact email': known(club.contact), 'Website or social link': known(club.onlineProfile?.url),
-      'Beginner friendly?': known(club.beginnerFriendly), 'Kit requirements for newcomers?': known(club.kitRequired),
+      'Kit requirements for newcomers?': known(club.kitRequired),
       'Kit Details:': dependent(club.kitRequired, club.kitDetails), 'Gender-specific?': known(club.genderSpecific),
       'Gender eligibility — if applicable': dependent(club.genderSpecific, club.genderEligibility),
       'About the club': known(club.description), 'Payment Type': PAYMENT_LABELS[club.price.type] || 'Not confirmed',
@@ -101,10 +114,14 @@ function submissionRows(values, sessions, id) {
       'League name': dependent(club.participatesInLeague, club.participatingLeagues.map(league => league.name).join('; ')),
       'Session ID': session ? (session.id || '') : false,
       'Training day': session ? known(DAY_NAMES[session.dayOfWeek]) : 'Not confirmed',
+      'Session beginner friendly?': known(session?.beginnerFriendly),
       'Session Price (£)': club.price.type === 'per_session' ? known(session?.price?.amount) : false,
       'Session Name': known(session?.title), 'Session address': known(session?.meetingPoint),
       'Session Postcode': known(session?.postcode), 'Start time': known(session?.startTime),
       'End time': session?.endTime || '', 'Any extra session info?': known(session?.specialConsiderations),
+      // A club supplying its own details counts as confirmation under the owner's policy.
+      'Verified': true,
+      'Payment options': club.paymentOptions.join('\n') || 'Not confirmed',
       // The spreadsheet owns its edit timestamp; no fabricated browser edit history.
       'Update Timestamp': ''
     };
@@ -123,7 +140,7 @@ function spreadsheetFromRows(rows) {
     if (/^\s*[=+@-]/.test(answer)) answer = `'${answer}`;
     return answer;
   };
-  return rows.map(row => row.map(cell).join('\t')).join('\r\n');
+  return rows.map(row => row.map((value, index) => cell(MASTER_COLUMNS[index] === 'Payment options' ? paymentOptions(value).join(' | ') : value)).join('\t')).join('\r\n');
 }
 
 export function submissionCsv(values, sessions, id = '') {
@@ -157,7 +174,6 @@ export function submissionReview(club) {
   const sections = [
     { title: 'Club', step: 0, lines: [
       `Name: ${supplied(club.name)}`, `Sport: ${supplied(displaySportName(club.sport))}`,
-      `Beginners welcome: ${yesNo(club.beginnerFriendly)}`,
       `Kit required: ${yesNo(club.kitRequired)}`,
       ...(club.kitRequired === true ? [`Kit details: ${supplied(club.kitDetails)}`] : []),
       `Gender eligibility: ${supplied(genderEligibilityLabel(club))}`,
@@ -168,6 +184,7 @@ export function submissionReview(club) {
         `${[DAY_NAMES[session.dayOfWeek], session.title].filter(Boolean).join(' · ')}: ${formatPrice(sessionPricingClub(club, session), { compact:true })}`
       ) : [`Price: ${formatPrice(club, { compact: true, minimumFractionDigits: 0 })}`]),
       ...(club.membership ? [`Optional membership: ${formatMembership(club, { minimumFractionDigits: 0 })}`] : []),
+      ...paymentOptions(club.paymentOptions),
       `Free taster sessions: ${club.tasterSessionCount ?? 'Not supplied'}`,
       `Does a first-timer need to book before a session? ${yesNo(club.bookingRequired)}`
     ] },
@@ -177,6 +194,7 @@ export function submissionReview(club) {
     ] },
     { title: 'Training', step: 1, lines: club.sessions.flatMap((session, index) => [
       `${index + 1}. ${session.title}`,
+      `Beginners welcome: ${yesNo(session.beginnerFriendly)}`,
       `${DAY_NAMES[session.dayOfWeek] || 'Day not supplied'} · ${[session.startTime, session.endTime].filter(Boolean).join('–') || 'Time not supplied'}`,
       `Location: ${supplied([session.meetingPoint, session.postcode].filter(Boolean).join(', '))}`,
       ...(session.specialConsiderations ? [`Special considerations: ${session.specialConsiderations}`] : [])
@@ -216,6 +234,8 @@ export function masterRowAnswers(row) {
   Object.assign(values, {
     id: answer('Club ID'), name: answer('Club name'), sport: answer('Sport or activity'),
     contact: answer('Contact email'), 'onlineProfile.url': answer('Website or social link'),
+    verified: boolean('Verified'),
+    paymentOptions: answer('Payment options'),
     beginnerFriendly: boolean('Beginner friendly?'), kitRequired: boolean('Kit requirements for newcomers?'),
     kitDetails: answer('Kit Details:'), genderSpecific: boolean('Gender-specific?'),
     genderEligibility: answer('Gender eligibility — if applicable'), description: answer('About the club'),
@@ -230,6 +250,7 @@ export function masterRowAnswers(row) {
   if (answer('Session ID')) Object.assign(values, {
     'sessions.id': answer('Session ID'), 'sessions.title': answer('Session Name'),
     'sessions.dayOfWeek': String(dayNumber), 'sessions.startTime': answer('Start time'), 'sessions.endTime': answer('End time'),
+    'sessions.beginnerFriendly': boolean('Session beginner friendly?'),
     'sessions.meetingPoint': answer('Session address'), 'sessions.postcode': answer('Session Postcode'),
     'sessions.specialConsiderations': answer('Any extra session info?')
   });

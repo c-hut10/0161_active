@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261012-team-toggle">
   <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
   <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
-  <script type="module" src="../../js/sport-glossary.js?v=20261015-row-menus"></script>
+  <script type="module" src="../../js/sport-glossary.js?v=20261029-profile-save-only"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>

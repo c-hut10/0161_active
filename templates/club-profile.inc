@@ -9,7 +9,7 @@
   <meta name="description" content="{{description}}">
   <title>{{title}}</title>
   <link rel="stylesheet" href="../../css/0161_Page.css?v=20261009-breakpoints">
-  <link rel="stylesheet" href="../../css/club-profile.css?v=20261024-booking-heading">
+  <link rel="stylesheet" href="../../css/club-profile.css?v=20261029-bottom-contact">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261007-cleanup">
   <script defer src="/js/site-nav.js?v=20261007-cleanup"></script>
   <link rel="canonical" href="{{pageUrl}}">
@@ -47,6 +47,6 @@
 
   <!-- Footer and enhancements: share the footer and enable calendar downloads. -->
 {{footer}}
-  <script type="module" src="../../js/club-profile.js?v=20261015-equal-sessions"></script>
+  <script type="module" src="../../js/club-profile.js?v=20261029-download-club"></script>
 </body>
 </html>

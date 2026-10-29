@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../css/sport-glossary.css?v=20261012-team-toggle">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
   <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
-  <script type="module" src="../../js/sport-glossary.js?v=20261015-row-menus"></script>
+  <script type="module" src="../../js/sport-glossary.js?v=20261029-profile-save-only"></script>
   <link rel="stylesheet" href="/css/site-footer.css">
   <link rel="stylesheet" href="/css/cookie-settings.css">
   <script defer src="/js/cookie-settings.js"></script>
@@ -21,8 +21,6 @@
   <link rel="stylesheet" href="/css/site-background.css?v=20261023">
   <link rel="stylesheet" href="/css/page-transitions.css?v=20261020">
   <script src="/js/page-transitions.js?v=20261020"></script>
-  <link rel="stylesheet" href="/css/club-favourites.css">
-  <script type="module" src="/js/club-favourites.js?v=20261022-cleanup"></script>
   <link rel="canonical" href="https://0161active.co.uk/html/sports/cycling.html">
   <!-- Social preview -->
   <meta property="og:type" content="website">
@@ -126,7 +124,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/bolton-clarion-cycling-club.html">Bolton Clarion Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="bolton-clarion-cycling-club" data-club-name="Bolton Clarion Cycling Club" aria-pressed="false" aria-label="Save club: Bolton Clarion Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -137,7 +134,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/bury-clarion-cycling-club.html">Bury Clarion Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="bury-clarion-cycling-club" data-club-name="Bury Clarion Cycling Club" aria-pressed="false" aria-label="Save club: Bury Clarion Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -148,7 +144,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/chorlton-velo.html">Chorlton Velo Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="chorlton-velo" data-club-name="Chorlton Velo Cycling Club" aria-pressed="false" aria-label="Save club: Chorlton Velo Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Saturday · 09:00</span><span class="sport-club-row__day">Sunday · 08:15</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -159,7 +154,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/manchester-wheelers.html">Manchester Wheelers</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="manchester-wheelers" data-club-name="Manchester Wheelers" aria-pressed="false" aria-label="Save club: Manchester Wheelers" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:30</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -170,7 +164,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/rochdale-cycling-club.html">Rochdale Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="rochdale-cycling-club" data-club-name="Rochdale Cycling Club" aria-pressed="false" aria-label="Save club: Rochdale Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -181,7 +174,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/stockport-clarion-cycling-club.html">Stockport Clarion Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="stockport-clarion-cycling-club" data-club-name="Stockport Clarion Cycling Club" aria-pressed="false" aria-label="Save club: Stockport Clarion Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Stockport</p>
@@ -192,7 +184,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/stockport-community-cycling-club.html">Stockport Community Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="stockport-community-cycling-club" data-club-name="Stockport Community Cycling Club" aria-pressed="false" aria-label="Save club: Stockport Community Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Training schedule to confirm</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -203,7 +194,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/wigan-wheelers-and-triathlon-club.html">Wigan Wheelers and Triathlon Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="wigan-wheelers-and-triathlon-club" data-club-name="Wigan Wheelers and Triathlon Club" aria-pressed="false" aria-label="Save club: Wigan Wheelers and Triathlon Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Wednesday · 18:00</span><span class="sport-club-row__day">Saturday · 09:00</span><span class="sport-club-row__day">Sunday · 08:00</span></p>
         <p class="sport-club-row__area">Area to confirm</p>
@@ -214,7 +204,6 @@
         <span class="sport-club-row__number" aria-hidden="true"></span>
         <div class="sport-club-row__details">
           <h3><a class="sport-club-name" href="/html/cycling/wythenshawe-wheelers-cycling-club.html">Wythenshawe Wheelers Cycling Club</a></h3>
-          <button type="button" class="club-favourite" data-favourite-id="wythenshawe-wheelers-cycling-club" data-club-name="Wythenshawe Wheelers Cycling Club" aria-pressed="false" aria-label="Save club: Wythenshawe Wheelers Cycling Club" title="Save club" hidden><svg class="club-favourite-star" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.3.9-4.55 4.45 1.07 6.28L12 17.36l-5.62 2.97 1.07-6.28L2.9 9.6l6.3-.9Z"/></svg></button>
         </div>
         <p class="sport-club-row__sessions"><span class="sport-club-row__day">Tuesday · 09:30–12:00</span><span class="sport-club-row__day">Wednesday · 09:30–12:00</span><span class="sport-club-row__day">Saturday · 13:00–15:00</span></p>
         <p class="sport-club-row__area">Wythenshawe</p>

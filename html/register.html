@@ -6,7 +6,7 @@
   <meta name="description" content="Submit your sports club to the 0161 Active directory with its location, training sessions and contact details for review.">
   <title>Register your club | 0161 Active</title>
   <link rel="stylesheet" href="../css/site-base.css">
-  <link rel="stylesheet" href="../css/register.css?v=20261024-booking-heading">
+  <link rel="stylesheet" href="../css/register.css?v=20261029-bottom-contact">
   <link rel="stylesheet" href="/css/filter-picker.css?v=20261015-row-menus">
   <link rel="stylesheet" href="/css/site-nav.css?v=20261009-breakpoints">
   <script defer src="/js/site-nav.js?v=20261022-cleanup"></script>
@@ -96,6 +96,7 @@
     <div class="register-layout">
       <form id="club-form" class="club-form" name="club-registration" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true">
         <input type="hidden" name="form-name" value="club-registration">
+        <input type="hidden" name="Verified" value="TRUE">
         <p hidden><label>Leave this field empty: <input name="bot-field"></label></p>
         <section class="form-section" data-form-step aria-labelledby="basics-heading">
           <p class="section-number">01 / THE BASICS</p>
@@ -107,7 +108,6 @@
             <!-- Payment method is a club detail; session charges are collected with each session. -->
             <label class="field"><span class="field-title">Payment type</span><select name="price.type"><option value="unknown">Not confirmed</option><option value="free">Free</option><option value="monthly_fee">Monthly membership</option><option value="annual_fee">Annual membership</option><option value="per_session">Per session</option></select></label>
             <!-- Beginner welcome: collect an explicit club-wide answer without changing session levels. -->
-            <label class="field field-wide"><span class="field-title">Is your club beginner friendly? <span class="required">*</span></span><select name="beginnerFriendly" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <!-- Kit details are collected only when newcomers need to bring equipment. -->
             <label class="field field-wide"><span class="field-title">Kit requirements for newcomers? <span class="required">*</span></span><select name="kitRequired" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide" id="kit-details-field" hidden><span class="field-title">Kit details <span class="required">*</span></span><textarea name="kitDetails" maxlength="600" rows="3" disabled></textarea></label>
@@ -132,6 +132,20 @@
             <input type="hidden" name="participatingLeagues.name">
             <!-- Only monthly and annual membership need a club-wide amount. -->
             <label class="field" data-base-membership-price hidden><span class="field-title">Membership amount (£) <span class="required">*</span></span><input name="price.amount" type="number" min="0" step="0.01" placeholder="e.g. 10" disabled><small>The amount for your chosen monthly or annual membership.</small></label>
+            <details class="payment-options field-wide">
+              <summary>Other payment options or additional charges?</summary>
+              <p>Add alternatives to your main price, discounted member sessions or competition fees. Leave this closed if your main price covers everything.</p>
+              <datalist id="payment-option-suggestions"><option value="Pay as you go"></option><option value="Monthly membership"></option><option value="Annual membership"></option><option value="Member sessions"></option><option value="Competition fees"></option></datalist>
+              <div id="payment-options">
+                <div class="payment-option">
+                  <label class="field"><span class="field-title">Option name</span><input data-payment-name list="payment-option-suggestions" maxlength="80" pattern="[^:|]+" placeholder="e.g. Monthly membership"></label>
+                  <label class="field"><span class="field-title">Price and details</span><textarea data-payment-details rows="2" maxlength="400" placeholder="e.g. £25/month. Includes weekly training."></textarea></label>
+                  <button class="session-remove" type="button" data-remove-payment>Remove payment option</button>
+                </div>
+              </div>
+              <button class="session-add" id="add-payment-option" type="button">Add another payment option <span aria-hidden="true">＋</span></button>
+            </details>
+            <input type="hidden" name="paymentOptions">
             <label class="field field-wide"><span class="field-title">How many free taster sessions do you offer newcomers?</span><input name="tasterSessionCount" type="number" min="0" step="1" placeholder="e.g. 3"></label>
             <label class="field field-wide pricing-booking"><span class="field-title">Does a first-timer need to book before a session? <span class="required">*</span></span><select name="bookingRequired" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
             <label class="field field-wide"><span class="field-title">About the club <span class="required">*</span></span><textarea name="description" required maxlength="600" rows="4" placeholder="Tell us some more about your club!"></textarea><small>Up to 600 characters.</small></label>
@@ -150,6 +164,7 @@
                 <!-- Session name: label each entry and include its title in the application. -->
                 <label class="field field-wide"><span class="field-title">What would you like this session to be called?</span><input data-session-field="title" maxlength="100" placeholder="e.g. Intense Circuit Training, Casual Kickabout etc."></label>
                 <label class="field field-wide"><span class="field-title">Day <span class="required">*</span></span><select data-session-field="dayOfWeek" required><option value="">Choose a day</option><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="7">Sunday</option></select></label>
+                <label class="field field-wide"><span class="field-title">Is this session open to beginners? <span class="required">*</span></span><select data-session-field="beginnerFriendly" required><option value="">Choose an option</option><option value="yes">Yes</option><option value="no">No</option></select></label>
                 <!-- Each pay-per-session entry carries its own charge into the preview and exports. -->
                 <label class="field field-wide" data-session-pricing hidden><span class="field-title">Session price (£) <span class="required">*</span></span><input data-session-field="price.amount" type="number" min="0" step="0.01" placeholder="e.g. 5.50" disabled></label>
                 <label class="field"><span class="field-title">Start time <span class="required">*</span></span><input data-session-field="startTime" type="time" required></label>
@@ -225,8 +240,8 @@
             </div>
           </header>
           <section class="preview-week" aria-labelledby="preview-week-title">
-            <div class="preview-week__heading"><h3 id="preview-week-title">Week at a glance</h3><span>WEEKLY SCHEDULE</span></div>
-            <div class="preview-week__grid" aria-label="Weekly schedule preview">
+            <div class="preview-week__heading"><h3 id="preview-week-title">Week at a glance</h3><span>DOWNLOAD CLUB SCHEDULE</span></div>
+            <div class="preview-week__grid" aria-label="Weekly schedule preview" hidden>
               <div class="preview-day" data-preview-day="mon"><span>MON</span><b>—</b></div>
               <div class="preview-day" data-preview-day="tue"><span>TUE</span><b>—</b></div>
               <div class="preview-day" data-preview-day="wed"><span>WED</span><b>—</b></div>
@@ -235,9 +250,8 @@
               <div class="preview-day" data-preview-day="sat"><span>SAT</span><b>—</b></div>
               <div class="preview-day" data-preview-day="sun"><span>SUN</span><b>—</b></div>
             </div>
-            <div class="preview-week__session">
-              <span id="preview-schedule">Training to be confirmed</span>
-              <span id="preview-week-location">Add your public meeting place</span>
+            <div id="preview-session-list">
+              <div class="preview-week__session">Training to be confirmed</div>
             </div>
           </section>
           <section class="preview-overview" aria-label="Club profile details preview">
@@ -256,7 +270,7 @@
           </section>
           <section class="preview-about preview-cost" aria-labelledby="preview-cost-title">
             <h3 id="preview-cost-title">Costs</h3>
-            <div id="preview-cost"><p class="profile-cost__notes">Contact Club for Session/Membership details</p></div>
+            <div id="preview-cost"><p class="profile-cost__notes">For more details on session/membership information:</p></div>
           </section>
         </article>
        </aside>
@@ -294,6 +308,6 @@
       <a href="/" class="application-success__home">BACK TO HOME <span aria-hidden="true">↗</span></a>
     </div>
   </section>
-  <script type="module" src="../js/register.js?v=20261028-single-row-export"></script>
+  <script type="module" src="../js/register.js?v=20261029-bottom-contact"></script>
 </body>
 </html>

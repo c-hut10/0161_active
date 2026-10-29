@@ -27,23 +27,22 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     const sessions = (Array.isArray(club.sessions) ? club.sessions : []).filter(session =>
       profileDays.some(day => day.number === Number(session.dayOfWeek))
       && /^([01]?\d|2[0-3]):[0-5]\d$/.test(session.startTime || ''));
-    const hasScheduledDays = sessions.some(session => profileDays.some(day => day.number === Number(session.dayOfWeek)));
-    const dayCells = profileDays.map(day => {
+    const scheduledDays = profileDays.filter(day => sessions.some(session => Number(session.dayOfWeek) === day.number));
+    const dayCells = scheduledDays.map(day => {
       const daySessions = sessions.filter(session => Number(session.dayOfWeek) === day.number).sort(compareSessionStartTimes);
-      const sessionMarkup = daySessions.length
-        ? daySessions.map(session => `<article class="profile-session">
+      const sessionMarkup = daySessions.map(session => `<article class="profile-session">
             <strong class="session-title">${escapeHtml(sessionTitle(club, session))}</strong>
+            ${session.beginnerFriendly === true ? '<span class="session-beginners">Beginners Welcome</span>' : ''}
             ${session.subtitle?.trim() ? `<span class="session-subtitle">${escapeHtml(session.subtitle)}</span>` : ''}
             <time>${escapeHtml(sessionTime(session))}</time>
             ${sessionTerms(club, session).map(term => `<span>${escapeHtml(term)}</span>`).join('')}
             ${sessionAudience(session) ? `<span>${escapeHtml(sessionAudience(session))}</span>` : ''}
             <span>${escapeHtml(sessionAddress(session) || session.area || 'Location to confirm')}</span>
-            ${sessionAddress(session) ? `<button type="button" class="profile-copy-address" data-copy-address="${escapeHtml(sessionAddress(session))}" aria-label="Copy address for ${escapeHtml(sessionTitle(club, session))} on ${escapeHtml(day.name)}" hidden>Copy address</button><span class="profile-copy-address-status" role="status" hidden></span>` : ''}
             ${sessionVenueNote(club, session) ? `<span>${sessionVenueNoteHtml(club, session)}</span>` : ''}
             ${sessionScheduleNote(session) ? `<span>${escapeHtml(sessionScheduleNote(session))}</span>` : ''}
-          </article>`).join('')
-        : '<span class="profile-empty">—</span>';
-      return `<div class="profile-day${daySessions.length ? '' : ' profile-day--empty'}">
+            ${sessionAddress(session) ? `<span class="profile-copy-address-status" role="status" hidden></span><button type="button" class="profile-copy-address" data-copy-address="${escapeHtml(sessionAddress(session))}" aria-label="Copy address for ${escapeHtml(sessionTitle(club, session))} on ${escapeHtml(day.name)}" hidden>Copy address</button>` : ''}
+          </article>`).join('');
+      return `<div class="profile-day">
         <p class="profile-day__name">${day.short}</p>
         ${sessionMarkup}
       </div>`;
@@ -53,7 +52,7 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
       <div class="profile-week__heading">
         <div><h2 id="profile-week-title">Week at a glance</h2></div>
       </div>
-      <div class="profile-week__grid" role="group" aria-label="${escapeHtml(club.name)} weekly sessions">${dayCells}${hasScheduledDays ? '' : '<p class="profile-week__empty-summary">Training to be confirmed</p>'}</div>
+      <div class="profile-week__grid" style="--profile-training-days:${scheduledDays.length || 1}" role="group" aria-label="${escapeHtml(club.name)} weekly sessions">${dayCells}${scheduledDays.length ? '' : '<p class="profile-week__empty-summary">Training to be confirmed</p>'}</div>
       ${notice ? `<p class="profile-week__notice">${escapeHtml(notice)}</p>` : ''}
     </section>`;
   }
@@ -70,14 +69,13 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
     ...profileSports.map(sport => `<a href="${escapeHtml(profileGlossaryUrl(sport))}">${escapeHtml(displaySportName(sport === profileSports[0] ? club.sport.replaceAll('-', ' ') : sport.replaceAll('-', ' '), { titleCase: true }))}</a>`),
     ...areas.map(area => club.sport ? `<a href="${escapeHtml(profileGlossaryUrl(club.sport, area))}">${escapeHtml(area)}</a>` : escapeHtml(area))
   ].filter(Boolean).join(' · ') || 'MANCHESTER CLUB';
-  const { contact, online } = clubProfileActions(club, pageUrl);
+  const { online } = clubProfileActions(club, pageUrl);
   const details = renderProfileDetails(club, { onlineAction: online });
   const confirmation = clubConfirmation(club);
   const informationDate = confirmation
     ? `Last Confirmed: <time datetime="${confirmation.date}">${confirmation.label}</time>`
     : 'Unverified · Last Confirmed: not yet recorded';
   const actions = [
-    renderAction(contact, true),
     renderAction(online)
   ].filter(Boolean).join('');
 
@@ -87,8 +85,9 @@ export function renderClubProfile(club, notice = '', pageUrl = 'https://0161acti
         <h1 id="profile-title">${escapeHtml(club.name)}${clubVerificationBadge(club)}</h1>
         <p class="profile-information-date">${informationDate}</p>
       </div>
-      <div class="profile-actions" aria-label="Club actions">${actions}${favouriteButton(club)}</div>
+      <div class="profile-actions" aria-label="Club actions">${actions}<button type="button" class="profile-action profile-action--secondary" data-share-club data-share-name="${escapeHtml(club.name)}" hidden>SHARE CLUB</button>${favouriteButton(club)}</div>
     </section>
+    <div class="profile-share-feedback" hidden><p role="status"></p><input type="url" readonly aria-label="Club link for manual copying" hidden></div>
     ${renderWeek(club, notice)}
     <section class="profile-overview" aria-label="${escapeHtml(club.name)} photo and details">
       ${photo}

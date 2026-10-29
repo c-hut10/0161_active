@@ -14,13 +14,13 @@ const ACTIVE = Object.freeze({
 });
 const CLUB_FIELDS = [
   'Club ID', 'Club name', 'Sport or activity', 'Contact email',
-  'Website or social link', 'Beginner friendly?', 'Kit requirements for newcomers?',
+  'Website or social link', 'Kit requirements for newcomers?',
   'Kit Details:', 'Gender-specific?', 'Gender eligibility — if applicable',
-  'About the club', 'Payment Type', 'Membership amount (£)', 'Booking required?',
-  'How many free taster sessions do you offer newcomers?', 'Participate in a league?', 'League name'
+  'About the club', 'Payment options', 'Payment Type', 'Membership amount (£)', 'Booking required?',
+  'How many free taster sessions do you offer newcomers?', 'Participate in a league?', 'League name', 'Verified'
 ];
 const SESSION_FIELDS = [
-  'Session ID', 'Training day', 'Session Price (£)', 'Session Name',
+  'Session ID', 'Training day', 'Session beginner friendly?', 'Session Price (£)', 'Session Name',
   'Session address', 'Session Postcode', 'Start time', 'End time', 'Any extra session info?'
 ];
 const STAMP = 'Update Timestamp';
@@ -29,8 +29,8 @@ const SPORT_NAV_MARKER = '#0161_SPORT_NAV';
 const CSV_EXPORT_NAME = 'CSV Export';
 const FALSE_MARKER_FIELDS = ['Session ID', 'Session Price (£)', 'Membership amount (£)', 'Kit Details:', 'Gender eligibility — if applicable', 'League name'];
 const BOOL_FIELDS = [
-  'Beginner friendly?', 'Kit requirements for newcomers?', 'Gender-specific?',
-  'Booking required?', 'Participate in a league?'
+  'Session beginner friendly?', 'Kit requirements for newcomers?', 'Gender-specific?',
+  'Booking required?', 'Participate in a league?', 'Verified'
 ];
 
 function onOpen() {
@@ -283,7 +283,12 @@ function locked0161_(work) {
   try { work(); } finally { lock.releaseLock(); }
 }
 function schema0161_(key) {
-  return (key === 'clubs' ? CLUB_FIELDS : key === 'sessions' ? ['Club ID'].concat(SESSION_FIELDS) : CLUB_FIELDS.concat(SESSION_FIELDS)).concat([STAMP]);
+  return (key === 'clubs' ? CLUB_FIELDS : key === 'sessions' ? ['Club ID', 'Club name'].concat(SESSION_FIELDS)
+    : ['Verified'].concat(CLUB_FIELDS.filter(function (field) { return field !== 'Verified'; }), SESSION_FIELDS)).concat([STAMP]);
+}
+function sameHeadings0161_(actual, expected) {
+  return Array.isArray(actual) && actual.length === expected.length && new Set(actual).size === actual.length
+    && expected.every(function (field) { return actual.includes(field); });
 }
 function heading0161_(value) {
   return String(value).toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -483,6 +488,9 @@ function reconcile0161_(previous, input, initial) {
         return !unknown0161_(row[field]) && !false0161_(row[field]);
       });
       const placeholderChanged = placeholder && SESSION_FIELDS.slice(1).some(function (field) {
+        // Adding the unanswered session column during an upgrade does not create a session.
+        if (field === 'Session beginner friendly?' && !Object.prototype.hasOwnProperty.call(placeholder, field)
+          && unknown0161_(row[field])) return false;
         return !equal0161_(row[field], placeholder[field]);
       });
       if (!sessionId && (key === 'sessions' || (key === 'master' && (placeholder ? placeholderChanged : hasSession)))) {
@@ -604,7 +612,10 @@ function dependent0161_(flag, value) {
 function normalizeClub0161_(data) {
   const result = {};
   CLUB_FIELDS.slice(1).forEach(function (field) { result[field] = text0161_(data[field]); });
-  BOOL_FIELDS.forEach(function (field) { result[field] = bool0161_(data[field]); });
+  BOOL_FIELDS.filter(function (field) { return CLUB_FIELDS.indexOf(field) >= 0; })
+    .forEach(function (field) { result[field] = bool0161_(data[field]); });
+  // Only an explicit positive answer is verified; blank or unknown is never approval.
+  result.Verified = result.Verified === true;
   result['Payment Type'] = payment0161_(data['Payment Type']);
   result['Membership amount (£)'] = /^(Monthly|Annual) membership$/.test(result['Payment Type']) ? amount0161_(data['Membership amount (£)'], false) : false;
   result['How many free taster sessions do you offer newcomers?'] = amount0161_(data['How many free taster sessions do you offer newcomers?'], true);
@@ -626,6 +637,7 @@ function time0161_(value, optional) {
 function normalizeSession0161_(data, payment) {
   const result = {};
   SESSION_FIELDS.slice(1).forEach(function (field) { result[field] = text0161_(data[field]); });
+  result['Session beginner friendly?'] = bool0161_(data['Session beginner friendly?']);
   result['Session Price (£)'] = payment === 'Per session' ? amount0161_(data['Session Price (£)'], false) : false;
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const day = data['Training day'];
@@ -650,14 +662,14 @@ function sportForRow0161_(model, row) {
 function sportLayout0161_(key, rows, grouped, clubSports) {
   if (!grouped) return { rows: rows, sections: [], navigation: [] };
   const sports = [...new Set(rows.map(function (row) { return String(row['Sport or activity'] || clubSports.get(row['Club ID']) || ACTIVE.unknown); }))];
-  const fields = schema0161_(key), capacity = fields.length - 1;
+  const fields = schema0161_(key), linkFields = fields.filter(function (field) { return field !== 'Club ID'; }), capacity = linkFields.length;
   const output = [], sections = [], navigation = [];
   // Short link rows stay above the data without creating a fifth tab or inserting formulas.
   for (let start = 0; start < sports.length; start += capacity) {
     const nav = { 'Club ID': SPORT_NAV_MARKER };
     const links = sports.slice(start, start + capacity);
-    links.forEach(function (sport, index) { nav[fields[index + 1]] = sport; });
-    navigation.push({ row: output.length + 2, sports: links });
+    links.forEach(function (sport, index) { nav[linkFields[index]] = sport; });
+    navigation.push({ row: output.length + 2, sports: links, columns: linkFields.slice(0, links.length).map(function (field) { return fields.indexOf(field) + 1; }) });
     output.push(nav);
   }
   let current = null;
@@ -671,7 +683,7 @@ function sportLayout0161_(key, rows, grouped, clubSports) {
     }
     output.push(row);
   });
-  return { rows: output, sections: sections, navigation: navigation };
+  return { rows: output, sections: sections, navigation: navigation, idColumn: fields.indexOf('Club ID') + 1 };
 }
 function renderSportLinks0161_(sheet, layout, width) {
   const sections = new Map(layout.sections.map(function (section) { return [section.sport, section.row]; }));
@@ -681,8 +693,13 @@ function renderSportLinks0161_(sheet, layout, width) {
         .setLinkUrl(SpreadsheetApp.getActive().getUrl() + '#gid=' + sheet.getSheetId() + '&range=A' + sections.get(sport)).build();
     });
     sheet.getRange(nav.row, 1, 1, width).clearDataValidations().setBackground('#eef0ec').setFontWeight('bold');
-    sheet.getRange(nav.row, 1).setNumberFormat(';;;');
-    sheet.getRange(nav.row, 2, 1, links.length).setRichTextValues([links]);
+    sheet.getRange(nav.row, layout.idColumn).setNumberFormat(';;;');
+    for (let start = 0; start < links.length;) {
+      let end = start + 1;
+      while (end < links.length && nav.columns[end] === nav.columns[end - 1] + 1) end++;
+      sheet.getRange(nav.row, nav.columns[start], 1, end - start).setRichTextValues([links.slice(start, end)]);
+      start = end;
+    }
   });
   sheet.setFrozenRows(1 + layout.navigation.length);
 }
@@ -716,7 +733,7 @@ function rows0161_(model) {
     }
     ids.forEach(function (sid) {
       const session = model.sessions[sid];
-      const srow = Object.assign({ 'Club ID': id, 'Session ID': sid }, session.data);
+      const srow = Object.assign({ 'Club ID': id, 'Session ID': sid }, session.data, { 'Club name': club.data['Club name'] });
       srow[STAMP] = session.updated;
       result.sessions.push(srow);
       const mrow = Object.assign({}, row, srow);
@@ -737,6 +754,24 @@ function stateSheetNames0161_() { return [ACTIVE.state, ACTIVE.state + '_Standby
 function stateDigest0161_(rows) {
   return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, JSON.stringify(rows), Utilities.Charset.UTF_8)
     .map(function (byte) { return (byte & 255).toString(16).padStart(2, '0'); }).join('');
+}
+function stateBaselineMatches0161_(key, expected, saved) {
+  if (!Array.isArray(saved) || expected.length !== saved.length) return false;
+  return expected.every(function (row, index) {
+    const snapshot = saved[index];
+    if (!snapshot || typeof snapshot !== 'object' || Array.isArray(snapshot)) return false;
+    return Array.from(new Set(Object.keys(row).concat(Object.keys(snapshot)))).every(function (field) {
+      // Older renderers did not include this derived display column in Sessions.
+      if (!Object.prototype.hasOwnProperty.call(snapshot, field) && key === 'sessions' && field === 'Club name') return true;
+      // Club-only placeholders acquire the new unanswered session question at render time.
+      if (!Object.prototype.hasOwnProperty.call(snapshot, field) && key === 'master'
+        && field === 'Session beginner friendly?' && noSessionId0161_(row['Session ID'])
+        && row[field] === ACTIVE.unknown) return true;
+      // Compare named fields, not JSON property order. All other saved values must agree.
+      return Object.prototype.hasOwnProperty.call(row, field)
+        && Object.prototype.hasOwnProperty.call(snapshot, field) && equal0161_(row[field], snapshot[field]);
+    });
+  });
 }
 function decodeState0161_(rows) {
   const model = { clubs: {}, sessions: {}, baseline: { master: [], clubs: [], sessions: [] } };
@@ -759,7 +794,7 @@ function decodeState0161_(rows) {
       exported[key] = value;
     } else if (kind === 'prepared') {
       if (!value || !value.row || key !== identity0161_('master', value.row) || seen.has('prepared:' + key)
-        || value.fingerprint !== exportFingerprint0161_(value.row)) throw new Error('Invalid prepared export row.');
+        || !preparedFingerprintMatches0161_(value)) throw new Error('Invalid prepared export row.');
       seen.add('prepared:' + key); prepared.push(value);
     } else if (kind === 'baseline') {
       if (!Object.prototype.hasOwnProperty.call(model.baseline, key)) throw new Error('Invalid baseline tab.');
@@ -792,7 +827,7 @@ function decodeState0161_(rows) {
     if (!Object.prototype.hasOwnProperty.call(model.clubs, model.sessions[id].clubId)) throw new Error('Saved session has no club.');
   });
   const expectedRows = rows0161_(model);
-  if (Object.keys(expectedRows).some(function (key) { return !equal0161_(expectedRows[key], model.baseline[key]); })) throw new Error('Saved records and tab snapshots do not agree.');
+  if (Object.keys(expectedRows).some(function (key) { return !stateBaselineMatches0161_(key, expectedRows[key], model.baseline[key]); })) throw new Error('Saved records and tab snapshots do not agree.');
   return { model: model, meta: meta };
 }
 function readStateSlot0161_(sheet, allowLegacy) {
@@ -926,7 +961,7 @@ function render0161_(tabs, rows, grouped = false) {
         layout.sections.forEach(function (section) {
           sheet.getRange(section.row, 1, 1, fields.length).clearDataValidations()
             .setBackground('#202220').setFontColor('#ffffff').setFontWeight('bold');
-          sheet.getRange(section.row, 1).setNumberFormat(';;;');
+          sheet.getRange(section.row, fields.indexOf('Club ID') + 1).setNumberFormat(';;;');
         });
         renderSportLinks0161_(sheet, layout, fields.length);
       }
@@ -1116,7 +1151,18 @@ function chronologicalMasterRows0161_(model) {
   });
 }
 function exportFingerprint0161_(row) {
-  return stateDigest0161_([schema0161_('master').map(function (field) { return row[field] === undefined ? null : row[field]; })]);
+  // Keep the established fingerprint order so moving a visible column does not re-export unchanged data.
+  return stateDigest0161_([exportFingerprintFields0161_().map(function (field) { return row[field] === undefined ? null : row[field]; })]);
+}
+function exportFingerprintFields0161_() {
+  return schema0161_('master').filter(function (field) { return !['Verified', 'Payment options', STAMP].includes(field); }).concat(['Payment options', 'Verified', STAMP]);
+}
+function preparedFingerprintMatches0161_(entry) {
+  if (entry.fingerprint === exportFingerprint0161_(entry.row)) return true;
+  // A pending export from immediately before the optional-pricing upgrade keeps its original fingerprint.
+  if (Object.prototype.hasOwnProperty.call(entry.row, 'Payment options')) return false;
+  const fields = exportFingerprintFields0161_().filter(function (field) { return field !== 'Payment options'; });
+  return entry.fingerprint === stateDigest0161_([fields.map(function (field) { return entry.row[field] === undefined ? null : entry.row[field]; })]);
 }
 function changedExportRows0161_(model) {
   const exported = model.exported || {};
@@ -1165,7 +1211,7 @@ function writeCsvExportSheet0161_(ss, prepared) {
   const matrix = exportMatrix0161_(prepared.rows.map(function (entry) { return entry.row; }));
   let sheet = ss.getSheetByName(CSV_EXPORT_NAME);
   if (!sheet) sheet = ss.insertSheet(CSV_EXPORT_NAME);
-  if (sheet.getLastRow() && !equal0161_(sheet.getRange(1, 1, 1, matrix[0].length).getValues()[0], matrix[0])) throw new Error('CSV Export already contains a different table. Rename that tab before preparing.');
+  if (sheet.getLastRow() && !sameHeadings0161_(sheet.getRange(1, 1, 1, matrix[0].length).getValues()[0], matrix[0])) throw new Error('CSV Export already contains a different table. Rename that tab before preparing.');
   ensureSize0161_(sheet, matrix.length, matrix[0].length);
   sheet.clearContents();
   const range = sheet.getRange(1, 1, matrix.length, matrix[0].length);
@@ -1186,7 +1232,7 @@ function prepareCsvView0161_(all) {
     model = prepareExportModel0161_(model, all, Utilities.getUuid(), Date.now());
     if (!model.preparedExport) {
       const existing = ss.getSheetByName(CSV_EXPORT_NAME);
-      if (existing && existing.getLastRow() && equal0161_(existing.getRange(1, 1, 1, schema0161_('master').length).getValues()[0], schema0161_('master'))) existing.clearContents();
+      if (existing && existing.getLastRow() && sameHeadings0161_(existing.getRange(1, 1, 1, schema0161_('master').length).getValues()[0], schema0161_('master'))) existing.clearContents();
       ss.toast('No new or changed records since the last confirmed export.', '0161 Active', 8); return;
     }
     if (!reopening) save0161_(ss, model, false);
@@ -1257,7 +1303,7 @@ function clearInvalidatedCsv0161_(ss, model) {
   if (!model.csvInvalidated) return;
   const sheet = ss.getSheetByName(CSV_EXPORT_NAME);
   if (sheet) {
-    if (sheet.getLastRow() && !equal0161_(sheet.getRange(1, 1, 1, schema0161_('master').length).getValues()[0], schema0161_('master'))) throw new Error('CSV Export contains a different table. Preserve it before completing recovery.');
+    if (sheet.getLastRow() && !sameHeadings0161_(sheet.getRange(1, 1, 1, schema0161_('master').length).getValues()[0], schema0161_('master'))) throw new Error('CSV Export contains a different table. Preserve it before completing recovery.');
     sheet.clearContents();
     sheet.getRange(1, 1, 1, schema0161_('master').length).setValues([schema0161_('master')]);
     sheet.getRange(1, 1).setNote('PREVIOUS CSV INVALIDATED\n' + model.csvInvalidated.reason + '\nPrepare a new batch. Do not use a previously downloaded file containing this club.');
@@ -1291,15 +1337,29 @@ function parseRegistration0161_(text) {
   let payload;
   try { payload = JSON.parse(String(text).trim()); } catch { throw new Error('Paste the complete registrationImport block from the email. It must be valid JSON; no rows have been added.'); }
   const fields = schema0161_('master');
+  // Earlier form emails ask about the club, which cannot establish session eligibility.
+  const previousFields = fields.filter(function (field) { return field !== 'Payment options'; });
+  const unverifiedFields = fields.filter(function (field) { return field !== 'Verified'; });
+  const preVerifiedFields = previousFields.filter(function (field) { return field !== 'Verified'; });
+  const legacyFields = CLUB_FIELDS.filter(function (field) { return !['Verified', 'Payment options'].includes(field); });
+  legacyFields.splice(5, 0, 'Beginner friendly?');
+  legacyFields.push(...SESSION_FIELDS.filter(function (field) { return field !== 'Session beginner friendly?'; }), STAMP);
+  const legacy = Boolean(payload && sameHeadings0161_(payload.headings, legacyFields));
   if (!payload || payload.version !== 1 || typeof payload.submissionReference !== 'string'
     || !/^submission-[a-z0-9-]{8,100}$/i.test(payload.submissionReference)
-    || !equal0161_(payload.headings, fields) || !Array.isArray(payload.rows) || !payload.rows.length) throw new Error('Registration format or headings do not match this sheet.');
+    || (!legacy && !sameHeadings0161_(payload.headings, fields) && !sameHeadings0161_(payload.headings, previousFields) && !sameHeadings0161_(payload.headings, preVerifiedFields) && !sameHeadings0161_(payload.headings, unverifiedFields)) || !Array.isArray(payload.rows) || !payload.rows.length) throw new Error('Registration format or headings do not match this sheet.');
   const rows = payload.rows.map(function (cells) {
-    if (!Array.isArray(cells) || cells.length !== fields.length || cells.some(function (cell) { return typeof cell !== 'string' && typeof cell !== 'number' && typeof cell !== 'boolean'; })) throw new Error('Every registration row must contain the agreed 27 values.');
+    if (!Array.isArray(cells) || cells.length !== payload.headings.length || cells.some(function (cell) { return typeof cell !== 'string' && typeof cell !== 'number' && typeof cell !== 'boolean'; })) throw new Error('Every registration row must match its supplied headings.');
     const row = {};
-    fields.forEach(function (field, index) { row[field] = cells[index]; });
+    payload.headings.forEach(function (field, index) { row[field] = cells[index]; });
+    if (legacy) {
+      row['Session beginner friendly?'] = ACTIVE.unknown;
+      delete row['Beginner friendly?'];
+    }
     // The public form is untrusted: discard every supplied ID and timestamp, even if modified.
     row['Club ID'] = ''; row['Session ID'] = ''; row[STAMP] = null;
+    // Owner-approved policy: an imported online registration counts as club confirmation.
+    row.Verified = true;
     return row;
   });
   const fingerprint = stateDigest0161_(rows.map(function (row) { return fields.map(function (field) { return row[field]; }); }));

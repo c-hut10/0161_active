@@ -1,5 +1,6 @@
-import { displaySportName, escapeHtml, onlineProfileAction, genderEligibilityLabel, beginnerFriendlyLabel, clubSports, formatPrice, formatMembership } from './club-formatting.mjs';
+import { displaySportName, escapeHtml, onlineProfileAction, genderEligibilityLabel, clubSports, formatPrice, formatMembership } from './club-formatting.mjs';
 import { clubSessionPriceLabel } from './session-details.mjs';
+import { paymentOptions, paymentOptionParts } from './club-payment-options.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
 import { normaliseLeagues, leaguePageUrl, leagueProfileLabel } from './club-leagues.mjs?v=20261026-sheet-fields';
 
@@ -28,7 +29,7 @@ function renderProfileLeagues(club, preview) {
 }
 
 /* Detail rows: one source owns labels, optional rows, prices and booking guidance in both views. */
-export function renderProfileDetails(club, { onlineAction = null, timetableId = 'profile-week-title', preview = false } = {}) {
+export function renderProfileDetails(club, { onlineAction = null, preview = false } = {}) {
   const detailRow = (label, value) => `<div class="profile-detail-row"><dt>${label}</dt><dd>${escapeHtml(value)}</dd></div>`;
   const profileSports = clubSports(club);
   const sports = profileSports.map(sport => displaySportName(
@@ -36,13 +37,10 @@ export function renderProfileDetails(club, { onlineAction = null, timetableId = 
   ));
   const leagues = renderProfileLeagues(club, preview);
   const gender = genderEligibilityLabel(club);
-  const beginner = beginnerFriendlyLabel(club);
   return [
     detailRow('SPORT', sports.join(' · ') || (preview ? 'Your sport' : 'To confirm')),
     gender ? detailRow('GENDER ELIGIBILITY', gender) : '',
-    beginner ? detailRow('BEGINNER FRIENDLY', beginner) : '',
     detailRow('AREA', clubTrainingAreas(club).join(' · ') || 'Area to confirm'),
-    `<div class="profile-detail-row"><dt>TRAINING LOCATION(S)</dt><dd><a href="#${escapeHtml(timetableId)}">See calendar</a></dd></div>`,
     club.tasterNotes ? detailRow('TASTER DETAILS', club.tasterNotes) : '',
     Number.isInteger(club.tasterSessionCount) && club.tasterSessionCount > 0
       ? detailRow('TASTER SESSION(S)', String(club.tasterSessionCount)) : '',
@@ -52,14 +50,13 @@ export function renderProfileDetails(club, { onlineAction = null, timetableId = 
 
 /* Payment section: reuse the same prices and optional payment notes in both profile views. */
 export function renderProfileCost(club) {
-  const row = (label, price, detail = '') => `<div class="profile-cost__option"><div class="profile-cost__option-heading"><span class="profile-cost__label">${escapeHtml(label)}</span><strong class="profile-cost__amount">${escapeHtml(price)}</strong></div>${detail ? `<p class="profile-cost__details">${escapeHtml(detail)}</p>` : ''}</div>`;
+  const row = (label, price, detail = '') => `<tr><th scope="row">${escapeHtml(label)}</th><td><strong class="profile-cost__amount">${escapeHtml(price)}</strong>${detail ? `<span class="profile-cost__details">${escapeHtml(detail)}</span>` : ''}</td></tr>`;
   const named = Array.isArray(club.pricingOptions) ? club.pricingOptions.filter(option => typeof option === 'string' && option.trim()) : [];
   const membership = formatMembership(club, { compact: true });
   let prices;
   // Named options and session-specific charges remain separate, visible alternatives.
   if (named.length) prices = named.map(option => {
-    const split = option.lastIndexOf(':');
-    return split >= 0 ? row(option.slice(0, split), option.slice(split + 1).trim()) : row(option, '');
+    return row(...paymentOptionParts(option));
   }).join('');
   else if ((club.sessions || []).some(session => session.price)) {
     const seen = new Set();
@@ -73,28 +70,33 @@ export function renderProfileCost(club) {
       return row([day, label].filter(Boolean).join(' · '), price);
     }).join('');
   } else {
-    const label = membership ? 'Without membership' : club.price?.type === 'free' ? 'Sessions' : ['monthly_fee', 'annual_fee'].includes(club.price?.type) ? 'Membership' : 'Per Session';
+    const label = membership ? 'Pay as you go' : club.price?.type === 'free' ? 'Sessions' : club.price?.type === 'monthly_fee' ? 'Monthly membership' : club.price?.type === 'annual_fee' ? 'Annual membership' : 'Pay as you go';
     const price = clubSessionPriceLabel({ ...club, membership: null }, { compact: true });
-    prices = price === 'Contact club' ? '' : row(label, label === 'Per Session' ? price.replace(/\/session$/, '') : price);
+    prices = price === 'Contact club' ? '' : row(label, price);
   }
-  if (membership) prices += row('With membership', membership, club.membership.sessionAmount === 0 ? 'Sessions included' : 'Membership fee plus the member session charge shown above');
+  if (membership) prices += row(club.membership.period === 'monthly' ? 'Monthly membership' : 'Annual membership', membership,
+    club.membership.sessionAmount === 0 ? 'Sessions included' : 'Includes the membership fee and member session charge');
+  prices += paymentOptions(club.paymentOptions).map(option => row(...paymentOptionParts(option))).join('');
   const notes = club.pricingNotes?.trim();
   // Contact links prefer the supplied email, then fall back to the public online profile.
   const actions = clubProfileActions(club);
   const pricingContact = actions.contact || actions.online;
   const notesHtml = escapeHtml(notes || '').replaceAll('\n', '<br>').replace(/Contact Club/gi, label =>
     pricingContact ? `<a class="profile-booking-link" href="${escapeHtml(pricingContact.href)}">${label}</a>` : label);
-  const paymentNotes = notes && notes.toLowerCase() !== 'contact club' && notes !== clubSessionPriceLabel(club, { compact: true }) ? `<p class="profile-cost__notes">${notesHtml}</p>` : '';
+  let paymentNotes = notes && notes.toLowerCase() !== 'contact club' && notes !== clubSessionPriceLabel(club, { compact: true }) && !notes.includes('Contact Club for Session/Membership details') ? `<p class="profile-cost__notes">${notesHtml}</p>` : '';
+  if (paymentNotes && /^Membership:\s*\S/i.test(notes)) {
+    prices += row('Membership', notes.replace(/^Membership:\s*/i, ''));
+    paymentNotes = '';
+  }
   // Missing pricing always has a useful contact route without replacing supplied payment notes.
-  const defaultText = 'Contact Club for Session/Membership details';
-  const contactLabel = pricingContact ? `<a class="profile-booking-link" href="${escapeHtml(pricingContact.href)}">Contact Club</a>` : 'Contact Club';
-  const fallback = !prices && !(notes || '').includes(defaultText)
-    ? `<p class="profile-cost__notes">${contactLabel} for Session/Membership details</p>` : '';
+  const contactButton = pricingContact ? `<a class="profile-action profile-action--secondary" href="${escapeHtml(pricingContact.href)}">CONTACT</a>` : '';
+  const contact = `<div class="profile-cost__contact"><p class="profile-cost__notes">For more details on session/membership information:</p>${contactButton}</div>`;
   // Booking is displayed only when required; payment on arrival is never inferred.
   const bookingContact = actions.contact || actions.online;
   const bookingLabel = bookingContact ? `<a class="profile-booking-link" href="${escapeHtml(bookingContact.href)}">Contact club</a>` : 'Contact club';
   const booking = club.bookingRequired === true ? `<div class="profile-cost__booking"><h3>Booking required</h3><p>${bookingLabel} for booking information</p>${club.bookingNotes ? `<p>${escapeHtml(club.bookingNotes)}</p>` : ''}</div>` : '';
-  return `<div class="profile-cost__options">${prices}</div>${fallback}${paymentNotes}${booking}`;
+  const table = prices ? `<table class="profile-cost__table"><caption class="profile-cost__caption">Payment options</caption><thead><tr><th scope="col">Payment option</th><th scope="col">Details</th></tr></thead><tbody>${prices}</tbody></table>` : '';
+  return `${table}${paymentNotes}${booking}${contact}`;
 }
 
 /* Only an explicit booking requirement adds Booking to the payment heading. */

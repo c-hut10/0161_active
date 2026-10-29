@@ -12,7 +12,7 @@ To update an installed spreadsheet, wait for current executions to finish, repla
 
 Use **0161.gs**. It replaces the earlier `UpdateTimestamp.gs` component. Do not install both.
 
-This is a Google Sheets Apps Script for one spreadsheet with three editable tabs. It does not access your account until you install and authorise it yourself. No website files were changed.
+This is a Google Sheets Apps Script for one spreadsheet with three editable tabs. It does not access your account until you install and authorise it yourself. It never changes the website itself.
 
 ## Install
 
@@ -29,6 +29,67 @@ The installable trigger pattern follows [Google Workspace's official Apps Script
 
 ## Headings
 
+### Final layout: Verified starts Master
+
+Master starts `Verified`, `Club ID`, `Club name`, `Sport or activity`. Payment options is column L, immediately before Payment Type in M. Update Timestamp remains AC. There are still 29 columns. Clubs has Payment options K, immediately before Payment Type in L; Verified remains R and Update Timestamp S. Sessions keeps its 13-column layout, including Club name in column B.
+
+Finish any pending CSV batch using your installed script, then make a separate spreadsheet copy. Move the **whole Verified column, including its answers**, to column A in Master. In both Master and Clubs, move the entire Payment options column immediately before Payment Type; if missing, insert it there. Do not merely paste new headings over unmoved data. Leave Sessions unchanged. Replace the complete 0161.gs, save, reload, run Sync changes, then Apply dropdowns and column formats. Do not run Fresh Start, change IDs or delete saved state sheets.
+
+New form spreadsheet rows and CSV Export use Verified first. Paste new-format rows from column A (Verified), not column B (Club ID). Older positional paste blocks must not be pasted into this new layout. Import registration accepts older named formats and heading order. The website CSV importer also accepts the earlier formats. Moving a column alone preserves export fingerprints, IDs and edit timestamps; it does not make unchanged records need exporting again. Sport navigation still stores its hidden marker in the Club ID column, now B in Master.
+
+### Optional payment options: compact profile table
+
+The main Payment Type, Membership amount and per-session prices remain unchanged, including the map filters that use those structured prices. Clubs can optionally add other payment choices or additional fees. Registration places these in Payment options; each entry has an option name and price/details. Do not repeat the main price unless it is needed to explain a different option. Free tasters stay in the profile box. No price, inclusion or competition fee is inferred from free text.
+
+Before updating, finish any pending CSV batch with your previous script, then duplicate the spreadsheet. Add or move the whole `Payment options` column immediately before Payment Type in Master and Clubs. Follow the Verified-first move above for Master. Leave existing IDs, prices, Verified values and timestamps unchanged. Leave Sessions unchanged. The final counts are Master 29, Clubs 19, Sessions 13. Save the revised 0161.gs, reload, choose Sync changes, then Apply dropdowns and column formats. Do not use Fresh Start or delete hidden state tabs. CSV Export creates its revised headings automatically.
+
+Use one option per line in the same cell (or separate options with ` | ` when copying plain text). Repeat the same club-wide options on every Master session row. Examples of the format, not actual club prices:
+
+```text
+Monthly membership: £25/month. Includes weekly training.
+Member sessions: £3/session, in addition to membership.
+Competition fees: £10/event, only if competing.
+```
+
+The extra column is free text, not a Payment Type dropdown. Keep the main Payment Type identical across a club's Master rows; put alternatives in Payment options. If only the session amounts differ, keep Per session and enter each Session Price normally. Blank/Not confirmed optional entries add no extra profile rows. Existing numeric prices and all separate session rows are retained. Older 28-column exports and earlier 27-column form formats remain readable. An older file without Payment options does not erase previously saved website options; a new-format reviewed import can intentionally replace or clear them.
+
+On profiles and the registration preview, the table shows Payment option and Details, with thin grey rules and stacked cells on narrow screens. Optional choices follow the recorded main price. Contact Club for Session/Membership details remains beneath the table. Booking appears only when explicitly required. Existing named social/competition memberships and known pricing notes are retained.
+
+
+### Saved-state compatibility fix
+
+If the schema upgrade reports `Saved records and tab snapshots do not agree` for both state sheets, preserve the spreadsheet and replace the complete script with this revision. It accepts the older Sessions snapshots without the derived Club name and older club-only placeholders without the unanswered session beginner field. Named values are compared independently of JSON property order; checksums, ID links and other saved-value checks still apply. It does not reset IDs, discard export history or rewrite state while reading it. After saving and reloading, use Sync changes. Do not delete the hidden state sheets or run Fresh Start for this error. If the error remains, stop and retain the copy for diagnosis rather than bypassing validation.
+
+### Verified: explicit approval for the public green tick
+
+Finish any pending CSV export with the previous script, then make a separate spreadsheet copy before upgrading. If missing, add `Verified` as column A in **Master**, and immediately before `Update Timestamp` in **Clubs**. If already present in Master, move its entire column to A. Leave **Sessions** unchanged. Replace the installed `0161.gs`, save and reload, run **Sync changes**, then **Apply dropdowns and column formats**. Do not reset IDs.
+
+- TRUE gives the club profile a green tick after its CSV is imported into the website.
+- FALSE, blank or Not confirmed does not give the tick. Manual entries default to FALSE on sync.
+- Use the same club-wide value on every repeated Master session row. A change in Master or Clubs syncs to the other view. Contradictory edits stop for review.
+- The public registration form automatically sends Verified = TRUE in its named email field and every CSV/spreadsheet row. Import registration also marks accepted club submissions TRUE, including older email formats. This is the owner's rule: club-supplied details count as confirmation; it is not independent identity checking.
+- Verification is not inferred from merely uploading a CSV. Earlier CSV files without Verified remain readable, but do not automatically grant or retain a tick for the clubs they update. Review them and add Verified = TRUE explicitly if appropriate.
+- A newly approved import receives its import date as Last Confirmed. An already verified club keeps its existing valid confirmation date; FALSE removes its tick and date. Other clubs not in an import are untouched.
+
+The current Master/email export has 29 columns, with Verified first and Update Timestamp last. Clubs has 19 columns; Sessions retains 13. New CSV Export batches use the revised headings automatically. Adding new data fields can make existing records appear as changed; moving Verified alone does not. Neither editing Sheets nor preparing a CSV publishes the website; a reviewed website import and deployment are still required.
+
+### Upgrade: beginner eligibility belongs to each session
+
+First duplicate your spreadsheet to retain the old club-level answers. Replace the installed `0161.gs`, then update row 1 and the corresponding data columns before running Sync changes:
+
+- **Clubs:** remove `Beginner friendly?` and its column. There is no club-wide replacement.
+- **Master:** remove the old club-level `Beginner friendly?` column. Add `Session beginner friendly?` immediately after `Training day`.
+- **Sessions:** add `Session beginner friendly?` immediately after `Training day`.
+- Fill the new field with `Not confirmed` for existing sessions unless you have checked that specific session. Do not copy a club-level TRUE into all its sessions.
+- Keep IDs and Update Timestamp values unchanged. Use **Sync changes**, then **Apply dropdowns and column formats**. Do not run Fresh Start or reset IDs.
+- **CSV Export:** do not edit its headings manually. Finish any prepared batch using the previous script before replacing the script or changing the schema. The next newly prepared batch uses the revised headings.
+
+The Master still has 29 columns. Clubs has 19 columns including the timestamp; Sessions has 13 including Club ID, Club name and the timestamp. The saved legacy club answer is retired when the records are normalised; your separate spreadsheet copy retains it. Existing session IDs and export history are retained. The changed session schema will cause existing sessions to appear as changed in the next export, even where the new answer is Not confirmed.
+
+TRUE means the individual session welcomes beginners; FALSE means it does not; Not confirmed means unknown. Sessions in the same club may differ. Editing this field updates only that session and its matching Master row.
+
+The public registration form now asks whether each individual session is open to beginners. The website CSV reader and form exports use the same revised 29-column schema. **Import registration** also accepts previous email payloads and matches fields by their supplied headings. An old club-level beginner answer is not treated as session evidence: those sessions receive Not confirmed. Do not paste old positional spreadsheet rows into the revised Master. On club profiles, only sessions marked TRUE show **Beginners Welcome** below their title and above the location. FALSE and unknown answers show no badge or line; no club-wide fallback is used.
+
 **Clubs** has these headings, with `Update Timestamp` last:
 
 ```text
@@ -37,18 +98,19 @@ Club name
 Sport or activity
 Contact email
 Website or social link
-Beginner friendly?
 Kit requirements for newcomers?
 Kit Details:
 Gender-specific?
 Gender eligibility — if applicable
 About the club
+Payment options
 Payment Type
 Membership amount (£)
 Booking required?
 How many free taster sessions do you offer newcomers?
 Participate in a league?
 League name
+Verified
 Update Timestamp
 ```
 
@@ -56,8 +118,10 @@ Update Timestamp
 
 ```text
 Club ID
+Club name
 Session ID
 Training day
+Session beginner friendly?
 Session Price (£)
 Session Name
 Session address
@@ -68,7 +132,9 @@ Any extra session info?
 Update Timestamp
 ```
 
-**Master** has the Clubs fields, followed by the Sessions fields without repeating Club ID. Update Timestamp is the final column, appearing only once.
+**Master** has Verified first, then club details (including Payment options before Payment Type), session details and Update Timestamp. Club ID and Club name appear only once. In Clubs, Verified remains immediately before Update Timestamp. It is not a session field.
+
+In **Sessions**, insert a whole column B headed exactly `Club name`, leaving its data cells blank. Replace the installed script, save and reload, then use **Sync changes**. The script fills the name from the linked Club ID and refreshes it after a rename in Clubs or Master. This Sessions column is display-only: make name corrections in Clubs or Master. Names do not replace IDs as record identifiers. Master and CSV Export keep their existing 29-column layout; they do not gain a second Club name column.
 
 Headings ignore differences in capitals, spacing and punctuation. Different words are not guessed or silently remapped.
 
@@ -98,7 +164,7 @@ The script compares edits against saved copies of the three views. Untouched rep
 
 | Field | Rule |
 |---|---|
-| Five yes/no questions | Yes/No and True/False become actual boolean TRUE/FALSE. Blank, Unknown, TBC and Not confirmed become `Not confirmed`. |
+| Five club yes/no questions and Session beginner friendly? | Yes/No and True/False become actual boolean TRUE/FALSE. Blank, Unknown, TBC and Not confirmed become `Not confirmed`. |
 | Payment Type | `Per session`, `Monthly membership`, `Annual membership`, `Free`, or `Not confirmed`. Monthly and annual stay distinct. |
 | Membership amount (£) | Non-negative number for Monthly/Annual membership. FALSE for other types. Missing relevant amount stays Not confirmed, including in a prepared export. |
 | Session Price (£) | Non-negative number for Per session, including zero. FALSE for other types. A missing price stays Not confirmed; supplied amounts must still be valid numbers. |
@@ -152,11 +218,11 @@ Use **0161 Active → Prepare for CSV — new and changed**. The fourth tab, **C
 
 **Prepare CSV — all records** produces a full batch regardless of previous export history. If a batch is already pending, both commands reopen it instead of silently replacing it. CSV Export is a generated snapshot, not a fourth editable source. If it is edited, confirmation stops; Prepare restores the saved snapshot. The script cannot detect whether a download or website import actually succeeded. Confirm only the batch you intend to treat as exported.
 
-The export retains the 27 Master headings, one row per session and Update Timestamp last. Clubs without sessions retain a placeholder row. It excludes section headings, navigation links and all grouping markers. TRUE/FALSE stays uppercase, unknown answers remain Not confirmed, and flexible End time stays blank. Formula-looking text is escaped. A Club ID and club name are required; supplied values still pass normal sync validation.
+The export retains the 28 Master headings, one row per session and Update Timestamp last. Clubs without sessions retain a placeholder row. It excludes section headings, navigation links and all grouping markers. TRUE/FALSE stays uppercase, unknown answers remain Not confirmed, and flexible End time stays blank. Formula-looking text is escaped. A Club ID and club name are required; supplied values still pass normal sync validation.
 
 Deleted records are recorded in the audit history but cannot be represented as deletion commands by this existing CSV schema. Website deletions still need separate handling. Export history is for additions and updates, and it is reset by an explicitly requested Fresh Start.
 
-**The website registration form and CSV importer now support these Master headings.** The importer also accepts earlier JSON-path files. Imports still need manual review and an explicit write step; this spreadsheet script does not publish anything or send emails.
+**This revised Sheets schema moves beginner eligibility to sessions.** The public form and website CSV reader use these headings and also accept earlier files for reviewed imports. Imports still need manual review and an explicit write step; this spreadsheet script does not publish anything or send emails.
 
 ## Verification
 
@@ -184,7 +250,7 @@ Reference: [Google Workspace's official current-document example](https://github
 The updated script creates dropdowns across existing and empty input rows in all three tabs:
 
 - Payment Type: Per session, Monthly membership, Annual membership, Free, Not confirmed.
-- The five yes/no fields: TRUE, FALSE, Not confirmed.
+- The six yes/no fields: TRUE, FALSE, Not confirmed.
 - Training day: Monday through Sunday, Not confirmed.
 
 It also formats amount columns to two decimal places, tasters as whole numbers, timestamps as dates/times, and time/ID/text columns as text. Existing headings are used to locate columns.
@@ -269,7 +335,7 @@ Select one saved data row for the club in Master. Choose **0161 Active → Delet
 
 The deleted club is removed from the three data tabs. CSV Export is cleared to its headings, and the pending batch is invalidated so an old downloaded file cannot be accidentally confirmed. Prepare and download a new batch. Other clubs, their IDs, their confirmed export history and the reserved ID counters remain unchanged. Deleted IDs are not reused. Directly deleting an ordinary Master session row still removes only that session; use the named command for the entire club.
 
-This deletes spreadsheet records, not the club already published on the website. Existing downloaded files cannot be changed, and the 27-column update CSV has no website-deletion operation. Request website deletion separately.
+This deletes spreadsheet records, not the club already published on the website. Existing downloaded files cannot be changed, and the 29-column update CSV has no website-deletion operation. Request website deletion separately.
 
 ## Keep exports clear over time
 

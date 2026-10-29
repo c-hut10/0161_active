@@ -3,13 +3,219 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import { createHash } from 'node:crypto';
-import { registrationTransfer } from '../js/club-submission.mjs';
+import { registrationTransfer, LEGACY_MASTER_COLUMNS } from '../js/club-submission.mjs';
 
 function script() {
   const context = vm.createContext({});
   vm.runInContext(fs.readFileSync(new URL('../tools/google-sheets/0161.gs', import.meta.url), 'utf8'), context);
   return context;
 }
+
+test('Verified is club-wide and starts Master exports while Clubs keeps its original order', () => {
+  const gs = script();
+  const fields = Array.from(vm.runInContext('schema0161_("master")', gs));
+  const clubFields = Array.from(vm.runInContext('schema0161_("clubs")', gs));
+  const sessionFields = Array.from(vm.runInContext('schema0161_("sessions")', gs));
+  assert.deepEqual(fields.slice(0, 3), ['Verified', 'Club ID', 'Club name']);
+  assert.equal(fields.at(-1), 'Update Timestamp');
+  assert.equal(fields.indexOf('Payment options') + 1, fields.indexOf('Payment Type'));
+  assert.equal(clubFields.indexOf('Payment options') + 1, clubFields.indexOf('Payment Type'));
+  assert.deepEqual(clubFields.slice(-2), ['Verified', 'Update Timestamp']);
+  assert.equal(sessionFields.includes('Verified'), false);
+  for (const answer of ['', undefined, false, 'FALSE', 'Not confirmed'])
+    assert.equal(gs.normalizeClub0161_({ Verified: answer }).Verified, false);
+  assert.equal(gs.normalizeClub0161_({ Verified: 'TRUE' }).Verified, true);
+  const original = model(gs);
+  const edits = JSON.parse(JSON.stringify(original.baseline));
+  edits.clubs[0].Verified = true;
+  const approved = gs.reconcile0161_(original, edits, false);
+  assert.ok(approved.baseline.master.every((row) => row.Verified === true));
+  const revoke = JSON.parse(JSON.stringify(approved.baseline));
+  revoke.clubs[0].Verified = false;
+  const unverified = gs.reconcile0161_(approved, revoke, false);
+  assert.ok(unverified.baseline.master.every((row) => row.Verified === false));
+  assert.deepEqual(Object.keys(unverified.sessions), Object.keys(original.sessions));
+});
+
+test('optional payment choices sync club-wide and accept registrations from before the new column', () => {
+  const gs = script();
+  const store = stateStore(gs);
+  const original = model(gs);
+  const edited = JSON.parse(JSON.stringify(original.baseline));
+  const choice = 'Monthly membership: £25/month\nMember sessions: £3/session';
+  edited.clubs[0]['Payment options'] = choice;
+  const next = gs.reconcile0161_(original, edited, false);
+  assert.ok(next.baseline.master.every((row) => row['Payment options'] === choice));
+  gs.save0161_(store.ss, next, false);
+  assert.equal(gs.load0161_(store.ss).clubs['RULE-0042'].data['Payment options'], choice);
+  const transfer = registrationTransfer(
+    { name: 'Options test', sport: 'Korfball', paymentOptions: choice },
+    [{ title: 'Training', dayOfWeek: 2, startTime: '19:00' }],
+    'submission-options-compatibility'
+  );
+  const current = JSON.parse(transfer.importBlock);
+  assert.equal(gs.parseRegistration0161_(JSON.stringify(current)).rows[0]['Payment options'], choice);
+  const index = current.headings.indexOf('Payment options');
+  current.headings.splice(index, 1);
+  current.rows.forEach((row) => row.splice(index, 1));
+  const old = gs.parseRegistration0161_(JSON.stringify(current));
+  assert.equal(gs.normalizeClub0161_(old.rows[0])['Payment options'], 'Not confirmed');
+  assert.equal(old.rows[0].Verified, true);
+});
+
+test('moving Verified to column A preserves export history and accepts older Verified-last registrations', () => {
+  const gs = script();
+  const store = stateStore(gs);
+  const original = model(gs);
+  const row = original.baseline.master[0];
+  const oldOrder = Array.from(gs.exportFingerprintFields0161_());
+  assert.equal(oldOrder.at(-2), 'Verified');
+  const oldFingerprint = gs.stateDigest0161_([oldOrder.map((field) => (row[field] === undefined ? null : row[field]))]);
+  original.exported = { [gs.identity0161_('master', row)]: oldFingerprint };
+  gs.save0161_(store.ss, original, false);
+  const loaded = gs.load0161_(store.ss);
+  const synced = gs.reconcile0161_(loaded, JSON.parse(JSON.stringify(loaded.baseline)), false);
+  assert.equal(gs.changedExportRows0161_(synced).length, 0);
+  assert.deepEqual(Object.keys(synced.sessions), Object.keys(original.sessions));
+  assert.equal(synced.clubs['RULE-0042'].updated, original.clubs['RULE-0042'].updated);
+  const matrix = gs.exportMatrix0161_(synced.baseline.master);
+  assert.equal(matrix[0][0], 'Verified');
+  assert.equal(matrix[1][1], 'RULE-0042');
+  const transfer = registrationTransfer(
+    { name: 'Older layout', sport: 'Korfball', paymentOptions: 'Member sessions: £3/session' },
+    [{ title: 'Training', dayOfWeek: 2, startTime: '19:00' }],
+    'submission-verified-last-layout'
+  );
+  const payload = JSON.parse(transfer.importBlock);
+  const values = Object.fromEntries(payload.headings.map((field, index) => [field, payload.rows[0][index]]));
+  payload.headings = oldOrder;
+  payload.rows = [oldOrder.map((field) => values[field])];
+  const parsed = gs.parseRegistration0161_(JSON.stringify(payload));
+  assert.equal(parsed.rows[0]['Club name'], 'Older layout');
+  assert.equal(parsed.rows[0]['Payment options'], 'Member sessions: £3/session');
+  assert.equal(parsed.rows[0].Verified, true);
+  payload.headings[0] = payload.headings[1];
+  assert.throws(() => gs.parseRegistration0161_(JSON.stringify(payload)), /headings do not match/);
+});
+
+test('Sessions column B derives club names by ID and follows renames without changing session identities', () => {
+  const gs = script();
+  const original = model(gs);
+  const fields = Array.from(vm.runInContext('schema0161_("sessions")', gs));
+  assert.deepEqual(fields.slice(0, 3), ['Club ID', 'Club name', 'Session ID']);
+  assert.equal(fields.length, 13);
+  const current = gs.rows0161_(original);
+  assert.equal(current.sessions[0]['Club name'], 'Original');
+  const edits = JSON.parse(JSON.stringify(current));
+  edits.clubs[0]['Club name'] = 'Renamed Club';
+  edits.sessions[0]['Club name'] = ''; // New manually inserted column is populated by sync.
+  const next = gs.reconcile0161_(original, edits, false);
+  assert.deepEqual(Object.keys(next.sessions), Object.keys(original.sessions));
+  assert.equal(next.baseline.sessions[0]['Club name'], 'Renamed Club');
+  assert.equal(next.baseline.master[0]['Club name'], 'Renamed Club');
+  assert.equal(vm.runInContext('schema0161_("master").length', gs), 29);
+  const attemptedRename = JSON.parse(JSON.stringify(next.baseline));
+  attemptedRename.sessions[0]['Club name'] = 'Unlinked display edit';
+  const restored = gs.reconcile0161_(next, attemptedRename, false);
+  assert.equal(restored.clubs['RULE-0042'].data['Club name'], 'Renamed Club');
+  assert.equal(restored.baseline.sessions[0]['Club name'], 'Renamed Club');
+});
+
+test('beginner eligibility belongs to individual sessions and syncs without changing sibling sessions', () => {
+  const gs = script();
+  const empty = { clubs: {}, sessions: {}, baseline: { master: [], clubs: [], sessions: [] } };
+  const input = {
+    clubs: [],
+    sessions: [],
+    master: [true, false, 'Not confirmed'].map((answer, index) => ({
+      'Club name': 'Mixed sessions',
+      'Sport or activity': 'Athletics',
+      'Session Name': `Session ${index + 1}`,
+      'Session beginner friendly?': answer
+    }))
+  };
+  const original = gs.reconcile0161_(empty, input, true);
+  const clubId = Object.keys(original.clubs)[0];
+  const ids = Object.keys(original.sessions);
+  assert.equal(Object.hasOwn(original.clubs[clubId].data, 'Session beginner friendly?'), false);
+  assert.equal(Object.hasOwn(original.clubs[clubId].data, 'Beginner friendly?'), false);
+  assert.deepEqual(
+    ids.map((id) => original.sessions[id].data['Session beginner friendly?']),
+    [true, false, 'Not confirmed']
+  );
+  const edits = JSON.parse(JSON.stringify(original.baseline));
+  edits.sessions.find((row) => row['Session ID'] === ids[0])['Session beginner friendly?'] = false;
+  const updated = gs.reconcile0161_(original, edits, false);
+  assert.deepEqual(Object.keys(updated.sessions), ids);
+  assert.equal(updated.sessions[ids[0]].data['Session beginner friendly?'], false);
+  assert.equal(updated.sessions[ids[1]].data['Session beginner friendly?'], false);
+  assert.equal(updated.sessions[ids[2]].data['Session beginner friendly?'], 'Not confirmed');
+  const fields = vm.runInContext('schema0161_("master")', gs);
+  const clubs = vm.runInContext('schema0161_("clubs")', gs);
+  assert.equal(fields.length, 29);
+  assert.equal(clubs.length, 19);
+  assert.equal(clubs.includes('Session beginner friendly?'), false);
+  const matrix = gs.exportMatrix0161_(original.baseline.master.map((row) => ({ ...row, 'Update Timestamp': null })));
+  const column = fields.indexOf('Session beginner friendly?');
+  assert.deepEqual(
+    Array.from(matrix.slice(1), (row) => row[column]),
+    ['TRUE', 'FALSE', 'Not confirmed']
+  );
+  assert.equal(gs.normalizeSession0161_({}, 'Free')['Session beginner friendly?'], 'Not confirmed');
+});
+
+test('old registration emails do not turn club-level answers into beginner session eligibility', () => {
+  const gs = script();
+  stateStore(gs);
+  const transfer = registrationTransfer(
+    { name: 'Legacy beginners', sport: 'Athletics', beginnerFriendly: 'yes' },
+    [{ title: 'Open training', dayOfWeek: '1', startTime: '19:00' }],
+    'submission-beginner-legacy'
+  );
+  const oldPayload = JSON.parse(transfer.importBlock);
+  const newRow = Object.fromEntries(oldPayload.headings.map((heading, index) => [heading, oldPayload.rows[0][index]]));
+  oldPayload.headings = LEGACY_MASTER_COLUMNS;
+  oldPayload.rows = [
+    LEGACY_MASTER_COLUMNS.map((heading) => (heading === 'Beginner friendly?' ? 'TRUE' : newRow[heading]))
+  ];
+  const legacy = gs.parseRegistration0161_(JSON.stringify(oldPayload));
+  assert.equal(legacy.rows[0]['Session beginner friendly?'], 'Not confirmed');
+  assert.equal(legacy.rows[0].Verified, true);
+  assert.equal(Object.hasOwn(legacy.rows[0], 'Beginner friendly?'), false);
+  const previousPayload = JSON.parse(transfer.importBlock);
+  const approvalIndex = previousPayload.headings.indexOf('Verified');
+  previousPayload.headings.splice(approvalIndex, 1);
+  previousPayload.rows.forEach((row) => row.splice(approvalIndex, 1));
+  assert.equal(gs.parseRegistration0161_(JSON.stringify(previousPayload)).rows[0].Verified, true);
+  const headings = Array.from(vm.runInContext('schema0161_("master")', gs));
+  const payload = {
+    version: 1,
+    submissionReference: 'submission-beginner-session',
+    headings,
+    rows: [headings.map((field) => (field === 'Session beginner friendly?' ? 'TRUE' : (legacy.rows[0][field] ?? '')))]
+  };
+  assert.equal(gs.parseRegistration0161_(JSON.stringify(payload)).rows[0]['Session beginner friendly?'], 'TRUE');
+});
+
+test('upgrading existing saved records preserves IDs and does not spread old club answers to sessions', () => {
+  const gs = script();
+  const before = model(gs);
+  before.clubs['RULE-0042'].data['Beginner friendly?'] = true;
+  for (const session of Object.values(before.sessions)) delete session.data['Session beginner friendly?'];
+  before.baseline = gs.rows0161_(before);
+  for (const row of before.baseline.master) delete row['Session beginner friendly?'];
+  const edited = JSON.parse(JSON.stringify(before.baseline));
+  for (const key of ['clubs', 'master']) for (const row of edited[key]) delete row['Beginner friendly?'];
+  for (const key of ['sessions', 'master'])
+    for (const row of edited[key]) row['Session beginner friendly?'] = 'Not confirmed';
+  const after = gs.reconcile0161_(before, edited, false);
+  assert.deepEqual(Object.keys(after.clubs), Object.keys(before.clubs));
+  assert.deepEqual(Object.keys(after.sessions), Object.keys(before.sessions));
+  assert.ok(
+    Object.values(after.sessions).every((record) => record.data['Session beginner friendly?'] === 'Not confirmed')
+  );
+  assert.equal(Object.hasOwn(after.clubs['RULE-0042'].data, 'Beginner friendly?'), false);
+});
 
 test('readable club and session IDs reach their limits without wrapping', () => {
   const gs = script();
@@ -258,6 +464,86 @@ test('imported club and session numbers stay reserved after deletion and state r
   assert.equal(gs.nextSessionId0161_('RULE-0042', new Set(), reloaded.sequences), 'RULE-0042-S00301');
 });
 
+test('older committed snapshots load and upgrade without resetting IDs, history or saved rows', () => {
+  const gs = script();
+  const store = stateStore(gs);
+  const old = model(gs);
+  for (const club of Object.values(old.clubs)) {
+    club.data['Beginner friendly?'] = true;
+    delete club.data.Verified;
+    delete club.data['Payment options'];
+  }
+  for (const session of Object.values(old.sessions)) delete session.data['Session beginner friendly?'];
+  old.clubs['RULE-0043'] = JSON.parse(JSON.stringify(old.clubs['RULE-0042']));
+  old.clubs['RULE-0043'].data['Club name'] = 'No sessions yet';
+  old.sequences['RULE-'] = 43;
+  old.exported = { 'session:RULE-0042-S00300': 'a'.repeat(64) };
+  const render = gs.rows0161_;
+  gs.rows0161_ = (value) => {
+    const rows = render(value);
+    for (const row of rows.sessions) delete row['Club name'];
+    for (const row of rows.master) delete row['Session beginner friendly?'];
+    return rows;
+  };
+  old.baseline = gs.rows0161_(old);
+  gs.save0161_(store.ss, old, false);
+  gs.save0161_(store.ss, old, false); // Both saved generations use the previous layout.
+  gs.rows0161_ = render;
+  const bytes = JSON.stringify([...store.sheets.values()].map((sheet) => sheet.cells));
+  const loaded = gs.load0161_(store.ss);
+  assert.equal(JSON.stringify([...store.sheets.values()].map((sheet) => sheet.cells)), bytes);
+  const input = JSON.parse(JSON.stringify(loaded.baseline));
+  for (const key of ['master', 'clubs'])
+    for (const row of input[key]) {
+      delete row['Beginner friendly?'];
+      row.Verified = 'FALSE';
+    }
+  for (const key of ['master', 'sessions'])
+    for (const row of input[key]) row['Session beginner friendly?'] = 'Not confirmed';
+  for (const row of input.sessions) row['Club name'] = '';
+  const upgraded = gs.reconcile0161_(loaded, input, false);
+  gs.save0161_(store.ss, upgraded, false);
+  const saved = gs.load0161_(store.ss);
+  assert.deepEqual(Object.keys(saved.clubs), Object.keys(old.clubs));
+  assert.deepEqual(Object.keys(saved.sessions), Object.keys(old.sessions));
+  assert.deepEqual(saved.sequences, old.sequences);
+  assert.deepEqual(JSON.parse(JSON.stringify(saved.exported)), old.exported);
+  assert.equal(saved.baseline.sessions[0]['Club name'], 'Original');
+  assert.equal(saved.sessions['RULE-0042-S00300'].data['Session beginner friendly?'], 'Not confirmed');
+});
+
+test('saved snapshot comparison ignores field order but still rejects mismatched records', () => {
+  const gs = script();
+  const expected = gs.rows0161_(model(gs));
+  const reordered = Object.fromEntries(Object.entries(expected.sessions[0]).reverse());
+  assert.equal(gs.stateBaselineMatches0161_('sessions', expected.sessions, [reordered]), true);
+  for (const field of ['Club name', 'Session ID', 'Session Name', 'Update Timestamp']) {
+    const changed = { ...expected.sessions[0], [field]: 'Wrong value' };
+    assert.equal(gs.stateBaselineMatches0161_('sessions', expected.sessions, [changed]), false);
+  }
+  const missing = { ...expected.sessions[0] };
+  delete missing['Session Name'];
+  assert.equal(gs.stateBaselineMatches0161_('sessions', expected.sessions, [missing]), false);
+  assert.equal(gs.stateBaselineMatches0161_('sessions', expected.sessions, []), false);
+});
+
+test('prepared exports from the 28-column layout remain readable after adding optional payment choices', () => {
+  const gs = script();
+  const store = stateStore(gs);
+  const previous = model(gs);
+  for (const club of Object.values(previous.clubs)) delete club.data['Payment options'];
+  previous.baseline = gs.rows0161_(previous);
+  const row = JSON.parse(JSON.stringify(previous.baseline.master[0]));
+  const fields = Array.from(gs.exportFingerprintFields0161_()).filter((field) => field !== 'Payment options');
+  const fingerprint = gs.stateDigest0161_([fields.map((field) => (row[field] === undefined ? null : row[field]))]);
+  previous.preparedExport = { id: 'before-payment-options', created: 100, rows: [{ row, fingerprint }] };
+  gs.save0161_(store.ss, previous, false);
+  const loaded = gs.load0161_(store.ss);
+  assert.equal(loaded.preparedExport.rows[0].fingerprint, fingerprint);
+  const tampered = { row: { ...row, 'Club name': 'Changed' }, fingerprint };
+  assert.equal(gs.preparedFingerprintMatches0161_(tampered), false);
+});
+
 for (const fault of ['clear', 'header', 'body', 'wrong-key', 'commit', 'flush-body', 'flush-commit']) {
   test(`state save preserves a verified snapshot after ${fault} failure`, () => {
     const gs = script();
@@ -365,21 +651,21 @@ test('one-time Master import resolves matching conflicts and keeps unrelated rec
   const gs = script();
   const original = model(gs);
   const input = JSON.parse(JSON.stringify(original.baseline));
-  input.clubs[0]['Beginner friendly?'] = false;
-  input.master[0]['Beginner friendly?'] = true;
+  input.clubs[0]['Booking required?'] = false;
+  input.master[0]['Booking required?'] = true;
   input.sessions[0]['Session Name'] = 'Old name';
   input.master[0]['Session Name'] = 'Master name';
   input.clubs.push({ 'Club ID': 'DODG-0002', 'Club name': 'Other Club', 'Sport or activity': 'Dodgeball' });
   input.sessions.push({ 'Club ID': 'DODG-0002', 'Session ID': 'DODG-0002-S00001', 'Session Name': 'Other session' });
   assert.throws(() => gs.reconcile0161_(original, input, false), /Conflicting edits/);
   const imported = gs.masterImportModel0161_(original, input);
-  assert.equal(imported.clubs['RULE-0042'].data['Beginner friendly?'], true);
+  assert.equal(imported.clubs['RULE-0042'].data['Booking required?'], true);
   assert.equal(imported.sessions['RULE-0042-S00300'].data['Session Name'], 'Master name');
   assert.ok(imported.clubs['DODG-0002']);
   assert.equal(imported.sessions['DODG-0002-S00001'].data['Session Name'], 'Other session');
   const conflicting = JSON.parse(JSON.stringify(imported.baseline));
-  conflicting.master.find((row) => row['Club ID'] === 'RULE-0042')['Beginner friendly?'] = false;
-  conflicting.clubs.find((row) => row['Club ID'] === 'RULE-0042')['Beginner friendly?'] = 'Not confirmed';
+  conflicting.master.find((row) => row['Club ID'] === 'RULE-0042')['Booking required?'] = false;
+  conflicting.clubs.find((row) => row['Club ID'] === 'RULE-0042')['Booking required?'] = 'Not confirmed';
   assert.throws(() => gs.reconcile0161_(imported, conflicting, false), /Conflicting edits/);
   const store = stateStore(gs);
   gs.save0161_(store.ss, imported, false);
@@ -416,7 +702,7 @@ test('Master import rejects ambiguity and internal conflicts before publishing',
   const gs = script();
   const original = model(gs);
   const input = JSON.parse(JSON.stringify(original.baseline));
-  input.master.push({ ...input.master[0], 'Beginner friendly?': true });
+  input.master.push({ ...input.master[0], 'Booking required?': true });
   assert.throws(() => gs.masterImportModel0161_(original, input), /Master has conflicting/);
   const ambiguous = JSON.parse(JSON.stringify(original.baseline));
   ambiguous.master[0]['Club ID'] = '';
@@ -499,9 +785,9 @@ test('fresh start ignores old IDs and counters, keeping one row per actual Maste
 
 test('boolean display repair uses uppercase dropdown values without touching IDs or timestamps', () => {
   const gs = script();
-  assert.equal(gs.booleanDisplay0161_('Beginner friendly?', 'true'), 'TRUE');
-  assert.equal(gs.booleanDisplay0161_('Beginner friendly?', false), 'FALSE');
-  assert.equal(gs.booleanDisplay0161_('Beginner friendly?', 'Not confirmed'), 'Not confirmed');
+  assert.equal(gs.booleanDisplay0161_('Booking required?', 'true'), 'TRUE');
+  assert.equal(gs.booleanDisplay0161_('Booking required?', false), 'FALSE');
+  assert.equal(gs.booleanDisplay0161_('Booking required?', 'Not confirmed'), 'Not confirmed');
   assert.equal(gs.booleanDisplay0161_('Session Price (£)', 'false'), 'FALSE');
   assert.equal(gs.booleanDisplay0161_('Club name', 'true'), 'true');
   const writes = [];
@@ -509,7 +795,7 @@ test('boolean display repair uses uppercase dropdown values without touching IDs
     getLastRow: () => 2,
     getDataRange: () => ({
       getValues: () => [
-        ['Club ID', 'Club name', 'Beginner friendly?', 'Update Timestamp'],
+        ['Club ID', 'Club name', 'Booking required?', 'Update Timestamp'],
         ['RULE-0001', 'Keep this name', 'true', 'original timestamp']
       ]
     }),
@@ -527,7 +813,7 @@ test('boolean display repair uses uppercase dropdown values without touching IDs
   assert.equal(writes[0].values[0][0], 'TRUE');
   const fields = vm.runInContext('schema0161_("clubs")', gs);
   const values = fields.map((field) =>
-    field === 'Club ID' ? 'RULE-0001' : field === 'Beginner friendly?' ? 'TRUE' : ''
+    field === 'Club ID' ? 'RULE-0001' : field === 'Booking required?' ? 'TRUE' : ''
   );
   const canonical = gs.readTabs0161_({
     clubs: {
@@ -539,7 +825,7 @@ test('boolean display repair uses uppercase dropdown values without touching IDs
       })
     }
   });
-  assert.equal(canonical.clubs[0]['Beginner friendly?'], true);
+  assert.equal(canonical.clubs[0]['Booking required?'], true);
   let written;
   gs.formatTabs0161_ = () => {};
   gs.render0161_(
@@ -558,9 +844,9 @@ test('boolean display repair uses uppercase dropdown values without touching IDs
         }
       }
     },
-    { clubs: [{ 'Club ID': 'RULE-0001', 'Beginner friendly?': true, 'Gender-specific?': false }] }
+    { clubs: [{ 'Club ID': 'RULE-0001', 'Booking required?': true, 'Gender-specific?': false }] }
   );
-  assert.equal(written[0][fields.indexOf('Beginner friendly?')], 'TRUE');
+  assert.equal(written[0][fields.indexOf('Booking required?')], 'TRUE');
   assert.equal(written[0][fields.indexOf('Gender-specific?')], 'FALSE');
 });
 
@@ -843,7 +1129,7 @@ test('club deletion removes all linked records, invalidates CSV and preserves ot
   };
   gs.clearInvalidatedCsv0161_({ getSheetByName: () => sheet }, pending);
   assert.equal(cleared, true);
-  assert.equal(header[0], 'Club ID');
+  assert.equal(header[0], 'Verified');
   assert.match(note, /INVALIDATED/);
   assert.equal(pending.csvInvalidated, null);
   gs.save0161_(store.ss, pending, false);
@@ -998,8 +1284,8 @@ test('registration import owns all IDs and rejects duplicate submissions after r
   const payload = JSON.parse(transfer.importBlock);
   payload.rows.forEach((row) => {
     row[0] = 'HACK-9999';
-    row[17] = 'HACK-9999-S99999';
-    row[26] = 'untrusted timestamp';
+    row[payload.headings.indexOf('Session ID')] = 'HACK-9999-S99999';
+    row[payload.headings.indexOf('Update Timestamp')] = 'untrusted timestamp';
   });
   const parsed = gs.parseRegistration0161_(JSON.stringify(payload));
   assert.ok(

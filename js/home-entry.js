@@ -1,12 +1,11 @@
 /* Homepage intro. The detailed interactive map remains in the protected archive. */
 (() => {
   if (!['/', '/index', '/index.html'].includes(location.pathname)) return;
-  const replayEveryVisit = true; // Temporary design preview; set false to restore once per browser.
   const key = '0161active-home-intro-seen';
-  if (!replayEveryVisit) try {
-    if (localStorage.getItem(key) === '1') return;
-    // Mark on entry so refresh, another tab and a later visit do not replay the intro.
-    localStorage.setItem(key, '1');
+  try {
+    if (sessionStorage.getItem(key) === '1') return;
+    // Mark on entry so refreshes and returns home in this tab skip the intro.
+    sessionStorage.setItem(key, '1');
   } catch { /* With storage blocked, the intro still ends normally but cannot remember this visit. */ }
 
   const root = document.documentElement;

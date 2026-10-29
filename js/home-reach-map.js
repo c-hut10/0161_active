@@ -1,4 +1,4 @@
-import { createCalendarLocation } from './calendar-location.mjs?v=20261028-cleanup';
+import { createCalendarLocation } from './calendar-location.mjs?v=20261029-sport-panel-close';
 import { visibleSportRecords } from './sport-catalog.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
 import { sessionSport } from './club-formatting.mjs';

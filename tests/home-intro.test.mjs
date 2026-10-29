@@ -83,7 +83,7 @@ function intro({ seen = false, path = '/', reduced = false, blocked = false, see
     window,
     Math: math,
     location: { pathname: path },
-    localStorage: {
+    sessionStorage: {
       getItem: (key) => {
         if (blocked) throw new Error('Storage blocked');
         return storage.get(key);
@@ -164,14 +164,13 @@ test('two clockwise pulses settle before a third pass accumulates highlights and
   assert.equal(page.content.inert, false);
   assert.equal(page.root.classList.contains('home-intro-active'), false);
   assert.equal(page.timers.size, 0);
-  assert.equal(page.storage.has('0161active-home-intro-seen'), false);
+  assert.equal(page.storage.get('0161active-home-intro-seen'), '1');
 });
-test('preview replays on repeat homepage visits while direct profile visits remain untouched', () => {
+test('repeat homepage visits in the same tab skip the intro while direct profile visits remain untouched', () => {
   const repeat = intro({ seen: true });
-  assert.equal(repeat.root.classList.contains('home-intro-active'), true);
-  assert.equal(repeat.content.inert, true);
-  repeat.advance(5970);
-  assert.equal(repeat.removed(), true);
+  assert.equal(repeat.root.classList.contains('home-intro-active'), false);
+  assert.equal(repeat.content.inert, false);
+  assert.equal(repeat.timers.size, 0);
   assert.equal(repeat.storage.get('0161active-home-intro-seen'), '1');
   const profile = intro({ path: '/html/korfball/manchester-warriors.html' });
   assert.equal(profile.storage.size, 0);

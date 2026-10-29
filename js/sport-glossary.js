@@ -1,7 +1,7 @@
 import { sportSlug, displaySportName, canonicalArea, sportGlossaryUrl, clubSports, clubForSport } from './club-formatting.mjs';
 import { visibleSportRecords } from './sport-catalog.mjs';
 import { loadClubDirectory, loadSportCatalog } from './site-data.mjs';
-import { renderSportClubRows } from './sport-glossary-renderer.mjs';
+import { renderSportClubRows } from './sport-glossary-renderer.mjs?v=20261029-profile-save-only';
 import { beginControlLoading } from './control-loading.mjs';
 import { clubTrainingAreas } from './club-areas.mjs';
 import { enhanceFilterPickers, syncFilterPickers } from './filter-picker.mjs';

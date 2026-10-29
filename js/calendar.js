@@ -226,7 +226,7 @@ function renderCalendar() {
   if (!calendarMessage.hidden) {
     calendarMessage.textContent = savedClubs.error
       ? 'Your saved clubs could not be read. Check your browser storage settings.'
-      : 'No favourited clubs in your calendar yet. Save clubs using the star on a club profile or listing. ';
+      : 'No favourited clubs in your calendar yet. Select Save To Calendar on a club profile. ';
     if (!savedClubs.error) {
       const link = document.createElement('a');
       link.href = '/html/sports/directory.html';

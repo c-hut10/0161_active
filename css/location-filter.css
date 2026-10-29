@@ -42,9 +42,9 @@
   .calendar-location-filter button { flex:1; }
   .calendar-sector-map { padding:12px; }
 }
-/* Greyscale only the background tiles; matching-club overlays retain their green. */
-#calendar-sector-map .leaflet-tile-pane { filter:grayscale(1); }
-#calendar-sector-map .leaflet-tile { filter:none; float:none; }
+/* Filter tile images from their first paint, without a separately composited parent filter. */
+/* Matching-club overlays remain outside these images and retain their green. */
+#calendar-sector-map .leaflet-tile { filter:grayscale(1); float:none; }
 
 /* One-mile radius steps, with a visible current value and native keyboard/touch support. */
 .calendar-location-filter .calendar-radius-control { width:min(100%, 300px); min-width:220px; }

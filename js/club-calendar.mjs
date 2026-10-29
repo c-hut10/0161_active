@@ -1,6 +1,6 @@
 import { sessionTitle, sessionAddress, sessionAudience, sessionVenueNote, sessionTerms } from './session-details.mjs';
-export const CALENDAR_DOWNLOAD_LABEL = 'Download this week’s schedule';
-export const CALENDAR_FILE_LABEL = '(Downloadable .ics file)';
+export const CALENDAR_DOWNLOAD_LABEL = 'Download club schedule';
+export const CALENDAR_IMPORT_HINT = 'import .ics file to your calendar app';
 const validTime = time => /^([01]\d|2[0-3]):[0-5]\d$/.test(time || '');
 
 export function downloadClubCalendar(club, profileUrl) {

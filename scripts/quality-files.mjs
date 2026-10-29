@@ -7,6 +7,7 @@ export const excludedDirectories = new Set([
   'node_modules',
   '.pnpm-store',
   'dist',
+  'outputs',
   'tmp',
   'archive',
   'vendor',

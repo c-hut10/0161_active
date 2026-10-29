@@ -102,16 +102,19 @@ export function createReachMap(element, status) {
     if (recenter) centreWard(record);
     if (focus) resultTitle.focus({ preventScroll: true });
   }
-  function closeWard() {
+  function closeWard(restoreFocus = true) {
     const previous = wardRecords.get(selectedWard);
     selectedWard = null;
-    resultPanel.hidden = true;
+    if (resultPanel) resultPanel.hidden = true;
+    sheetExpanded = false;
     if (previous) {
       syncWardTarget(previous);
-      previous.layer.getElement()?.focus({ preventScroll: true });
+      if (restoreFocus) previous.layer.getElement()?.focus({ preventScroll: true });
     }
   }
-  resultPanel?.querySelector('[data-close-zone]').addEventListener('click', closeWard);
+  resultPanel?.querySelector('[data-close-zone]').addEventListener('click', () => closeWard());
+  // Adding or removing sports dismisses the previous area's results without stealing filter focus.
+  window.addEventListener('0161-map-sports-input', () => closeWard(false));
   resultPanel?.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     event.stopPropagation();
