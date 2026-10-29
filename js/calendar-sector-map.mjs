@@ -297,12 +297,7 @@ export function createReachMap(element, status) {
     const { origin, radiusMiles, entries } = snapshot;
     const L = window.L;
     prepareWardRecords();
-    const { groups, unassigned } = groupWardSessions(entries, wards.postcodes);
-    const coverage = document.querySelector('#calendar-ward-status');
-    if (coverage) {
-      coverage.hidden = !unassigned;
-      coverage.textContent = `${unassigned} matching ${unassigned === 1 ? 'session has' : 'sessions have'} no ward assignment and ${unassigned === 1 ? 'is' : 'are'} not shown on the map.`;
-    }
+    const { groups } = groupWardSessions(entries, wards.postcodes);
     wardRecords.forEach((record, code) => {
       const group = groups.get(code);
       const hadClubs = Boolean(record.clubs.size);
